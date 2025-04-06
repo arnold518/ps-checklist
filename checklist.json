@@ -1,10 +1,14 @@
 [
   {
-    "text": "name1",
+    "text": "changed_name1",
     "completed": true
   },
   {
     "text": "name2",
+    "completed": false
+  },
+  {
+    "text": "",
     "completed": false
   }
 ]
