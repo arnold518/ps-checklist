@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "text": "a",
+    "completed": false
+  },
+  {
+    "text": "b",
+    "completed": false
+  }
+]
