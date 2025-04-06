@@ -9,6 +9,7 @@ const tokenStatus = document.getElementById('tokenStatus');
 const ownerInput = document.getElementById('owner');
 const repoInput = document.getElementById('repo');
 const filepathInput = document.getElementById('filepath');
+const branchInput = document.getElementById('branch') || { value: 'main' }; // Fallback if branch input doesn't exist
 const loadChecklistBtn = document.getElementById('loadChecklist');
 const saveChecklistBtn = document.getElementById('saveChecklist');
 const repoStatus = document.getElementById('repoStatus');
@@ -21,9 +22,10 @@ function init() {
     
     // Load sample values for demo (remove in production)
     if (!ownerInput.value && !repoInput.value && !filepathInput.value) {
-        ownerInput.value = 'your-username';
-        repoInput.value = 'checklist-repo';
+        ownerInput.value = 'arnold518';
+        repoInput.value = 'ps-checklist';
         filepathInput.value = 'checklist.json';
+        if (branchInput) branchInput.value = 'test'; // Default branch
     }
     
     // Event listeners
@@ -47,7 +49,7 @@ async function loadChecklist() {
     const owner = ownerInput.value.trim();
     const repo = repoInput.value.trim();
     const filepath = filepathInput.value.trim();
-    const branch = 'test'; // Change this to your desired branch name
+    const branch = branchInput.value.trim();
     
     if (!owner || !repo || !filepath) {
         showStatus(repoStatus, 'Please fill all repository fields', 'error');
@@ -60,6 +62,12 @@ async function loadChecklist() {
     }
     
     try {
+        // Verify branch exists first
+        if (!await branchExists(owner, repo, branch)) {
+            showStatus(repoStatus, `Branch "${branch}" doesn't exist`, 'error');
+            return;
+        }
+
         const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}?ref=${branch}`;
         const response = await fetch(url, {
             headers: {
@@ -73,17 +81,17 @@ async function loadChecklist() {
         }
         
         const data = await response.json();
-        const content = atob(data.content); // Decode base64 content
+        const content = atob(data.content.replace(/\s/g, '')); // Decode base64 content
         checklistData = JSON.parse(content);
         
         renderChecklist();
-        showStatus(repoStatus, 'Checklist loaded successfully', 'success');
+        showStatus(repoStatus, `Checklist loaded from ${branch} branch successfully`, 'success');
     } catch (error) {
         if (error.message.includes('404')) {
             // File doesn't exist, start with empty checklist
             checklistData = [];
             renderChecklist();
-            showStatus(repoStatus, 'No existing checklist found. Created a new one.', 'success');
+            showStatus(repoStatus, `No checklist found in ${branch} branch. Created a new one.`, 'success');
         } else {
             console.error('Error loading checklist:', error);
             showStatus(repoStatus, `Error loading checklist: ${error.message}`, 'error');
@@ -96,10 +104,10 @@ async function saveChecklist() {
     const owner = ownerInput.value.trim();
     const repo = repoInput.value.trim();
     const filepath = filepathInput.value.trim();
-    const branch = 'test'; // Change this to your desired branch name
+    const branch = branchInput.value.trim();
     
-    if (!owner || !repo || !filepath) {
-        showStatus(repoStatus, 'Please fill all repository fields', 'error');
+    if (!owner || !repo || !filepath || !branch) {
+        showStatus(repoStatus, 'Please fill all repository fields including branch', 'error');
         return;
     }
     
@@ -109,6 +117,12 @@ async function saveChecklist() {
     }
     
     try {
+        // Verify branch exists first
+        if (!await branchExists(owner, repo, branch)) {
+            showStatus(repoStatus, `Branch "${branch}" doesn't exist - create it first`, 'error');
+            return;
+        }
+
         // First try to get the file to check if it exists (for SHA)
         let sha = '';
         try {
@@ -141,7 +155,7 @@ async function saveChecklist() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                message: 'Update checklist',
+                message: 'Update checklist from web app',
                 content: encodedContent,
                 sha: sha || undefined,
                 branch: branch // This specifies the target branch
@@ -156,14 +170,14 @@ async function saveChecklist() {
         
         const result = await response.json();
         console.log('Save successful:', result);
-        showStatus(repoStatus, 'Checklist saved successfully', 'success');
+        showStatus(repoStatus, `Checklist saved to ${branch} branch successfully`, 'success');
     } catch (error) {
         console.error('Error saving checklist:', error);
         showStatus(repoStatus, `Error saving checklist: ${error.message}`, 'error');
     }
 }
 
-// Add this helper function to check if branch exists
+// Helper function to check if branch exists
 async function branchExists(owner, repo, branch) {
     try {
         const url = `https://api.github.com/repos/${owner}/${repo}/branches/${branch}`;
@@ -173,7 +187,16 @@ async function branchExists(owner, repo, branch) {
                 'Accept': 'application/vnd.github.v3+json'
             }
         });
-        return response.ok;
+        
+        if (response.status === 404) {
+            return false;
+        }
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        return true;
     } catch (error) {
         console.error('Error checking branch:', error);
         return false;
