@@ -47,6 +47,7 @@ async function loadChecklist() {
     const owner = ownerInput.value.trim();
     const repo = repoInput.value.trim();
     const filepath = filepathInput.value.trim();
+    const branch = 'test'; // Change this to your desired branch name
     
     if (!owner || !repo || !filepath) {
         showStatus(repoStatus, 'Please fill all repository fields', 'error');
@@ -59,7 +60,7 @@ async function loadChecklist() {
     }
     
     try {
-        const url = `https://api.github.com/repos/${owner}/${repo}/test/${filepath}`;
+        const url = `https://api.github.com/repos/${owner}/${repo}/test/${filepath}?ref=${branch}`;
         const response = await fetch(url, {
             headers: {
                 'Authorization': `token ${authToken}`,
@@ -95,7 +96,7 @@ async function saveChecklist() {
     const owner = ownerInput.value.trim();
     const repo = repoInput.value.trim();
     const filepath = filepathInput.value.trim();
-    const branch = 'main'; // Change this to your desired branch name
+    const branch = 'test'; // Change this to your desired branch name
     
     if (!owner || !repo || !filepath) {
         showStatus(repoStatus, 'Please fill all repository fields', 'error');
@@ -131,7 +132,7 @@ async function saveChecklist() {
         const content = JSON.stringify(checklistData, null, 2);
         const encodedContent = btoa(unescape(encodeURIComponent(content)));
         
-        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}`;
+        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}?ref=${branch}`;
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
