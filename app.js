@@ -60,7 +60,7 @@ async function loadChecklist() {
     }
     
     try {
-        const url = `https://api.github.com/repos/${owner}/${repo}/test/${filepath}?ref=${branch}`;
+        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}?ref=${branch}`;
         const response = await fetch(url, {
             headers: {
                 'Authorization': `token ${authToken}`,
@@ -132,7 +132,7 @@ async function saveChecklist() {
         const content = JSON.stringify(checklistData, null, 2);
         const encodedContent = btoa(unescape(encodeURIComponent(content)));
         
-        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}?ref=${branch}`;
+        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}`;
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
@@ -160,6 +160,23 @@ async function saveChecklist() {
     } catch (error) {
         console.error('Error saving checklist:', error);
         showStatus(repoStatus, `Error saving checklist: ${error.message}`, 'error');
+    }
+}
+
+// Add this helper function to check if branch exists
+async function branchExists(owner, repo, branch) {
+    try {
+        const url = `https://api.github.com/repos/${owner}/${repo}/branches/${branch}`;
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `token ${authToken}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        return response.ok;
+    } catch (error) {
+        console.error('Error checking branch:', error);
+        return false;
     }
 }
 
