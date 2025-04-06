@@ -59,7 +59,7 @@ async function loadChecklist() {
     }
     
     try {
-        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}`;
+        const url = `https://api.github.com/repos/${owner}/${repo}/test/${filepath}`;
         const response = await fetch(url, {
             headers: {
                 'Authorization': `token ${authToken}`,
@@ -95,6 +95,7 @@ async function saveChecklist() {
     const owner = ownerInput.value.trim();
     const repo = repoInput.value.trim();
     const filepath = filepathInput.value.trim();
+    const branch = 'main'; // Change this to your desired branch name
     
     if (!owner || !repo || !filepath) {
         showStatus(repoStatus, 'Please fill all repository fields', 'error');
@@ -110,7 +111,7 @@ async function saveChecklist() {
         // First try to get the file to check if it exists (for SHA)
         let sha = '';
         try {
-            const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}`;
+            const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}?ref=${branch}`;
             const getResponse = await fetch(getUrl, {
                 headers: {
                     'Authorization': `token ${authToken}`,
@@ -121,9 +122,10 @@ async function saveChecklist() {
             if (getResponse.ok) {
                 const data = await getResponse.json();
                 sha = data.sha;
+                console.log('Found existing file with SHA:', sha);
             }
         } catch (e) {
-            // File doesn't exist yet, sha remains empty
+            console.log('No existing file found, will create new one');
         }
         
         const content = JSON.stringify(checklistData, null, 2);
@@ -140,14 +142,19 @@ async function saveChecklist() {
             body: JSON.stringify({
                 message: 'Update checklist',
                 content: encodedContent,
-                sha: sha || undefined
+                sha: sha || undefined,
+                branch: branch // This specifies the target branch
             })
         });
         
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorData = await response.json();
+            console.error('Error details:', errorData);
+            throw new Error(`Failed to save: ${errorData.message}`);
         }
         
+        const result = await response.json();
+        console.log('Save successful:', result);
         showStatus(repoStatus, 'Checklist saved successfully', 'success');
     } catch (error) {
         console.error('Error saving checklist:', error);
