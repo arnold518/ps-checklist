@@ -82,7 +82,15 @@ async function loadChecklist() {
         
         const data = await response.json();
         const content = atob(data.content.replace(/\s/g, '')); // Decode base64 content
-        checklistData = JSON.parse(content);
+        
+        // Safely parse JSON and ensure it's an array
+        try {
+            const parsedData = JSON.parse(content);
+            checklistData = Array.isArray(parsedData) ? parsedData : [];
+        } catch (e) {
+            console.error('Invalid JSON format, starting with empty checklist');
+            checklistData = [];
+        }
         
         renderChecklist();
         showStatus(repoStatus, `Checklist loaded from ${branch} branch successfully`, 'success');
@@ -94,6 +102,8 @@ async function loadChecklist() {
             showStatus(repoStatus, `No checklist found in ${branch} branch. Created a new one.`, 'success');
         } else {
             console.error('Error loading checklist:', error);
+            checklistData = []; // Reset to empty array
+            renderChecklist();
             showStatus(repoStatus, `Error loading checklist: ${error.message}`, 'error');
         }
     }
@@ -203,9 +213,20 @@ async function branchExists(owner, repo, branch) {
     }
 }
 
-// Render the checklist UI
+// Render the checklist UI (updated with additional safety check)
 function renderChecklist() {
     checklistItemsDiv.innerHTML = '';
+    
+    // Ensure checklistData is always an array
+    if (!Array.isArray(checklistData)) {
+        console.error('checklistData is not an array, resetting to empty array');
+        checklistData = [];
+    }
+    
+    if (checklistData.length === 0) {
+        checklistItemsDiv.innerHTML = '<p>No items in checklist. Add some!</p>';
+        return;
+    }
     
     checklistData.forEach((item, index) => {
         const itemDiv = document.createElement('div');
@@ -213,14 +234,14 @@ function renderChecklist() {
         
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.checked = item.completed;
+        checkbox.checked = item.completed || false;
         checkbox.addEventListener('change', () => {
             checklistData[index].completed = checkbox.checked;
         });
         
         const textInput = document.createElement('input');
         textInput.type = 'text';
-        textInput.value = item.text;
+        textInput.value = item.text || '';
         textInput.addEventListener('change', () => {
             checklistData[index].text = textInput.value.trim();
         });
@@ -238,10 +259,6 @@ function renderChecklist() {
         itemDiv.appendChild(deleteBtn);
         checklistItemsDiv.appendChild(itemDiv);
     });
-    
-    if (checklistData.length === 0) {
-        checklistItemsDiv.innerHTML = '<p>No items in checklist. Add some!</p>';
-    }
 }
 
 // Add a new item to the checklist
