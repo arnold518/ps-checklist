@@ -1,100 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Checklist</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub-Powered Checklist</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
-    .item { display: flex; align-items: center; margin: 10px 0; padding: 10px; border: 1px solid #eee; }
-    .completed { text-decoration: line-through; color: #888; }
-    button { margin-top: 20px; padding: 8px 16px; }
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    .completed {
+      text-decoration: line-through;
+      color: #888;
+    }
+    #add-item {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    #status {
+      margin-top: 10px;
+      min-height: 20px;
+      color: #666;
+    }
   </style>
 </head>
 <body>
-  <h1>My Interactive Checklist</h1>
+  <h1>My Checklist</h1>
   <div id="checklist"></div>
-  <button id="saveBtn">Save Changes</button>
+  
+  <div id="add-item">
+    <input type="text" id="new-item" placeholder="New item...">
+    <button onclick="addItem()">Add</button>
+  </div>
+  
+  <div id="status"></div>
+  <button onclick="saveChanges()" style="margin-top: 20px;">Save to GitHub</button>
 
   <script>
     // Configuration
-    const JSON_URL = 'https://raw.githubusercontent.com/arnold518/ps-checklist/test/checklist.json';
-    const LOCAL_STORAGE_KEY = 'checklistData';
-    
+    const REPO_OWNER = 'YOUR_GITHUB_USERNAME';
+    const REPO_NAME = 'checklist-app';
+    const FILE_PATH = 'checklist.json';
+    let currentData = { items: [] };
+    let githubToken = '';
+    let fileSha = '';
+
     // DOM Elements
     const checklistEl = document.getElementById('checklist');
-    const saveBtn = document.getElementById('saveBtn');
+    const statusEl = document.getElementById('status');
 
-    // Load data from GitHub or localStorage
-    async function loadData() {
+    // Initialize
+    loadChecklist();
+
+    // Load checklist from GitHub
+    async function loadChecklist() {
       try {
-        // Try to fetch latest from GitHub
-        const response = await fetch(JSON_URL);
-        const remoteData = await response.json();
+        statusEl.textContent = 'Loading...';
         
-        // Merge with local changes if any
-        const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        const data = localData ? {...remoteData, items: mergeItems(remoteData.items, localData.items)} : remoteData;
+        // Get token (in a real app, use a backend or GitHub OAuth)
+        githubToken = prompt('Enter your GitHub personal access token (requires repo scope)');
+        if (!githubToken) return;
         
-        renderChecklist(data.items);
-        return data;
+        // Fetch current file
+        const response = await fetch(
+          `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+          {
+            headers: {
+              'Authorization': `token ${githubToken}`,
+              'Accept': 'application/vnd.github.v3+json'
+            }
+          }
+        );
+        
+        if (!response.ok) throw new Error('Failed to load');
+        
+        const fileData = await response.json();
+        fileSha = fileData.sha;
+        currentData = JSON.parse(atob(fileData.content));
+        
+        renderChecklist();
+        statusEl.textContent = 'Loaded from GitHub';
       } catch (error) {
-        console.error("Error loading data:", error);
-        const localData = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-        if (localData) {
-          renderChecklist(localData.items);
-          return localData;
-        }
-        return { items: [] };
+        statusEl.textContent = `Error: ${error.message}`;
+        console.error(error);
       }
     }
 
-    // Merge remote and local items
-    function mergeItems(remoteItems, localItems) {
-      return remoteItems.map(remoteItem => {
-        const localItem = localItems.find(item => item.id === remoteItem.id);
-        return localItem || remoteItem;
-      });
-    }
-
     // Render checklist items
-    function renderChecklist(items) {
-      checklistEl.innerHTML = items.map(item => `
+    function renderChecklist() {
+      checklistEl.innerHTML = currentData.items.map(item => `
         <div class="item ${item.completed ? 'completed' : ''}">
           <input type="checkbox" 
                  ${item.completed ? 'checked' : ''} 
-                 data-id="${item.id}">
-          ${item.text}
+                 onchange="toggleItem(${item.id})">
+          <span>${item.text}</span>
+          <button onclick="removeItem(${item.id})" style="margin-left: auto;">×</button>
         </div>
       `).join('');
+    }
 
-      // Add event listeners
-      document.querySelectorAll('#checklist input').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          const id = parseInt(this.dataset.id);
-          items.find(item => item.id === id).completed = this.checked;
-          this.parentElement.classList.toggle('completed');
-          saveLocally(items);
-        });
+    // Toggle item completion
+    function toggleItem(id) {
+      const item = currentData.items.find(i => i.id === id);
+      if (item) item.completed = !item.completed;
+      statusEl.textContent = 'Changes not saved yet';
+    }
+
+    // Add new item
+    function addItem() {
+      const input = document.getElementById('new-item');
+      const text = input.value.trim();
+      if (!text) return;
+      
+      const newId = currentData.items.length > 0 
+        ? Math.max(...currentData.items.map(i => i.id)) + 1 
+        : 1;
+      
+      currentData.items.push({
+        id: newId,
+        text: text,
+        completed: false
       });
+      
+      input.value = '';
+      renderChecklist();
+      statusEl.textContent = 'Changes not saved yet';
     }
 
-    // Save to localStorage
-    function saveLocally(items) {
-      const data = { 
-        items,
-        lastUpdated: new Date().toISOString()
-      };
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+    // Remove item
+    function removeItem(id) {
+      currentData.items = currentData.items.filter(i => i.id !== id);
+      renderChecklist();
+      statusEl.textContent = 'Changes not saved yet';
     }
 
-    // Save to GitHub (requires GitHub API - advanced)
-    async function saveToGitHub() {
-      alert("For a real implementation, you'd need to:\n1. Create a backend API\n2. Use GitHub's API with a token\n3. Never expose the token in frontend code!");
-      // This would be handled by a separate Netlify function or similar
+    // Save changes to GitHub
+    async function saveChanges() {
+      try {
+        statusEl.textContent = 'Saving...';
+        
+        const response = await fetch(
+          `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Authorization': `token ${githubToken}`,
+              'Accept': 'application/vnd.github.v3+json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              message: 'Update checklist',
+              content: btoa(JSON.stringify(currentData, null, 2)),
+              sha: fileSha
+            })
+          }
+        );
+        
+        if (!response.ok) throw new Error('Failed to save');
+        
+        const result = await response.json();
+        fileSha = result.content.sha;
+        statusEl.textContent = 'Saved to GitHub!';
+      } catch (error) {
+        statusEl.textContent = `Error: ${error.message}`;
+        console.error(error);
+      }
     }
-
-    // Initialize
-    loadData();
-    saveBtn.addEventListener('click', saveToGitHub);
   </script>
 </body>
 </html>
