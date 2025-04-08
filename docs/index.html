@@ -3,7 +3,93 @@
 <head>
   <title>PS Checklist</title>
   <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
     
+    h1, h2 {
+      color: #2c3e50;
+    }
+    
+    .auth-section, .checklist {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    #token {
+      width: 300px;
+      padding: 8px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #2980b9;
+    }
+    
+    #tokenStatus, #repoStatus {
+      margin: 10px 0;
+      padding: 8px;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .contest-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    
+    .contest-table th {
+      background-color: #2c3e50;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+    
+    .contest-table td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .contest-table a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    
+    .contest-table a:hover {
+      text-decoration: underline;
+    }
+    
+    .category-container {
+      margin-bottom: 30px;
+    }
+    
+    .category-container h3 {
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 5px;
+      color: #2c3e50;
+    }
   </style>
 </head>
 <body>
@@ -22,6 +108,5 @@
     <div id="repoStatus"></div>
     <div id="checklistItems"></div>
   </div>
-  <script src="javascripts/script.js"></script>
 </body>
 </html>
