@@ -85,7 +85,6 @@ button:hover {
     padding: 12px;
     position: sticky;
     top: 0;
-    text-align: left;
 }
 
 .contest-table td {
@@ -95,8 +94,8 @@ button:hover {
 
 /* Contest Name Column */
 .contest-table td:first-child {
-    width: 150px;
-    min-width: 150px;
+    width: 80px;
+    min-width: 80px;
     white-space: normal;
 }
 

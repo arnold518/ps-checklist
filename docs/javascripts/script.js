@@ -244,7 +244,7 @@ function renderChecklist() {
         const maxProblems = getMaxProblems(contests);
         if (maxProblems > 0) {
             const tableWidth = table.offsetWidth;
-            const availableWidth = tableWidth - 150; // 150px for contest name
+            const availableWidth = tableWidth - 80; // 80px for contest name
             const cellWidth = Math.max(120, availableWidth / maxProblems);
             table.style.setProperty('--problem-cell-width', `${cellWidth}px`);
         }
