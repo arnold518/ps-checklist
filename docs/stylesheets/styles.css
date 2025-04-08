@@ -70,36 +70,44 @@ button:hover {
     border: 1px solid #ffeeba;
 }
 
-/* Table Styles */
+/* Table Container */
 .contest-table {
     table-layout: fixed;
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate; /* Changed from collapse for better spacing */
+    border-spacing: 0; /* Remove default cell spacing */
     margin: 20px 0;
-    --problem-cell-width: 120px; /* Default fallback */
+    --problem-cell-width: 120px; /* Default width */
 }
 
+/* Header Cells */
 .contest-table th {
     background-color: #4a6fa5;
     color: white;
-    padding: 12px;
+    padding: 12px 8px; /* Reduced horizontal padding */
     position: sticky;
-    text-align: center;
-    border: 1px solid #ddd;
     top: 0;
+    text-align: center;
+    border: 1px solid #2a4a75;
+    font-weight: 500;
 }
 
+/* All Table Cells */
 .contest-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #ddd;
+    background-color: white;
 }
 
 /* Contest Name Column */
 .contest-table td:first-child {
     width: 80px;
     min-width: 80px;
+    max-width: 80px;
     white-space: normal;
     text-align: center;
+    font-weight: 500;
+    background-color: #f8f9fa; /* Slight background for contrast */
 }
 
 /* Problem Cells */
@@ -111,24 +119,25 @@ button:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    border: 1px solid #ddd;
-    cursor: pointer;
+    padding: 8px 4px; /* Reduced horizontal padding */
 }
 
-/* Problem Status Colors */
-.contest-table td[data-state="0"] { background-color: #ffcccc; } /* Unsolved */
-.contest-table td[data-state="1"] { background-color: #ccffcc; } /* Solved */
-.contest-table td[data-state="2"] { background-color: #ccccff; } /* Other */
+/* Status Colors */
+.contest-table td[data-state="0"] { background-color: #ffebee; } /* Unsolved */
+.contest-table td[data-state="1"] { background-color: #e8f5e9; } /* Solved */
+.contest-table td[data-state="2"] { background-color: #e3f2fd; } /* Other */
 
-/* Links */
+/* Hover Effects */
+.contest-table td:not(:first-child):hover {
+    box-shadow: inset 0 0 0 2px #4a6fa5;
+}
+
+/* Links in Cells */
 .contest-table a {
     color: inherit;
     text-decoration: none;
     display: block;
-}
-
-.contest-table a:hover {
-    text-decoration: underline;
+    padding: 2px 0; /* Reduced link padding */
 }
 
 /* Category Headers */
