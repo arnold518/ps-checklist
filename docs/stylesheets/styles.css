@@ -84,6 +84,8 @@ button:hover {
     color: white;
     padding: 12px;
     position: sticky;
+    text-align: center;
+    border: 1px solid #ddd;
     top: 0;
 }
 
@@ -97,6 +99,7 @@ button:hover {
     width: 80px;
     min-width: 80px;
     white-space: normal;
+    text-align: center;
 }
 
 /* Problem Cells */
