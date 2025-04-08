@@ -22,11 +22,38 @@ function init() {
     renderChecklist();
 }
 
-// Save GitHub token to localStorage
 function saveToken() {
     authToken = tokenInput.value.trim();
+    if (!authToken) {
+        showStatus(tokenStatus, 'Please enter a token', 'error');
+        return;
+    }
+    
     localStorage.setItem('githubToken', authToken);
     showStatus(tokenStatus, 'Token saved locally', 'success');
+    
+    // Clear the input field after saving
+    tokenInput.value = '';
+}
+
+// Show status message (updated version)
+function showStatus(element, message, type) {
+    element.textContent = message;
+    element.className = ''; // Clear previous classes
+    element.classList.add(`status-${type}`);
+    
+    // For tokenStatus, we want it to remain visible
+    if (element === tokenStatus) {
+        element.style.display = 'block';
+    }
+    
+    // For repoStatus, you might still want it to auto-hide
+    if (element === repoStatus) {
+        element.style.display = 'block';
+        setTimeout(() => {
+            element.style.display = 'none';
+        }, 5000);
+    }
 }
 
 // Load checklist from GitHub
