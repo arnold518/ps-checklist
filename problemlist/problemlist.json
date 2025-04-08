@@ -1,0 +1,43 @@
+{
+    "id": 1,
+    "category": ["Regionals", "Asia Pacific", "South Korea"],
+    "year": "2023",
+    "link": 
+    {
+        "BOJ": "https://www.acmicpc.net/category/detail/4058",
+        "CF": "https://qoj.ac/contest/1450"
+    },
+    "problems":
+    [
+        {
+            "id" : "A",
+            "name" : "Apricot Seeds",
+            "link" : "https://www.acmicpc.net/problem/30852",
+            "status" : 0
+        },
+        {
+            "id" : "B",
+            "name" : "Black Box",
+            "link" : "https://www.acmicpc.net/problem/30853",
+            "status" : 0
+        },
+        {
+            "id" : "C",
+            "name" : "Farm",
+            "link" : "https://www.acmicpc.net/problem/30854",
+            "status" : 0
+        },
+        {
+            "id" : "D",
+            "name" : "Fraction",
+            "link" : "https://www.acmicpc.net/problem/30855",
+            "status" : 0
+        },
+        {
+            "id" : "E",
+            "name" : "K-Lottery",
+            "link" : "https://www.acmicpc.net/problem/30856",
+            "status" : 0
+        }
+    ]
+}
