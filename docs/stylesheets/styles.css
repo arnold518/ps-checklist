@@ -69,6 +69,7 @@ button:hover {
 }
 
 .contest-table {
+    table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
@@ -81,9 +82,17 @@ button:hover {
     text-align: left;
 }
 
-.contest-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
+.contest-table td[data-state] {
+    width: 1%;
+    min-width: 120px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.contest-table td:first-child {
+    width: auto;
 }
 
 .contest-table a {
@@ -103,4 +112,12 @@ button:hover {
     border-bottom: 2px solid #3498db;
     padding-bottom: 5px;
     color: #2c3e50;
+}
+
+.checklist {
+    overflow-x: auto; /* Enables horizontal scrolling */
+}
+  
+.contest-table {
+    min-width: 800px; /* Minimum table width */
 }

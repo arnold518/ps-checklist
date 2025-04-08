@@ -328,7 +328,7 @@ function updateCellStyle(cell) {
         state === '0' ? '#ffcccc' :  // Unsolved
         state === '1' ? '#ccffcc' :  // Solved
         '#ccccff';                   // Other status
-    cell.style.border = '2px solid #555';
+    // cell.style.border = '2px solid #555';
     cell.style.padding = '20px';
     cell.style.textAlign = 'center';
     cell.style.cursor = 'pointer';
