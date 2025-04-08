@@ -256,8 +256,8 @@ function renderChecklist() {
         const contestHeader = document.createElement('th');
         contestHeader.textContent = 'Contest';
         contestHeader.style.padding = '12px';
-        contestHeader.style.textAlign = 'left';
-        contestHeader.style.backgroundColor = '#f2f2f2';
+        contestHeader.style.textAlign = 'center';
+        contestHeader.style.backgroundColor = '#4a6fa5';
         headerRow.appendChild(contestHeader);
         
         const problemsHeader = document.createElement('th');
@@ -266,7 +266,7 @@ function renderChecklist() {
         problemsHeader.colSpan = maxProblems;
         problemsHeader.style.padding = '12px';
         problemsHeader.style.textAlign = 'center';
-        problemsHeader.style.backgroundColor = '#f2f2f2';
+        problemsHeader.style.backgroundColor = '#4a6fa5';
         headerRow.appendChild(problemsHeader);
         
         thead.appendChild(headerRow);
@@ -314,11 +314,11 @@ function renderChecklist() {
             });
 
             tbody.appendChild(row);
-            
+
             // Calculate and set equal widths for problem cells in this table
             const maxProblems = getMaxProblems(contests);
             const problemCells = table.querySelectorAll('.problem-cell');
-            const contestNameWidth = 200; // Should match your CSS
+            const contestNameWidth = 150; // Should match your CSS
             const availableWidth = 100 - (contestNameWidth / table.offsetWidth * 100);
             
             problemCells.forEach(cell => {
@@ -339,7 +339,7 @@ function updateCellStyle(cell) {
         state === '0' ? '#ffcccc' :  // Unsolved
         state === '1' ? '#ccffcc' :  // Solved
         '#ccccff';                   // Other status
-    // cell.style.border = '2px solid #555';
+    cell.style.border = '2px';
     cell.style.padding = '20px';
     cell.style.textAlign = 'center';
     cell.style.cursor = 'pointer';

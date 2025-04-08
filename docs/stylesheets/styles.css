@@ -84,8 +84,8 @@ button:hover {
 
 /* Contest name cell */
 .contest-table td:first-child {
-    width: 200px; /* Fixed width for contest names */
-    min-width: 200px;
+    width: 150px; /* Fixed width for contest names */
+    min-width: 150px;
     padding: 12px;
     white-space: normal;
 }
