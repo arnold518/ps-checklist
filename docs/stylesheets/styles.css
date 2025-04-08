@@ -82,17 +82,22 @@ button:hover {
     text-align: left;
 }
 
-.contest-table td[data-state] {
-    width: 1%;
-    min-width: 120px;
+/* Contest name cell */
+.contest-table td:first-child {
+    width: 200px; /* Fixed width for contest names */
+    min-width: 200px;
+    padding: 12px;
+    white-space: normal;
+}
+
+/* Problem cells - will be adjusted by JS */
+.contest-table td.problem-cell {
     text-align: center;
+    padding: 12px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.contest-table td:first-child {
-    width: auto;
+    border: 2px solid #555;
 }
 
 .contest-table a {

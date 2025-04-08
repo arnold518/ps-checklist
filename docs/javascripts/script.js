@@ -262,7 +262,8 @@ function renderChecklist() {
         
         const problemsHeader = document.createElement('th');
         problemsHeader.textContent = 'Problems';
-        problemsHeader.colSpan = getMaxProblems(contests);
+        const maxProblems = getMaxProblems(contests);
+        problemsHeader.colSpan = maxProblems;
         problemsHeader.style.padding = '12px';
         problemsHeader.style.textAlign = 'center';
         problemsHeader.style.backgroundColor = '#f2f2f2';
@@ -305,7 +306,7 @@ function renderChecklist() {
                 problemLink.href = problem.link;
                 problemLink.target = '_blank';
                 problemLink.textContent = `${problem.id}. ${problem.name}`;
-                problemLink.style.textDecoration = 'none';
+                // problemLink.style.textDecoration = 'none';
                 problemLink.style.color = 'inherit';
                 
                 problemCell.appendChild(problemLink);
@@ -313,6 +314,16 @@ function renderChecklist() {
             });
 
             tbody.appendChild(row);
+            
+            // Calculate and set equal widths for problem cells in this table
+            const maxProblems = getMaxProblems(contests);
+            const problemCells = table.querySelectorAll('.problem-cell');
+            const contestNameWidth = 200; // Should match your CSS
+            const availableWidth = 100 - (contestNameWidth / table.offsetWidth * 100);
+            
+            problemCells.forEach(cell => {
+                cell.style.width = `${availableWidth / maxProblems}%`;
+            });
         });
 
         table.appendChild(tbody);
