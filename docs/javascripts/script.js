@@ -19,7 +19,7 @@ function init() {
     loadChecklistBtn.addEventListener('click', loadChecklist);
     saveChecklistBtn.addEventListener('click', saveChecklist);
     
-    renderChecklist();
+    loadChecklist();
 }
 
 function saveToken() {
@@ -34,6 +34,7 @@ function saveToken() {
     
     // Clear the input field after saving
     tokenInput.value = '';
+    loadChecklist();
 }
 
 // Show status message (updated version)
@@ -285,7 +286,7 @@ function renderChecklist() {
             const contestLink = document.createElement('a');
             contestLink.href = contest.link.BOJ;
             contestLink.target = '_blank';
-            contestLink.textContent = `${contest.name} (${contest.year})`;
+            contestLink.textContent = `${contest.year}`;
             contestCell.appendChild(contestLink);
             row.appendChild(contestCell);
 
