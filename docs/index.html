@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PS Checklist</title>
+  <style>
+    
+  </style>
+</head>
+<body>
+  <h1>PS Checklist</h1>
+  <div class="auth-section">
+    <h2>Authentication</h2>
+    <label for="token">GitHub Personal Access Token:</label>
+    <input type="password" id="token" placeholder="Enter your GitHub PAT">
+    <button id="saveToken">Save Token</button>
+    <div id="tokenStatus"></div>
+  </div>
+  <div class="checklist">
+    <h2>Checklist</h2>
+    <button id="loadChecklist">Load Checklist</button>
+    <button id="saveChecklist">Save Checklist</button>
+    <div id="repoStatus"></div>
+    <div id="checklistItems"></div>
+  </div>
+  <script src="javascripts/script.js"></script>
+</body>
+</html>
