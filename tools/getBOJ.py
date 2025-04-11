@@ -4,6 +4,7 @@ import pandas as pd
 import time
 import re
 from urllib.parse import urljoin
+from pathlib import Path
 
 class BOJCrawler:
     def __init__(self):
@@ -13,6 +14,7 @@ class BOJCrawler:
 
         self.category_name = None
         self.problems = None
+        self.pdf_set = None
 
     def fetch_boj_page(self, url, delay=1):
         headers = {
@@ -85,10 +87,10 @@ class BOJCrawler:
         
         return problems
 
-    def parse_boj_pdf_links(self, filepath, soup = None):
-        if soup == None : soup = self.soup
+    def parse_boj_pdf_links(self, filepath, soup):
         # Find all links ending with .pdf
         pdf_links = soup.find_all('a', href=re.compile(r'\.pdf$', re.IGNORECASE))
+        pdf_set = {}
         
         for link in pdf_links:
             pdf_url = link['href']  # Get the href
@@ -101,15 +103,22 @@ class BOJCrawler:
             try:
                 response = requests.get(pdf_url, stream=True)
                 response.raise_for_status()  # Check for HTTP errors
+
+                pdf_name = 'boj-' + pdf_name.replace(' ', '-')
+                pdf_set.update({pdf_name: pdf_url})
+                path = Path(filepath + pdf_name)
+                if not path: raise ValueError("No file path specified")
+                path.parent.mkdir(parents=True, exist_ok=True)
                 
-                with open(filepath + pdf_name, 'wb') as f:
+                with open(path, 'wb') as f:
                     for chunk in response.iter_content(chunk_size=8192):
                         f.write(chunk)
                 print(f"Downloaded: {pdf_name}")
             except Exception as e:
                 print(f"Failed to download {pdf_url}: {e}")
+        return pdf_set
 
-    def crawl_boj_category(self, category_url, tableidx = []):
+    def crawl_boj_category(self, category_url, pdfpath, tableidx = []):
         print(f"Crawling BOJ category: {category_url}")
         self.url = category_url
         
@@ -122,6 +131,7 @@ class BOJCrawler:
 
         self.category_name = self.parse_boj_category_name(self.soup)
         self.problems = self.parse_boj_problems_table(self.soup, tableidx)
+        self.pdf_set = self.parse_boj_pdf_links(pdfpath, self.soup)
             
         # Display some basic info
         if self.category_name is not None and self.category_name != '':
@@ -129,9 +139,12 @@ class BOJCrawler:
         if self.problems is not None and len(self.problems) != 0:
             print(f"Found {len(self.problems)} problems:")
             print(pd.DataFrame(self.problems))
+        if self.pdf_set is not None and len(self.pdf_set) != 0:
+            print(f"Found {len(self.pdf_set)} pdf links:")
+            print(self.pdf_set)
         print()
         
-        return self.category_name, self.problems
+        return self.category_name, self.problems, self.pdf_set
 
 # # Example category URL (can be changed to any BOJ category)
 # CATEGORY_URL = "https://www.acmicpc.net/category/detail/4348"

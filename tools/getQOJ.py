@@ -5,6 +5,7 @@ import time
 import re
 import hashlib
 from urllib.parse import urljoin
+from pathlib import Path
 
 class QOJCrawler:
     def __init__(self, username, password):
@@ -17,6 +18,7 @@ class QOJCrawler:
         self.contest_name = None
         self.contest_category = None
         self.problems = None
+        self.pdf_set = None
 
     def successful_login(self, username, password):
         session = requests.Session()
@@ -40,7 +42,7 @@ class QOJCrawler:
         # Verify login by testing protected access
         test_resp = session.get("https://qoj.ac/contest/450")
         if 'contest' in test_resp.text.lower():
-            print("Login successful! You can now scrape protected pages.")
+            print("QOJ login successful! You can now scrape protected pages.\n")
             self.session = session
             return session
         else:
@@ -101,8 +103,8 @@ class QOJCrawler:
         
         return problems
 
-    def parse_qoj_pdf_links(self, filepath, soup = None):
-        if soup == None : soup = self.soup
+    def parse_qoj_pdf_links(self, filepath, soup):
+        pdf_set = {}
         attachments_section = soup.find('h4', string=lambda text: text and text.strip() == 'Attachments')
         if attachments_section:
             for a in attachments_section.find_next('div').find_all('a', class_='list-group-item list-group-item-action'):
@@ -117,17 +119,24 @@ class QOJCrawler:
                     response = requests.get(pdf_url, stream=True)
                     response.raise_for_status()  # Check for HTTP errors
                     
-                    download_name = display_text
-                    if not download_name.endswith('.pdf'): download_name += '.pdf'
+                    pdf_name = display_text
+                    if not pdf_name.endswith('.pdf'): pdf_name += '.pdf'
+                    
+                    pdf_name = 'qoj-' + pdf_name.replace(' ', '-')
+                    pdf_set.update({pdf_name: pdf_url})
+                    path = Path(filepath + pdf_name)
+                    if not path: raise ValueError("No file path specified")
+                    path.parent.mkdir(parents=True, exist_ok=True)
 
-                    with open(filepath + download_name, 'wb') as f:
+                    with open(path, 'wb') as f:
                         for chunk in response.iter_content(chunk_size=8192):
                             f.write(chunk)
-                    print(f"Downloaded: {download_name}")
+                    print(f"Downloaded: {pdf_name}")
                 except Exception as e:
                     print(f"Failed to download {pdf_url}: {e}")
+        return pdf_set
 
-    def crawl_qoj_contest(self, contest_url, tableidx = []):
+    def crawl_qoj_contest(self, contest_url, pdfpath, tableidx = []):
         print(f"Crawling QOJ contest: {contest_url}")
         self.url = contest_url
         
@@ -138,12 +147,10 @@ class QOJCrawler:
         
         self.soup = BeautifulSoup(self.html, 'html.parser')
 
-        with open('qoj.html', 'w', encoding='utf-8') as f:
-            f.write(self.html)
-
         self.contest_name = self.parse_qoj_contest_name(self.soup)
         self.contest_category = self.parse_qoj_contest_category(self.soup)
         self.problems = self.parse_qoj_problems_table(self.soup)
+        self.pdf_set = self.parse_qoj_pdf_links(pdfpath, self.soup)
             
         # Display some basic info
         if self.contest_name is not None and self.contest_name != '':
@@ -153,9 +160,12 @@ class QOJCrawler:
         if self.problems is not None and len(self.problems) != 0:
             print(f"Found {len(self.problems)} problems:")
             print(pd.DataFrame(self.problems))
+        if self.pdf_set is not None and len(self.pdf_set) != 0:
+            print(f"Found {len(self.pdf_set)} pdf links:")
+            print(self.pdf_set)
         print()
         
-        return self.contest_name, self.contest_category, self.problems
+        return self.contest_name, self.contest_category, self.problems, self.pdf_set
 
 # # Example category URL (can be changed to any QOJ category)
 # CATEGORY_URL = "https://qoj.ac/contest/450"

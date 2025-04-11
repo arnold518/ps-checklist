@@ -22,6 +22,7 @@ class CFCrawler:
 
         self.contest_name = None
         self.problems = None
+        self.pdf_set = None
 
     def setup_driver(self):
         """Configure undetected ChromeDriver with simplified options"""
@@ -36,7 +37,6 @@ class CFCrawler:
                 options=options,
                 version_main=None  # Let undetected_chromedriver auto-detect version
             )
-            return True
         except Exception as e:
             print(f"Failed to initialize driver: {e}")
             print("\nTroubleshooting steps:")
@@ -46,6 +46,43 @@ class CFCrawler:
             print("4. Alternatively, try this command in cmd:")
             print("   undetected-chromedriver install")
             return False
+
+        if not self.driver:
+            return False
+            
+        try:
+            # Initial navigation
+            self.driver.get("https://codeforces.com")
+            time.sleep(random.uniform(1, 3))
+            
+            # Check for login requirement
+            if "enter" in self.driver.current_url:
+                print("\nManual login required!")
+                print("1. A Chrome window has opened")
+                print("2. Please login to Codeforces manually")
+                print("3. After login, come back here and press Enter")
+                input("Press Enter to continue after login...")
+                self.driver.get("https://codeforces.com")
+                time.sleep(2)
+        except Exception as e:
+            print(f"Error during login: {e}")
+            return False
+        
+        try:
+            # Initial navigation
+            self.driver.get("https://codeforces.com")
+            time.sleep(random.uniform(1, 3))
+            
+            # Check for login requirement
+            if "enter" in self.driver.current_url:
+                print("Login not succesful")
+                return False
+        except Exception as e:
+            print(f"Error during login: {e}")
+            return False
+        
+        print("CF login successful! You can now scrape protected pages.\n")
+        return True
 
     def scrape_contest(self, contest_url):
         """Main scraping function"""
@@ -125,10 +162,10 @@ class CFCrawler:
             print("Contest name not found")
             return None
     
-    def parse_cf_pdf_links(self, filepath, soup = None):
-        if soup == None : soup = self.soup
+    def parse_cf_pdf_links(self, filepath, soup):
         # Find all links ending with .pdf
         pdf_links = soup.find_all('a', href=re.compile(r'\.pdf$', re.IGNORECASE))
+        pdf_set = {}
         
         for link in pdf_links:
             pdf_url = link['href']  # Get the href
@@ -142,29 +179,34 @@ class CFCrawler:
             try:
                 response = requests.get(pdf_url, stream=True)
                 response.raise_for_status()  # Check for HTTP errors
+
+                pdf_name = 'cf-' + pdf_name.replace(' ', '-')
+                pdf_set.update({pdf_name: pdf_url})
+                path = Path(filepath + pdf_name)
+                if not path: raise ValueError("No file path specified")
+                path.parent.mkdir(parents=True, exist_ok=True)
                 
-                with open(filepath + pdf_name, 'wb') as f:
+                with open(path, 'wb') as f:
                     for chunk in response.iter_content(chunk_size=8192):
                         f.write(chunk)
                 print(f"Downloaded: {pdf_name}")
             except Exception as e:
                 print(f"Failed to download {pdf_url}: {e}")
+        return pdf_set
     
-    def crawl_cf_contest(self, contest_url):
+    def crawl_cf_contest(self, contest_url, pdfpath):
         print(f"Crawling CF contest: {contest_url}")
         self.url = contest_url
 
         if not self.scrape_contest(self.url):
             print("Failed to fetch the page")
             return
-
-        # with open('codeforces.html', 'r', encoding='utf-8') as f:
-        #     self.html = f.read()
         
         self.soup = BeautifulSoup(self.html, 'html.parser')
 
         self.problems = self.parse_cf_problems_table(self.soup)
         self.contest_name = self.parse_cf_contest_name(self.soup)
+        self.pdf_set = self.parse_cf_pdf_links(pdfpath, self.soup)
         
         # Display some basic info
         if self.contest_name is not None and self.contest_name != '':
@@ -172,9 +214,12 @@ class CFCrawler:
         if self.problems is not None and len(self.problems) != 0:
             print(f"Found {len(self.problems)} problems:")
             print(pd.DataFrame(self.problems))
+        if self.pdf_set is not None and len(self.pdf_set) != 0:
+            print(f"Found {len(self.pdf_set)} pdf links:")
+            print(self.pdf_set)
         print()
 
-        return self.contest_name, self.problems
+        return self.contest_name, self.problems, self.pdf_set
 
 # if __name__ == "__main__":
 #     # Configuration

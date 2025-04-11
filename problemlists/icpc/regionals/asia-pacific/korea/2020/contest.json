@@ -97,5 +97,9 @@
             "CF": "https://codeforces.com/gym/102920/problem/L",
             "QOJ": "https://qoj.ac/contest/450/problem/2533"
         }
-    ]
+    ],
+    "pdflink": {
+        "cf-20202021-acmicpc-asia-seoul-regional-contest-en.pdf": "https://codeforces.com/gym/102920/attachments/download/12834/20202021-acmicpc-asia-seoul-regional-contest-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=450&r=0"
+    }
 }
