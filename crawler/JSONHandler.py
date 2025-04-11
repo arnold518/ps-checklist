@@ -83,6 +83,8 @@ class JSONHandler:
         Returns:
             bool: True if old value was empty or same as new value
         """
+        if value is None or len(value) == 0:
+            return True
         current = self.data
         for key in keys[:-1]:
             current = current.setdefault(key, {})
@@ -127,6 +129,8 @@ class JSONHandler:
         Returns:
             bool: True if old value was empty or same as new value
         """
+        if value is None or len(value) == 0:
+            return True
         if "problems" not in self.data:
             self.data["problems"] = []
             

@@ -7,14 +7,17 @@ def print_sep(): print("\n"+'='*100)
 
 class ContestCrawler:
     def __init__(self):
-        self.CATEGORY = []
-        self.YEAR = ""
-        self.FILE_PATH = ""
-        self.PDF_PATH = ""
+        self.ID = None
+        self.CATEGORY = None
+        self.YEAR = None
+        self.FILE_PATH = None
+        self.PDF_PATH = None
 
-        self.BOJ_URL = ""
-        self.CF_URL = ""
-        self.QOJ_URL = ""
+        self.OFFICIAL_URL = None
+        self.STANDING_URL = None
+        self.BOJ_URL = None
+        self.CF_URL = None
+        self.QOJ_URL = None
 
         self.handler = None
 
@@ -28,35 +31,52 @@ class ContestCrawler:
 
     # =========================================================================
 
-    def open(self):
-        self.CATEGORY = ["ICPC", "Regionals", "Asia Pacific", "Korea"]
-        self.YEAR = "2020"
-        self.FILE_PATH = "../problemlists/icpc/regionals/asia-pacific/korea/2020/"
+    def open(self, data):
+        essential = ["id", "category", "year", "filepath"]
+        for item in essential:
+            if data.get(item) == None:
+                return False
+
+        self.ID = data.get("id")
+        self.CATEGORY = data.get("category")
+        self.YEAR = data.get("year")
+        self.FILE_PATH = "../" + data.get("filepath")
         self.PDF_PATH = self.FILE_PATH + "crawled-data/"
 
-        self.BOJ_URL = "https://www.acmicpc.net/category/detail/2339"
-        self.CF_URL = "https://codeforces.com/gym/102920"
-        self.QOJ_URL = "https://qoj.ac/contest/450"
+        self.OFFICIAL_URL = data.get("official_url")
+        self.STANDING_URL = data.get("standing_url")
+        self.BOJ_URL = data.get("boj_url")
+        self.CF_URL = data.get("cf_url")
+        self.QOJ_URL = data.get("qoj_url")
 
         self.handler = JSONHandler(self.FILE_PATH + "contest.json")
         self.handler.clear()
 
+        return True
+
     def process(self):
-        self.update_by_default(self.CATEGORY, self.YEAR)
+        self.update_by_default(self.ID, self.CATEGORY, self.YEAR, self.FILE_PATH.lstrip('../'))
         print_sep()
-        self.boj()
-        print_sep()
-        self.cf()
-        print_sep()
-        self.qoj()
-        print_sep()
+
+        if self.BOJ_URL is not None:
+            self.boj()
+            print_sep()
+
+        if self.CF_URL is not None:
+            self.cf()
+            print_sep()
+
+        if self.QOJ_URL is not None:
+            self.qoj()
+            print_sep()
 
         self.handler.save()
         print()
         print(self.handler)
     
     def close(self):
-        self.cfCrawler.close()
+        if self.cfCrawler is not None:
+            self.cfCrawler.close()
 
     # =========================================================================
 
@@ -67,9 +87,17 @@ class ContestCrawler:
             self.QOJ_USERNAME = cred.get('QOJ_USERNAME') or "qoj_username"
             self.QOJ_PASSWORD = cred.get('QOJ_PASSWORD') or "qoj_password"
 
-    def update_by_default(self, category, year):
+    def update_by_default(self, id, category, year, filepath):
+        self.handler.update_nested_value(["id"], id)
         self.handler.update_nested_value(["category"], category)
         self.handler.update_nested_value(["year"], year)
+        self.handler.update_nested_value(["filepath"], filepath)
+        
+        self.update_by_default2()
+
+    def update_by_default2(self):
+        self.handler.update_nested_value(["link", "official"], self.OFFICIAL_URL)
+        self.handler.update_nested_value(["link", "standing"], self.STANDING_URL)
 
     # =========================================================================
 
@@ -124,8 +152,3 @@ class ContestCrawler:
         self.update_by_qoj(name, self.QOJ_URL, category, problems, pdf_set)
 
     # =========================================================================
-
-contestCrawler = ContestCrawler()
-contestCrawler.open()
-contestCrawler.process()
-contestCrawler.close()

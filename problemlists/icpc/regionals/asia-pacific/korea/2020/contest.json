@@ -1,4 +1,5 @@
 {
+    "id": "ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-12 04:59:22.655923",
     "category": [
         "ICPC",
         "Regionals",
@@ -6,12 +7,15 @@
         "Korea"
     ],
     "year": "2020",
-    "name": "Asia Regional - Seoul 2020",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
     "link": {
+        "official": "https://icpckorea.org/2020-seoul/regional",
+        "standing": "http://static.icpckorea.net/2020/scoreboard_terpin/",
         "BOJ": "https://www.acmicpc.net/category/detail/2339",
         "CF": "https://codeforces.com/gym/102920",
         "QOJ": "https://qoj.ac/contest/450"
     },
+    "name": "Asia Regional - Seoul 2020",
     "problems": [
         {
             "id": "A",
