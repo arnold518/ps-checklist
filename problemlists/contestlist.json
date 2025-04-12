@@ -12,7 +12,18 @@
     },
     {
         "id": "ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-12 04:59:22.655923",
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea" ],
+        "category": [ "ICPC", "Regionals", "AsiaPacific", "Korea" ],
+        "year": "2020",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
+        "official_url": "https://icpckorea.org/2020-seoul/regional",
+        "standing_url": "http://static.icpckorea.net/2020/scoreboard_terpin/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2339",
+        "cf_url": "https://codeforces.com/gym/102920",
+        "qoj_url": "https://qoj.ac/contest/450"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "AsiaPacific", "Korea" ],
         "year": "2020",
         "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
         "official_url": "https://icpckorea.org/2020-seoul/regional",
