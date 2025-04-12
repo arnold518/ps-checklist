@@ -12,7 +12,7 @@
     },
     {
         "id": "ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-12 04:59:22.655923",
-        "category": [ "ICPC", "Regionals", "AsiaPacific", "Korea" ],
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea" ],
         "year": "2020",
         "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
         "official_url": "https://icpckorea.org/2020-seoul/regional",
@@ -23,7 +23,7 @@
     },
     {
         "id": null,
-        "category": [ "ICPC", "Regionals", "AsiaPacific", "Korea" ],
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea" ],
         "year": "2020",
         "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
         "official_url": "https://icpckorea.org/2020-seoul/regional",
