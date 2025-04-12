@@ -271,31 +271,102 @@ function renderFullTree() {
     renderTree(contestData, treeContainer);
 }
 
-// Render visible contests as links to contest.html
+// Render visible contests as embedded iframes
 function renderVisibleContests() {
     const contestContainer = document.getElementById('contest-container');
     contestContainer.innerHTML = '';
-    
+
+    if (state.visibleContests.size === 0) {
+        contestContainer.innerHTML = `
+            <div class="empty-state">
+                <p>No contests selected. Click on contests in the tree to view them.</p>
+            </div>
+        `;
+        return;
+    }
+
     state.visibleContests.forEach(contestId => {
         const contest = state.allContests.get(contestId);
         if (contest) {
-            const link = document.createElement('a');
-            link.className = 'contest-link';
-            link.href = `contest.html?id=${contest.id}`;
-            link.target = '_blank';
+            const frameWrapper = document.createElement('div');
+            frameWrapper.className = 'contest-frame-wrapper';
             
-            const card = document.createElement('div');
-            card.className = 'contest-card';
-            card.innerHTML = `
-                <h3>${contest.name}</h3>
-                <p>Click to view contest details</p>
+            const header = document.createElement('div');
+            header.className = 'contest-frame-header';
+            header.innerHTML = `
+                <div class="contest-frame-title">${contest.name}</div>
+                <button class="close-contest" data-contest-id="${contest.id}">×</button>
             `;
             
-            link.appendChild(card);
-            contestContainer.appendChild(link);
+            const frame = document.createElement('iframe');
+            frame.className = 'contest-frame';
+            frame.srcdoc = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <base target="_parent">
+                    <style>
+                        body { 
+                            font-family: Arial, sans-serif; 
+                            margin: 0; 
+                            padding: 20px;
+                        }
+                        h2 { color: #4285f4; }
+                        .contest-details { max-width: 800px; margin: 0 auto; }
+                    </style>
+                </head>
+                <body>
+                    <div class="contest-details">
+                        <h2>${contest.name}</h2>
+                        ${getContestDetails(contest.id)}
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            frameWrapper.appendChild(header);
+            frameWrapper.appendChild(frame);
+            contestContainer.appendChild(frameWrapper);
+            
+            // Add click handler for close button
+            header.querySelector('.close-contest').addEventListener('click', (e) => {
+                toggleContestVisibility(contest.id);
+            });
         }
     });
 }
+
+// Mock function to get contest details - replace with actual data
+function getContestDetails(contestId) {
+    const contestDetails = {
+        'wf2023': `
+            <p><strong>Date:</strong> November 15, 2023</p>
+            <p><strong>Location:</strong> Tokyo, Japan</p>
+            <p>The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.</p>
+            <h3>Problems</h3>
+            <ul>
+                <li>Problem A: Balanced Tree</li>
+                <li>Problem B: Quantum Optimization</li>
+                <li>Problem C: Neural Network Analysis</li>
+            </ul>
+        `,
+        'wf2022': `
+            <p><strong>Date:</strong> November 16, 2022</p>
+            <p><strong>Location:</strong> Dhaka, Bangladesh</p>
+            <p>The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.</p>
+            <h3>Problems</h3>
+            <ul>
+                <li>Problem A: Graph Traversal</li>
+                <li>Problem B: Dynamic Programming</li>
+                <li>Problem C: Number Theory</li>
+            </ul>
+        `,
+        // Add more contest details as needed
+    };
+    
+    return contestDetails[contestId] || '<p>Contest details not available.</p>';
+}
+
 
 // Update status bar
 function updateStatusBar() {
