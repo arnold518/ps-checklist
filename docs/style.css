@@ -5,12 +5,11 @@
     --gray-light: #f1f3f4;
     --gray-medium: #dadce0;
     --gray-dark: #5f6368;
-    --gray-darker: #3c4043;
     --text-color: #202124;
 }
 
 body {
-    font-family: 'Google Sans', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -39,7 +38,7 @@ body {
 }
 
 .tree-node {
-    margin-left: 8px;
+    margin-left: 20px;
     cursor: pointer;
     user-select: none;
 }
@@ -61,8 +60,6 @@ body {
     margin-right: 8px;
     width: 16px;
     text-align: center;
-    color: var(--gray-dark);
-    font-size: 12px;
 }
 
 .directory-actions {
@@ -85,9 +82,6 @@ body {
     font-size: 12px;
     padding: 4px 8px;
     border-radius: 4px;
-    display: flex;
-    align-items: center;
-    transition: all 0.2s;
 }
 
 .action-btn:hover {
@@ -100,10 +94,9 @@ body {
 .contest-leaf {
     display: flex;
     align-items: center;
-    padding: 6px 16px 6px 40px;
+    padding: 8px 16px 8px 40px;
     margin: 2px 8px;
     border-radius: 4px;
-    transition: all 0.2s;
 }
 
 .contest-leaf:hover {
@@ -114,7 +107,6 @@ body {
     margin-right: 12px;
     width: 16px;
     text-align: center;
-    font-size: 14px;
 }
 
 .visible .visibility-icon {
@@ -142,15 +134,13 @@ body {
     flex: 1;
     overflow-y: auto;
     padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
 }
 
 .contest-item {
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    margin-bottom: 16px;
     overflow: hidden;
 }
 
@@ -163,23 +153,59 @@ body {
     align-items: center;
 }
 
+.contest-title {
+    font-weight: 500;
+    font-size: 18px;
+}
+
 .close-contest {
     background: none;
     border: none;
     color: white;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .contest-content {
     padding: 16px;
 }
 
+.contest-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    color: var(--gray-dark);
+}
+
+.problem-list {
+    margin-top: 16px;
+}
+
+.problem-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.problem-item:last-child {
+    border-bottom: none;
+}
+
+.problem-title {
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.problem-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--gray-dark);
+}
+
 .empty-state {
     padding: 40px;
     text-align: center;
     color: var(--gray-dark);
-    width: 100%;
 }
 
 .status-bar {
