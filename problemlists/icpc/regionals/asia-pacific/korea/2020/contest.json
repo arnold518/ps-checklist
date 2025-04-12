@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-12 04:59:22.655923",
+    "id": "ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-12 17:18:32.816787",
     "category": [
         "ICPC",
         "Regionals",
@@ -11,6 +11,8 @@
     "link": {
         "official": "https://icpckorea.org/2020-seoul/regional",
         "standing": "http://static.icpckorea.net/2020/scoreboard_terpin/",
+        "statements": "https://raw.githubusercontent.com/arnold518/ps-checklist/data/problemlists/icpc/regionals/asia-pacific/korea/2020/statements.pdf",
+        "editorials": "https://raw.githubusercontent.com/arnold518/ps-checklist/data/problemlists/icpc/regionals/asia-pacific/korea/2020/editorials.pdf",
         "BOJ": "https://www.acmicpc.net/category/detail/2339",
         "CF": "https://codeforces.com/gym/102920",
         "QOJ": "https://qoj.ac/contest/450"
@@ -102,7 +104,7 @@
             "QOJ": "https://qoj.ac/contest/450/problem/2533"
         }
     ],
-    "pdflink": {
+    "crawled_data": {
         "cf-20202021-acmicpc-asia-seoul-regional-contest-en.pdf": "https://codeforces.com/gym/102920/attachments/download/12834/20202021-acmicpc-asia-seoul-regional-contest-en.pdf",
         "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=450&r=0"
     }
