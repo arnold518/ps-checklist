@@ -1,25 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>PS Checklist</title>
-  <link rel="stylesheet" href="stylesheets/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contest Visibility Manager</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>PS Checklist</h1>
-  <div class="auth-section">
-    <h2>Authentication</h2>
-    <label for="token">GitHub Personal Access Token:</label>
-    <input type="password" id="token" placeholder="Enter your GitHub PAT">
-    <button id="saveToken">Save Token</button>
-    <div id="tokenStatus"></div>
-  </div>
-  <div class="checklist">
-    <h2>Checklist</h2>
-    <button id="loadChecklist">Load Checklist</button>
-    <button id="saveChecklist">Save Checklist</button>
-    <div id="repoStatus"></div>
-    <div id="checklistItems"></div>
-  </div>
-  <script src="javascripts/script.js"></script>
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>Contest Tree</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        <div class="status-bar">
+            <span id="status-text">0 contests visible</span>
+            <span id="visibility-ratio">0/0</span>
+        </div>
+        <div class="tree-container" id="tree-container"></div>
+    </div>
+
+    <div id="main-content">
+        <div class="content-header">
+            <h2>Visible Contests</h2>
+        </div>
+        <div class="contest-container" id="contest-container"></div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
-</html> 
+</html>
