@@ -200,7 +200,7 @@ class CFCrawler:
 
         if not self.scrape_contest(self.url):
             print("Failed to fetch the page")
-            return
+            return None, None, None
         
         self.soup = BeautifulSoup(self.html, 'html.parser')
 

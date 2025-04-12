@@ -54,13 +54,17 @@ class QOJCrawler:
             time.sleep(delay)
             # Now you can make authenticated 
             
-            # Check if we got a valid HTML response
-            response = self.session.get(url)
-            if 'text/html' not in response.headers.get('Content-Type', ''):
-                print(f"Unexpected content type: {response.headers.get('Content-Type')}")
-                return None
             
-            return response.text
+            try:
+                # Check if we got a valid HTML response
+                response = self.session.get(url)
+                if 'text/html' not in response.headers.get('Content-Type', ''):
+                    print(f"Unexpected content type: {response.headers.get('Content-Type')}")
+                    return None
+                return response.text
+            except Exception as e:
+                print(f"Error fetching {url}: {e}")
+                return None
         
     def parse_qoj_contest_name(self, soup):
         h1_tag = soup.select_one('div.text-center h1').get_text(strip=True)
@@ -143,7 +147,7 @@ class QOJCrawler:
         self.html = self.fetch_qoj_page(contest_url)
         if not self.html:
             print("Failed to fetch the page")
-            return
+            return None, None, None, None
         
         self.soup = BeautifulSoup(self.html, 'html.parser')
 

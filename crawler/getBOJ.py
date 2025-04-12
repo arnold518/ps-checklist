@@ -125,7 +125,7 @@ class BOJCrawler:
         self.html = self.fetch_boj_page(category_url)
         if not self.html:
             print("Failed to fetch the page")
-            return
+            return None, None, None
         
         self.soup = BeautifulSoup(self.html, 'html.parser')
 
