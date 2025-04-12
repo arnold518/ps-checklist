@@ -1,5 +1,132 @@
-// Add this to your script.js
-const categoryTemplates = {
+// Complete Contest Data
+const contestDatabase = {
+    icpc: {
+        'wf2023': {
+            name: '2023 World Finals',
+            date: 'November 15, 2023',
+            location: 'Tokyo, Japan',
+            description: 'The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.',
+            problems: [
+                { id: 'A', title: 'Balanced Tree', solved: 42, difficulty: 3, time: '2s', memory: '256MB' },
+                { id: 'B', title: 'Quantum Optimization', solved: 28, difficulty: 4, time: '3s', memory: '512MB' },
+                { id: 'C', title: 'Neural Network Analysis', solved: 15, difficulty: 5, time: '5s', memory: '1GB' }
+            ]
+        },
+        'wf2022': {
+            name: '2022 World Finals',
+            date: 'November 16, 2022',
+            location: 'Dhaka, Bangladesh',
+            description: 'The ACM-ICPC World Finals brings together the best programming teams from universities worldwide.',
+            problems: [
+                { id: 'A', title: 'Graph Traversal', solved: 56, difficulty: 2, time: '1s', memory: '256MB' },
+                { id: 'B', title: 'Dynamic Programming', solved: 34, difficulty: 3, time: '2s', memory: '512MB' }
+            ]
+        },
+        'ap2023': {
+            name: '2023 Asia Pacific',
+            date: 'June 10, 2023',
+            location: 'Sydney, Australia',
+            description: 'Asia Pacific Regional Contest featuring top universities from across the region.',
+            problems: [
+                { id: 'A', title: 'String Manipulation', solved: 85, difficulty: 2, time: '1s', memory: '256MB' },
+                { id: 'B', title: 'Graph Coloring', solved: 62, difficulty: 3, time: '2s', memory: '512MB' }
+            ]
+        }
+    },
+    olympiad: {
+        'ioi2023': {
+            name: '2023 IOI',
+            date: 'August 28, 2023',
+            location: 'Budapest, Hungary',
+            description: 'International Olympiad in Informatics',
+            problems: [
+                { id: 'Day1-A', title: 'Robot Race', solved: 120, difficulty: 4, time: '3s', memory: '512MB' },
+                { id: 'Day1-B', title: 'Data Structures', solved: 85, difficulty: 5, time: '5s', memory: '1GB' }
+            ]
+        },
+        'ioi2022': {
+            name: '2022 IOI',
+            date: 'August 10, 2022',
+            location: 'Yogyakarta, Indonesia',
+            description: 'International Olympiad in Informatics',
+            problems: [
+                { id: 'Day1-A', title: 'Circuit Design', solved: 110, difficulty: 3, time: '2s', memory: '512MB' }
+            ]
+        }
+    },
+    codeforces: {
+        'round881': {
+            name: 'Round #881',
+            date: 'June 15, 2023',
+            location: 'Virtual',
+            description: 'Codeforces Div. 2 Contest',
+            problems: [
+                { id: 'A', title: 'Array Balancing', solved: 4500, difficulty: 2, time: '1s', memory: '256MB' },
+                { id: 'B', title: 'Bit Flipping', solved: 3200, difficulty: 3, time: '2s', memory: '512MB' }
+            ]
+        },
+        'round880': {
+            name: 'Round #880',
+            date: 'June 8, 2023',
+            location: 'Virtual',
+            description: 'Codeforces Div. 2 Contest',
+            problems: [
+                { id: 'A', title: 'Destroyer', solved: 5000, difficulty: 1, time: '1s', memory: '256MB' }
+            ]
+        }
+    },
+    leetcode: {
+        'weekly300': {
+            name: 'Weekly 300',
+            date: 'July 1, 2023',
+            location: 'Virtual',
+            description: 'LeetCode Weekly Contest',
+            problems: [
+                { id: 'Q1', title: 'Decode Message', solved: 8500, difficulty: 1, time: '5ms', memory: '10MB' },
+                { id: 'Q2', title: 'Spiral Matrix IV', solved: 6500, difficulty: 2, time: '10ms', memory: '15MB' }
+            ]
+        },
+        'biweekly90': {
+            name: 'Biweekly 90',
+            date: 'June 24, 2023',
+            location: 'Virtual',
+            description: 'LeetCode Biweekly Contest',
+            problems: [
+                { id: 'Q1', title: 'Odd String Difference', solved: 7800, difficulty: 1, time: '5ms', memory: '10MB' }
+            ]
+        }
+    }
+};
+
+// Contest Tree Structures
+const contestTrees = {
+    icpc: {
+        id: "root",
+        name: "ICPC",
+        children: [
+            {
+                id: "world-finals",
+                name: "World Finals",
+                contests: [
+                    { id: "wf2023", name: "2023 World Finals" },
+                    { id: "wf2022", name: "2022 World Finals" }
+                ]
+            },
+            {
+                id: "regionals",
+                name: "Regionals",
+                children: [
+                    {
+                        id: "asia-pacific",
+                        name: "Asia Pacific",
+                        contests: [
+                            { id: "ap2023", name: "2023 Asia Pacific" }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
     olympiad: {
         id: "root",
         name: "Olympiad",
@@ -22,87 +149,67 @@ const categoryTemplates = {
                 id: "rounds",
                 name: "Rounds",
                 contests: [
-                    { id: "cf882", name: "Round #882" },
-                    { id: "cf881", name: "Round #881" }
+                    { id: "round881", name: "Round #881" },
+                    { id: "round880", name: "Round #880" }
+                ]
+            }
+        ]
+    },
+    leetcode: {
+        id: "root",
+        name: "LeetCode",
+        children: [
+            {
+                id: "contests",
+                name: "Contests",
+                contests: [
+                    { id: "weekly300", name: "Weekly 300" },
+                    { id: "biweekly90", name: "Biweekly 90" }
                 ]
             }
         ]
     }
 };
 
-// Contest data
-const contestDatabase = {
-    'wf2023': {
-        name: '2023 World Finals',
-        date: 'November 15, 2023',
-        location: 'Tokyo, Japan',
-        description: 'The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.',
-        problems: [
-            { id: 'A', title: 'Balanced Tree', solved: 42, difficulty: 3, time: '2s', memory: '256MB' },
-            { id: 'B', title: 'Quantum Optimization', solved: 28, difficulty: 4, time: '3s', memory: '512MB' },
-            { id: 'C', title: 'Neural Network Analysis', solved: 15, difficulty: 5, time: '5s', memory: '1GB' }
-        ]
-    },
-    'wf2022': {
-        name: '2022 World Finals',
-        date: 'November 16, 2022',
-        location: 'Dhaka, Bangladesh',
-        description: 'The ACM-ICPC World Finals brings together the best programming teams from universities worldwide.',
-        problems: [
-            { id: 'A', title: 'Graph Traversal', solved: 56, difficulty: 2, time: '1s', memory: '256MB' },
-            { id: 'B', title: 'Dynamic Programming', solved: 34, difficulty: 3, time: '2s', memory: '512MB' }
-        ]
-    },
-    'ap2023': {
-        name: '2023 Asia Pacific',
-        date: 'June 10, 2023',
-        location: 'Sydney, Australia',
-        description: 'Asia Pacific Regional Contest featuring top universities from across the region.',
-        problems: [
-            { id: 'A', title: 'String Manipulation', solved: 85, difficulty: 2, time: '1s', memory: '256MB' },
-            { id: 'B', title: 'Graph Coloring', solved: 62, difficulty: 3, time: '2s', memory: '512MB' }
-        ]
-    }
-};
-
-// State management
+// Application State
 const state = {
+    currentCategory: 'icpc',
     expandedNodes: new Set(['root']),
     visibleContests: new Set(),
     allContests: new Map(),
     directoryStats: new Map()
 };
 
-// Contest tree structure
-const contestTree = {
-    id: "root",
-    name: "ICPC",
-    children: [
-        {
-            id: "world-finals",
-            name: "World Finals",
-            contests: [
-                { id: "wf2023", name: "2023 World Finals" },
-                { id: "wf2022", name: "2022 World Finals" }
-            ]
-        },
-        {
-            id: "regionals",
-            name: "Regionals",
-            children: [
-                {
-                    id: "asia-pacific",
-                    name: "Asia Pacific",
-                    contests: [
-                        { id: "ap2023", name: "2023 Asia Pacific" }
-                    ]
-                }
-            ]
-        }
-    ]
-};
+// Initialize Navigation
+function initNavigation() {
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            // Update UI
+            navItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            
+            // Load new category
+            const category = item.dataset.category;
+            loadCategory(category);
+        });
+    });
+}
 
-// Initialize data structures
+// Load Category Data
+function loadCategory(category) {
+    state.currentCategory = category;
+    state.expandedNodes = new Set(['root']);
+    state.visibleContests = new Set();
+    state.allContests = new Map();
+    state.directoryStats = new Map();
+    
+    initializeDataStructures(contestTrees[category]);
+    updateUI();
+}
+
+// Initialize Data Structures
 function initializeDataStructures(node) {
     if (node.contests) {
         node.contests.forEach(contest => {
@@ -117,9 +224,8 @@ function initializeDataStructures(node) {
         node.children.forEach(initializeDataStructures);
     }
 }
-initializeDataStructures(contestTree);
 
-// Calculate directory stats
+// Calculate Directory Stats
 function calculateDirectoryStats(node) {
     if (!state.directoryStats.has(node.id)) {
         state.directoryStats.set(node.id, { total: 0, visible: 0 });
@@ -147,7 +253,7 @@ function calculateDirectoryStats(node) {
     return stats;
 }
 
-// Get visibility color
+// Get Visibility Color
 function getVisibilityColor(visible, total) {
     if (total === 0) return 'var(--gray-dark)';
     const ratio = visible / total;
@@ -155,8 +261,8 @@ function getVisibilityColor(visible, total) {
     return `hsl(0, 0%, ${Math.max(30, lightness)}%)`;
 }
 
-// Render tree
-function renderTree(node, parentElement) {
+// Render Tree
+function renderTree(node, parentElement, level = 0) {
     const container = document.createElement('div');
     container.className = 'tree-node';
     
@@ -172,7 +278,8 @@ function renderTree(node, parentElement) {
         
         const showAllBtn = document.createElement('button');
         showAllBtn.className = 'action-btn show-all';
-        showAllBtn.textContent = 'Show All';
+        showAllBtn.innerHTML = '<span>✓</span>';
+        showAllBtn.title = 'Show all contests in this directory';
         showAllBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             setDirectoryVisibility(node, true);
@@ -180,7 +287,8 @@ function renderTree(node, parentElement) {
         
         const hideAllBtn = document.createElement('button');
         hideAllBtn.className = 'action-btn hide-all';
-        hideAllBtn.textContent = 'Hide All';
+        hideAllBtn.innerHTML = '<span>✗</span>';
+        hideAllBtn.title = 'Hide all contests in this directory';
         hideAllBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             setDirectoryVisibility(node, false);
@@ -191,11 +299,19 @@ function renderTree(node, parentElement) {
         header.innerHTML = `
             <span class="toggle-icon">${state.expandedNodes.has(node.id) ? '▼' : '▶'}</span>
             <span class="directory-name" style="color: ${color}">${node.name}</span>
+            <span class="badge" style="margin-left: 8px; font-size: 12px; color: var(--gray-dark)">
+                ${stats.visible}/${stats.total}
+            </span>
         `;
         header.append(actions);
         
-        header.addEventListener('click', () => {
-            toggleNodeExpansion(node);
+        header.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tree-node-header') || 
+                e.target.classList.contains('toggle-icon') ||
+                e.target.classList.contains('directory-name') ||
+                e.target.classList.contains('badge')) {
+                toggleNodeExpansion(node);
+            }
         });
         
         container.appendChild(header);
@@ -204,7 +320,7 @@ function renderTree(node, parentElement) {
         if (state.expandedNodes.has(node.id)) {
             if (node.children) {
                 node.children.forEach(child => {
-                    renderTree(child, childrenContainer);
+                    renderTree(child, childrenContainer, level + 1);
                 });
             }
             if (node.contests) {
@@ -219,22 +335,30 @@ function renderTree(node, parentElement) {
     parentElement.appendChild(container);
 }
 
-// Render contest leaf
+// Render Contest Leaf
 function renderContestLeaf(contest, parentElement, color) {
     const isVisible = state.visibleContests.has(contest.id);
-    const leaf = document.createElement('div');
-    leaf.className = `contest-leaf ${isVisible ? 'visible' : 'hidden'}`;
-    leaf.innerHTML = `
+    const contestElement = document.createElement('div');
+    contestElement.className = `contest-leaf ${isVisible ? 'visible' : 'hidden'}`;
+    
+    const element = document.createElement('span');
+    element.style.color = color;
+    element.textContent = contest.name;
+    
+    contestElement.innerHTML = `
         <span class="visibility-icon">${isVisible ? '✓' : '✗'}</span>
-        <span style="color: ${color}">${contest.name}</span>
     `;
-    leaf.addEventListener('click', () => {
+    contestElement.appendChild(element);
+    
+    contestElement.addEventListener('click', (e) => {
+        e.stopPropagation();
         toggleContestVisibility(contest.id);
     });
-    parentElement.appendChild(leaf);
+    
+    parentElement.appendChild(contestElement);
 }
 
-// Toggle node expansion
+// Toggle Node Expansion
 function toggleNodeExpansion(node) {
     if (state.expandedNodes.has(node.id)) {
         state.expandedNodes.delete(node.id);
@@ -244,7 +368,7 @@ function toggleNodeExpansion(node) {
     renderFullTree();
 }
 
-// Set directory visibility
+// Set Directory Visibility
 function setDirectoryVisibility(node, makeVisible) {
     if (node.contests) {
         node.contests.forEach(contest => {
@@ -265,7 +389,7 @@ function setDirectoryVisibility(node, makeVisible) {
     updateUI();
 }
 
-// Toggle contest visibility
+// Toggle Contest Visibility
 function toggleContestVisibility(contestId) {
     if (state.visibleContests.has(contestId)) {
         state.visibleContests.delete(contestId);
@@ -275,18 +399,18 @@ function toggleContestVisibility(contestId) {
     updateUI();
 }
 
-// Render visible contests
+// Render Visible Contests
 function renderVisibleContests() {
     const container = document.getElementById('contest-container');
     container.innerHTML = '';
     
     if (state.visibleContests.size === 0) {
-        container.innerHTML = '<div class="empty-state">No contests selected</div>';
+        container.innerHTML = '<div class="empty-state">No contests selected. Click on contests in the tree to view them.</div>';
         return;
     }
     
     state.visibleContests.forEach(contestId => {
-        const contest = contestDatabase[contestId];
+        const contest = contestDatabase[state.currentCategory][contestId];
         if (contest) {
             const item = document.createElement('div');
             item.className = 'contest-item';
@@ -301,25 +425,21 @@ function renderVisibleContests() {
                         <span>📍 ${contest.location}</span>
                     </div>
                     <p>${contest.description}</p>
-                    <div class="problem-list"></div>
+                    <div class="problem-list">
+                        ${contest.problems.map(problem => `
+                            <div class="problem-item">
+                                <div class="problem-title">${problem.id}: ${problem.title}</div>
+                                <div class="problem-meta">
+                                    <span>Solved: ${problem.solved}</span>
+                                    <span>Difficulty: ${'★'.repeat(problem.difficulty)}</span>
+                                    <span>Time: ${problem.time}</span>
+                                    <span>Memory: ${problem.memory}</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             `;
-            
-            const problemList = item.querySelector('.problem-list');
-            contest.problems.forEach(problem => {
-                const problemItem = document.createElement('div');
-                problemItem.className = 'problem-item';
-                problemItem.innerHTML = `
-                    <div class="problem-title">${problem.id}: ${problem.title}</div>
-                    <div class="problem-meta">
-                        <span>Solved: ${problem.solved}</span>
-                        <span>Difficulty: ${'★'.repeat(problem.difficulty)}</span>
-                        <span>Time: ${problem.time}</span>
-                        <span>Memory: ${problem.memory}</span>
-                    </div>
-                `;
-                problemList.appendChild(problemItem);
-            });
             
             item.querySelector('.close-contest').addEventListener('click', () => {
                 toggleContestVisibility(contestId);
@@ -330,9 +450,9 @@ function renderVisibleContests() {
     });
 }
 
-// Update status bar
+// Update Status Bar
 function updateStatusBar() {
-    const total = Object.keys(contestDatabase).length;
+    const total = Object.keys(contestDatabase[state.currentCategory]).length;
     const visible = state.visibleContests.size;
     const ratio = total > 0 ? (visible / total) : 0;
     
@@ -341,12 +461,12 @@ function updateStatusBar() {
     document.getElementById('progress-fill').style.width = `${ratio * 100}%`;
 }
 
-// Render full tree
+// Render Full Tree
 function renderFullTree() {
-    calculateDirectoryStats(contestTree);
+    calculateDirectoryStats(contestTrees[state.currentCategory]);
     const treeContainer = document.getElementById('tree-container');
     treeContainer.innerHTML = '';
-    renderTree(contestTree, treeContainer);
+    renderTree(contestTrees[state.currentCategory], treeContainer);
 }
 
 // Update UI
@@ -356,71 +476,8 @@ function updateUI() {
     updateStatusBar();
 }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    state.expandedNodes.add('root');
-    state.visibleContests.add('wf2023');
-    state.visibleContests.add('ap2023');
-    updateUI();
-});
-
-// Navigation state
-const appState = {
-    currentCategory: 'icpc',
-    categories: {
-        icpc: { /* Your existing ICPC data */ },
-        olympiad: { /* Olympiad data structure */ },
-        codeforces: { /* Codeforces data structure */ },
-        leetcode: { /* LeetCode data structure */ }
-    }
-};
-
-// Initialize navigation
-function initNavigation() {
-    const navItems = document.querySelectorAll('.main-nav li');
-    
-    navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Update active state
-            navItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-            
-            // Update current category
-            const category = item.dataset.category;
-            appState.currentCategory = category;
-            
-            // Load new category data
-            loadCategoryData(category);
-        });
-    });
-}
-
-// Load category data
-function loadCategoryData(category) {
-    // You would typically fetch this from a server in a real app
-    const categoryData = {
-        icpc: contestTree, // Your existing ICPC data
-        olympiad: { /* Olympiad contest tree */ },
-        codeforces: { /* Codeforces contest tree */ },
-        leetcode: { /* LeetCode contest tree */ }
-    };
-    
-    // Reset state for new category
-    state.expandedNodes = new Set(['root']);
-    state.visibleContests = new Set();
-    state.allContests = new Map();
-    state.directoryStats = new Map();
-    
-    // Initialize with new data
-    initializeDataStructures(categoryData[category]);
-    updateUI();
-}
-
-// Initialize the app
+// Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
-    // Your existing initialization code
-    loadCategoryData('icpc'); // Start with ICPC by default
+    loadCategory('icpc');
 });
