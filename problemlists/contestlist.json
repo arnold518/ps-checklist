@@ -11,55 +11,5 @@
         "qoj_url": "",
         "statements_url": "",
         "editorials_url": ""
-    },
-    {
-        "id": "ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-12 04:59:22.655923",
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea" ],
-        "year": "2020",
-        "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
-        "official_url": "https://icpckorea.org/2020-seoul/regional",
-        "standing_url": "http://static.icpckorea.net/2020/scoreboard_terpin/",
-        "boj_url": "https://www.acmicpc.net/category/detail/2339",
-        "cf_url": "https://codeforces.com/gym/102920",
-        "qoj_url": "https://qoj.ac/contest/450"
-    },
-    {
-        "id": "ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-12 17:18:32.816787",
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea" ],
-        "year": "2020",
-        "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
-        "official_url": "https://icpckorea.org/2020-seoul/regional",
-        "standing_url": "http://static.icpckorea.net/2020/scoreboard_terpin/",
-        "boj_url": "https://www.acmicpc.net/category/detail/2339",
-        "cf_url": "https://codeforces.com/gym/102920",
-        "qoj_url": "https://qoj.ac/contest/450",
-        "statements_url": "https://raw.githubusercontent.com/arnold518/ps-checklist/data/problemlists/icpc/regionals/asia-pacific/korea/2020/statements.pdf",
-        "editorials_url": "https://raw.githubusercontent.com/arnold518/ps-checklist/data/problemlists/icpc/regionals/asia-pacific/korea/2020/editorials.pdf"
-    },
-    {
-        "id": null,
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea" ],
-        "year": "2021",
-        "filepath": "problemlists/icpc/regionals/asia pacific/korea/2021/",
-        "official_url": "https://icpckorea.org/2020-seoul/regional",
-        "standing_url": "http://static.icpckorea.net/2020/scoreboard_terpin/",
-        "boj_url": "https://www.acmicpc.net/category/detail/2339",
-        "cf_url": "https://codeforces.com/gym/102920",
-        "qoj_url": "https://qoj.ac/contest/450",
-        "statements_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
-        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
-    },
-    {
-        "id": null,
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea" ],
-        "year": "2019",
-        "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2019/",
-        "official_url": "https://icpckorea.org/2020-seoul/regional",
-        "standing_url": "http://static.icpckorea.net/2020/scoreboard_terpin/",
-        "boj_url": "https://www.acmicpc.net/category/detail/2339",
-        "cf_url": "https://codeforces.com/gym/102920",
-        "qoj_url": "https://qoj.ac/contest/450",
-        "statements_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
-        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
     }
 ]
