@@ -4,23 +4,29 @@ from getContest import ContestCrawler
 
 def parseJsonStr(jsonstr):
     lvl = 0
-    flag = False
     ret = ''
+    in_quote = False
+    
     for c in jsonstr:
+        should_append = True
+        
+        if c == '"':
+            in_quote = not in_quote
         if c == '[':
             lvl += 1
-            flag = True
         elif c == ']':
             lvl -= 1
-            flag = True
-        elif lvl == 2 and c == '\n':
-            ret += ' '
-            flag = False
-        elif lvl == 2 and c == ' ':
-            pass
-        else:
-            flag = True
-        if flag: ret += c
+        elif lvl == 2:
+            if not in_quote:
+                if c == '\n':
+                    ret += ' '
+                    should_append = False
+                elif c == ' ':
+                    should_append = False
+        
+        if should_append:
+            ret += c
+    
     return ret
 
 contestList = None
