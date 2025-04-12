@@ -1,3 +1,35 @@
+// Add this to your script.js
+const categoryTemplates = {
+    olympiad: {
+        id: "root",
+        name: "Olympiad",
+        children: [
+            {
+                id: "ioi",
+                name: "IOI",
+                contests: [
+                    { id: "ioi2023", name: "2023 IOI" },
+                    { id: "ioi2022", name: "2022 IOI" }
+                ]
+            }
+        ]
+    },
+    codeforces: {
+        id: "root",
+        name: "Codeforces",
+        children: [
+            {
+                id: "rounds",
+                name: "Rounds",
+                contests: [
+                    { id: "cf882", name: "Round #882" },
+                    { id: "cf881", name: "Round #881" }
+                ]
+            }
+        ]
+    }
+};
+
 // Contest data
 const contestDatabase = {
     'wf2023': {
@@ -330,4 +362,65 @@ document.addEventListener('DOMContentLoaded', () => {
     state.visibleContests.add('wf2023');
     state.visibleContests.add('ap2023');
     updateUI();
+});
+
+// Navigation state
+const appState = {
+    currentCategory: 'icpc',
+    categories: {
+        icpc: { /* Your existing ICPC data */ },
+        olympiad: { /* Olympiad data structure */ },
+        codeforces: { /* Codeforces data structure */ },
+        leetcode: { /* LeetCode data structure */ }
+    }
+};
+
+// Initialize navigation
+function initNavigation() {
+    const navItems = document.querySelectorAll('.main-nav li');
+    
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Update active state
+            navItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            
+            // Update current category
+            const category = item.dataset.category;
+            appState.currentCategory = category;
+            
+            // Load new category data
+            loadCategoryData(category);
+        });
+    });
+}
+
+// Load category data
+function loadCategoryData(category) {
+    // You would typically fetch this from a server in a real app
+    const categoryData = {
+        icpc: contestTree, // Your existing ICPC data
+        olympiad: { /* Olympiad contest tree */ },
+        codeforces: { /* Codeforces contest tree */ },
+        leetcode: { /* LeetCode contest tree */ }
+    };
+    
+    // Reset state for new category
+    state.expandedNodes = new Set(['root']);
+    state.visibleContests = new Set();
+    state.allContests = new Map();
+    state.directoryStats = new Map();
+    
+    // Initialize with new data
+    initializeDataStructures(categoryData[category]);
+    updateUI();
+}
+
+// Initialize the app
+document.addEventListener('DOMContentLoaded', () => {
+    initNavigation();
+    // Your existing initialization code
+    loadCategoryData('icpc'); // Start with ICPC by default
 });
