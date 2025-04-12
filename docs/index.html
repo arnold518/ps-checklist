@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contest Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,26 +20,28 @@
         </div>
     </header>
     
-    <div id="sidebar">
-        <div class="sidebar-header">
-            <h2>Contest Tree</h2>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
+    <div class="main-app-container">
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <h2>Contest Tree</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
             </div>
+            <div class="status-bar">
+                <span id="status-text">0 contests visible</span>
+                <span id="visibility-ratio">0/0</span>
+            </div>
+            <div class="tree-container" id="tree-container"></div>
         </div>
-        <div class="status-bar">
-            <span id="status-text">0 contests visible</span>
-            <span id="visibility-ratio">0/0</span>
-        </div>
-        <div class="tree-container" id="tree-container"></div>
-    </div>
 
-    <div id="main-content">
-        <div class="content-header">
-            <h2>Selected Contests</h2>
-        </div>
-        <div class="contest-container" id="contest-container">
-            <!-- Contest items will be inserted here -->
+        <div id="main-content">
+            <div class="content-header">
+                <h2>Selected Contests</h2>
+            </div>
+            <div class="contest-container" id="contest-container">
+                <!-- Contest items will be inserted here -->
+            </div>
         </div>
     </div>
 
