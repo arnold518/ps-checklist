@@ -1,40 +1,37 @@
 // Complete contest data
 const contestDatabase = {
-    // World Finals
     'wf2023': {
         name: '2023 World Finals',
         date: 'November 15, 2023',
         location: 'Tokyo, Japan',
-        description: 'The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.',
+        description: 'The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest featuring the top university teams from around the world competing in a 5-hour algorithmic programming challenge.',
         problems: [
-            { id: 'A', title: 'Balanced Tree', solved: 42, difficulty: 3 },
-            { id: 'B', title: 'Quantum Optimization', solved: 28, difficulty: 4 },
-            { id: 'C', title: 'Neural Network Analysis', solved: 15, difficulty: 5 }
+            { id: 'A', title: 'Balanced Tree', solved: 42, difficulty: 3, time_limit: '2s', memory_limit: '256MB' },
+            { id: 'B', title: 'Quantum Optimization', solved: 28, difficulty: 4, time_limit: '3s', memory_limit: '512MB' },
+            { id: 'C', title: 'Neural Network Analysis', solved: 15, difficulty: 5, time_limit: '5s', memory_limit: '1GB' }
         ]
     },
     'wf2022': {
         name: '2022 World Finals',
         date: 'November 16, 2022',
         location: 'Dhaka, Bangladesh',
-        description: 'The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.',
+        description: 'The ACM-ICPC World Finals brings together the best programming teams from universities worldwide for a competition of logic, strategy and mental endurance. Teams of three students work to solve the most complex programming problems.',
         problems: [
-            { id: 'A', title: 'Graph Traversal', solved: 56, difficulty: 2 },
-            { id: 'B', title: 'Dynamic Programming', solved: 34, difficulty: 3 },
-            { id: 'C', title: 'Number Theory', solved: 22, difficulty: 4 }
+            { id: 'A', title: 'Graph Traversal', solved: 56, difficulty: 2, time_limit: '1s', memory_limit: '256MB' },
+            { id: 'B', title: 'Dynamic Programming', solved: 34, difficulty: 3, time_limit: '2s', memory_limit: '512MB' },
+            { id: 'C', title: 'Number Theory', solved: 22, difficulty: 4, time_limit: '3s', memory_limit: '512MB' }
         ]
     },
-    // Regionals
     'ap2023': {
         name: '2023 Asia Pacific',
         date: 'June 10, 2023',
         location: 'Sydney, Australia',
-        description: 'Asia Pacific Regional Contest featuring top universities from the region.',
+        description: 'Asia Pacific Regional Contest featuring top universities from across the region competing for a spot at the World Finals. This year\'s contest featured challenging problems in algorithms and data structures.',
         problems: [
-            { id: 'A', title: 'String Manipulation', solved: 85, difficulty: 2 },
-            { id: 'B', title: 'Graph Coloring', solved: 62, difficulty: 3 }
+            { id: 'A', title: 'String Manipulation', solved: 85, difficulty: 2, time_limit: '1s', memory_limit: '256MB' },
+            { id: 'B', title: 'Graph Coloring', solved: 62, difficulty: 3, time_limit: '2s', memory_limit: '512MB' }
         ]
-    },
-    // Add more contests as needed
+    }
 };
 
 // State management
@@ -45,7 +42,7 @@ const state = {
     directoryStats: new Map()
 };
 
-// Sample contest tree structure
+// Contest tree structure
 const contestTree = {
     id: "root",
     name: "ICPC",
@@ -66,15 +63,7 @@ const contestTree = {
                     id: "asia-pacific",
                     name: "Asia Pacific",
                     contests: [
-                        { id: "ap2023", name: "2023 Asia Pacific" },
-                        { id: "ap2022", name: "2022 Asia Pacific" }
-                    ]
-                },
-                {
-                    id: "europe",
-                    name: "Europe",
-                    contests: [
-                        { id: "nwerc2023", name: "2023 NWERC" }
+                        { id: "ap2023", name: "2023 Asia Pacific" }
                     ]
                 }
             ]
@@ -141,15 +130,12 @@ function renderTree(node, parentElement, level = 0) {
     container.className = 'tree-node';
     
     if (node.children || node.contests) {
-        // Calculate visibility stats
         const stats = state.directoryStats.get(node.id) || { total: 0, visible: 0 };
         const color = getVisibilityColor(stats.visible, stats.total);
         
-        // Render directory node
         const header = document.createElement('div');
         header.className = 'tree-node-header';
         
-        // Create directory actions
         const actions = document.createElement('div');
         actions.className = 'directory-actions';
         
@@ -276,7 +262,7 @@ function toggleContestVisibility(contestId) {
     updateUI();
 }
 
-// Render visible contests
+// Render visible contests vertically
 function renderVisibleContests() {
     const container = document.getElementById('contest-container');
     container.innerHTML = '';
@@ -296,22 +282,18 @@ function renderVisibleContests() {
             const contestItem = document.createElement('div');
             contestItem.className = 'contest-item';
             contestItem.innerHTML = `
-                <div class="contest-item-header">
+                <div class="contest-header">
                     <div>${contest.name}</div>
                     <button class="close-contest" data-contest-id="${contestId}">×</button>
                 </div>
-                <div class="contest-item-content" id="content-${contestId}"></div>
+                <div class="contest-content" id="content-${contestId}"></div>
             `;
             container.appendChild(contestItem);
             
             // Load content from template
-            const template = document.getElementById('contest-template').contentWindow;
+            const template = document.getElementById('contest-template').contentDocument;
             const contentDiv = document.getElementById(`content-${contestId}`);
-            
-            // Clone the template structure
-            const content = contentDiv.ownerDocument.importNode(
-                template.document.querySelector('.contest-details'), true
-            );
+            const content = template.querySelector('.contest-details').cloneNode(true);
             
             // Populate with data
             content.querySelector('#contest-title').textContent = contest.name;
@@ -319,22 +301,25 @@ function renderVisibleContests() {
             content.querySelector('#contest-location').textContent = contest.location;
             content.querySelector('#contest-description').textContent = contest.description;
             
-            // Add problems if they exist
+            // Add problems
             const problemList = content.querySelector('#problem-list');
             problemList.innerHTML = '';
             
             if (contest.problems && contest.problems.length > 0) {
-                const heading = document.createElement('h3');
-                heading.textContent = 'Problems';
-                problemList.appendChild(heading);
-                
                 contest.problems.forEach(problem => {
                     const div = document.createElement('div');
                     div.className = 'problem-item';
                     div.innerHTML = `
-                        <strong>${problem.id}:</strong> ${problem.title}
-                        <div style="font-size: 13px; color: #5f6368;">
-                            Solved by: ${problem.solved} teams | Difficulty: ${problem.difficulty}/5
+                        <div class="problem-header">
+                            <strong>${problem.id}: ${problem.title}</strong>
+                            <div class="problem-stats">
+                                <span>Time: ${problem.time_limit}</span>
+                                <span>Memory: ${problem.memory_limit}</span>
+                            </div>
+                        </div>
+                        <div class="problem-stats">
+                            <span>Solved by: ${problem.solved} teams</span>
+                            <span>Difficulty: ${'★'.repeat(problem.difficulty)}</span>
                         </div>
                     `;
                     problemList.appendChild(div);
@@ -383,5 +368,7 @@ function updateUI() {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     state.expandedNodes.add(contestTree.id);
+    state.visibleContests.add('wf2023');
+    state.visibleContests.add('ap2023');
     updateUI();
 });
