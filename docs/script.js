@@ -1,5 +1,52 @@
-// Sample contest data
-const contestData = {
+// Complete contest data
+const contestDatabase = {
+    // World Finals
+    'wf2023': {
+        name: '2023 World Finals',
+        date: 'November 15, 2023',
+        location: 'Tokyo, Japan',
+        description: 'The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.',
+        problems: [
+            { id: 'A', title: 'Balanced Tree', solved: 42, difficulty: 3 },
+            { id: 'B', title: 'Quantum Optimization', solved: 28, difficulty: 4 },
+            { id: 'C', title: 'Neural Network Analysis', solved: 15, difficulty: 5 }
+        ]
+    },
+    'wf2022': {
+        name: '2022 World Finals',
+        date: 'November 16, 2022',
+        location: 'Dhaka, Bangladesh',
+        description: 'The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.',
+        problems: [
+            { id: 'A', title: 'Graph Traversal', solved: 56, difficulty: 2 },
+            { id: 'B', title: 'Dynamic Programming', solved: 34, difficulty: 3 },
+            { id: 'C', title: 'Number Theory', solved: 22, difficulty: 4 }
+        ]
+    },
+    // Regionals
+    'ap2023': {
+        name: '2023 Asia Pacific',
+        date: 'June 10, 2023',
+        location: 'Sydney, Australia',
+        description: 'Asia Pacific Regional Contest featuring top universities from the region.',
+        problems: [
+            { id: 'A', title: 'String Manipulation', solved: 85, difficulty: 2 },
+            { id: 'B', title: 'Graph Coloring', solved: 62, difficulty: 3 }
+        ]
+    },
+    // Add more contests as needed
+};
+
+// State management
+const state = {
+    expandedNodes: new Set(['root']),
+    visibleContests: new Set(),
+    allContests: new Map(),
+    directoryStats: new Map()
+};
+
+// Sample contest tree structure
+const contestTree = {
     id: "root",
     name: "ICPC",
     children: [
@@ -21,30 +68,13 @@ const contestData = {
                     contests: [
                         { id: "ap2023", name: "2023 Asia Pacific" },
                         { id: "ap2022", name: "2022 Asia Pacific" }
-                    ],
-                    children: [
-                        {
-                            id: "southeast-asia",
-                            name: "Southeast Asia",
-                            contests: [
-                                { id: "sea2023", name: "2023 SEA" },
-                                { id: "sea2022", name: "2022 SEA" }
-                            ]
-                        }
                     ]
                 },
                 {
                     id: "europe",
                     name: "Europe",
-                    children: [
-                        {
-                            id: "nwerc",
-                            name: "NWERC",
-                            contests: [
-                                { id: "nwerc2023", name: "2023 NWERC" },
-                                { id: "nwerc2022", name: "2022 NWERC" }
-                            ]
-                        }
+                    contests: [
+                        { id: "nwerc2023", name: "2023 NWERC" }
                     ]
                 }
             ]
@@ -52,15 +82,7 @@ const contestData = {
     ]
 };
 
-// State management
-const state = {
-    expandedNodes: new Set(['root']),
-    visibleContests: new Set(),
-    allContests: new Map(),
-    directoryStats: new Map()
-};
-
-// Initialize all contests map and directory stats
+// Initialize data structures
 function initializeDataStructures(node) {
     if (node.contests) {
         node.contests.forEach(contest => {
@@ -75,7 +97,7 @@ function initializeDataStructures(node) {
         node.children.forEach(initializeDataStructures);
     }
 }
-initializeDataStructures(contestData);
+initializeDataStructures(contestTree);
 
 // Calculate directory visibility stats
 function calculateDirectoryStats(node) {
@@ -109,7 +131,6 @@ function calculateDirectoryStats(node) {
 function getVisibilityColor(visible, total) {
     if (total === 0) return 'var(--gray-dark)';
     const ratio = visible / total;
-    // Interpolate between gray (0.3) and black (1)
     const lightness = 70 - Math.round(ratio * 40);
     return `hsl(0, 0%, ${Math.max(30, lightness)}%)`;
 }
@@ -128,14 +149,14 @@ function renderTree(node, parentElement, level = 0) {
         const header = document.createElement('div');
         header.className = 'tree-node-header';
         
-        // Create directory actions (show all/hide all)
+        // Create directory actions
         const actions = document.createElement('div');
         actions.className = 'directory-actions';
         
         const showAllBtn = document.createElement('button');
         showAllBtn.className = 'action-btn show-all';
         showAllBtn.innerHTML = '<span>✓</span>';
-        showAllBtn.title = 'Show all contests in this directory and subdirectories';
+        showAllBtn.title = 'Show all contests in this directory';
         showAllBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             setDirectoryVisibility(node, true);
@@ -144,7 +165,7 @@ function renderTree(node, parentElement, level = 0) {
         const hideAllBtn = document.createElement('button');
         hideAllBtn.className = 'action-btn hide-all';
         hideAllBtn.innerHTML = '<span>✗</span>';
-        hideAllBtn.title = 'Hide all contests in this directory and subdirectories';
+        hideAllBtn.title = 'Hide all contests in this directory';
         hideAllBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             setDirectoryVisibility(node, false);
@@ -191,13 +212,12 @@ function renderTree(node, parentElement, level = 0) {
     parentElement.appendChild(container);
 }
 
-// Render individual contest leaf with inherited color
+// Render contest leaf
 function renderContestLeaf(contest, parentElement, parentColor) {
     const isVisible = state.visibleContests.has(contest.id);
     const contestElement = document.createElement('div');
     contestElement.className = `contest-leaf ${isVisible ? 'visible' : 'hidden'}`;
     
-    // Use parent's color but make it slightly darker for contests
     const element = document.createElement('span');
     element.style.color = parentColor;
     element.textContent = contest.name;
@@ -225,7 +245,7 @@ function toggleNodeExpansion(node) {
     renderFullTree();
 }
 
-// Set visibility for all contests in a directory (recursive)
+// Set directory visibility
 function setDirectoryVisibility(node, makeVisible) {
     if (node.contests) {
         node.contests.forEach(contest => {
@@ -246,7 +266,7 @@ function setDirectoryVisibility(node, makeVisible) {
     updateUI();
 }
 
-// Toggle individual contest visibility
+// Toggle contest visibility
 function toggleContestVisibility(contestId) {
     if (state.visibleContests.has(contestId)) {
         state.visibleContests.delete(contestId);
@@ -256,121 +276,84 @@ function toggleContestVisibility(contestId) {
     updateUI();
 }
 
-// Update both tree and contest display
-function updateUI() {
-    calculateDirectoryStats(contestData);
-    renderFullTree();
-    renderVisibleContests();
-    updateStatusBar();
-}
-
-// Render the entire tree
-function renderFullTree() {
-    const treeContainer = document.getElementById('tree-container');
-    treeContainer.innerHTML = '';
-    renderTree(contestData, treeContainer);
-}
-
-// Render visible contests as embedded iframes
+// Render visible contests
 function renderVisibleContests() {
-    const contestContainer = document.getElementById('contest-container');
-    contestContainer.innerHTML = '';
-
+    const container = document.getElementById('contest-container');
+    container.innerHTML = '';
+    
     if (state.visibleContests.size === 0) {
-        contestContainer.innerHTML = `
+        container.innerHTML = `
             <div class="empty-state">
                 <p>No contests selected. Click on contests in the tree to view them.</p>
             </div>
         `;
         return;
     }
-
+    
     state.visibleContests.forEach(contestId => {
-        const contest = state.allContests.get(contestId);
+        const contest = contestDatabase[contestId];
         if (contest) {
-            const frameWrapper = document.createElement('div');
-            frameWrapper.className = 'contest-frame-wrapper';
-            
-            const header = document.createElement('div');
-            header.className = 'contest-frame-header';
-            header.innerHTML = `
-                <div class="contest-frame-title">${contest.name}</div>
-                <button class="close-contest" data-contest-id="${contest.id}">×</button>
+            const contestItem = document.createElement('div');
+            contestItem.className = 'contest-item';
+            contestItem.innerHTML = `
+                <div class="contest-item-header">
+                    <div>${contest.name}</div>
+                    <button class="close-contest" data-contest-id="${contestId}">×</button>
+                </div>
+                <div class="contest-item-content" id="content-${contestId}"></div>
             `;
+            container.appendChild(contestItem);
             
-            const frame = document.createElement('iframe');
-            frame.className = 'contest-frame';
-            frame.srcdoc = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <base target="_parent">
-                    <style>
-                        body { 
-                            font-family: Arial, sans-serif; 
-                            margin: 0; 
-                            padding: 20px;
-                        }
-                        h2 { color: #4285f4; }
-                        .contest-details { max-width: 800px; margin: 0 auto; }
-                    </style>
-                </head>
-                <body>
-                    <div class="contest-details">
-                        <h2>${contest.name}</h2>
-                        ${getContestDetails(contest.id)}
-                    </div>
-                </body>
-                </html>
-            `;
+            // Load content from template
+            const template = document.getElementById('contest-template').contentWindow;
+            const contentDiv = document.getElementById(`content-${contestId}`);
             
-            frameWrapper.appendChild(header);
-            frameWrapper.appendChild(frame);
-            contestContainer.appendChild(frameWrapper);
+            // Clone the template structure
+            const content = contentDiv.ownerDocument.importNode(
+                template.document.querySelector('.contest-details'), true
+            );
             
-            // Add click handler for close button
-            header.querySelector('.close-contest').addEventListener('click', (e) => {
-                toggleContestVisibility(contest.id);
+            // Populate with data
+            content.querySelector('#contest-title').textContent = contest.name;
+            content.querySelector('#contest-date').textContent = contest.date;
+            content.querySelector('#contest-location').textContent = contest.location;
+            content.querySelector('#contest-description').textContent = contest.description;
+            
+            // Add problems if they exist
+            const problemList = content.querySelector('#problem-list');
+            problemList.innerHTML = '';
+            
+            if (contest.problems && contest.problems.length > 0) {
+                const heading = document.createElement('h3');
+                heading.textContent = 'Problems';
+                problemList.appendChild(heading);
+                
+                contest.problems.forEach(problem => {
+                    const div = document.createElement('div');
+                    div.className = 'problem-item';
+                    div.innerHTML = `
+                        <strong>${problem.id}:</strong> ${problem.title}
+                        <div style="font-size: 13px; color: #5f6368;">
+                            Solved by: ${problem.solved} teams | Difficulty: ${problem.difficulty}/5
+                        </div>
+                    `;
+                    problemList.appendChild(div);
+                });
+            }
+            
+            contentDiv.appendChild(content);
+            
+            // Add close handler
+            contestItem.querySelector('.close-contest').addEventListener('click', (e) => {
+                toggleContestVisibility(contestId);
             });
         }
     });
 }
 
-// Mock function to get contest details - replace with actual data
-function getContestDetails(contestId) {
-    const contestDetails = {
-        'wf2023': `
-            <p><strong>Date:</strong> November 15, 2023</p>
-            <p><strong>Location:</strong> Tokyo, Japan</p>
-            <p>The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.</p>
-            <h3>Problems</h3>
-            <ul>
-                <li>Problem A: Balanced Tree</li>
-                <li>Problem B: Quantum Optimization</li>
-                <li>Problem C: Neural Network Analysis</li>
-            </ul>
-        `,
-        'wf2022': `
-            <p><strong>Date:</strong> November 16, 2022</p>
-            <p><strong>Location:</strong> Dhaka, Bangladesh</p>
-            <p>The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.</p>
-            <h3>Problems</h3>
-            <ul>
-                <li>Problem A: Graph Traversal</li>
-                <li>Problem B: Dynamic Programming</li>
-                <li>Problem C: Number Theory</li>
-            </ul>
-        `,
-        // Add more contest details as needed
-    };
-    
-    return contestDetails[contestId] || '<p>Contest details not available.</p>';
-}
-
-
 // Update status bar
 function updateStatusBar() {
-    const total = state.allContests.size;
+    const total = Object.keys(contestDatabase).length;
     const visible = state.visibleContests.size;
     const ratio = total > 0 ? (visible / total) : 0;
     
@@ -382,10 +365,23 @@ function updateStatusBar() {
         `${ratio * 100}%`;
 }
 
+// Render full tree
+function renderFullTree() {
+    calculateDirectoryStats(contestTree);
+    const treeContainer = document.getElementById('tree-container');
+    treeContainer.innerHTML = '';
+    renderTree(contestTree, treeContainer);
+}
+
+// Update UI
+function updateUI() {
+    renderFullTree();
+    renderVisibleContests();
+    updateStatusBar();
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    state.expandedNodes.add(contestData.id);
-    state.visibleContests.add('wf2023');
-    state.visibleContests.add('ap2023');
+    state.expandedNodes.add(contestTree.id);
     updateUI();
 });

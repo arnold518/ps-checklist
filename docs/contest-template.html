@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contest Template</title>
+    <style>
+        .contest-details {
+            font-family: Arial, sans-serif;
+            color: #202124;
+        }
+        .contest-title {
+            color: #4285f4;
+            margin-top: 0;
+        }
+        .contest-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        .contest-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+        }
+        .contest-meta-item i {
+            color: #5f6368;
+        }
+        .problem-list {
+            margin-top: 16px;
+        }
+        .problem-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f3f4;
+        }
+    </style>
+</head>
+<body>
+    <div class="contest-details">
+        <h2 class="contest-title" id="contest-title">Contest Title</h2>
+        <div class="contest-meta">
+            <div class="contest-meta-item">
+                <i>📅</i>
+                <span id="contest-date">Date</span>
+            </div>
+            <div class="contest-meta-item">
+                <i>📍</i>
+                <span id="contest-location">Location</span>
+            </div>
+        </div>
+        <p id="contest-description">Description will appear here</p>
+        
+        <div class="problem-list" id="problem-list">
+            <!-- Problems will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // This will be called from the parent window with contest data
+        function loadContestData(contestData) {
+            document.getElementById('contest-title').textContent = contestData.name;
+            document.getElementById('contest-date').textContent = contestData.date;
+            document.getElementById('contest-location').textContent = contestData.location;
+            document.getElementById('contest-description').textContent = contestData.description;
+            
+            const problemList = document.getElementById('problem-list');
+            problemList.innerHTML = '';
+            
+            if (contestData.problems && contestData.problems.length > 0) {
+                const heading = document.createElement('h3');
+                heading.textContent = 'Problems';
+                problemList.appendChild(heading);
+                
+                contestData.problems.forEach(problem => {
+                    const div = document.createElement('div');
+                    div.className = 'problem-item';
+                    div.innerHTML = `
+                        <strong>${problem.id}:</strong> ${problem.title}
+                        <div style="font-size: 13px; color: #5f6368;">
+                            Solved by: ${problem.solved} teams | Difficulty: ${problem.difficulty}/5
+                        </div>
+                    `;
+                    problemList.appendChild(div);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
