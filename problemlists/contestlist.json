@@ -61,5 +61,18 @@
         "qoj_url": "https://qoj.ac/contest/450",
         "statements_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
         "editorials_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea", "123" ],
+        "year": "123",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/korea/123/",
+        "official_url": "",
+        "standing_url": "",
+        "boj_url": "",
+        "cf_url": "",
+        "qoj_url": "",
+        "statements_url": "",
+        "editorials_url": ""
     }
 ]
