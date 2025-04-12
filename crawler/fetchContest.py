@@ -24,11 +24,11 @@ def parseJsonStr(jsonstr):
     return ret
 
 contestList = None
-with open('../problemlists/contest_list.json', 'r', encoding='utf-8') as f:
+with open('../problemlists/contestlist.json', 'r', encoding='utf-8') as f:
     contestList = json.load(f)
 
 if not isinstance(contestList, list):
-    print("Failed to load problemlists/contest_list.json")
+    print("Failed to load problemlists/contestlist.json")
     exit(0)
 
 contestCrawler = ContestCrawler()
@@ -57,6 +57,6 @@ for contest in contestList:
 
 contestCrawler.close()
 
-with open('../problemlists/contest_list.json', 'w', encoding='utf-8') as f:
+with open('../problemlists/contestlist.json', 'w', encoding='utf-8') as f:
     jsonstr = list(json.dumps(contestList, indent=4, ensure_ascii=False))
     f.write(parseJsonStr(jsonstr))
