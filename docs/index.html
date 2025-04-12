@@ -3,56 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contest Manager Pro</title>
+    <title>Contest Manager</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Horizontal Navigation Bar -->
     <header class="nav-header">
-        <nav class="nav-container">
-            <div class="nav-title">Contest Manager Pro</div>
+        <div class="nav-containter">
+            <div class="nav-title">Contest Manager</div>
             <ul class="nav-menu">
-                <li class="nav-item active" data-category="icpc">
-                    <span>ICPC</span>
-                </li>
-                <li class="nav-item" data-category="olympiad">
-                    <span>Olympiad</span>
-                </li>
-                <li class="nav-item" data-category="codeforces">
-                    <span>Codeforces</span>
-                </li>
-                <li class="nav-item" data-category="leetcode">
-                    <span>LeetCode</span>
-                </li>
+                <li class="nav-item active" data-category="icpc"><a href="#">ICPC</a></li>
+                <li class="nav-item" data-category="olympiad"><a href="#">Olympiad</a></li>
+                <li class="nav-item" data-category="codeforces"><a href="#">Codeforces</a></li>
+                <li class="nav-item" data-category="leetcode"><a href="#">LeetCode</a></li>
             </ul>
-        </nav>
-    </header>
-
-    <!-- Main Application Container -->
-    <div class="app-container">
-        <!-- Sidebar -->
-        <div id="sidebar">
-            <div class="sidebar-header">
-                <h2>Contest Tree</h2>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progress-fill"></div>
-                </div>
-            </div>
-            <div class="status-bar">
-                <span id="status-text">0 contests visible</span>
-                <span id="visibility-ratio">0/0</span>
-            </div>
-            <div class="tree-container" id="tree-container"></div>
         </div>
+    </header>
+    
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>Contest Tree</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </div>
+        <div class="status-bar">
+            <span id="status-text">0 contests visible</span>
+            <span id="visibility-ratio">0/0</span>
+        </div>
+        <div class="tree-container" id="tree-container"></div>
+    </div>
 
-        <!-- Main Content -->
-        <div id="main-content">
-            <div class="content-header">
-                <h2>Selected Contests</h2>
-            </div>
-            <div class="contest-container" id="contest-container">
-                <!-- Contest items will be inserted here -->
-            </div>
+    <div id="main-content">
+        <div class="content-header">
+            <h2>Selected Contests</h2>
+        </div>
+        <div class="contest-container" id="contest-container">
+            <!-- Contest items will be inserted here -->
         </div>
     </div>
 
