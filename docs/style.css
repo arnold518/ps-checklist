@@ -20,6 +20,8 @@ body {
     padding: 0;
     color: var(--text-color);
     background-color: var(--gray-light);
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* Navigation Header */
@@ -87,6 +89,7 @@ body {
 .app-container {
     display: flex;
     height: calc(100vh - 60px);
+    width: 100%;
 }
 
 #sidebar {
