@@ -1,175 +1,8 @@
 // Complete Contest Data
-const contestDatabase = {
-    icpc: {
-        'wf2023': {
-            name: '2023 World Finals',
-            date: 'November 15, 2023',
-            location: 'Tokyo, Japan',
-            description: 'The ACM-ICPC World Finals is the championship round of the International Collegiate Programming Contest.',
-            problems: [
-                { id: 'A', title: 'Balanced Tree', solved: 42, difficulty: 3, time: '2s', memory: '256MB' },
-                { id: 'B', title: 'Quantum Optimization', solved: 28, difficulty: 4, time: '3s', memory: '512MB' },
-                { id: 'C', title: 'Neural Network Analysis', solved: 15, difficulty: 5, time: '5s', memory: '1GB' }
-            ]
-        },
-        'wf2022': {
-            name: '2022 World Finals',
-            date: 'November 16, 2022',
-            location: 'Dhaka, Bangladesh',
-            description: 'The ACM-ICPC World Finals brings together the best programming teams from universities worldwide.',
-            problems: [
-                { id: 'A', title: 'Graph Traversal', solved: 56, difficulty: 2, time: '1s', memory: '256MB' },
-                { id: 'B', title: 'Dynamic Programming', solved: 34, difficulty: 3, time: '2s', memory: '512MB' }
-            ]
-        },
-        'ap2023': {
-            name: '2023 Asia Pacific',
-            date: 'June 10, 2023',
-            location: 'Sydney, Australia',
-            description: 'Asia Pacific Regional Contest featuring top universities from across the region.',
-            problems: [
-                { id: 'A', title: 'String Manipulation', solved: 85, difficulty: 2, time: '1s', memory: '256MB' },
-                { id: 'B', title: 'Graph Coloring', solved: 62, difficulty: 3, time: '2s', memory: '512MB' }
-            ]
-        }
-    },
-    olympiad: {
-        'ioi2023': {
-            name: '2023 IOI',
-            date: 'August 28, 2023',
-            location: 'Budapest, Hungary',
-            description: 'International Olympiad in Informatics',
-            problems: [
-                { id: 'Day1-A', title: 'Robot Race', solved: 120, difficulty: 4, time: '3s', memory: '512MB' },
-                { id: 'Day1-B', title: 'Data Structures', solved: 85, difficulty: 5, time: '5s', memory: '1GB' }
-            ]
-        },
-        'ioi2022': {
-            name: '2022 IOI',
-            date: 'August 10, 2022',
-            location: 'Yogyakarta, Indonesia',
-            description: 'International Olympiad in Informatics',
-            problems: [
-                { id: 'Day1-A', title: 'Circuit Design', solved: 110, difficulty: 3, time: '2s', memory: '512MB' }
-            ]
-        }
-    },
-    codeforces: {
-        'round881': {
-            name: 'Round #881',
-            date: 'June 15, 2023',
-            location: 'Virtual',
-            description: 'Codeforces Div. 2 Contest',
-            problems: [
-                { id: 'A', title: 'Array Balancing', solved: 4500, difficulty: 2, time: '1s', memory: '256MB' },
-                { id: 'B', title: 'Bit Flipping', solved: 3200, difficulty: 3, time: '2s', memory: '512MB' }
-            ]
-        },
-        'round880': {
-            name: 'Round #880',
-            date: 'June 8, 2023',
-            location: 'Virtual',
-            description: 'Codeforces Div. 2 Contest',
-            problems: [
-                { id: 'A', title: 'Destroyer', solved: 5000, difficulty: 1, time: '1s', memory: '256MB' }
-            ]
-        }
-    },
-    leetcode: {
-        'weekly300': {
-            name: 'Weekly 300',
-            date: 'July 1, 2023',
-            location: 'Virtual',
-            description: 'LeetCode Weekly Contest',
-            problems: [
-                { id: 'Q1', title: 'Decode Message', solved: 8500, difficulty: 1, time: '5ms', memory: '10MB' },
-                { id: 'Q2', title: 'Spiral Matrix IV', solved: 6500, difficulty: 2, time: '10ms', memory: '15MB' }
-            ]
-        },
-        'biweekly90': {
-            name: 'Biweekly 90',
-            date: 'June 24, 2023',
-            location: 'Virtual',
-            description: 'LeetCode Biweekly Contest',
-            problems: [
-                { id: 'Q1', title: 'Odd String Difference', solved: 7800, difficulty: 1, time: '5ms', memory: '10MB' }
-            ]
-        }
-    }
-};
+const contestDatabase = {};
 
 // Contest Tree Structures
-const contestTrees = {
-    icpc: {
-        id: "root",
-        name: "ICPC",
-        children: [
-            {
-                id: "world-finals",
-                name: "World Finals",
-                contests: [
-                    { id: "wf2023", name: "2023 World Finals" },
-                    { id: "wf2022", name: "2022 World Finals" }
-                ]
-            },
-            {
-                id: "regionals",
-                name: "Regionals",
-                children: [
-                    {
-                        id: "asia-pacific",
-                        name: "Asia Pacific",
-                        contests: [
-                            { id: "ap2023", name: "2023 Asia Pacific" }
-                        ]
-                    }
-                ]
-            }
-        ]
-    },
-    olympiad: {
-        id: "root",
-        name: "Olympiad",
-        children: [
-            {
-                id: "ioi",
-                name: "IOI",
-                contests: [
-                    { id: "ioi2023", name: "2023 IOI" },
-                    { id: "ioi2022", name: "2022 IOI" }
-                ]
-            }
-        ]
-    },
-    codeforces: {
-        id: "root",
-        name: "Codeforces",
-        children: [
-            {
-                id: "rounds",
-                name: "Rounds",
-                contests: [
-                    { id: "round881", name: "Round #881" },
-                    { id: "round880", name: "Round #880" }
-                ]
-            }
-        ]
-    },
-    leetcode: {
-        id: "root",
-        name: "LeetCode",
-        children: [
-            {
-                id: "contests",
-                name: "Contests",
-                contests: [
-                    { id: "weekly300", name: "Weekly 300" },
-                    { id: "biweekly90", name: "Biweekly 90" }
-                ]
-            }
-        ]
-    }
-};
+const contestTrees = {};
 
 // Application State
 const state = {
@@ -197,22 +30,100 @@ function initNavigation() {
     });
 }
 
+function contestNametoID(component) {
+    const str = String(component).trim().toLowerCase();
+    
+    // Extract text in parentheses if they exist
+    const parenMatch = str.match(/\(([^)]+)\)/);
+    const baseText = parenMatch ? parenMatch[1] : str;
+    
+    // Clean the resulting text
+    return baseText.replace(/\s+/g, '-')     // Spaces to hyphens
+                  .replace(/[^\w\-]/g, '');  // Remove special chars
+}
+
+function parseContestTree(data, myid) {
+    const tree = {};
+    tree.name = data[0];
+    if (myid !== '') {
+        myid += ' > ';
+    }
+    myid += contestNametoID(tree.name);
+    tree.id = myid;
+    for (let i = 1; i < data.length; i++) {
+        if (Array.isArray(data[i])) {
+            tree.children = tree.children || [];
+            const child = parseContestTree(data[i], myid);
+            tree.children.push(child);
+        }
+        else if (typeof data[i] === 'string') {
+            tree.contests = tree.contests || [];
+            const contest = {
+                id: data[i],
+                name: contestDatabase[data[i]].name
+            }
+            tree.contests.push(contest);
+        }
+    }
+    if(!tree.contests && !tree.children) tree.contests = [];
+    console.assert(tree.name && tree.id, 'Tree node must have a name and an ID');
+    console.assert((!tree.contests && tree.children) || (tree.contests && !tree.children), 'Tree node must have either contests or children, not both');
+    return tree;
+}
+
+function fetchContestListData() {
+    fetch('../problemlists/contestlist.json')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(contest => {
+                if ("id" in contest && contest.id !== null && contest.id !== '') {
+                    const contestId = contest["id"];
+                    const filepath = contest["filepath"];
+                    console.log('Fetching Contest ID:', contestId, 'Filepath:', filepath);
+                    
+                    fetch('../' + filepath + 'contest.json')
+                        .then(response => response.json())
+                        .then(data => {
+                            contestDatabase[contestId] = data;
+                        })
+                        .catch(error => console.error('Error fetching contest data:', error));
+                }
+            });
+        })
+}
+
+function fetchCateogryContestTreeData(category) {
+    fetch('../problemlists/' + category + '/contesttree.json')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            contestTrees[category] = parseContestTree(data, '');
+            console.log('Contest tree for category', category, 'loaded:', contestTrees[category]);
+            
+            initializeDataStructures(contestTrees[category]);
+            setDirectoryVisibility(contestTrees[category], true);
+            updateUI();
+        })
+        .catch(error => console.error('Error fetching category data:', error));
+}
+
 // Load Category Data
 function loadCategory(category) {
     state.currentCategory = category;
-    state.expandedNodes = new Set(['root']);
+    state.expandedNodes = new Set();
     state.visibleContests = new Set();
     state.allContests = new Map();
     state.directoryStats = new Map();
     
-    initializeDataStructures(contestTrees[category]);
-    updateUI();
+    fetchCateogryContestTreeData(category);
 }
 
 // Initialize Data Structures
 function initializeDataStructures(node) {
+    // state.expandedNodes.add(node.id);
     if (node.contests) {
         node.contests.forEach(contest => {
+            // state.expandedNodes.add(contest.id);
             state.allContests.set(contest.id, contest);
         });
         state.directoryStats.set(node.id, {
@@ -256,7 +167,7 @@ function calculateDirectoryStats(node) {
 // Get Visibility Color
 function getVisibilityColor(visible, total) {
     if (total === 0) return 'var(--gray-dark)';
-    const ratio = visible / total;
+    const ratio = (total === 0 ? 0 : visible / total);
     const lightness = 70 - Math.round(ratio * 40);
     return `hsl(0, 0%, ${Math.max(30, lightness)}%)`;
 }
@@ -452,7 +363,7 @@ function renderVisibleContests() {
 
 // Update Status Bar
 function updateStatusBar() {
-    const total = Object.keys(contestDatabase[state.currentCategory]).length;
+    const total = state.allContests.size;
     const visible = state.visibleContests.size;
     const ratio = total > 0 ? (visible / total) : 0;
     
@@ -476,8 +387,35 @@ function updateUI() {
     updateStatusBar();
 }
 
+function setupResizableSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const resizeHandle = sidebar.querySelector('.resize-handle');
+    
+    let isResizing = false;
+    
+    resizeHandle.addEventListener('mousedown', (e) => {
+      isResizing = true;
+      document.body.style.cursor = 'col-resize';
+      e.preventDefault(); // Prevent text selection
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+      if (!isResizing) return;
+      
+      const newWidth = e.clientX - sidebar.getBoundingClientRect().left;
+      sidebar.style.width = `${newWidth}px`;
+    });
+    
+    document.addEventListener('mouseup', () => {
+      isResizing = false;
+      document.body.style.cursor = '';
+    });
+}
+
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
+    setupResizableSidebar();
+    fetchContestListData();
     initNavigation();
     loadCategory('icpc');
 });

@@ -113,7 +113,27 @@ body {
     flex-direction: column;
     overflow: hidden;
     flex-shrink: 0;
+    position: relative; /* Required for resize handle positioning */
+    min-width: 200px; /* Minimum width */
+    max-width: 50vw; /* Maximum width */
 }
+
+.resize-handle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 8px;
+    background: transparent;
+    cursor: col-resize;
+    z-index: 10;
+  }
+  
+  .resize-handle:hover,
+  .resize-handle:active {
+    background: var(--primary-color);
+    opacity: 0.2;
+  }
 
 .sidebar-header {
     padding: 16px;
