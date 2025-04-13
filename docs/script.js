@@ -72,7 +72,7 @@ function parseContestTree(data, myid) {
 }
 
 function fetchContestListData() {
-    fetch('../problemlists/contestlist.json')
+    fetch('./problemlists/contestlist.json')
         .then(response => response.json())
         .then(data => {
             data.forEach(contest => {
@@ -81,7 +81,7 @@ function fetchContestListData() {
                     const filepath = contest["filepath"];
                     console.log('Fetching Contest ID:', contestId, 'Filepath:', filepath);
                     
-                    fetch('../' + filepath + 'contest.json')
+                    fetch('./' + filepath + 'contest.json')
                         .then(response => response.json())
                         .then(data => {
                             contestDatabase[contestId] = data;
@@ -93,7 +93,7 @@ function fetchContestListData() {
 }
 
 function fetchCateogryContestTreeData(category) {
-    fetch('../problemlists/' + category + '/contesttree.json')
+    fetch('./problemlists/' + category + '/contesttree.json')
         .then(response => response.json())
         .then(data => {
             console.log(data);
