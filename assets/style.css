@@ -310,7 +310,7 @@ body {
     padding: 16px;
 }
 
-.contest-meta {
+/* .contest-meta {
     display: flex;
     gap: 16px;
     margin-bottom: 12px;
@@ -340,4 +340,124 @@ body {
     gap: 12px;
     font-size: 14px;
     color: var(--gray-dark);
-}
+} */
+
+
+
+/* Table container - centered */
+.table-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow-x: auto;
+    padding: 1rem 0;
+  }
+  
+  /* Table styling */
+  .contest-table {
+    border-collapse: collapse;
+    margin: 0 auto; /* Center table horizontally */
+    font-family: Arial, sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    table-layout: fixed; /* Ensures consistent column widths */
+  }
+  
+  /* Table headers */
+  .contest-table thead th {
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+  }
+  
+  /* Contest year header */
+  .contest-table thead th:first-child {
+    width: 80px; /* Fixed width for year column */
+  }
+  
+  /* Problem cells header */
+  .contest-table thead th:nth-child(2) {
+    text-align: center;
+  }
+  
+  /* Table body */
+  .contest-table tbody tr {
+    transition: background-color 0.2s ease;
+  }
+  
+  /* Table cells - consistent width and centered */
+  .contest-table td {
+    padding: 10px 12px;
+    border: 1px solid #dee2e6;
+    text-align: center;
+    vertical-align: middle;
+    width: 120px; /* Fixed width for problem cells */
+    max-width: 120px;
+    min-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Contest year cell */
+  .contest-table td:first-child {
+    font-weight: bold;
+    color: #2980b9;
+    background-color: #f8f9fa;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    width: 80px; /* Match header width */
+    min-width: 80px;
+    max-width: 80px;
+  }
+  
+  /* Problem cells */
+  .contest-table td[data-problem-id] {
+    color: #34495e;
+    transition: all 0.2s ease;
+  }
+  
+  /* Hover effects */
+  .contest-table tr:hover {
+    background-color: #f1f8fe;
+  }
+  
+  .contest-table td[data-contest-id]:hover,
+  .contest-table td[data-problem-id]:hover {
+    background-color: #d6eaf8;
+    transform: scale(1.02);
+  }
+  
+  /* Active cell effect */
+  .contest-table td:active {
+    transform: scale(0.98);
+    background-color: #aed6f1;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .table-container {
+      justify-content: flex-start;
+    }
+    
+    .contest-table {
+      font-size: 0.9rem;
+    }
+    
+    .contest-table td {
+      padding: 8px 10px;
+      width: 100px;
+      min-width: 100px;
+      max-width: 100px;
+    }
+    
+    .contest-table td:first-child {
+      width: 60px;
+      min-width: 60px;
+      max-width: 60px;
+    }
+  }

@@ -60,7 +60,7 @@ function parseContestTree(data, myid) {
             tree.contests = tree.contests || [];
             const contest = {
                 id: data[i],
-                name: contestDatabase[data[i]].name
+                data: contestDatabase[data[i]]
             }
             tree.contests.push(contest);
         }
@@ -71,25 +71,39 @@ function parseContestTree(data, myid) {
     return tree;
 }
 
-function fetchContestListData() {
-    fetch('./problemlists/contestlist.json')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(contest => {
-                if ("id" in contest && contest.id !== null && contest.id !== '') {
-                    const contestId = contest["id"];
-                    const filepath = contest["filepath"];
-                    console.log('Fetching Contest ID:', contestId, 'Filepath:', filepath);
-                    
-                    fetch('./' + filepath + 'contest.json')
-                        .then(response => response.json())
-                        .then(data => {
-                            contestDatabase[contestId] = data;
-                        })
-                        .catch(error => console.error('Error fetching contest data:', error));
+async function fetchContestListData() {
+    try {
+        // First fetch the contest list
+        const response = await fetch('./problemlists/contestlist.json');
+        const contests = await response.json();
+        
+        // Create an array of promises for each contest fetch
+        const fetchPromises = contests
+            .filter(contest => "id" in contest && contest.id !== null && contest.id !== '')
+            .map(async contest => {
+                const contestId = contest["id"];
+                const filepath = contest["filepath"];
+                console.log('Fetching Contest ID:', contestId, 'Filepath:', filepath);
+                
+                try {
+                    const contestResponse = await fetch('./' + filepath + 'contest.json');
+                    const contestData = await contestResponse.json();
+                    contestDatabase[contestId] = contestData;
+                    console.log('Contest data loaded:', contestId, contestData);
+                    return contestId; // Return something to indicate success
+                } catch (error) {
+                    console.error(`Error fetching contest ${contestId}:`, error);
+                    throw error; // Re-throw to catch in outer try/catch
                 }
             });
-        })
+        
+        // Wait for all contest fetches to complete
+        await Promise.all(fetchPromises);
+        console.log('All contest data loaded successfully');
+    } catch (error) {
+        console.error('Error in fetchContestListData:', error);
+        throw error; // Re-throw if you want calling code to handle it
+    }
 }
 
 function fetchCateogryContestTreeData(category) {
@@ -254,7 +268,7 @@ function renderContestLeaf(contest, parentElement, color) {
     
     const element = document.createElement('span');
     element.style.color = color;
-    element.textContent = contest.name;
+    element.textContent = contest.data.year;
     
     contestElement.innerHTML = `
         <span class="visibility-icon">${isVisible ? '✓' : '✗'}</span>
@@ -310,8 +324,130 @@ function toggleContestVisibility(contestId) {
     updateUI();
 }
 
+function getMaxProblems(contests) {
+    let max = 0;
+    contests.forEach(contest => {
+        if (state.visibleContests.has(contest.id)) {
+            max = Math.max(max, contest.data.problems.length);
+        }
+    });
+    return max;
+}
+
+function handleContestClick(contestCell) {
+    const contestId = contestCell.dataset.contestId;
+    
+    console.log(`Clicked Contest => Contest ID: ${contestId}`);
+}
+
+function handleProblemClick(problemCell) {
+    const contestId = problemCell.dataset.contestId;
+    const problemId = problemCell.dataset.problemId;
+
+    console.log(`Clicked Problem => Contest ID: ${contestId}, Problem ID: ${problemId}`);
+}
+
+function renderVisibleContests(node, container) {
+    const stats = state.directoryStats.get(node.id);
+    if (stats && stats.visible === 0) {
+        return; // No visible contests in this directory
+    }
+
+    if (node.children) {
+        node.children.forEach(child => {
+            renderVisibleContests(child, container);
+        });
+    }
+
+    if (node.contests) {
+        console.log('Rendering visible contests:', node.contests);
+
+        const item = document.createElement('div');
+        item.className = 'contest-item';
+
+        const header = document.createElement('div');
+        header.className = 'contest-header';
+
+        const title = document.createElement('div');
+        title.className = 'contest-title';
+        title.textContent = `${node.contests[0].data.category.join(' > ')}`;        
+        
+        const closeBtn = document.createElement('button');
+        closeBtn.className = 'close-contest';
+        closeBtn.textContent = '×';
+        closeBtn.addEventListener('click', () => {
+            setDirectoryVisibility(node, false);
+        });
+
+        header.appendChild(title);
+        header.appendChild(closeBtn);
+
+        const content = document.createElement('div');
+        content.className = 'contest-content';
+        
+        // TODO
+
+        const table = document.createElement('table');
+        table.className = 'contest-table';
+
+        // Create header
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        
+        const contestHeader = document.createElement('th');
+        contestHeader.textContent = 'Year';
+        headerRow.appendChild(contestHeader);
+        
+        const problemsHeader = document.createElement('th');
+        problemsHeader.textContent = 'Problems';
+        problemsHeader.colSpan = getMaxProblems(node.contests);
+        headerRow.appendChild(problemsHeader);
+        
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Create body
+        const tbody = document.createElement('tbody');
+        node.contests.forEach(contest => {
+            const row = document.createElement('tr');
+
+            // Contest cell
+            const contestCell = document.createElement('td');
+            contestCell.textContent = `${contest.data.year}`;
+            contestCell.dataset.contestId = contest.id;
+            contestCell.addEventListener('click', () => handleContestClick(contestCell));
+            contestCell.style.cursor = 'pointer';
+            row.appendChild(contestCell);
+
+            // Problem cells
+            contest.data.problems.forEach(problem => {
+                const problemCell = document.createElement('td');
+                problemCell.dataset.problemId = problem.id;
+                problemCell.dataset.contestId = contest.id;
+                problemCell.textContent = `${problem.id}. ${problem.title}`;
+                problemCell.addEventListener('click', () => handleProblemClick(problemCell));
+                problemCell.style.cursor = 'pointer';
+                row.appendChild(problemCell);
+            });
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+        content.appendChild(table);
+
+        item.appendChild(header);
+        item.appendChild(content);
+
+        item.querySelector('.close-contest').addEventListener('click', () => {
+            toggleContestVisibility(contestId);
+        });
+        
+        container.appendChild(item);
+    }
+}
+
 // Render Visible Contests
-function renderVisibleContests() {
+function renderFullVisibleContests() {
     const container = document.getElementById('contest-container');
     container.innerHTML = '';
     
@@ -320,45 +456,7 @@ function renderVisibleContests() {
         return;
     }
     
-    state.visibleContests.forEach(contestId => {
-        const contest = contestDatabase[state.currentCategory][contestId];
-        if (contest) {
-            const item = document.createElement('div');
-            item.className = 'contest-item';
-            item.innerHTML = `
-                <div class="contest-header">
-                    <div class="contest-title">${contest.name}</div>
-                    <button class="close-contest">×</button>
-                </div>
-                <div class="contest-content">
-                    <div class="contest-meta">
-                        <span>📅 ${contest.date}</span>
-                        <span>📍 ${contest.location}</span>
-                    </div>
-                    <p>${contest.description}</p>
-                    <div class="problem-list">
-                        ${contest.problems.map(problem => `
-                            <div class="problem-item">
-                                <div class="problem-title">${problem.id}: ${problem.title}</div>
-                                <div class="problem-meta">
-                                    <span>Solved: ${problem.solved}</span>
-                                    <span>Difficulty: ${'★'.repeat(problem.difficulty)}</span>
-                                    <span>Time: ${problem.time}</span>
-                                    <span>Memory: ${problem.memory}</span>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-            
-            item.querySelector('.close-contest').addEventListener('click', () => {
-                toggleContestVisibility(contestId);
-            });
-            
-            container.appendChild(item);
-        }
-    });
+    renderVisibleContests(contestTrees[state.currentCategory], container);
 }
 
 // Update Status Bar
@@ -383,7 +481,7 @@ function renderFullTree() {
 // Update UI
 function updateUI() {
     renderFullTree();
-    renderVisibleContests();
+    renderFullVisibleContests();
     updateStatusBar();
 }
 
@@ -413,9 +511,9 @@ function setupResizableSidebar() {
 }
 
 // Initialize Application
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchContestListData();
     setupResizableSidebar();
-    fetchContestListData();
     initNavigation();
     loadCategory('icpc');
 });
