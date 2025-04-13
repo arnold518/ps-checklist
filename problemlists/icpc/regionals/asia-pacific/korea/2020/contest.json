@@ -1,0 +1,111 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-13 12:42:37.025329",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Korea"
+    ],
+    "year": "2020",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
+    "link": {
+        "statements": "https://raw.githubusercontent.com/arnold518/ps-checklist/data/problemlists/icpc/regionals/asia-pacific/korea/2020/statements.pdf",
+        "editorials": "https://koosaga.com/263",
+        "official": "https://icpckorea.org/2020-seoul/regional",
+        "standing": "http://static.icpckorea.net/2020/scoreboard_terpin/",
+        "BOJ": "https://www.acmicpc.net/category/detail/2339",
+        "CF": "https://codeforces.com/gym/102920",
+        "QOJ": "https://qoj.ac/contest/450"
+    },
+    "name": "Asia Regional - Seoul 2020",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Autonomous Vehicle",
+            "BOJ": "https://www.acmicpc.net/problem/20169",
+            "CF": "https://codeforces.com/gym/102920/problem/A",
+            "QOJ": "https://qoj.ac/contest/450/problem/2522"
+        },
+        {
+            "id": "B",
+            "title": "Commemorative Dice",
+            "BOJ": "https://www.acmicpc.net/problem/20170",
+            "CF": "https://codeforces.com/gym/102920/problem/B",
+            "QOJ": "https://qoj.ac/contest/450/problem/2523"
+        },
+        {
+            "id": "C",
+            "title": "Dessert Café",
+            "BOJ": "https://www.acmicpc.net/problem/20171",
+            "CF": "https://codeforces.com/gym/102920/problem/C",
+            "QOJ": "https://qoj.ac/contest/450/problem/2524"
+        },
+        {
+            "id": "D",
+            "title": "Electric Vehicle",
+            "BOJ": "https://www.acmicpc.net/problem/20172",
+            "CF": "https://codeforces.com/gym/102920/problem/D",
+            "QOJ": "https://qoj.ac/contest/450/problem/2525"
+        },
+        {
+            "id": "E",
+            "title": "Imprecise Computer",
+            "BOJ": "https://www.acmicpc.net/problem/20173",
+            "CF": "https://codeforces.com/gym/102920/problem/E",
+            "QOJ": "https://qoj.ac/contest/450/problem/2526"
+        },
+        {
+            "id": "F",
+            "title": "Ink Mix",
+            "BOJ": "https://www.acmicpc.net/problem/20174",
+            "CF": "https://codeforces.com/gym/102920/problem/F",
+            "QOJ": "https://qoj.ac/contest/450/problem/2527"
+        },
+        {
+            "id": "G",
+            "title": "Mobile Robot",
+            "BOJ": "https://www.acmicpc.net/problem/20175",
+            "CF": "https://codeforces.com/gym/102920/problem/G",
+            "QOJ": "https://qoj.ac/contest/450/problem/2528"
+        },
+        {
+            "id": "H",
+            "title": "Needle",
+            "BOJ": "https://www.acmicpc.net/problem/20176",
+            "CF": "https://codeforces.com/gym/102920/problem/H",
+            "QOJ": "https://qoj.ac/contest/450/problem/2529"
+        },
+        {
+            "id": "I",
+            "title": "Stock Analysis",
+            "BOJ": "https://www.acmicpc.net/problem/20177",
+            "CF": "https://codeforces.com/gym/102920/problem/I",
+            "QOJ": "https://qoj.ac/contest/450/problem/2530"
+        },
+        {
+            "id": "J",
+            "title": "Switches",
+            "BOJ": "https://www.acmicpc.net/problem/20178",
+            "CF": "https://codeforces.com/gym/102920/problem/J",
+            "QOJ": "https://qoj.ac/contest/450/problem/2531"
+        },
+        {
+            "id": "K",
+            "title": "Tiling Polyomino",
+            "BOJ": "https://www.acmicpc.net/problem/20179",
+            "CF": "https://codeforces.com/gym/102920/problem/K",
+            "QOJ": "https://qoj.ac/contest/450/problem/2532"
+        },
+        {
+            "id": "L",
+            "title": "Two Buildings",
+            "BOJ": "https://www.acmicpc.net/problem/20180",
+            "CF": "https://codeforces.com/gym/102920/problem/L",
+            "QOJ": "https://qoj.ac/contest/450/problem/2533"
+        }
+    ],
+    "crawled_data": {
+        "cf-20202021-acmicpc-asia-seoul-regional-contest-en.pdf": "https://codeforces.com/gym/102920/attachments/download/12834/20202021-acmicpc-asia-seoul-regional-contest-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=450&r=0"
+    }
+}
