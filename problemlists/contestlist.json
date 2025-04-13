@@ -14,7 +14,7 @@
     },
     {
         "id": null,
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea", "2020" ],
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea" ],
         "year": "2020",
         "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
         "official_url": "https://icpckorea.org/2020-seoul/regional",
