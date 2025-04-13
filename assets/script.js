@@ -516,4 +516,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupResizableSidebar();
     initNavigation();
     loadCategory('icpc');
-});
+}); 
