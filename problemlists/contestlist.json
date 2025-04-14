@@ -63,5 +63,18 @@
         "qoj_url": "https://qoj.ac/contest/1886",
         "statements_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
         "editorials_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2024",
+        "filepath": "problemlists/icpc/world-finals/2024/",
+        "official_url": "",
+        "standing_url": "",
+        "boj_url": "",
+        "cf_url": "",
+        "qoj_url": "",
+        "statements_url": "",
+        "editorials_url": ""
     }
 ]
