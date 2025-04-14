@@ -37,5 +37,18 @@
         "qoj_url": "https://qoj.ac/contest/792",
         "statements_url": "http://static.icpckorea.net/20211113/problems.pdf",
         "editorials_url": "https://qoj.ac/download.php?type=attachments&id=792&r=2"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea", "2021" ],
+        "year": "2021",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/",
+        "official_url": "https://icpckorea.org/2021-seoul/regional",
+        "standing_url": "http://static.icpckorea.net/2021/scoreboard_regional/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2859",
+        "cf_url": "",
+        "qoj_url": "https://qoj.ac/contest/792",
+        "statements_url": "http://static.icpckorea.net/20211113/problems.pdf",
+        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=792&r=2"
     }
 ]
