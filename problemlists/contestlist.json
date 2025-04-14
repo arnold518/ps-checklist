@@ -50,5 +50,18 @@
         "qoj_url": "https://qoj.ac/contest/792",
         "statements_url": "http://static.icpckorea.net/20211113/problems.pdf",
         "editorials_url": "https://qoj.ac/download.php?type=attachments&id=792&r=2"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Asia Pacific Championship", "2024" ],
+        "year": "2024",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/",
+        "official_url": "https://icpc.iisf.or.jp/asia-pacific/asia-pacific-championship-2024/",
+        "standing_url": "https://icpc.iisf.or.jp/past-icpc/championship2024/standings.html",
+        "boj_url": "https://www.acmicpc.net/category/detail/4173",
+        "cf_url": "https://codeforces.com/contest/1938",
+        "qoj_url": "https://qoj.ac/contest/1886",
+        "statements_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
+        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
     }
 ]
