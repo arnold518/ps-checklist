@@ -92,8 +92,8 @@ class JSONHandler:
             current[keys[-1]] = value
             return True
         elif current[keys[-1]] != value :
-            if overwrite: current[keys[-1]] = value
             print(f"\nUpdate contest value to different data, old: {current[keys[-1]]}, new: {value}, overwrite: {overwrite}")
+            if overwrite: current[keys[-1]] = value
             return False
         else: return True
 
@@ -146,8 +146,8 @@ class JSONHandler:
             current[keys[-1]] = value
             return True
         elif current[keys[-1]] != value :
-            if overwrite: current[keys[-1]] = value
             print(f"Update problem value to different data, old: {current[keys[-1]]}, new: {value}, overwrite: {overwrite}")
+            if overwrite: current[keys[-1]] = value
             return False
         else: return True
 

@@ -13,47 +13,33 @@
         "editorials_url": ""
     },
     {
-        "id": "ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-13 12:42:37.025329",
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Korea" ],
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2020 > 2025-04-15 20:05:58.671941",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2020",
-        "filepath": "problemlists/icpc/regionals/asia-pacific/korea/2020/",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2020/",
         "official_url": "https://icpckorea.org/2020-seoul/regional",
         "standing_url": "http://static.icpckorea.net/2020/scoreboard_terpin/",
         "boj_url": "https://www.acmicpc.net/category/detail/2339",
         "cf_url": "https://codeforces.com/gym/102920",
         "qoj_url": "https://qoj.ac/contest/450",
-        "statements_url": "https://raw.githubusercontent.com/arnold518/ps-checklist/data/problemlists/icpc/regionals/asia-pacific/korea/2020/statements.pdf",
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2020/statements.pdf",
         "editorials_url": "https://koosaga.com/263"
     },
     {
-        "id": null,
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea", "2021" ],
-        "year": "2021",
-        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/",
-        "official_url": "",
-        "standing_url": "https://icpckorea.org/2021-seoul/regional",
-        "boj_url": "https://www.acmicpc.net/category/detail/2859",
-        "cf_url": "",
-        "qoj_url": "https://qoj.ac/contest/792",
-        "statements_url": "http://static.icpckorea.net/20211113/problems.pdf",
-        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=792&r=2"
-    },
-    {
-        "id": null,
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea", "2021" ],
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2021 > 2025-04-15 20:06:19.367286",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2021",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/",
         "official_url": "https://icpckorea.org/2021-seoul/regional",
         "standing_url": "http://static.icpckorea.net/2021/scoreboard_regional/",
         "boj_url": "https://www.acmicpc.net/category/detail/2859",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/792",
-        "statements_url": "http://static.icpckorea.net/20211113/problems.pdf",
-        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=792&r=2"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/editorials.pdf"
     },
     {
-        "id": null,
-        "category": [ "ICPC", "Regionals", "Asia Pacific", "Asia Pacific Championship", "2024" ],
+        "id": "ICPC > Regionals > Asia Pacific > Asia Pacific Championship > 2024 > 2025-04-15 20:06:34.458536",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Asia Pacific Championship" ],
         "year": "2024",
         "filepath": "problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/",
         "official_url": "https://icpc.iisf.or.jp/asia-pacific/asia-pacific-championship-2024/",
@@ -61,20 +47,7 @@
         "boj_url": "https://www.acmicpc.net/category/detail/4173",
         "cf_url": "https://codeforces.com/contest/1938",
         "qoj_url": "https://qoj.ac/contest/1886",
-        "statements_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
-        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
-    },
-    {
-        "id": null,
-        "category": [ "ICPC", "World Finals" ],
-        "year": "2024",
-        "filepath": "problemlists/icpc/world-finals/2024/",
-        "official_url": "",
-        "standing_url": "",
-        "boj_url": "",
-        "cf_url": "",
-        "qoj_url": "",
-        "statements_url": "",
-        "editorials_url": ""
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/editorials.pdf"
     }
 ]

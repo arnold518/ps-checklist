@@ -1,0 +1,120 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Asia Pacific Championship > 2024 > 2025-04-15 20:06:34.458536",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Asia Pacific Championship"
+    ],
+    "year": "2024",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/editorials.pdf",
+        "official": "https://icpc.iisf.or.jp/asia-pacific/asia-pacific-championship-2024/",
+        "standing": "https://icpc.iisf.or.jp/past-icpc/championship2024/standings.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/4173",
+        "CF": "https://codeforces.com/contest/1938",
+        "QOJ": "https://qoj.ac/contest/1886"
+    },
+    "name": "The 2024 ICPC Asia Pacific Championship",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Antiparticle Antiphysics",
+            "BOJ": "https://www.acmicpc.net/problem/31593",
+            "CF": "https://codeforces.com/contest/1938/problem/A",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10153"
+        },
+        {
+            "id": "B",
+            "title": "Attraction Score",
+            "BOJ": "https://www.acmicpc.net/problem/31594",
+            "CF": "https://codeforces.com/contest/1938/problem/B",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10154"
+        },
+        {
+            "id": "C",
+            "title": "Bit Counting Sequence",
+            "BOJ": "https://www.acmicpc.net/problem/31595",
+            "CF": "https://codeforces.com/contest/1938/problem/C",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10155"
+        },
+        {
+            "id": "D",
+            "title": "Bánh Bò",
+            "BOJ": "https://www.acmicpc.net/problem/31596",
+            "CF": "https://codeforces.com/contest/1938/problem/D",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10156"
+        },
+        {
+            "id": "E",
+            "title": "Duplicates",
+            "BOJ": "https://www.acmicpc.net/problem/31597",
+            "CF": "https://codeforces.com/contest/1938/problem/E",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10157"
+        },
+        {
+            "id": "F",
+            "title": "Forming Groups",
+            "BOJ": "https://www.acmicpc.net/problem/31598",
+            "CF": "https://codeforces.com/contest/1938/problem/F",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10158"
+        },
+        {
+            "id": "G",
+            "title": "Personality Test",
+            "BOJ": "https://www.acmicpc.net/problem/31599",
+            "CF": "https://codeforces.com/contest/1938/problem/G",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10159"
+        },
+        {
+            "id": "H",
+            "title": "Pho Restaurant",
+            "BOJ": "https://www.acmicpc.net/problem/31600",
+            "CF": "https://codeforces.com/contest/1938/problem/H",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10160"
+        },
+        {
+            "id": "I",
+            "title": "Symmetric Boundary",
+            "BOJ": "https://www.acmicpc.net/problem/31601",
+            "CF": "https://codeforces.com/contest/1938/problem/I",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10161"
+        },
+        {
+            "id": "J",
+            "title": "There and Back Again",
+            "BOJ": "https://www.acmicpc.net/problem/31602",
+            "CF": "https://codeforces.com/contest/1938/problem/J",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10162"
+        },
+        {
+            "id": "K",
+            "title": "Tree Quiz",
+            "BOJ": "https://www.acmicpc.net/problem/31603",
+            "CF": "https://codeforces.com/contest/1938/problem/K",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10163"
+        },
+        {
+            "id": "L",
+            "title": "XOR Operations",
+            "BOJ": "https://www.acmicpc.net/problem/31604",
+            "CF": "https://codeforces.com/contest/1938/problem/L",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10164"
+        },
+        {
+            "id": "M",
+            "title": "Zig-zag",
+            "BOJ": "https://www.acmicpc.net/problem/31605",
+            "CF": "https://codeforces.com/contest/1938/problem/M",
+            "QOJ": "https://qoj.ac/contest/1886/problem/10165"
+        }
+    ],
+    "crawled_data": {
+        "cf-combined.pdf": "https://codeforces.com/contest/1938/attachments/download/24400/combined.pdf",
+        "cf-task-analysis.pdf": "https://codeforces.com/contest/1938/attachments/download/24404/task-analysis.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
+    }
+}

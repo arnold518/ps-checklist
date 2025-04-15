@@ -1,0 +1,100 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2021 > 2025-04-15 20:06:19.367286",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Korea"
+    ],
+    "year": "2021",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/editorials.pdf",
+        "official": "https://icpckorea.org/2021-seoul/regional",
+        "standing": "http://static.icpckorea.net/2021/scoreboard_regional/",
+        "BOJ": "https://www.acmicpc.net/category/detail/2859",
+        "QOJ": "https://qoj.ac/contest/792"
+    },
+    "name": "2021-2022 ICPC Asia Pacific - Seoul Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Ant Colonies",
+            "BOJ": "https://www.acmicpc.net/problem/23566",
+            "QOJ": "https://qoj.ac/contest/792/problem/1954"
+        },
+        {
+            "id": "B",
+            "title": "Double Rainbow",
+            "BOJ": "https://www.acmicpc.net/problem/23567",
+            "QOJ": "https://qoj.ac/contest/792/problem/1955"
+        },
+        {
+            "id": "C",
+            "title": "Find the House",
+            "BOJ": "https://www.acmicpc.net/problem/23568",
+            "QOJ": "https://qoj.ac/contest/792/problem/1956"
+        },
+        {
+            "id": "D",
+            "title": "Friendship Graphs",
+            "BOJ": "https://www.acmicpc.net/problem/23569",
+            "QOJ": "https://qoj.ac/contest/792/problem/1957"
+        },
+        {
+            "id": "E",
+            "title": "Grid Triangle",
+            "BOJ": "https://www.acmicpc.net/problem/23570",
+            "QOJ": "https://qoj.ac/contest/792/problem/1958"
+        },
+        {
+            "id": "F",
+            "title": "John’s Gift",
+            "BOJ": "https://www.acmicpc.net/problem/23571",
+            "QOJ": "https://qoj.ac/contest/792/problem/1959"
+        },
+        {
+            "id": "G",
+            "title": "Logistical Warehouse 2",
+            "BOJ": "https://www.acmicpc.net/problem/23572",
+            "QOJ": "https://qoj.ac/contest/792/problem/1960"
+        },
+        {
+            "id": "H",
+            "title": "Postman",
+            "BOJ": "https://www.acmicpc.net/problem/23573",
+            "QOJ": "https://qoj.ac/contest/792/problem/1961"
+        },
+        {
+            "id": "I",
+            "title": "Security System",
+            "BOJ": "https://www.acmicpc.net/problem/23574",
+            "QOJ": "https://qoj.ac/contest/792/problem/1962"
+        },
+        {
+            "id": "J",
+            "title": "Squid Game",
+            "BOJ": "https://www.acmicpc.net/problem/23575",
+            "QOJ": "https://qoj.ac/contest/792/problem/1963"
+        },
+        {
+            "id": "K",
+            "title": "Stock Price Prediction",
+            "BOJ": "https://www.acmicpc.net/problem/23576",
+            "QOJ": "https://qoj.ac/contest/792/problem/1964"
+        },
+        {
+            "id": "L",
+            "title": "Trio",
+            "BOJ": "https://www.acmicpc.net/problem/23577",
+            "QOJ": "https://qoj.ac/contest/792/problem/1965"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=792&r=0",
+        "qoj-Statements-(en)-(MW).pdf": "https://qoj.ac/download.php?type=attachments&id=792&r=1",
+        "qoj-Tutorial-(en)-(by-Maksim-Gorokhovskii-and-Ramazan-Rakhmatullin).pdf": "https://qoj.ac/download.php?type=attachments&id=792&r=2"
+    }
+}

@@ -73,7 +73,7 @@ class BOJCrawler:
                 # Extract data from each cell
                 problem = {
                     'number': cells[0].get_text(strip=True),
-                    'letter': ('' if len(tables)==1 else str(tidx+1)+'.') + cells[1].get_text(strip=True),
+                    'letter': ('' if len(tableidx)==1 else str(tidx+1)+'.') + cells[1].get_text(strip=True),
                     'title': cells[2].get_text(strip=True),
                     'link': urljoin(base_url, cells[2].find('a')['href']),
                     # 'tags': ', '.join([tag.get_text(strip=True) for tag in cells[3].find_all('span', class_='problem-label')]),
@@ -146,8 +146,7 @@ class BOJCrawler:
         
         return self.category_name, self.problems, self.pdf_set
 
-# # Example category URL (can be changed to any BOJ category)
-# CATEGORY_URL = "https://www.acmicpc.net/category/detail/4348"
 
-# # Run the crawler
-# problems_data = crawl_boj_category(CATEGORY_URL)
+# bojCrawler = BOJCrawler()
+# crawl_boj_category = bojCrawler.crawl_boj_category("https://www.acmicpc.net/category/detail/2339", "./test/")
+# crawl_boj_category = bojCrawler.crawl_boj_category("https://www.acmicpc.net/category/detail/2859", "./test/")
