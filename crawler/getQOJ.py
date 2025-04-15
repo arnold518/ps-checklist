@@ -6,6 +6,7 @@ import re
 import hashlib
 from urllib.parse import urljoin
 from pathlib import Path
+import getPDF
 
 class QOJCrawler:
     def __init__(self, username, password):
@@ -120,6 +121,9 @@ class QOJCrawler:
                 
                 # Download the file
                 try:
+                    if not getPDF.is_pdf_file(pdf_url):
+                        print(f"Skipping non-PDF link: {pdf_url}")
+                        continue
                     response = requests.get(pdf_url, stream=True)
                     response.raise_for_status()  # Check for HTTP errors
                     

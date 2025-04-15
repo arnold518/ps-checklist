@@ -3,78 +3,92 @@
 
     ]
     ,["Regionals"
-        ,["Asia Pacific Championship"
-
-        ]
         ,["Asia Pacific"
-            ,["Korea"
-                ,"ICPC > Regionals > Asia Pacific > Korea > 2020 > 2025-04-13 12:42:37.025329"
-            ]
-            ,["Japan"
+            ,["Asia Pacific Championship"
 
             ]
-            ,["Indonesia (Jakarta)"
+            ,["Regionals"
+                ,["Korea"
 
-            ]
-            ,["Vietnam"
+                ]
+                ,["Japan"
 
-            ]
-            ,["Taiwan"
+                ]
+                ,["Indonesia (Jakarta)"
 
-            ]
-        ]
-        ,["Asia East Continent Final Contest"
+                ]
+                ,["Vietnam"
 
-        ]
-        ,["Asia East Continent"
-            ,["Nanjing"
-
-            ]
-        ]
-        ,["European Championship"
-
-        ]
-        ,["Europe"
-            ,["Central European Regional Contest (CERC)"
-
-            ]
-            ,["Central Europe"
-                ,["Poland Collegiate Programming Contest (AMPPZ)"
+                ]
+                ,["Taiwan"
 
                 ]
             ]
-            ,["Northwestern European Regional Contest (NWERC)"
-                
-            ]
-            ,["Southwestern European Regional Contest (SWERC)"
+        ]
+        ,["Asia East Continent"
+            ,["Asia East Continent Final Contest"
 
             ]
-            ,["Southeastern Europe Regional Contest (SEERC)"
-                
+            ,["Regionals"
+                ,["Nanjing"
+
+                ]
+                ,["Shenyang"
+                    
+                ]
+                ,["Hong Kong"
+                    
+                ]
+            ]
+        ]
+        ,["Europe"
+            ,["European Championship"
+
+            ]
+            ,["Regionals"
+                ,["Central Europe"
+                    ,["Central European Regional Contest (CERC)"
+
+                    ]
+                    ,["Poland Collegiate Programming Contest (AMPPZ)"
+
+                    ]
+                ]
+                ,["Northwestern European Regional Contest (NWERC)"
+
+                ]
+                ,["Southwestern European Regional Contest (SWERC)"
+
+                ]
+                ,["Southeastern Europe Regional Contest (SEERC)"
+
+                ]
             ]
         ]
         ,["North America Championship (NAC NAIPC)"
 
         ]
-        ,["Northern Eurasia Finals (NERC NEERC)"
-
-        ]
         ,["Northern Eurasia"
-            ,["Moscow"
+            ,["Northern Eurasia Finals (NERC NEERC)"
 
             ]
-            ,["Northwestern Russia (NWRRC)"
+            ,["Regionals"
+                ,["Moscow"
 
+                ]
+                ,["Northwestern Russia Regional Contest (NWRRC)"
+    
+                ]
+                ,["Southern Russia"
+    
+                ]
             ]
-            ,["Southern Russia"
-
-            ]
-        ]
-        ,["Latin America Championship"
-
         ]
         ,["Latin America"
-            ,["Latin America"
+            ,["Latin America Championship"
+
+            ]
+            ,["Latin America Regional Contest"
 
             ]
         ]

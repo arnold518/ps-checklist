@@ -5,6 +5,8 @@ from getQOJ import QOJCrawler
 from getPDF import PDFCrawler
 
 def print_sep(): print("\n"+'='*100)
+def print_wall(): 
+    for i in range(3): print("="*100)
 
 class ContestCrawler:
     def __init__(self):
@@ -14,7 +16,7 @@ class ContestCrawler:
         self.FILE_PATH = None
         self.PDF_PATH = None
 
-        self.RAW_URL_PREFIX = "https://raw.githubusercontent.com/arnold518/ps-checklist/data/"
+        self.RAW_URL_PREFIX = './' # "https://raw.githubusercontent.com/arnold518/ps-checklist/data/"
         self.OFFICIAL_URL = None
         self.STANDING_URL = None
         self.BOJ_URL = None
@@ -47,6 +49,15 @@ class ContestCrawler:
         self.FILE_PATH = "../" + data.get("filepath")
         self.PDF_PATH = self.FILE_PATH + "crawled-data/"
 
+        print('\n'*5)
+        print_wall()
+        print("Processing contest:")
+        print(f"ID: {self.ID}")
+        print(f"Category: {self.CATEGORY}")
+        print(f"Year: {self.YEAR}")
+        print(f"File Path: {self.FILE_PATH}")
+        print_wall()
+
         self.OFFICIAL_URL = data.get("official_url")
         self.STANDING_URL = data.get("standing_url")
         self.BOJ_URL = data.get("boj_url")
@@ -70,6 +81,7 @@ class ContestCrawler:
         return True
 
     def process(self):
+
         self.update_by_default(self.ID, self.CATEGORY, self.YEAR, self.FILE_PATH.lstrip('../'))
         print_sep()
 
@@ -88,6 +100,12 @@ class ContestCrawler:
         self.handler.save()
         print()
         print(self.handler)
+
+        print_wall()
+        print(f"Contest {self.ID} processed successfully.")
+        print(f"Contest data saved to {self.FILE_PATH}contest.json")
+        print_wall()
+        print('\n'*5)
     
     def close(self):
         if self.cfCrawler is not None:
@@ -132,13 +150,13 @@ class ContestCrawler:
                 self.handler.update_problem_value(idx, ["link", "BOJ"], problem["link"])
 
     def boj(self):
-        name, problems, pdf_set = self.bojCrawler.crawl_boj_category(self.BOJ_URL, self.PDF_PATH)
+        name, problems, pdf_set = self.bojCrawler.crawl_boj_category(self.BOJ_URL, self.PDF_PATH, [0])
         self.update_by_boj(name, self.BOJ_URL, problems, pdf_set)
 
     # =========================================================================
 
     def update_by_cf(self, name, url, problems, pdf_set):
-        self.handler.update_nested_value(["name"], name, overwrite=False)
+        self.handler.update_nested_value(["name"], name, overwrite=True)
         self.handler.update_nested_value(["link", "CF"], url)
         if pdf_set is not None:
             for pdfname, pdflink in pdf_set.items():
@@ -146,8 +164,8 @@ class ContestCrawler:
 
         if problems is not None:
             for idx, problem in enumerate(problems):
-                self.handler.update_problem_value(idx, ["id"], problem["id"], overwrite=False)
-                self.handler.update_problem_value(idx, ["title"], problem["name"], overwrite=False)
+                self.handler.update_problem_value(idx, ["id"], problem["id"], overwrite=True)
+                self.handler.update_problem_value(idx, ["title"], problem["name"], overwrite=True)
                 self.handler.update_problem_value(idx, ["link", "CF"], problem["link"])
 
     def cf(self):
@@ -158,7 +176,7 @@ class ContestCrawler:
 
     def update_by_qoj(self, name, url, category, problems, pdf_set):
         self.handler.update_nested_value(["category"], category, overwrite=False)
-        self.handler.update_nested_value(["name"], name, overwrite=False)
+        self.handler.update_nested_value(["name"], name, overwrite=True)
         self.handler.update_nested_value(["link", "QOJ"], url)
         if pdf_set is not None:
             for pdfname, pdflink in pdf_set.items():

@@ -1,0 +1,126 @@
+[
+    {
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2020 > 2025-04-15 01:17:25.899620",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
+        "year": "2020",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2020/",
+        "official_url": "https://icpckorea.org/2020-seoul/regional",
+        "standing_url": "http://static.icpckorea.net/2020/scoreboard_terpin/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2339",
+        "cf_url": "https://codeforces.com/gym/102920",
+        "qoj_url": "https://qoj.ac/contest/450",
+        "statements_url": "http://static.icpckorea.net/2020/problemset.pdf",
+        "editorials_url": "https://koosaga.com/263"
+    },
+    {
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2021 > 2025-04-15 01:17:42.052413",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
+        "year": "2021",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/",
+        "official_url": "https://icpckorea.org/2021-seoul/regional",
+        "standing_url": "http://static.icpckorea.net/2021/scoreboard_regional/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2859",
+        "cf_url": null,
+        "qoj_url": "https://qoj.ac/contest/792",
+        "statements_url": "http://static.icpckorea.net/20211113/problems.pdf",
+        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=792&r=2"
+    },
+    {
+        "id": "ICPC > Regionals > Asia Pacific > Asia Pacific Championship > 2024 > 2025-04-15 01:17:53.191959",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Asia Pacific Championship" ],
+        "year": "2024",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/",
+        "official_url": "https://icpc.iisf.or.jp/asia-pacific/asia-pacific-championship-2024/",
+        "standing_url": "https://icpc.iisf.or.jp/past-icpc/championship2024/standings.html",
+        "boj_url": "https://www.acmicpc.net/category/detail/4173",
+        "cf_url": "https://codeforces.com/contest/1938",
+        "qoj_url": "https://qoj.ac/contest/1886",
+        "statements_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
+        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
+    }
+]
+2025-04-15 01:18:12.147820
+[
+    {
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2020 > 2025-04-15 20:02:51.608992",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
+        "year": "2020",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2020/",
+        "official_url": "https://icpckorea.org/2020-seoul/regional",
+        "standing_url": "http://static.icpckorea.net/2020/scoreboard_terpin/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2339",
+        "cf_url": "https://codeforces.com/gym/102920",
+        "qoj_url": "https://qoj.ac/contest/450",
+        "statements_url": "http://static.icpckorea.net/2020/problemset.pdf",
+        "editorials_url": "https://koosaga.com/263"
+    },
+    {
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2021 > 2025-04-15 20:03:07.767897",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
+        "year": "2021",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/",
+        "official_url": "https://icpckorea.org/2021-seoul/regional",
+        "standing_url": "http://static.icpckorea.net/2021/scoreboard_regional/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2859",
+        "cf_url": null,
+        "qoj_url": "https://qoj.ac/contest/792",
+        "statements_url": "http://static.icpckorea.net/20211113/problems.pdf",
+        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=792&r=2"
+    },
+    {
+        "id": "ICPC > Regionals > Asia Pacific > Asia Pacific Championship > 2024 > 2025-04-15 20:03:14.747864",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Asia Pacific Championship" ],
+        "year": "2024",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/",
+        "official_url": "https://icpc.iisf.or.jp/asia-pacific/asia-pacific-championship-2024/",
+        "standing_url": "https://icpc.iisf.or.jp/past-icpc/championship2024/standings.html",
+        "boj_url": "https://www.acmicpc.net/category/detail/4173",
+        "cf_url": "https://codeforces.com/contest/1938",
+        "qoj_url": "https://qoj.ac/contest/1886",
+        "statements_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
+        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
+    }
+]
+2025-04-15 20:03:30.119209
+[
+    {
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2020 > 2025-04-15 20:05:58.671941",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
+        "year": "2020",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2020/",
+        "official_url": "https://icpckorea.org/2020-seoul/regional",
+        "standing_url": "http://static.icpckorea.net/2020/scoreboard_terpin/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2339",
+        "cf_url": "https://codeforces.com/gym/102920",
+        "qoj_url": "https://qoj.ac/contest/450",
+        "statements_url": "http://static.icpckorea.net/2020/problemset.pdf",
+        "editorials_url": "https://koosaga.com/263"
+    },
+    {
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2021 > 2025-04-15 20:06:19.367286",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
+        "year": "2021",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/",
+        "official_url": "https://icpckorea.org/2021-seoul/regional",
+        "standing_url": "http://static.icpckorea.net/2021/scoreboard_regional/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2859",
+        "cf_url": null,
+        "qoj_url": "https://qoj.ac/contest/792",
+        "statements_url": "http://static.icpckorea.net/20211113/problems.pdf",
+        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=792&r=2"
+    },
+    {
+        "id": "ICPC > Regionals > Asia Pacific > Asia Pacific Championship > 2024 > 2025-04-15 20:06:34.458536",
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Asia Pacific Championship" ],
+        "year": "2024",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/",
+        "official_url": "https://icpc.iisf.or.jp/asia-pacific/asia-pacific-championship-2024/",
+        "standing_url": "https://icpc.iisf.or.jp/past-icpc/championship2024/standings.html",
+        "boj_url": "https://www.acmicpc.net/category/detail/4173",
+        "cf_url": "https://codeforces.com/contest/1938",
+        "qoj_url": "https://qoj.ac/contest/1886",
+        "statements_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=0",
+        "editorials_url": "https://qoj.ac/download.php?type=attachments&id=1886&r=1"
+    }
+]
+2025-04-15 20:06:54.737597

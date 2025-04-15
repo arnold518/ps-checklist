@@ -14,3 +14,87 @@ New data can be identified with `null` id.
 2. Run `cd crawler && python fetchContest.py` to get data for each contests with `null` id in [`problemlists/contestlist.json`](problemlists/contestlist.json).
 3. The crawler will publish an `id` for each contest, insert it to `problemlists/categoryname/contesttree.json`.
 4. Push to origin to deploy.
+
+## Contest Tree Rules
+
+1. All nodes in contest tree is either a `contest` or a `directory`.
+2. Each `directory` must have `contests` or `subdirectories` as children nodes, not both.
+
+### ICPC
+
+[problemlists/icpc/contesttree.json](problemlists/icpc/contesttree.json)
+
+1. Each "region" (`directory`) has a "region finals (championship)" (`contest`) and "regionals" (`subdirectory`).
+The "regionals" (`subdirectory`) has a list of "subregion" (`directory`), which continues recursively.
+
+    ```
+    (example)
+
+    ["Asia Pacific"
+        ,["Asia Pacific Championship"
+
+        ]
+        ,["Regionals"
+            ,["Korea"
+
+            ]
+            ,["Japan"
+
+            ]
+            ,["Indonesia (Jakarta)"
+
+            ]
+        ]
+    ]
+    ```
+2. If a `directory` has only one `subdirectory` as its child node, it is recommended that the `directory` is omitted for simplicity.
+When more `subdirectory` is added in the future, the omitted `directory` must be shown again.
+
+    ```
+    (not recommended)
+
+    ["Central Europe"
+        ,["Central European Regional Contest (CERC)"
+
+        ]
+        ,["Regionals"
+            ,["Poland Collegiate Programming Contest (AMPPZ)"
+
+            ]
+        ]
+        
+    ]
+
+    ["Latin America"
+        ,["Latin America Championship"
+
+        ]
+        ,["Regionals"
+            ,["Latin America Regional Contest"
+
+            ]
+        ]
+    ]
+    ```
+
+    ```
+    (recommended)
+
+    ["Central Europe"
+        ,["Central European Regional Contest (CERC)"
+
+        ]
+        ,["Poland Collegiate Programming Contest (AMPPZ)"
+
+        ]
+    ]
+
+    ["Latin America"
+        ,["Latin America Championship"
+
+        ]
+        ,["Latin America Regional Contest"
+
+        ]
+    ]
+    ```
