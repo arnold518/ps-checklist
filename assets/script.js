@@ -336,31 +336,307 @@ function getMaxProblems(contests) {
 
 function handleContestClick(contestCell) {
     const contestId = contestCell.dataset.contestId;
+    const contest = state.allContests.get(contestId);
     
-    console.log(`Clicked Contest => Contest ID: ${contestId}`);
+    if (!contest) return;
+
+    const contestContent = contestCell.closest('.contest-content');
+    console.log('Contest Content:', contestContent);
+    let contestInfo = contestContent.querySelector('.contest-info');
+    if (contestInfo) {
+        contestInfo.classList.remove('active');
+        contestInfo.remove();
+    }
+    let problemInfo = contestContent.querySelector('.problem-info');
+    if (problemInfo) {
+        problemInfo.classList.remove('active');
+        problemInfo.remove();
+    }
+    contestInfo = document.createElement('div');
+    contestInfo.id = 'contest-info';
+    contestInfo.className = 'contest-info';
+    contestContent.insertBefore(contestInfo, contestContent.firstChild);
+
+    // Create header section
+    const header = document.createElement('div');
+    header.className = 'contest-info-header';
+
+    // Create title container
+    const titleContainer = document.createElement('div');
+
+    // Add year
+    const yearElement = document.createElement('div');
+    yearElement.className = 'contest-info-year';
+    yearElement.textContent = contest.data.year;
+    titleContainer.appendChild(yearElement);
+
+    // Add title
+    const titleElement = document.createElement('h3');
+    titleElement.className = 'contest-info-title';
+    titleElement.textContent = contest.data.name || 'Contest';
+    titleContainer.appendChild(titleElement);
+
+    // Add close button
+    const closeButton = document.createElement('button');
+    closeButton.className = 'contest-info-close';
+    closeButton.innerHTML = '&times;';
+    closeButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        contestInfo.classList.remove('active');
+        contestInfo.remove();
+    });
+
+    // Assemble header
+    header.appendChild(titleContainer);
+    header.appendChild(closeButton);
+    contestInfo.appendChild(header);
+
+    // Add problems stats
+    const statsContainer = document.createElement('div');
+    statsContainer.className = 'contest-info-stats';
+
+    const problemsElement = document.createElement('div');
+    problemsElement.className = 'contest-info-problems';
+    problemsElement.textContent = `Solved: 0 / ${contest.data.problems.length}`;
+    statsContainer.appendChild(problemsElement);
+
+    contestInfo.appendChild(statsContainer);
+
+    // Add links section
+    const linksContainer = document.createElement('div');
+    linksContainer.className = 'contest-info-links';
+
+    // Create link elements (you'll need to provide the correct image paths)
+    const linkData = [
+        { id: 'statements', title: 'Problem Statements', img: './assets/img/statements-icon.png', link: contest.data.link?.statements },
+        { id: 'editorials', title: 'Editorials', img: './assets/img/editorials-icon.png', link: contest.data.link?.editorials },
+        { id: 'official', title: 'Official Site', img: './assets/img/official-icon.png', link: contest.data.link?.official },
+        { id: 'standings', title: 'Standings', img: './assets/img/standings-icon.png', link: contest.data.link?.standings },
+        { id: 'boj', title: 'BOJ Link', img: './assets/img/boj-icon.png', link: contest.data.link?.BOJ },
+        { id: 'cf', title: 'Codeforces Link', img: './assets/img/cf-icon.png', link: contest.data.link?.CF },
+        { id: 'qoj', title: 'QOJ Link', img: './assets/img/qoj-icon.png', link: contest.data.link?.QOJ }
+    ];
+    console.log('Link Data:', linkData);
+
+    linkData.forEach(link => {
+        if (!link.link) return; // Skip if no link provided
+        const linkElement = document.createElement('div');
+        linkElement.className = 'contest-info-link';
+        linkElement.title = link.title;
+        
+        const imgElement = document.createElement('img');
+        imgElement.src = link.img;
+        imgElement.alt = link.title;
+        
+        linkElement.appendChild(imgElement);
+        
+        // Add click handler (you'll need to implement these)
+        linkElement.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!link.link) return;
+            window.open(link.link, '_blank');
+        });
+        
+        linksContainer.appendChild(linkElement);
+    });
+
+    contestInfo.appendChild(linksContainer);
+
+    // Show the contest info
+    contestInfo.classList.add('active');
+
+    // Scroll to the info box
+    contestInfo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+
+
 
 function handleProblemClick(problemCell) {
     const contestId = problemCell.dataset.contestId;
     const problemId = problemCell.dataset.problemId;
+    const problemIdx = problemCell.dataset.problemIdx;
 
-    console.log(`Clicked Problem => Contest ID: ${contestId}, Problem ID: ${problemId}`);
+    const contest = state.allContests.get(contestId);
+    if (!contest) return;
+
+    // First show the contest info
+    const contestCell = document.querySelector(`td[data-contest-id="${contestId}"]`);
+    if (contestCell) handleContestClick(contestCell);
+
+    // Get the problem data
+    console.log('ProblemIdx:', problemIdx);
+    const problem = contest.data.problems[problemIdx];
+    if (!problem) return;
+
+    console.log('Contest:', contest);
+    console.log('Problem:', problem);
+
+    // Get or create problem info element
+    const contestContent = problemCell.closest('.contest-content');
+    let problemInfo = contestContent.querySelector('.problem-info');
+    if (problemInfo) {
+        problemInfo.classList.remove('active');
+        problemInfo.remove();
+    }
+    problemInfo = document.createElement('div');
+    problemInfo.id = 'problem-info';
+    problemInfo.className = 'problem-info';
+    contestContent.insertBefore(problemInfo, contestContent.firstChild.nextSibling);
+
+
+    // Create header section
+    const header = document.createElement('div');
+    header.className = 'problem-info-header';
+
+    // Create title container
+    const titleContainer = document.createElement('div');
+    titleContainer.className = 'problem-info-title-container';
+
+    // Add problem ID
+    const idElement = document.createElement('div');
+    idElement.className = 'problem-info-id';
+    idElement.textContent = problemId;
+    titleContainer.appendChild(idElement);
+
+    // Add problem name
+    const nameElement = document.createElement('h3');
+    nameElement.className = 'problem-info-name';
+    nameElement.textContent = problem.title || 'Problem';
+    titleContainer.appendChild(nameElement);
+
+    // Add close button
+    const closeButton = document.createElement('button');
+    closeButton.className = 'problem-info-close';
+    closeButton.innerHTML = '&times;';
+    closeButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        problemInfo.classList.remove('active');
+        setTimeout(() => {
+            problemInfo.remove();
+        }, 300);
+    });
+
+    // Assemble header
+    header.appendChild(titleContainer);
+    header.appendChild(closeButton);
+    problemInfo.appendChild(header);
+
+    // Create controls section
+    const controls = document.createElement('div');
+    controls.className = 'problem-info-controls';
+
+    // Add difficulty selector
+    const difficultyContainer = document.createElement('div');
+    difficultyContainer.className = 'problem-info-difficulty';
+
+    const difficultyLabel = document.createElement('span');
+    difficultyLabel.textContent = 'Difficulty:';
+    difficultyContainer.appendChild(difficultyLabel);
+
+    const difficultyBtn = document.createElement('button');
+    difficultyBtn.id = 'difficulty-btn';
+    difficultyBtn.className = `difficulty-btn difficulty-${problem.difficulty || 0}`;
+    difficultyBtn.addEventListener('click', () => {
+        // Cycle through difficulties (0-5)
+        const current = parseInt(problem.difficulty) || 0;
+        const newDifficulty = (current + 1) % 6;
+        problem.difficulty = newDifficulty;
+        difficultyBtn.className = `difficulty-btn difficulty-${newDifficulty}`;
+        // Save to state or backend here
+    });
+    difficultyContainer.appendChild(difficultyBtn);
+
+    controls.appendChild(difficultyContainer);
+
+    // Add status selector
+    const statusContainer = document.createElement('div');
+    statusContainer.className = 'problem-info-status';
+
+    const statusLabel = document.createElement('span');
+    statusLabel.textContent = 'Status:';
+    statusContainer.appendChild(statusLabel);
+
+    const statusBtn = document.createElement('button');
+    statusBtn.id = 'status-btn';
+    statusBtn.className = `status-btn status-${problem.status || 0}`;
+    statusBtn.textContent = 
+        problem.status === 1 ? 'Attempted' :
+        problem.status === 2 ? 'Solved' : 'Not Attempted';
+    statusBtn.addEventListener('click', () => {
+        // Cycle through statuses (0-2)
+        const current = parseInt(problem.status) || 0;
+        const newStatus = (current + 1) % 3;
+        problem.status = newStatus;
+        statusBtn.className = `status-btn status-${newStatus}`;
+        statusBtn.textContent = 
+            newStatus === 1 ? 'Attempted' :
+            newStatus === 2 ? 'Solved' : 'Not Attempted';
+        // Save to state or backend here
+    });
+    statusContainer.appendChild(statusBtn);
+
+    controls.appendChild(statusContainer);
+    problemInfo.appendChild(controls);
+
+    // Add links section
+    const linksContainer = document.createElement('div');
+    linksContainer.className = 'problem-info-links';
+
+    // Create link elements
+    const linkData = [
+        { type: 'boj', title: 'Baekjoon Online Judge', img: 'img/boj-icon.png' },
+        { type: 'cf', title: 'Codeforces', img: 'img/cf-icon.png' },
+        { type: 'qoj', title: 'QOJ', img: 'img/qoj-icon.png' }
+    ];
+
+    linkData.forEach(link => {
+        const linkElement = document.createElement('a');
+        linkElement.className = `problem-link ${link.type}`;
+        linkElement.title = link.title;
+        linkElement.href = problem.links?.[link.type] || '#';
+        linkElement.target = '_blank';
+        linkElement.addEventListener('click', (e) => {
+            if (!problem.links?.[link.type]) {
+                e.preventDefault();
+                console.log(`No ${link.type} link available`);
+            }
+        });
+        
+        const imgElement = document.createElement('img');
+        imgElement.src = link.img;
+        imgElement.alt = link.title;
+        
+        linkElement.appendChild(imgElement);
+        linksContainer.appendChild(linkElement);
+    });
+
+    problemInfo.appendChild(linksContainer);
+
+    // Show the problem info
+    problemInfo.classList.add('active');
+
+    // Scroll to the info box
+    problemInfo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-function renderVisibleContests(node, container) {
+function renderVisibleContests(node, container, name) {
     const stats = state.directoryStats.get(node.id);
     if (stats && stats.visible === 0) {
-        return; // No visible contests in this directory
+        return;
     }
 
     if (node.children) {
         node.children.forEach(child => {
-            renderVisibleContests(child, container);
+            renderVisibleContests(child, container, name == '' ? node.name : (name + ' > ' + node.name));
         });
     }
 
     if (node.contests) {
-        console.log('Rendering visible contests:', node.contests);
+        const visibleContests = node.contests.filter(contest => 
+            state.visibleContests.has(contest.id)
+        );
+        
+        if (visibleContests.length === 0) return;
 
         const item = document.createElement('div');
         item.className = 'contest-item';
@@ -370,7 +646,7 @@ function renderVisibleContests(node, container) {
 
         const title = document.createElement('div');
         title.className = 'contest-title';
-        title.textContent = `${node.contests[0].data.category.join(' > ')}`;        
+        title.textContent = `${name}`;
         
         const closeBtn = document.createElement('button');
         closeBtn.className = 'close-contest';
@@ -385,8 +661,6 @@ function renderVisibleContests(node, container) {
         const content = document.createElement('div');
         content.className = 'contest-content';
         
-        // TODO
-
         const table = document.createElement('table');
         table.className = 'contest-table';
 
@@ -398,9 +672,10 @@ function renderVisibleContests(node, container) {
         contestHeader.textContent = 'Year';
         headerRow.appendChild(contestHeader);
         
+        const maxProblems = getMaxProblems(node.contests);
         const problemsHeader = document.createElement('th');
         problemsHeader.textContent = 'Problems';
-        problemsHeader.colSpan = getMaxProblems(node.contests);
+        problemsHeader.colSpan = maxProblems;
         headerRow.appendChild(problemsHeader);
         
         thead.appendChild(headerRow);
@@ -409,26 +684,33 @@ function renderVisibleContests(node, container) {
         // Create body
         const tbody = document.createElement('tbody');
         node.contests.forEach(contest => {
+            if (!state.visibleContests.has(contest.id)) return;
+            
             const row = document.createElement('tr');
 
             // Contest cell
             const contestCell = document.createElement('td');
             contestCell.textContent = `${contest.data.year}`;
             contestCell.dataset.contestId = contest.id;
+            contestCell.dataset.contestContent = content;
             contestCell.addEventListener('click', () => handleContestClick(contestCell));
             contestCell.style.cursor = 'pointer';
             row.appendChild(contestCell);
 
+            let idx = 0;
             // Problem cells
             contest.data.problems.forEach(problem => {
                 const problemCell = document.createElement('td');
                 problemCell.dataset.problemId = problem.id;
                 problemCell.dataset.contestId = contest.id;
+                problemCell.dataset.problemIdx = idx++;
+                problemCell.dataset.fullname = `${problem.id}. ${problem.title}`;
                 problemCell.textContent = `${problem.id}. ${problem.title}`;
                 problemCell.addEventListener('click', () => handleProblemClick(problemCell));
                 problemCell.style.cursor = 'pointer';
                 row.appendChild(problemCell);
             });
+
             tbody.appendChild(row);
         });
 
@@ -437,13 +719,71 @@ function renderVisibleContests(node, container) {
 
         item.appendChild(header);
         item.appendChild(content);
-
-        item.querySelector('.close-contest').addEventListener('click', () => {
-            toggleContestVisibility(contestId);
-        });
-        
         container.appendChild(item);
     }
+}
+
+function adjustTableColumns() {
+    const tables = document.querySelectorAll('.contest-table');
+    
+    tables.forEach(table => {
+        const container = table.closest('.contest-content');
+        if (!container) return;
+        
+        // Calculate available width considering margins
+        const containerStyle = window.getComputedStyle(container);
+        const horizontalPadding = parseFloat(containerStyle.paddingLeft) + parseFloat(containerStyle.paddingRight);
+        const availableWidth = container.clientWidth - horizontalPadding - 1;
+        
+        // Find the maximum number of problems in any contest
+        const rows = table.querySelectorAll('tbody tr');
+        let maxProblems = 0;
+        rows.forEach(row => {
+            const problemCells = row.querySelectorAll('td[data-problem-id]');
+            maxProblems = Math.max(maxProblems, problemCells.length);
+        });
+        
+        if (maxProblems === 0) return;
+        
+        // Fixed width for year column
+        const yearColumnWidth = 80;
+        
+        // Calculate remaining width for problem columns
+        const remainingWidth = availableWidth - yearColumnWidth;
+        
+        // Calculate equal width for each problem cell
+        const cellWidth = Math.max(60, Math.floor(remainingWidth / maxProblems));
+        
+        // Apply width to year column
+        const yearHeader = table.querySelector('th:first-child');
+        if (yearHeader) {
+            yearHeader.style.width = `${yearColumnWidth}px`;
+            yearHeader.style.minWidth = `${yearColumnWidth}px`;
+        }
+        
+        // Apply width to all problem cells
+        table.querySelectorAll('td[data-problem-id]').forEach(cell => {
+            cell.style.width = `${cellWidth}px`;
+            cell.style.minWidth = `${cellWidth}px`;
+            cell.style.maxWidth = `${cellWidth}px`;
+            // Adjust content based on cell width
+            const problemId = cell.dataset.problemId;
+            const problemFullName = cell.dataset.fullname;
+            if (cellWidth <= 60) {
+                cell.textContent = problemId; // Show only problem ID
+            }
+            else {
+                cell.textContent = problemFullName;
+            }
+        });
+        
+        // Set colspan for problems header
+        const problemsHeader = table.querySelector('th:nth-child(2)');
+        if (problemsHeader) {
+            problemsHeader.colSpan = maxProblems;
+            problemsHeader.style.width = `${cellWidth * maxProblems}px`;
+        }
+    });
 }
 
 // Render Visible Contests
@@ -456,8 +796,18 @@ function renderFullVisibleContests() {
         return;
     }
     
-    renderVisibleContests(contestTrees[state.currentCategory], container);
+    renderVisibleContests(contestTrees[state.currentCategory], container, '');
+    
+    // Adjust table columns after rendering
+    setTimeout(() => {
+        adjustTableColumns();
+    }, 0);
 }
+
+// Add window resize listener
+window.addEventListener('resize', () => {
+    adjustTableColumns();
+});
 
 // Update Status Bar
 function updateStatusBar() {
@@ -516,4 +866,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupResizableSidebar();
     initNavigation();
     loadCategory('icpc');
-}); 
+});
