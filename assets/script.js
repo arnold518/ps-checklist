@@ -10,7 +10,12 @@ const state = {
     expandedNodes: new Set(['root']),
     visibleContests: new Set(),
     allContests: new Map(),
-    directoryStats: new Map()
+    directoryStats: new Map(),
+    problemStats: {
+        total: 0,
+        solved: 0,
+        attempted: 0
+    }
 };
 
 // Initialize Navigation
@@ -128,16 +133,19 @@ function loadCategory(category) {
     state.visibleContests = new Set();
     state.allContests = new Map();
     state.directoryStats = new Map();
+    state.problemStats = {
+        total: 0,
+        solved: 0,
+        attempted: 0
+    };
     
     fetchCateogryContestTreeData(category);
 }
 
 // Initialize Data Structures
 function initializeDataStructures(node) {
-    // state.expandedNodes.add(node.id);
     if (node.contests) {
         node.contests.forEach(contest => {
-            // state.expandedNodes.add(contest.id);
             state.allContests.set(contest.id, contest);
         });
         state.directoryStats.set(node.id, {
@@ -175,6 +183,29 @@ function calculateDirectoryStats(node) {
         });
     }
 
+    return stats;
+}
+
+// Calculate Problem Stats
+function calculateProblemStats() {
+    const stats = {
+        total: 0,
+        solved: 0,
+        attempted: 0
+    };
+
+    state.visibleContests.forEach(contestId => {
+        const contest = state.allContests.get(contestId);
+        if (contest && contest.data.problems) {
+            stats.total += contest.data.problems.length;
+            contest.data.problems.forEach(problem => {
+                if (problem.status === 1) stats.attempted++;
+                if (problem.status === 2) stats.solved++;
+            });
+        }
+    });
+
+    state.problemStats = stats;
     return stats;
 }
 
@@ -341,7 +372,6 @@ function handleContestClick(contestCell) {
     if (!contest) return;
 
     const contestContent = contestCell.closest('.contest-content');
-    console.log('Contest Content:', contestContent);
     let contestInfo = contestContent.querySelector('.contest-info');
     if (contestInfo) {
         contestInfo.classList.remove('active');
@@ -353,32 +383,32 @@ function handleContestClick(contestCell) {
         problemInfo.remove();
     }
     contestInfo = document.createElement('div');
-    contestInfo.id = 'contest-info';
-    contestInfo.className = 'contest-info';
+    contestInfo.className = 'contest-info info-panel';
     contestContent.insertBefore(contestInfo, contestContent.firstChild);
 
     // Create header section
     const header = document.createElement('div');
-    header.className = 'contest-info-header';
+    header.className = 'info-panel-header';
 
     // Create title container
     const titleContainer = document.createElement('div');
+    titleContainer.className = 'info-panel-title-container';
 
     // Add year
     const yearElement = document.createElement('div');
-    yearElement.className = 'contest-info-year';
+    yearElement.className = 'info-panel-subtitle contest-info-year';
     yearElement.textContent = contest.data.year;
     titleContainer.appendChild(yearElement);
 
     // Add title
     const titleElement = document.createElement('h3');
-    titleElement.className = 'contest-info-title';
+    titleElement.className = 'info-panel-title contest-info-title';
     titleElement.textContent = contest.data.name || 'Contest';
     titleContainer.appendChild(titleElement);
 
     // Add close button
     const closeButton = document.createElement('button');
-    closeButton.className = 'contest-info-close';
+    closeButton.className = 'info-panel-close contest-info-close';
     closeButton.innerHTML = '&times;';
     closeButton.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -393,35 +423,34 @@ function handleContestClick(contestCell) {
 
     // Add problems stats
     const statsContainer = document.createElement('div');
-    statsContainer.className = 'contest-info-stats';
+    statsContainer.className = 'info-panel-stats';
 
     const problemsElement = document.createElement('div');
-    problemsElement.className = 'contest-info-problems';
-    problemsElement.textContent = `Solved: 0 / ${contest.data.problems.length}`;
+    problemsElement.className = 'stats-badge contest-info-problems';
+    problemsElement.textContent = `Problems: ${contest.data.problems.length}`;
     statsContainer.appendChild(problemsElement);
 
     contestInfo.appendChild(statsContainer);
 
     // Add links section
     const linksContainer = document.createElement('div');
-    linksContainer.className = 'contest-info-links';
+    linksContainer.className = 'info-panel-links contest-info-links';
 
-    // Create link elements (you'll need to provide the correct image paths)
+    // Create link elements
     const linkData = [
-        { id: 'statements', title: 'Problem Statements', img: './assets/img/statements-icon.png', link: contest.data.link?.statements },
-        { id: 'editorials', title: 'Editorials', img: './assets/img/editorials-icon.png', link: contest.data.link?.editorials },
-        { id: 'official', title: 'Official Site', img: './assets/img/official-icon.png', link: contest.data.link?.official },
-        { id: 'standings', title: 'Standings', img: './assets/img/standings-icon.png', link: contest.data.link?.standings },
-        { id: 'boj', title: 'BOJ Link', img: './assets/img/boj-icon.png', link: contest.data.link?.BOJ },
-        { id: 'cf', title: 'Codeforces Link', img: './assets/img/cf-icon.png', link: contest.data.link?.CF },
-        { id: 'qoj', title: 'QOJ Link', img: './assets/img/qoj-icon.png', link: contest.data.link?.QOJ }
+        { id: 'statements', title: 'Problem Statements', img: 'assets/img/statements-icon.png', link: contest.data.link?.statements },
+        { id: 'editorials', title: 'Editorials', img: 'assets/img/editorials-icon.png', link: contest.data.link?.editorials },
+        { id: 'official', title: 'Official Site', img: 'assets/img/official-icon.png', link: contest.data.link?.official },
+        { id: 'standings', title: 'Standings', img: 'assets/img/standings-icon.png', link: contest.data.link?.standing },
+        { id: 'boj', title: 'BOJ Link', img: 'assets/img/boj-icon.png', link: contest.data.link?.BOJ },
+        { id: 'cf', title: 'Codeforces Link', img: 'assets/img/cf-icon.png', link: contest.data.link?.CF },
+        { id: 'qoj', title: 'QOJ Link', img: 'assets/img/qoj-icon.png', link: contest.data.link?.QOJ }
     ];
-    console.log('Link Data:', linkData);
 
     linkData.forEach(link => {
         if (!link.link) return; // Skip if no link provided
         const linkElement = document.createElement('div');
-        linkElement.className = 'contest-info-link';
+        linkElement.className = 'info-panel-link contest-info-link';
         linkElement.title = link.title;
         
         const imgElement = document.createElement('img');
@@ -430,7 +459,6 @@ function handleContestClick(contestCell) {
         
         linkElement.appendChild(imgElement);
         
-        // Add click handler (you'll need to implement these)
         linkElement.addEventListener('click', (e) => {
             e.stopPropagation();
             if (!link.link) return;
@@ -449,8 +477,6 @@ function handleContestClick(contestCell) {
     contestInfo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-
-
 function handleProblemClick(problemCell) {
     const contestId = problemCell.dataset.contestId;
     const problemId = problemCell.dataset.problemId;
@@ -464,12 +490,8 @@ function handleProblemClick(problemCell) {
     if (contestCell) handleContestClick(contestCell);
 
     // Get the problem data
-    console.log('ProblemIdx:', problemIdx);
     const problem = contest.data.problems[problemIdx];
     if (!problem) return;
-
-    console.log('Contest:', contest);
-    console.log('Problem:', problem);
 
     // Get or create problem info element
     const contestContent = problemCell.closest('.contest-content');
@@ -479,41 +501,37 @@ function handleProblemClick(problemCell) {
         problemInfo.remove();
     }
     problemInfo = document.createElement('div');
-    problemInfo.id = 'problem-info';
-    problemInfo.className = 'problem-info';
+    problemInfo.className = 'problem-info info-panel';
     contestContent.insertBefore(problemInfo, contestContent.firstChild.nextSibling);
-
 
     // Create header section
     const header = document.createElement('div');
-    header.className = 'problem-info-header';
+    header.className = 'info-panel-header';
 
     // Create title container
     const titleContainer = document.createElement('div');
-    titleContainer.className = 'problem-info-title-container';
+    titleContainer.className = 'info-panel-title-container';
 
     // Add problem ID
     const idElement = document.createElement('div');
-    idElement.className = 'problem-info-id';
+    idElement.className = 'info-panel-subtitle problem-info-id';
     idElement.textContent = problemId;
     titleContainer.appendChild(idElement);
 
     // Add problem name
     const nameElement = document.createElement('h3');
-    nameElement.className = 'problem-info-name';
+    nameElement.className = 'info-panel-title problem-info-name';
     nameElement.textContent = problem.title || 'Problem';
     titleContainer.appendChild(nameElement);
 
     // Add close button
     const closeButton = document.createElement('button');
-    closeButton.className = 'problem-info-close';
+    closeButton.className = 'info-panel-close problem-info-close';
     closeButton.innerHTML = '&times;';
     closeButton.addEventListener('click', (e) => {
         e.stopPropagation();
         problemInfo.classList.remove('active');
-        setTimeout(() => {
-            problemInfo.remove();
-        }, 300);
+        problemInfo.remove();
     });
 
     // Assemble header
@@ -523,7 +541,7 @@ function handleProblemClick(problemCell) {
 
     // Create controls section
     const controls = document.createElement('div');
-    controls.className = 'problem-info-controls';
+    controls.className = 'info-panel-controls problem-info-controls';
 
     // Add difficulty selector
     const difficultyContainer = document.createElement('div');
@@ -534,14 +552,15 @@ function handleProblemClick(problemCell) {
     difficultyContainer.appendChild(difficultyLabel);
 
     const difficultyBtn = document.createElement('button');
-    difficultyBtn.id = 'difficulty-btn';
     difficultyBtn.className = `difficulty-btn difficulty-${problem.difficulty || 0}`;
     difficultyBtn.addEventListener('click', () => {
-        // Cycle through difficulties (0-5)
+        // Cycle through difficulties (0-7)
         const current = parseInt(problem.difficulty) || 0;
-        const newDifficulty = (current + 1) % 6;
+        const newDifficulty = (current + 1) % 8;
         problem.difficulty = newDifficulty;
         difficultyBtn.className = `difficulty-btn difficulty-${newDifficulty}`;
+        // Update the problem cell
+        updateProblemCell(contestId, problemIdx);
         // Save to state or backend here
     });
     difficultyContainer.appendChild(difficultyBtn);
@@ -557,7 +576,6 @@ function handleProblemClick(problemCell) {
     statusContainer.appendChild(statusLabel);
 
     const statusBtn = document.createElement('button');
-    statusBtn.id = 'status-btn';
     statusBtn.className = `status-btn status-${problem.status || 0}`;
     statusBtn.textContent = 
         problem.status === 1 ? 'Attempted' :
@@ -571,6 +589,11 @@ function handleProblemClick(problemCell) {
         statusBtn.textContent = 
             newStatus === 1 ? 'Attempted' :
             newStatus === 2 ? 'Solved' : 'Not Attempted';
+        // Update the problem cell
+        updateProblemCell(contestId, problemIdx);
+        // Update problem stats
+        calculateProblemStats();
+        updateProblemStats();
         // Save to state or backend here
     });
     statusContainer.appendChild(statusBtn);
@@ -580,26 +603,25 @@ function handleProblemClick(problemCell) {
 
     // Add links section
     const linksContainer = document.createElement('div');
-    linksContainer.className = 'problem-info-links';
+    linksContainer.className = 'info-panel-links problem-info-links';
 
     // Create link elements
     const linkData = [
-        { type: 'boj', title: 'Baekjoon Online Judge', img: 'img/boj-icon.png' },
-        { type: 'cf', title: 'Codeforces', img: 'img/cf-icon.png' },
-        { type: 'qoj', title: 'QOJ', img: 'img/qoj-icon.png' }
+        { type: 'boj', title: 'Baekjoon Online Judge', img: 'assets/img/boj-icon.png', link: problem?.BOJ },
+        { type: 'cf', title: 'Codeforces', img: 'assets/img/cf-icon.png', link: problem?.CF },
+        { type: 'qoj', title: 'QOJ', img: 'assets/img/qoj-icon.png', link: problem?.QOJ }
     ];
 
     linkData.forEach(link => {
+        if (!link.link) return; // Skip if no link provided
         const linkElement = document.createElement('a');
-        linkElement.className = `problem-link ${link.type}`;
+        linkElement.className = `info-panel-link problem-link ${link.type}`;
         linkElement.title = link.title;
-        linkElement.href = problem.links?.[link.type] || '#';
         linkElement.target = '_blank';
         linkElement.addEventListener('click', (e) => {
-            if (!problem.links?.[link.type]) {
-                e.preventDefault();
-                console.log(`No ${link.type} link available`);
-            }
+            e.stopPropagation();
+            if (!link.link) return;
+            window.open(link.link, '_blank');
         });
         
         const imgElement = document.createElement('img');
@@ -617,6 +639,28 @@ function handleProblemClick(problemCell) {
 
     // Scroll to the info box
     problemInfo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function updateProblemCell(contestId, problemIdx) {
+    const contest = state.allContests.get(contestId);
+    if (!contest || !contest.data.problems[problemIdx]) return;
+
+    const problem = contest.data.problems[problemIdx];
+    const problemCell = document.querySelector(`td[data-contest-id="${contestId}"][data-problem-idx="${problemIdx}"]`);
+    if (!problemCell) return;
+
+    // Update difficulty icon
+    const difficultyIcon = problemCell.querySelector('.difficulty-icon');
+    if (difficultyIcon) {
+        difficultyIcon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
+    } else {
+        const newIcon = document.createElement('div');
+        newIcon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
+        problemCell.insertBefore(newIcon, problemCell.firstChild);
+    }
+
+    // Update status
+    problemCell.dataset.status = problem.status || '0';
 }
 
 function renderVisibleContests(node, container, name) {
@@ -661,6 +705,28 @@ function renderVisibleContests(node, container, name) {
         const content = document.createElement('div');
         content.className = 'contest-content';
         
+        // Add stats bar
+        const statsBar = document.createElement('div');
+        statsBar.className = 'stats-bar';
+        statsBar.innerHTML = `
+            <div class="stats-item">
+                <span class="stats-label">Problems:</span>
+                <span class="stats-value" id="problems-total">0</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">Solved:</span>
+                <span class="stats-value" id="problems-solved">0</span>
+            </div>
+            <div class="stats-item">
+                <span class="stats-label">Attempted:</span>
+                <span class="stats-value" id="problems-attempted">0</span>
+            </div>
+        `;
+        content.appendChild(statsBar);
+        
+        const tableContainer = document.createElement('div');
+        tableContainer.className = 'contest-table-container';
+        
         const table = document.createElement('table');
         table.className = 'contest-table';
 
@@ -692,7 +758,6 @@ function renderVisibleContests(node, container, name) {
             const contestCell = document.createElement('td');
             contestCell.textContent = `${contest.data.year}`;
             contestCell.dataset.contestId = contest.id;
-            contestCell.dataset.contestContent = content;
             contestCell.addEventListener('click', () => handleContestClick(contestCell));
             contestCell.style.cursor = 'pointer';
             row.appendChild(contestCell);
@@ -705,7 +770,17 @@ function renderVisibleContests(node, container, name) {
                 problemCell.dataset.contestId = contest.id;
                 problemCell.dataset.problemIdx = idx++;
                 problemCell.dataset.fullname = `${problem.id}. ${problem.title}`;
-                problemCell.textContent = `${problem.id}. ${problem.title}`;
+                problemCell.dataset.status = problem.status || '0';
+                
+                // Add difficulty icon
+                const difficultyIcon = document.createElement('div');
+                difficultyIcon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
+                problemCell.appendChild(difficultyIcon);
+                
+                // Add problem text
+                const problemText = document.createTextNode(`${problem.id}. ${problem.title}`);
+                problemCell.appendChild(problemText);
+                
                 problemCell.addEventListener('click', () => handleProblemClick(problemCell));
                 problemCell.style.cursor = 'pointer';
                 row.appendChild(problemCell);
@@ -715,8 +790,8 @@ function renderVisibleContests(node, container, name) {
         });
 
         table.appendChild(tbody);
-        content.appendChild(table);
-
+        tableContainer.appendChild(table);
+        content.appendChild(tableContainer);
         item.appendChild(header);
         item.appendChild(content);
         container.appendChild(item);
@@ -727,13 +802,11 @@ function adjustTableColumns() {
     const tables = document.querySelectorAll('.contest-table');
     
     tables.forEach(table => {
-        const container = table.closest('.contest-content');
+        const container = table.closest('.contest-table-container');
         if (!container) return;
         
-        // Calculate available width considering margins
-        const containerStyle = window.getComputedStyle(container);
-        const horizontalPadding = parseFloat(containerStyle.paddingLeft) + parseFloat(containerStyle.paddingRight);
-        const availableWidth = container.clientWidth - horizontalPadding - 1;
+        // Calculate available width
+        const availableWidth = container.clientWidth - 1;
         
         // Find the maximum number of problems in any contest
         const rows = table.querySelectorAll('tbody tr');
@@ -752,7 +825,7 @@ function adjustTableColumns() {
         const remainingWidth = availableWidth - yearColumnWidth;
         
         // Calculate equal width for each problem cell
-        const cellWidth = Math.max(60, Math.floor(remainingWidth / maxProblems));
+        const cellWidth = Math.max(100, Math.floor(remainingWidth / maxProblems));
         
         // Apply width to year column
         const yearHeader = table.querySelector('th:first-child');
@@ -766,14 +839,20 @@ function adjustTableColumns() {
             cell.style.width = `${cellWidth}px`;
             cell.style.minWidth = `${cellWidth}px`;
             cell.style.maxWidth = `${cellWidth}px`;
+            
             // Adjust content based on cell width
             const problemId = cell.dataset.problemId;
             const problemFullName = cell.dataset.fullname;
-            if (cellWidth <= 60) {
-                cell.textContent = problemId; // Show only problem ID
-            }
-            else {
-                cell.textContent = problemFullName;
+            if (cellWidth <= 100) {
+                cell.textContent = ''; // Clear existing content
+                const difficultyIcon = cell.querySelector('.difficulty-icon');
+                if (difficultyIcon) cell.appendChild(difficultyIcon);
+                cell.appendChild(document.createTextNode(problemId));
+            } else {
+                cell.textContent = ''; // Clear existing content
+                const difficultyIcon = cell.querySelector('.difficulty-icon');
+                if (difficultyIcon) cell.appendChild(difficultyIcon);
+                cell.appendChild(document.createTextNode(problemFullName));
             }
         });
         
@@ -781,9 +860,17 @@ function adjustTableColumns() {
         const problemsHeader = table.querySelector('th:nth-child(2)');
         if (problemsHeader) {
             problemsHeader.colSpan = maxProblems;
-            problemsHeader.style.width = `${cellWidth * maxProblems}px`;
         }
     });
+}
+
+// Update Problem Stats Display
+function updateProblemStats() {
+    const stats = calculateProblemStats();
+    
+    document.getElementById('problems-total').textContent = stats.total;
+    document.getElementById('problems-solved').textContent = stats.solved;
+    document.getElementById('problems-attempted').textContent = stats.attempted;
 }
 
 // Render Visible Contests
@@ -797,6 +884,8 @@ function renderFullVisibleContests() {
     }
     
     renderVisibleContests(contestTrees[state.currentCategory], container, '');
+    calculateProblemStats();
+    updateProblemStats();
     
     // Adjust table columns after rendering
     setTimeout(() => {
