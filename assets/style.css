@@ -390,11 +390,12 @@ body {
 .contest-table td[data-problem-id] {
     color: #34495e;
     transition: all 0.2s ease;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     gap: 8px;
     display: table-cell;
     text-align: center;
+    vertical-align: middle;
 }
 
 /* Status-based cell coloring */
@@ -419,17 +420,48 @@ body {
     background-color: #aed6f1;
 }
 
-/* Difficulty icon in problem cells */
+/* Difficulty Selector Styles */
+.difficulty-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.difficulty-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--gray-medium);
+    background-color: white;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.difficulty-btn:hover {
+    background-color: var(--gray-light);
+}
+
+.difficulty-value {
+    width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
 .difficulty-icon {
     display: inline-block;
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    margin-right: 4px;
+    transition: background-image 0.15s ease-in-out;
     vertical-align: middle;
+    margin-right: 4px;
+    margin-left: 4px;
 }
 
 /* ========== Info Panel Styles ========== */
@@ -542,7 +574,6 @@ body {
 }
 
 .info-panel-link:hover {
-    background-color: var(--primary-color);
     transform: translateY(-2px);
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
@@ -565,6 +596,10 @@ body {
     font-size: 1.1rem;
 }
 
+.contest-info-link:hover {
+    background-color: var(--primary-color);
+}
+
 /* ========== Problem Specific Styles ========== */
 .problem-info-difficulty {
     display: flex;
@@ -578,32 +613,61 @@ body {
     gap: 8px;
 }
 
+.problem-link:hover {
+    background-color: var(--success-color);
+}
+
 .difficulty-btn {
     width: 25px;
     height: 28px;
-    border-radius: 0px;
+    font-size: 150%;
+    border-radius: 50%;
     border: none;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: transparent;
+    background-color: var(--gray-light);
     cursor: pointer;
     transition: transform 0.15s;
 }
 
 .difficulty-btn:hover {
     transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* Difficulty level images */
-.difficulty-0 { background-image: url('img/difficulty-0.svg'); }
-.difficulty-1 { background-image: url('img/difficulty-1.svg'); }
-.difficulty-2 { background-image: url('img/difficulty-6.svg'); }
-.difficulty-3 { background-image: url('img/difficulty-11.svg'); }
-.difficulty-4 { background-image: url('img/difficulty-16.svg'); }
-.difficulty-5 { background-image: url('img/difficulty-21.svg'); }
-.difficulty-6 { background-image: url('img/difficulty-25.svg'); }
-.difficulty-7 { background-image: url('img/difficulty-26.svg'); }
+.difficulty-0 { background-image: url('img/difficulty/difficulty-0.svg'); }
+.difficulty-1 { background-image: url('img/difficulty/difficulty-1.svg'); }
+.difficulty-2 { background-image: url('img/difficulty/difficulty-2.svg'); }
+.difficulty-3 { background-image: url('img/difficulty/difficulty-3.svg'); }
+.difficulty-4 { background-image: url('img/difficulty/difficulty-4.svg'); }
+.difficulty-5 { background-image: url('img/difficulty/difficulty-5.svg'); }
+.difficulty-6 { background-image: url('img/difficulty/difficulty-6.svg'); }
+.difficulty-7 { background-image: url('img/difficulty/difficulty-7.svg'); }
+.difficulty-8 { background-image: url('img/difficulty/difficulty-8.svg'); }
+.difficulty-9 { background-image: url('img/difficulty/difficulty-9.svg'); }
+.difficulty-10 { background-image: url('img/difficulty/difficulty-10.svg'); }
+.difficulty-11 { background-image: url('img/difficulty/difficulty-11.svg'); }
+.difficulty-12 { background-image: url('img/difficulty/difficulty-12.svg'); }
+.difficulty-13 { background-image: url('img/difficulty/difficulty-13.svg'); }
+.difficulty-14 { background-image: url('img/difficulty/difficulty-14.svg'); }
+.difficulty-15 { background-image: url('img/difficulty/difficulty-15.svg'); }
+.difficulty-16 { background-image: url('img/difficulty/difficulty-16.svg'); }
+.difficulty-17 { background-image: url('img/difficulty/difficulty-17.svg'); }
+.difficulty-18 { background-image: url('img/difficulty/difficulty-18.svg'); }
+.difficulty-19 { background-image: url('img/difficulty/difficulty-19.svg'); }
+.difficulty-20 { background-image: url('img/difficulty/difficulty-20.svg'); }
+.difficulty-21 { background-image: url('img/difficulty/difficulty-21.svg'); }
+.difficulty-22 { background-image: url('img/difficulty/difficulty-22.svg'); }
+.difficulty-23 { background-image: url('img/difficulty/difficulty-23.svg'); }
+.difficulty-24 { background-image: url('img/difficulty/difficulty-24.svg'); }
+.difficulty-25 { background-image: url('img/difficulty/difficulty-25.svg'); }
+.difficulty-26 { background-image: url('img/difficulty/difficulty-26.svg'); }
+.difficulty-27 { background-image: url('img/difficulty/difficulty-27.svg'); }
+.difficulty-28 { background-image: url('img/difficulty/difficulty-28.svg'); }
+.difficulty-29 { background-image: url('img/difficulty/difficulty-29.svg'); }
+.difficulty-30 { background-image: url('img/difficulty/difficulty-30.svg'); }
 
 .status-btn {
     padding: 6px 12px;
@@ -675,4 +739,61 @@ body {
         min-width: 60px;
         max-width: 60px;
     }
+}
+
+/* ========== Home Page Styles ========== */
+.home-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.token-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.token-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid var(--gray-medium);
+    border-radius: 4px;
+}
+
+.token-help {
+    font-size: 0.9em;
+    color: var(--gray-dark);
+    margin-bottom: 15px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.status-message {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.status-success {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-error {
+    background: #ffebee;
+    color: #c62828;
 }

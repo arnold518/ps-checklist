@@ -4,6 +4,12 @@ const contestDatabase = {};
 // Contest Tree Structures
 const contestTrees = {};
 
+// User Data
+const userData = {};
+
+// User Problem Data
+const userProblemData = {};
+
 // Application State
 const state = {
     currentCategory: 'icpc',
@@ -18,20 +24,80 @@ const state = {
     }
 };
 
+// Add these constants at the top
+const NAV_ITEMS = [
+    { id: 'home', name: 'Home' },
+    { id: 'icpc', name: 'ICPC' }
+    // Add other categories as needed
+];
+
+// Add this function to create the home page
+function createHomePage() {
+    const mainContent = document.getElementById('main-content');
+    mainContent.innerHTML = `
+        <div id="home-content" class="home-container">
+            <h1>Welcome to Contest Problem Manager</h1>
+            <div class="token-form">
+                <h2>GitHub Integration</h2>
+                <label for="github-token">Personal Access Token:</label>
+                <input type="password" id="github-token" class="token-input" placeholder="ghp_...">
+                <p class="token-help">
+                    Create a token with 'repo' scope at 
+                    <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings</a>
+                </p>
+                <button id="save-token" class="btn btn-primary">Save Token</button>
+                <div id="token-status" class="status-message"></div>
+            </div>
+        </div>
+    `;
+
+    // Load saved token if exists
+    const savedToken = localStorage.getItem('githubToken');
+    if (savedToken) {
+        document.getElementById('github-token').value = savedToken;
+        showTokenStatus('Token loaded from storage', 'success');
+    }
+
+    // Add token save handler
+    document.getElementById('save-token').addEventListener('click', saveGitHubToken);
+}
+
+function saveGitHubToken() {
+    const token = document.getElementById('github-token').value.trim();
+    const statusElement = document.getElementById('token-status');
+    
+    if (token) {
+        localStorage.setItem('githubToken', token);
+        showTokenStatus('Token saved successfully!', 'success');
+    } else {
+        showTokenStatus('Please enter a valid token', 'error');
+    }
+}
+
+function showTokenStatus(message, type) {
+    const statusElement = document.getElementById('token-status');
+    statusElement.textContent = message;
+    statusElement.className = `status-message status-${type}`;
+}
+
+
 // Initialize Navigation
 function initNavigation() {
-    const navItems = document.querySelectorAll('.nav-item');
+    const navMenu = document.getElementById('nav-menu');
     
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            // Update UI
-            navItems.forEach(i => i.classList.remove('active'));
-            item.classList.add('active');
-            
-            // Load new category
-            const category = item.dataset.category;
-            loadCategory(category);
+    NAV_ITEMS.forEach(item => {
+        const navItem = document.createElement('li');
+        navItem.className = 'nav-item';
+        navItem.dataset.category = item.id;
+        navItem.innerHTML = `<a>${item.name}</a>`;
+        
+        navItem.addEventListener('click', () => {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            navItem.classList.add('active');
+            loadCategory(item.id);
         });
+        
+        navMenu.appendChild(navItem);
     });
 }
 
@@ -111,23 +177,31 @@ async function fetchContestListData() {
     }
 }
 
-function fetchCateogryContestTreeData(category) {
-    fetch('./problemlists/' + category + '/contesttree.json')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            contestTrees[category] = parseContestTree(data, '');
-            console.log('Contest tree for category', category, 'loaded:', contestTrees[category]);
-            
-            initializeDataStructures(contestTrees[category]);
-            setDirectoryVisibility(contestTrees[category], true);
-            updateUI();
-        })
-        .catch(error => console.error('Error fetching category data:', error));
+async function fetchCateogryContestTreeData(category) {
+    try {
+        const response = await fetch(`./problemlists/${category}/contesttree.json`);
+        const data = await response.json();
+        contestTrees[category] = parseContestTree(data, '');
+        
+        initializeDataStructures(contestTrees[category]);
+        setDirectoryVisibility(contestTrees[category], true);
+        updateUI();
+    } catch (error) {
+        console.error('Error fetching category data:', error);
+    }
 }
 
 // Load Category Data
-function loadCategory(category) {
+async function loadCategory(category) {
+    const mainContent = document.getElementById('main-content');
+    
+    if (category === 'home') {
+        mainContent.innerHTML = '';
+        createHomePage();
+        document.getElementById('sidebar').innerHTML = '';
+        return;
+    }
+    
     state.currentCategory = category;
     state.expandedNodes = new Set();
     state.visibleContests = new Set();
@@ -139,7 +213,34 @@ function loadCategory(category) {
         attempted: 0
     };
     
-    fetchCateogryContestTreeData(category);
+    mainContent.innerHTML = `
+        <div class="content-header">
+            <h1>${category.toUpperCase()} Contests</h1>
+        </div>
+        <div id="contest-container" class="contest-container"></div>
+    `;
+
+    const sidebar = document.getElementById('sidebar');
+    sidebar.innerHTML = `
+        <div class="sidebar-header">
+            <h3>${category.toUpperCase()} Contests</h3>
+        </div>
+        <div id="tree-container" class="tree-container"></div>
+        <div class="status-bar">
+            <span id="status-text">0 contests visible</span>
+            <span id="visibility-ratio">0/0</span>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+        </div>
+        <div class="resize-handle"></div>
+    `;
+
+    setTimeout(() => {
+        setupResizableSidebar();
+    }, 0);
+
+    await fetchCateogryContestTreeData(category);
 }
 
 // Initialize Data Structures
@@ -438,13 +539,13 @@ function handleContestClick(contestCell) {
 
     // Create link elements
     const linkData = [
-        { id: 'statements', title: 'Problem Statements', img: 'assets/img/statements-icon.png', link: contest.data.link?.statements },
-        { id: 'editorials', title: 'Editorials', img: 'assets/img/editorials-icon.png', link: contest.data.link?.editorials },
-        { id: 'official', title: 'Official Site', img: 'assets/img/official-icon.png', link: contest.data.link?.official },
-        { id: 'standings', title: 'Standings', img: 'assets/img/standings-icon.png', link: contest.data.link?.standing },
-        { id: 'boj', title: 'BOJ Link', img: 'assets/img/boj-icon.png', link: contest.data.link?.BOJ },
-        { id: 'cf', title: 'Codeforces Link', img: 'assets/img/cf-icon.png', link: contest.data.link?.CF },
-        { id: 'qoj', title: 'QOJ Link', img: 'assets/img/qoj-icon.png', link: contest.data.link?.QOJ }
+        { id: 'statements', title: 'Problem Statements', img: 'assets/img/icon/statements-icon.png', link: contest.data.link?.statements },
+        { id: 'editorials', title: 'Editorials', img: 'assets/img/icon/editorials-icon.png', link: contest.data.link?.editorials },
+        { id: 'official', title: 'Official Site', img: 'assets/img/icon/official-icon.png', link: contest.data.link?.official },
+        { id: 'standings', title: 'Standings', img: 'assets/img/icon/standings-icon.png', link: contest.data.link?.standing },
+        { id: 'boj', title: 'BOJ Link', img: 'assets/img/icon/boj-icon.png', link: contest.data.link?.BOJ },
+        { id: 'cf', title: 'Codeforces Link', img: 'assets/img/icon/cf-icon.png', link: contest.data.link?.CF },
+        { id: 'qoj', title: 'QOJ Link', img: 'assets/img/icon/qoj-icon.png', link: contest.data.link?.QOJ }
     ];
 
     linkData.forEach(link => {
@@ -551,19 +652,39 @@ function handleProblemClick(problemCell) {
     difficultyLabel.textContent = 'Difficulty:';
     difficultyContainer.appendChild(difficultyLabel);
 
-    const difficultyBtn = document.createElement('button');
-    difficultyBtn.className = `difficulty-btn difficulty-${problem.difficulty || 0}`;
-    difficultyBtn.addEventListener('click', () => {
-        // Cycle through difficulties (0-7)
+    const selector = document.createElement('div');
+    selector.className = 'difficulty-selector';
+
+    const minusBtn = document.createElement('button');
+    minusBtn.className = 'difficulty-btn';
+    minusBtn.textContent = '-';
+    minusBtn.addEventListener('click', () => {
         const current = parseInt(problem.difficulty) || 0;
-        const newDifficulty = (current + 1) % 8;
-        problem.difficulty = newDifficulty;
-        difficultyBtn.className = `difficulty-btn difficulty-${newDifficulty}`;
-        // Update the problem cell
+        problem.difficulty = (current + 31 - 1) % 31;
+        updateDifficultyDisplay();
         updateProblemCell(contestId, problemIdx);
-        // Save to state or backend here
     });
-    difficultyContainer.appendChild(difficultyBtn);
+
+    const icon = document.createElement('div');
+    icon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
+
+    const plusBtn = document.createElement('button');
+    plusBtn.className = 'difficulty-btn';
+    plusBtn.textContent = '+';
+    plusBtn.addEventListener('click', () => {
+        const current = parseInt(problem.difficulty) || 0;
+        problem.difficulty = (current + 1) % 31;
+        updateDifficultyDisplay();
+        updateProblemCell(contestId, problemIdx);
+    });
+
+    function updateDifficultyDisplay() {
+        icon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
+        console.log('Updated difficulty:', problem.difficulty);
+    }
+
+    selector.append(minusBtn, icon, plusBtn);
+    difficultyContainer.appendChild(selector);
 
     controls.appendChild(difficultyContainer);
 
@@ -607,9 +728,9 @@ function handleProblemClick(problemCell) {
 
     // Create link elements
     const linkData = [
-        { type: 'boj', title: 'Baekjoon Online Judge', img: 'assets/img/boj-icon.png', link: problem?.BOJ },
-        { type: 'cf', title: 'Codeforces', img: 'assets/img/cf-icon.png', link: problem?.CF },
-        { type: 'qoj', title: 'QOJ', img: 'assets/img/qoj-icon.png', link: problem?.QOJ }
+        { type: 'boj', title: 'Baekjoon Online Judge', img: 'assets/img/icon/boj-icon.png', link: problem?.BOJ },
+        { type: 'cf', title: 'Codeforces', img: 'assets/img/icon/cf-icon.png', link: problem?.CF },
+        { type: 'qoj', title: 'QOJ', img: 'assets/img/icon/qoj-icon.png', link: problem?.QOJ }
     ];
 
     linkData.forEach(link => {
@@ -653,9 +774,13 @@ function updateProblemCell(contestId, problemIdx) {
     const difficultyIcon = problemCell.querySelector('.difficulty-icon');
     if (difficultyIcon) {
         difficultyIcon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
+        difficultyIcon.style.width = '20px';
+        difficultyIcon.style.height = '20px';
     } else {
         const newIcon = document.createElement('div');
         newIcon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
+        newIcon.style.width = '20px';
+        newIcon.style.height = '20px';
         problemCell.insertBefore(newIcon, problemCell.firstChild);
     }
 
@@ -820,12 +945,13 @@ function adjustTableColumns() {
         
         // Fixed width for year column
         const yearColumnWidth = 80;
+        const minWidth = 70;
         
         // Calculate remaining width for problem columns
         const remainingWidth = availableWidth - yearColumnWidth;
         
         // Calculate equal width for each problem cell
-        const cellWidth = Math.max(100, Math.floor(remainingWidth / maxProblems));
+        const cellWidth = Math.max(minWidth, Math.floor(remainingWidth / maxProblems));
         
         // Apply width to year column
         const yearHeader = table.querySelector('th:first-child');
@@ -843,7 +969,7 @@ function adjustTableColumns() {
             // Adjust content based on cell width
             const problemId = cell.dataset.problemId;
             const problemFullName = cell.dataset.fullname;
-            if (cellWidth <= 100) {
+            if (cellWidth <= minWidth) {
                 cell.textContent = ''; // Clear existing content
                 const difficultyIcon = cell.querySelector('.difficulty-icon');
                 if (difficultyIcon) cell.appendChild(difficultyIcon);
@@ -854,6 +980,7 @@ function adjustTableColumns() {
                 if (difficultyIcon) cell.appendChild(difficultyIcon);
                 cell.appendChild(document.createTextNode(problemFullName));
             }
+            updateProblemCell(cell.dataset.contestId, cell.dataset.problemIdx);
         });
         
         // Set colspan for problems header
@@ -922,37 +1049,47 @@ function updateUI() {
     renderFullTree();
     renderFullVisibleContests();
     updateStatusBar();
+    setupResizableSidebar();
 }
 
 function setupResizableSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const resizeHandle = sidebar.querySelector('.resize-handle');
-    
-    let isResizing = false;
-    
-    resizeHandle.addEventListener('mousedown', (e) => {
-      isResizing = true;
-      document.body.style.cursor = 'col-resize';
-      e.preventDefault(); // Prevent text selection
-    });
-    
-    document.addEventListener('mousemove', (e) => {
-      if (!isResizing) return;
-      
-      const newWidth = e.clientX - sidebar.getBoundingClientRect().left;
-      sidebar.style.width = `${newWidth}px`;
-    });
-    
-    document.addEventListener('mouseup', () => {
-      isResizing = false;
-      document.body.style.cursor = '';
+    requestAnimationFrame(() => {
+        const sidebar = document.getElementById('sidebar');
+        if (!sidebar) return;
+        
+        const resizeHandle = sidebar.querySelector('.resize-handle');
+        if (!resizeHandle) return;
+        
+        let isResizing = false;
+        
+        const mouseMoveHandler = (e) => {
+            if (!isResizing) return;
+            const newWidth = e.clientX - sidebar.getBoundingClientRect().left;
+            sidebar.style.width = `${newWidth}px`;
+        };
+        
+        const mouseUpHandler = () => {
+            isResizing = false;
+            document.body.style.cursor = '';
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+        };
+        
+        resizeHandle.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            document.body.style.cursor = 'col-resize';
+            e.preventDefault();
+            document.addEventListener('mousemove', mouseMoveHandler);
+            document.addEventListener('mouseup', mouseUpHandler);
+        });
     });
 }
 
 // Initialize Application
 document.addEventListener('DOMContentLoaded', async () => {
-    await fetchContestListData();
-    setupResizableSidebar();
     initNavigation();
-    loadCategory('icpc');
+    await fetchContestListData();
+
+    document.querySelector('.nav-item').classList.add('active');
+    await loadCategory('home');
 });
