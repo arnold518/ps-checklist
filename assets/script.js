@@ -301,6 +301,7 @@ async function saveGithubData(filepath, branch, savedata) {
 }
 async function saveUserProblemData() {
     const filepath = 'userdata/userproblemdata.json';
+    console.log('Saving user problem data:', userProblemData);
     if(await saveGithubData(filepath, 'alpha', userProblemData)) {
         console.log('User problem data saved successfully:', userProblemData);
     }
@@ -317,6 +318,7 @@ async function saveUserContestTree() {
             visibleContests: Array.from(data.visibleContests)
         };
     });
+    console.log('Saving user contest tree:', savedata);
     if(await saveGithubData(filepath, 'alpha', savedata)) {
         console.log('User contest tree saved successfully:', savedata);
     }
