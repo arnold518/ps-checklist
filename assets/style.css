@@ -669,6 +669,23 @@ body {
 .difficulty-29 { background-image: url('img/difficulty/difficulty-29.svg'); }
 .difficulty-30 { background-image: url('img/difficulty/difficulty-30.svg'); }
 
+.difficulty-fetch-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-width: 120px;
+    text-align: center;
+}
+
+.difficulty-fetch-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: var(--success-color);
+}
+
 .status-btn {
     padding: 6px 12px;
     border-radius: 6px;
@@ -796,4 +813,71 @@ body {
 .status-error {
     background: #ffebee;
     color: #c62828;
+}
+
+/* Navigation Actions Styles */
+.nav-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--primary-dark);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.nav-btn .btn-icon {
+    font-size: 16px;
+}
+
+.nav-btn .btn-text {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .nav-btn .btn-text {
+        display: inline;
+    }
+    .nav-btn {
+        padding: 8px 16px;
+    }
+}
+
+/* Status Notification */
+.save-status {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: var(--success-color);
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 1000;
+}
+
+.save-status.show {
+    opacity: 1;
+}
+
+.save-status.error {
+    background-color: var(--danger-color);
 }

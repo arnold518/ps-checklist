@@ -5,10 +5,11 @@ const contestDatabase = {};
 const contestTrees = {};
 
 // User Data
-const userData = {};
+let userContestTree = {};
+let userProblemData = {};
 
-// User Problem Data
-const userProblemData = {};
+// Github Token
+let authToken = localStorage.getItem('githubToken') || "";
 
 // Application State
 const state = {
@@ -63,11 +64,11 @@ function createHomePage() {
 }
 
 function saveGitHubToken() {
-    const token = document.getElementById('github-token').value.trim();
+    const authToken = document.getElementById('github-token').value.trim();
     const statusElement = document.getElementById('token-status');
     
-    if (token) {
-        localStorage.setItem('githubToken', token);
+    if (authToken) {
+        localStorage.setItem('githubauthToken', authToken);
         showTokenStatus('Token saved successfully!', 'success');
     } else {
         showTokenStatus('Please enter a valid token', 'error');
@@ -99,6 +100,7 @@ function initNavigation() {
         
         navMenu.appendChild(navItem);
     });
+
 }
 
 function contestNametoID(component) {
@@ -142,6 +144,173 @@ function parseContestTree(data, myid) {
     return tree;
 }
 
+async function branchExists(owner, repo, branch) {
+    try {
+        const url = `https://api.github.com/repos/${owner}/${repo}/branches/${branch}`;
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `token ${authToken}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        return response.ok;
+    } catch (error) {
+        console.error('Error checking branch:', error);
+        return false;
+    }
+}
+
+async function fetchGithubData(filepath, branch) {
+    const owner = 'arnold518';
+    const repo = 'ps-checklist';
+    let receivedData = undefined;
+
+    if (!authToken) {
+        console.error('GitHub token is not set');
+        return;
+    }
+
+    console.log('Fetching github data from:', filepath, branch);
+
+    try {
+        const branchExistsResult = await branchExists(owner, repo, branch);
+        if (!branchExistsResult) {
+            console.error(`Branch "${branch}" does not exist`);
+            return;
+        }
+
+        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}?ref=${branch}`;
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `token ${authToken}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+
+        if (!response.ok) {
+            console.error(`Failed to fetch data. HTTP status: ${response.status}`);
+            return;
+        }
+
+        const data = await response.json();
+        const decodedContent = atob(data.content.replace(/\s/g, ''));
+
+        try {
+            receivedData = JSON.parse(decodedContent);
+            console.log('Data loaded successfully:', receivedData);
+        } catch (jsonError) {
+            console.error('Error parsing data JSON:', jsonError);
+            receivedData = undefined;
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        receivedData = undefined;
+    }
+    return receivedData;
+}
+async function fetchUserProblemData() {
+    const filepath = 'userdata/userproblemdata.json';
+    userProblemData = await fetchGithubData(filepath, 'alpha') || {};
+}
+async function fetchUserContestTree() {
+    const filepath = 'userdata/usercontesttree.json';
+    data = await fetchGithubData(filepath, 'alpha') || {};
+    userContestTree = {};
+    Object.entries(data).forEach(([categoryName, categoryData]) => {
+        if (categoryData.expandedNodes === undefined) categoryData.expandedNodes = [];
+        if (!(categoryData.expandedNodes instanceof Array)) categoryData.expandedNodes = [];
+        if (categoryData.visibleContests === undefined) categoryData.visibleContests = [];
+        if (!(categoryData.visibleContests instanceof Array)) categoryData.visibleContests = [];
+        
+        userContestTree[categoryName] = {
+            expandedNodes: new Set(categoryData.expandedNodes),
+            visibleContests: new Set(categoryData.visibleContests)
+        };
+    });
+}
+
+async function saveGithubData(filepath, branch, savedata) {
+    const owner = 'arnold518';
+    const repo = 'ps-checklist';
+
+    if (!authToken) {
+        console.error('GitHub token is not set');
+        return;
+    }
+
+    console.log('Saving github data:', filepath, branch, savedata);
+
+    try {
+        let sha = '';
+        const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}?ref=${branch}`;
+        const getResponse = await fetch(getUrl, {
+            headers: {
+                'Authorization': `token ${authToken}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+
+        if (getResponse.ok) {
+            const data = await getResponse.json();
+            sha = data.sha;
+        } else if (getResponse.status !== 404) {
+            console.error(`Failed to fetch file metadata. HTTP status: ${getResponse.status}`);
+            return;
+        }
+
+        const content = btoa(JSON.stringify(savedata, null, 4));
+        const putResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filepath}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${authToken}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `Update ${filepath}: ${new Date().toISOString()}`,
+                content: content,
+                branch: branch,
+                sha: sha || undefined
+            })
+        });
+
+        if (!putResponse.ok) {
+            console.error(`Failed to save data. HTTP status: ${putResponse.status}`);
+            return false;
+        }
+        console.log('Data saved successfully:', savedata);
+        return true;
+    } catch (error) {
+        console.error('Error saving data:', error);
+    }
+    return false;
+}
+async function saveUserProblemData() {
+    const filepath = 'userdata/userproblemdata.json';
+    if(await saveGithubData(filepath, 'alpha', userProblemData)) {
+        console.log('User problem data saved successfully:', userProblemData);
+    }
+    else {
+        console.error('Failed to save user problem data:', userProblemData);
+    }
+}
+async function saveUserContestTree() {
+    const filepath = 'userdata/usercontesttree.json';
+    let savedata = {};
+    Object.entries(userContestTree).forEach(([category, data]) => {
+        savedata[category] = {
+            expandedNodes: Array.from(data.expandedNodes),
+            visibleContests: Array.from(data.visibleContests)
+        };
+    });
+    if(await saveGithubData(filepath, 'alpha', savedata)) {
+        console.log('User contest tree saved successfully:', savedata);
+    }
+    else {
+        console.error('Failed to save user contest tree:', savedata);
+    }
+}
+
 async function fetchContestListData() {
     try {
         // First fetch the contest list
@@ -159,6 +328,14 @@ async function fetchContestListData() {
                 try {
                     const contestResponse = await fetch('./' + filepath + 'contest.json');
                     const contestData = await contestResponse.json();
+                    contestData.problems.forEach((problem, problemIdx) => {
+                        const name = contestData.id + ' >> ' + problemIdx;
+                        if (userProblemData[name]) {
+                            console.log('User problem data found for:', name, userProblemData[name]);
+                            problem.status = userProblemData[name].status || 0;
+                            problem.difficulty = userProblemData[name].difficulty || 0;
+                        }
+                    });
                     contestDatabase[contestId] = contestData;
                     console.log('Contest data loaded:', contestId, contestData);
                     return contestId; // Return something to indicate success
@@ -184,7 +361,7 @@ async function fetchCateogryContestTreeData(category) {
         contestTrees[category] = parseContestTree(data, '');
         
         initializeDataStructures(contestTrees[category]);
-        setDirectoryVisibility(contestTrees[category], true);
+        // setDirectoryVisibility(contestTrees[category], true);
         updateUI();
     } catch (error) {
         console.error('Error fetching category data:', error);
@@ -201,10 +378,16 @@ async function loadCategory(category) {
         document.getElementById('sidebar').innerHTML = '';
         return;
     }
+
+    if (!userContestTree[category]) {
+        userContestTree[category] = {};
+        userContestTree[category].expandedNodes = new Set();
+        userContestTree[category].visibleContests = new Set();
+    }
     
     state.currentCategory = category;
-    state.expandedNodes = new Set();
-    state.visibleContests = new Set();
+    state.expandedNodes = userContestTree[category].expandedNodes || new Set();
+    state.visibleContests = userContestTree[category].visibleContests || new Set();
     state.allContests = new Map();
     state.directoryStats = new Map();
     state.problemStats = {
@@ -212,7 +395,7 @@ async function loadCategory(category) {
         solved: 0,
         attempted: 0
     };
-    
+
     mainContent.innerHTML = `
         <div class="content-header">
             <h1>${category.toUpperCase()} Contests</h1>
@@ -247,6 +430,26 @@ async function loadCategory(category) {
 function initializeDataStructures(node) {
     if (node.contests) {
         node.contests.forEach(contest => {
+            contest.data.problems.forEach((problem, problemIdx) => {
+                const name = contest.id + ' >> ' + problemIdx;
+                if (userProblemData[name]) {
+                    problem.status = userProblemData[name].status || 0;
+                    problem.difficulty = userProblemData[name].difficulty || 0;
+                }
+                if (problem.difficulty === undefined || problem.difficulty === 0) {
+                    const bojnum = problem.BOJ.split('/').pop();
+                    getProblemSolvedacDifficulty(bojnum).then(data => {
+                        if (data && data.level) {
+                            problem.difficulty = data.level;
+                            userProblemData[name] = userProblemData[name] || {};
+                            userProblemData[name].difficulty = problem.difficulty;
+                            console.log(`Fetched difficulty for problem ${bojnum}:`, problem.difficulty);
+                        }
+                    }).catch(error => {
+                        console.error(`Error fetching difficulty for problem ${bojnum}:`, error);
+                    });
+                }
+            });
             state.allContests.set(contest.id, contest);
         });
         state.directoryStats.set(node.id, {
@@ -419,8 +622,10 @@ function renderContestLeaf(contest, parentElement, color) {
 function toggleNodeExpansion(node) {
     if (state.expandedNodes.has(node.id)) {
         state.expandedNodes.delete(node.id);
+        userContestTree[state.currentCategory].expandedNodes.delete(node.id);
     } else {
         state.expandedNodes.add(node.id);
+        userContestTree[state.currentCategory].expandedNodes.add(node.id);
     }
     renderFullTree();
 }
@@ -431,8 +636,10 @@ function setDirectoryVisibility(node, makeVisible) {
         node.contests.forEach(contest => {
             if (makeVisible) {
                 state.visibleContests.add(contest.id);
+                userContestTree[state.currentCategory].visibleContests.add(contest.id);
             } else {
                 state.visibleContests.delete(contest.id);
+                userContestTree[state.currentCategory].visibleContests.delete(contest.id);
             }
         });
     }
@@ -578,6 +785,26 @@ function handleContestClick(contestCell) {
     contestInfo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
+async function getProblemSolvedacDifficulty(problemId) {
+    const url = `https://solved.ac/api/v3/problem/show?problemId=${problemId}`;
+    try {
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching problem data:', error);
+        return null;
+    }
+}
+
 function handleProblemClick(problemCell) {
     const contestId = problemCell.dataset.contestId;
     const problemId = problemCell.dataset.problemId;
@@ -593,6 +820,7 @@ function handleProblemClick(problemCell) {
     // Get the problem data
     const problem = contest.data.problems[problemIdx];
     if (!problem) return;
+    const name = `${contestId} >> ${problemIdx}`;
 
     // Get or create problem info element
     const contestContent = problemCell.closest('.contest-content');
@@ -661,6 +889,8 @@ function handleProblemClick(problemCell) {
     minusBtn.addEventListener('click', () => {
         const current = parseInt(problem.difficulty) || 0;
         problem.difficulty = (current + 31 - 1) % 31;
+        if(!userProblemData[name]) userProblemData[name] = {};
+        userProblemData[name].difficulty = problem.difficulty;
         updateDifficultyDisplay();
         updateProblemCell(contestId, problemIdx);
     });
@@ -674,6 +904,8 @@ function handleProblemClick(problemCell) {
     plusBtn.addEventListener('click', () => {
         const current = parseInt(problem.difficulty) || 0;
         problem.difficulty = (current + 1) % 31;
+        if(!userProblemData[name]) userProblemData[name] = {};
+        userProblemData[name].difficulty = problem.difficulty;
         updateDifficultyDisplay();
         updateProblemCell(contestId, problemIdx);
     });
@@ -684,6 +916,26 @@ function handleProblemClick(problemCell) {
     }
 
     selector.append(minusBtn, icon, plusBtn);
+
+    const difficultyFetchButton = document.createElement('button');
+    difficultyFetchButton.className = 'difficulty-fetch-btn';
+    difficultyFetchButton.textContent = 'Fetch Difficulty';
+    difficultyFetchButton.addEventListener('click', () => {
+        console.log('Fetching difficulty for problem:', problem.BOJ);
+        const bojnum = problem.BOJ.split('/').pop();
+        getProblemSolvedacDifficulty(bojnum).then(data => {
+            if (data && data.level) {
+                problem.difficulty = data.level;
+                console.log('Fetched difficulty:', problem.difficulty);
+                if(!userProblemData[name]) userProblemData[name] = {};
+                userProblemData[name].difficulty = problem.difficulty;
+                updateDifficultyDisplay();
+                updateProblemCell(contestId, problemIdx);
+            }
+        });
+    });
+
+    selector.appendChild(difficultyFetchButton);
     difficultyContainer.appendChild(selector);
 
     controls.appendChild(difficultyContainer);
@@ -710,6 +962,8 @@ function handleProblemClick(problemCell) {
         statusBtn.textContent = 
             newStatus === 1 ? 'Attempted' :
             newStatus === 2 ? 'Solved' : 'Not Attempted';
+        if(!userProblemData[name]) userProblemData[name] = {};
+        userProblemData[name].status = problem.status;
         // Update the problem cell
         updateProblemCell(contestId, problemIdx);
         // Update problem stats
@@ -887,13 +1141,12 @@ function renderVisibleContests(node, container, name) {
             contestCell.style.cursor = 'pointer';
             row.appendChild(contestCell);
 
-            let idx = 0;
             // Problem cells
-            contest.data.problems.forEach(problem => {
+            contest.data.problems.forEach((problem, problemIdx) => {
                 const problemCell = document.createElement('td');
                 problemCell.dataset.problemId = problem.id;
                 problemCell.dataset.contestId = contest.id;
-                problemCell.dataset.problemIdx = idx++;
+                problemCell.dataset.problemIdx = problemIdx;
                 problemCell.dataset.fullname = `${problem.id}. ${problem.title}`;
                 problemCell.dataset.status = problem.status || '0';
                 
@@ -1085,10 +1338,28 @@ function setupResizableSidebar() {
     });
 }
 
+// Initialize the save buttons
+function initSaveButtons() {
+    document.getElementById('save-userdata').addEventListener('click', saveUserProblemData);
+    document.getElementById('save-contesttree').addEventListener('click', saveUserContestTree);
+    
+    // Disable buttons if no GitHub token
+    const token = localStorage.getItem('githubToken');
+    if (!token) {
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.disabled = true;
+            btn.title = 'GitHub token required - set it in Home page';
+        });
+    }
+}
+
 // Initialize Application
 document.addEventListener('DOMContentLoaded', async () => {
     initNavigation();
     await fetchContestListData();
+    await fetchUserProblemData();
+    await fetchUserContestTree();
+    initSaveButtons();
 
     document.querySelector('.nav-item').classList.add('active');
     await loadCategory('home');
