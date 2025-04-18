@@ -460,6 +460,7 @@ function initializeDataStructures(node) {
                             userProblemData[name] = userProblemData[name] || {};
                             userProblemData[name].difficulty = problem.difficulty;
                             console.log(`Fetched difficulty for problem ${bojnum}:`, problem.difficulty);
+                            updateProblemCell(contest.id, problemIdx);
                         }
                     }).catch(error => {
                         console.error(`Error fetching difficulty for problem ${bojnum}:`, error);
