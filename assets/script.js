@@ -1235,7 +1235,7 @@ function adjustTableColumns() {
             // Adjust content based on cell width
             const problemId = cell.dataset.problemId;
             const problemFullName = cell.dataset.fullname;
-            if (cellWidth <= minWidth) {
+            if (cellWidth <= minWidth2) {
                 cell.textContent = ''; // Clear existing content
                 const difficultyIcon = cell.querySelector('.difficulty-icon');
                 if (difficultyIcon) cell.appendChild(difficultyIcon);
@@ -1244,7 +1244,7 @@ function adjustTableColumns() {
                 cell.textContent = ''; // Clear existing content
                 const difficultyIcon = cell.querySelector('.difficulty-icon');
                 if (difficultyIcon) cell.appendChild(difficultyIcon);
-                cell.appendChild(document.createTextNode(cellWidth <= minWidth2 ? problemId : problemFullName));
+                cell.appendChild(document.createTextNode(problemFullName));
             }
             updateProblemCell(cell.dataset.contestId, cell.dataset.problemIdx);
         });
