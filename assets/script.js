@@ -63,13 +63,27 @@ function createHomePage() {
     document.getElementById('save-token').addEventListener('click', saveGitHubToken);
 }
 
-function saveGitHubToken() {
-    const authToken = document.getElementById('github-token').value.trim();
+async function saveGitHubToken() {
+    authToken = document.getElementById('github-token').value.trim();
     const statusElement = document.getElementById('token-status');
     
     if (authToken) {
-        localStorage.setItem('githubauthToken', authToken);
-        showTokenStatus('Token saved successfully!', 'success');
+        localStorage.setItem('githubToken', authToken);
+        console.log('Token saved');
+        
+        const owner = 'arnold518';
+        const repo = 'ps-checklist';
+        const branch = 'alpha';
+        const branchExistsResult = await branchExists(owner, repo, branch);
+        if (branchExistsResult) {
+            showTokenStatus('Login Success!', 'success');
+            await fetchUserProblemData();
+            await fetchUserContestTree();
+        } else {
+            showTokenStatus('Login Failed!', 'error');
+            userProblemData = {};
+            userContestTree = {};
+        }
     } else {
         showTokenStatus('Please enter a valid token', 'error');
     }
@@ -786,22 +800,13 @@ function handleContestClick(contestCell) {
 }
 
 async function getProblemSolvedacDifficulty(problemId) {
-    const url = `https://solved.ac/api/v3/problem/show?problemId=${problemId}`;
     try {
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        return data;
+        const proxyUrl = `https://solved-ac-proxy.arnoldpark03.workers.dev?problemId=${problemId}`;
+        const response = await fetch(proxyUrl);
+        return await response.json();
     } catch (error) {
-        console.error('Error fetching problem data:', error);
-        return null;
+        console.error('Error fetching problem difficulty:', error);
+        return {};
     }
 }
 
