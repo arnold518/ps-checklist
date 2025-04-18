@@ -1112,6 +1112,10 @@ function renderVisibleContests(node, container, name) {
         content.appendChild(statsBar);
         
         const tableContainer = document.createElement('div');
+        const resizeObserver = new ResizeObserver(() => {
+            adjustTableColumns();
+        });
+        resizeObserver.observe(tableContainer);
         tableContainer.className = 'contest-table-container';
         
         const table = document.createElement('table');
@@ -1207,6 +1211,7 @@ function adjustTableColumns() {
         // Fixed width for year column
         const yearColumnWidth = 80;
         const minWidth = 70;
+        const minWidth2 = 90;
         
         // Calculate remaining width for problem columns
         const remainingWidth = availableWidth - yearColumnWidth;
@@ -1239,7 +1244,7 @@ function adjustTableColumns() {
                 cell.textContent = ''; // Clear existing content
                 const difficultyIcon = cell.querySelector('.difficulty-icon');
                 if (difficultyIcon) cell.appendChild(difficultyIcon);
-                cell.appendChild(document.createTextNode(problemFullName));
+                cell.appendChild(document.createTextNode(cellWidth <= minWidth2 ? problemId : problemFullName));
             }
             updateProblemCell(cell.dataset.contestId, cell.dataset.problemIdx);
         });
