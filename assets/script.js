@@ -4,6 +4,9 @@ const contestDatabase = {};
 // Contest Tree Structures
 const contestTrees = {};
 
+// Problem States
+const problemStates = ["Not Attempted", "Attempted", "Solved", "Reviewed"];
+
 // User Data
 let userContestTree = {};
 let userProblemData = {};
@@ -18,11 +21,7 @@ const state = {
     visibleContests: new Set(),
     allContests: new Map(),
     directoryStats: new Map(),
-    problemStats: {
-        total: 0,
-        solved: 0,
-        attempted: 0
-    }
+    problemStats: new Map()
 };
 
 // Add these constants at the top
@@ -63,6 +62,92 @@ function createHomePage() {
     document.getElementById('save-token').addEventListener('click', saveGitHubToken);
 }
 
+function createProgressBar() {
+    const progressContainer = document.createElement('div');
+    progressContainer.className = 'progress-container';
+
+    const progressBar = document.createElement('div');
+    progressBar.className = 'progress-bar';
+    progressBar.id = 'progressBar';
+
+    const hoverBox = document.createElement('div');
+    hoverBox.className = 'hover-box';
+    hoverBox.id = 'hoverBox';
+
+    progressContainer.appendChild(progressBar);
+    progressContainer.appendChild(hoverBox);
+
+    return progressContainer;
+}
+
+function updateProgressBar(progressContainer, problemStats) {
+    const progressBar = progressContainer.querySelector('#progressBar');
+    const hoverBox = progressContainer.querySelector('#hoverBox');
+    const totalElements = Math.max(1, problemStats.reduce((sum, count) => sum + count, 0));
+
+    // Process all states in order (0, 1, 2, 3)
+    [0, 1, 2, 3].forEach(state => {
+        const count = problemStats[state] || 0;
+        const percentage = (count / totalElements) * 100;
+        
+        let segment = progressBar.querySelector(`.progress-status-${state}`);
+        
+        if (!segment) {
+            // Create new segment if it doesn't exist
+            segment = document.createElement('div');
+            segment.className = `progress-segment progress-status-${state}`;
+            segment.dataset.state = state;
+            
+            // Insert in correct position
+            const nextSegment = progressBar.querySelector(`.progress-status-${state+1}`);
+            if (nextSegment) {
+                progressBar.insertBefore(segment, nextSegment);
+            } else {
+                progressBar.appendChild(segment);
+            }
+
+            // Add hover events
+            segment.addEventListener('mousemove', (e) => {
+                const percentage = ((count / totalElements) * 100).toFixed(1);
+                hoverBox.innerHTML = `
+                    <div><strong>${problemStates[state]}</strong></div>
+                    <div>Problems: ${count}/${totalElements}</div>
+                    <div>Percentage: ${percentage}%</div>
+                `;
+                hoverBox.classList.add('show');
+                hoverBox.style.left = `${e.clientX + 10}px`;
+                hoverBox.style.top = `${e.clientY + 10}px`;
+            });
+
+            segment.addEventListener('mouseleave', () => {
+                hoverBox.classList.remove('show');
+            });
+        }
+
+        // Update segment data and appearance
+        segment.dataset.count = count;
+        segment.dataset.total = totalElements;
+        segment.textContent = `${count}`;
+        
+        // Toggle wide-enough class based on width
+        segment.classList.toggle('wide-enough', percentage > 5); // Show text if >5% width
+        
+        // Animate width change
+        const startWidth = segment.style.width || '0%';
+        segment.style.setProperty('--current-width', startWidth);
+        void segment.offsetWidth; // Force reflow
+        segment.style.width = `${percentage}%`;
+    });
+}
+
+function updateProgressBars() {
+    const progressBars = document.querySelectorAll('.progress-container');
+    progressBars.forEach(progressBar => {
+        const nodeId = progressBar.dataset.nodeId;
+        updateProgressBar(progressBar, state.problemStats.get(nodeId));
+    });
+}
+
 async function saveGitHubToken() {
     authToken = document.getElementById('github-token').value.trim();
     const statusElement = document.getElementById('token-status');
@@ -94,7 +179,6 @@ function showTokenStatus(message, type) {
     statusElement.textContent = message;
     statusElement.className = `status-message status-${type}`;
 }
-
 
 // Initialize Navigation
 function initNavigation() {
@@ -406,11 +490,7 @@ async function loadCategory(category) {
     state.visibleContests = userContestTree[category].visibleContests || new Set();
     state.allContests = new Map();
     state.directoryStats = new Map();
-    state.problemStats = {
-        total: 0,
-        solved: 0,
-        attempted: 0
-    };
+    state.problemStats = new Map();
 
     mainContent.innerHTML = `
         <div class="content-header">
@@ -428,7 +508,7 @@ async function loadCategory(category) {
         <div class="status-bar">
             <span id="status-text">0 contests visible</span>
             <span id="visibility-ratio">0/0</span>
-            <div class="progress-bar">
+            <div class="progress-bar2">
                 <div id="progress-fill" class="progress-fill"></div>
             </div>
         </div>
@@ -518,25 +598,36 @@ function calculateDirectoryStats(node) {
 }
 
 // Calculate Problem Stats
-function calculateProblemStats() {
-    const stats = {
-        total: 0,
-        solved: 0,
-        attempted: 0
-    };
+function calculateProblemStats(node) {
+    if (!state.problemStats.has(node.id)) {
+        state.problemStats.set(node.id, new Array(problemStates.length).fill(0));
+    }
+    
+    const stats = state.problemStats.get(node.id);
+    stats.fill(0);
 
-    state.visibleContests.forEach(contestId => {
-        const contest = state.allContests.get(contestId);
-        if (contest && contest.data.problems) {
-            stats.total += contest.data.problems.length;
-            contest.data.problems.forEach(problem => {
-                if (problem.status === 1) stats.attempted++;
-                if (problem.status === 2) stats.solved++;
-            });
-        }
-    });
+    if (node.contests) {
+        node.contests.forEach(contest => {
+            if (state.visibleContests.has(contest.id)) {
+                contest.data.problems.forEach((problem, problemIdx) => {
+                    const name = contest.id + ' >> ' + problemIdx;
+                    if (userProblemData[name]) stats[userProblemData[name].status]++;
+                    else stats[0]++;
+                });
+            }
+        });
+    }
 
-    state.problemStats = stats;
+    if (node.children) {
+        node.children.forEach(child => {
+            const childStats = calculateProblemStats(child);
+            for (let i = 0; i < problemStates.length; i++) {
+                stats[i] += childStats[i];
+            }
+        });
+    }
+
+    console.log('Problem stats for node', node.id, ':', stats);
     return stats;
 }
 
@@ -980,25 +1071,19 @@ function handleProblemClick(problemCell) {
 
     const statusBtn = document.createElement('button');
     statusBtn.className = `status-btn status-${problem.status || 0}`;
-    statusBtn.textContent = 
-        problem.status === 1 ? 'Attempted' :
-        problem.status === 2 ? 'Solved' : 'Not Attempted';
+    statusBtn.textContent = problemStates[problem.status || 0];
     statusBtn.addEventListener('click', () => {
-        // Cycle through statuses (0-2)
         const current = parseInt(problem.status) || 0;
-        const newStatus = (current + 1) % 3;
+        const newStatus = (current + 1) % problemStates.length;
         problem.status = newStatus;
         statusBtn.className = `status-btn status-${newStatus}`;
-        statusBtn.textContent = 
-            newStatus === 1 ? 'Attempted' :
-            newStatus === 2 ? 'Solved' : 'Not Attempted';
+        statusBtn.textContent =  problemStates[newStatus];
         if(!userProblemData[name]) userProblemData[name] = {};
         userProblemData[name].status = problem.status;
         // Update the problem cell
         updateProblemCell(contestId, problemIdx);
-        // Update problem stats
-        calculateProblemStats();
         updateProblemStats();
+
         // Save to state or backend here
     });
     statusContainer.appendChild(statusBtn);
@@ -1115,24 +1200,28 @@ function renderVisibleContests(node, container, name) {
         content.className = 'contest-content';
         
         // Add stats bar
-        const statsBar = document.createElement('div');
-        statsBar.className = 'stats-bar';
-        statsBar.innerHTML = `
-            <div class="stats-item">
-                <span class="stats-label">Problems:</span>
-                <span class="stats-value" id="problems-total">0</span>
-            </div>
-            <div class="stats-item">
-                <span class="stats-label">Solved:</span>
-                <span class="stats-value" id="problems-solved">0</span>
-            </div>
-            <div class="stats-item">
-                <span class="stats-label">Attempted:</span>
-                <span class="stats-value" id="problems-attempted">0</span>
-            </div>
-        `;
-        content.appendChild(statsBar);
-        
+        // const statsBar = document.createElement('div');
+        // statsBar.className = 'stats-bar';
+        // statsBar.innerHTML = `
+        //     <div class="stats-item">
+        //         <span class="stats-label">Problems:</span>
+        //         <span class="stats-value" id="problems-total">0</span>
+        //     </div>
+        //     <div class="stats-item">
+        //         <span class="stats-label">Solved:</span>
+        //         <span class="stats-value" id="problems-solved">0</span>
+        //     </div>
+        //     <div class="stats-item">
+        //         <span class="stats-label">Attempted:</span>
+        //         <span class="stats-value" id="problems-attempted">0</span>
+        //     </div>
+        // `;
+        // content.appendChild(statsBar);
+        const progressBar = createProgressBar();
+        progressBar.dataset.nodeId = node.id;
+        content.appendChild(progressBar);
+        updateProgressBar(progressBar, state.problemStats.get(node.id));
+
         const tableContainer = document.createElement('div');
         const resizeObserver = new ResizeObserver(() => {
             adjustTableColumns();
@@ -1281,11 +1370,8 @@ function adjustTableColumns() {
 
 // Update Problem Stats Display
 function updateProblemStats() {
-    const stats = calculateProblemStats();
-    
-    document.getElementById('problems-total').textContent = stats.total;
-    document.getElementById('problems-solved').textContent = stats.solved;
-    document.getElementById('problems-attempted').textContent = stats.attempted;
+    calculateProblemStats(contestTrees[state.currentCategory]);
+    updateProgressBars();
 }
 
 // Render Visible Contests
@@ -1298,9 +1384,16 @@ function renderFullVisibleContests() {
         return;
     }
     
+    calculateProblemStats(contestTrees[state.currentCategory]);
+
+    {
+        const node = contestTrees[state.currentCategory];
+        const progressBar = createProgressBar();
+        progressBar.dataset.nodeId = node.id;
+        container.appendChild(progressBar);
+        updateProgressBar(progressBar, state.problemStats.get(node.id));
+    }
     renderVisibleContests(contestTrees[state.currentCategory], container, '');
-    calculateProblemStats();
-    updateProblemStats();
     
     // Adjust table columns after rendering
     setTimeout(() => {

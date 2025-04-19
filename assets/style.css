@@ -146,11 +146,11 @@ body {
     background: white;
     border-top: 1px solid var(--gray-medium);
     font-size: 14px;
-    display: flex;
+    /* display: flex; */
     justify-content: space-between;
 }
 
-.progress-bar {
+.progress-bar2 {
     height: 4px;
     background-color: var(--gray-light);
     border-radius: 2px;
@@ -400,9 +400,10 @@ body {
 }
 
 /* Status-based cell coloring */
-.contest-table td[data-status="0"] { background-color: #f5f5f5; } /* Not attempted */
-.contest-table td[data-status="1"] { background-color: #fff3e0; } /* Attempted */
-.contest-table td[data-status="2"] { background-color: #e8f5e9; } /* Solved */
+.contest-table td[data-status="0"] { background-color: #f0f0f0; } /* Not attempted */
+.contest-table td[data-status="1"] { background-color: #ffe0b2; } /* Attempted - deeper orange */
+.contest-table td[data-status="2"] { background-color: #c8e6c9; } /* Solved - brighter green */
+.contest-table td[data-status="3"] { background-color: #b2ffb2; } /* Reviewed - bright green */
 
 /* Hover effects */
 .contest-table tr:hover {
@@ -725,6 +726,12 @@ body {
 .status-0 { background-color: #f5f5f5; color: var(--gray-dark); } /* Not attempted */
 .status-1 { background-color: #fff3e0; color: #e65100; } /* Attempted */
 .status-2 { background-color: #e8f5e9; color: #2e7d32; } /* Solved */
+.status-3 { background-color: #d0ffd0; color: #008000; } /* Reviewed */
+
+.progress-status-0 { background-color: #f0f0f0; color: var(--gray-dark); } /* Not attempted - lighter gray */
+.progress-status-1 { background-color: #ffe0b2; color: #e65100; } /* Attempted - deeper orange */
+.progress-status-2 { background-color: #c8e6c9; color: #2e7d32; } /* Solved - brighter green */
+.progress-status-3 { background-color: #b2ffb2; color: #008000; } /* Reviewed - bright green */
 
 /* ========== Stats Bar Styles ========== */
 .stats-bar {
@@ -899,4 +906,80 @@ body {
 
 .save-status.error {
     background-color: var(--danger-color);
+}
+
+.progress-container {
+    width: 100%;
+    height: 20px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+  
+.progress-bar {
+    height: 100%;
+    display: flex;
+    width: 100%;
+    min-width: 100%; /* Ensure full width behavior */
+}
+  
+.progress-segment {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 12px;
+    position: relative;
+    cursor: default;
+    width: 0%;
+    min-width: 0;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden; /* Hide text when too narrow */
+    white-space: nowrap;
+}
+
+/* Minimum width to show text (adjust as needed) */
+.progress-segment.wide-enough {
+    min-width: 30px; /* Only show text when at least 30px wide */
+}
+  
+.progress-segment:hover {
+    transform: scaleY(1.1);
+    z-index: 2;
+    min-width: auto; /* Always show text on hover */
+}
+
+.hover-box {
+    position: fixed; /* Changed from absolute to fixed */
+    background: rgba(0,0,0,0.85);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transform: translate(-50%, -120%);
+    transition: opacity 0.2s ease;
+    min-width: 160px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+    display: none; /* Start hidden */
+}
+  
+.hover-box.show {
+    opacity: 1;
+    display: block; /* Show when active */
+}
+  
+.hover-box::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.85) transparent transparent transparent;
 }
