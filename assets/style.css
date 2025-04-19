@@ -612,6 +612,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-left: 16px;
 }
 
 .problem-link:hover {
@@ -685,6 +686,23 @@ body {
     transform: scale(1.05);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     background-color: var(--success-color);
+}
+
+.contest-difficulty-fetch-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-width: 120px;
+    text-align: center;
+}
+
+.contest-difficulty-fetch-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: var(--primary-color);
 }
 
 .status-btn {

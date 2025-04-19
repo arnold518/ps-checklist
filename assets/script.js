@@ -442,6 +442,30 @@ async function loadCategory(category) {
     await fetchCateogryContestTreeData(category);
 }
 
+function updateProblemSolvedacDifficulty(contestId, problemIdx) {
+    const contest = state.allContests.get(contestId);
+    if (!contest) return;
+    
+    const problem = contest.data.problems[problemIdx];
+    if (!problem) return;
+    
+    const name = contestId + ' >> ' + problemIdx;
+
+    if (!problem.BOJ) return;
+    const bojnum = problem.BOJ.split('/').pop();
+    getProblemSolvedacDifficulty(bojnum).then(data => {
+        if (data && data.level) {
+            problem.difficulty = data.level;
+            userProblemData[name] = userProblemData[name] || {};
+            userProblemData[name].difficulty = problem.difficulty;
+            console.log(`Fetched difficulty for problem ${bojnum}:`, problem.difficulty);
+            updateProblemCell(contest.id, problemIdx);
+        }
+    }).catch(error => {
+        console.error(`Error fetching difficulty for problem ${bojnum}:`, error);
+    });
+}
+
 // Initialize Data Structures
 function initializeDataStructures(node) {
     if (node.contests) {
@@ -451,20 +475,6 @@ function initializeDataStructures(node) {
                 if (userProblemData[name]) {
                     problem.status = userProblemData[name].status || 0;
                     problem.difficulty = userProblemData[name].difficulty || 0;
-                }
-                if (problem.difficulty === undefined || problem.difficulty === 0) {
-                    const bojnum = problem.BOJ.split('/').pop();
-                    getProblemSolvedacDifficulty(bojnum).then(data => {
-                        if (data && data.level) {
-                            problem.difficulty = data.level;
-                            userProblemData[name] = userProblemData[name] || {};
-                            userProblemData[name].difficulty = problem.difficulty;
-                            console.log(`Fetched difficulty for problem ${bojnum}:`, problem.difficulty);
-                            updateProblemCell(contest.id, problemIdx);
-                        }
-                    }).catch(error => {
-                        console.error(`Error fetching difficulty for problem ${bojnum}:`, error);
-                    });
                 }
             });
             state.allContests.set(contest.id, contest);
@@ -755,6 +765,16 @@ function handleContestClick(contestCell) {
     problemsElement.textContent = `Problems: ${contest.data.problems.length}`;
     statsContainer.appendChild(problemsElement);
 
+    const difficultyFetchButton = document.createElement('button');
+    difficultyFetchButton.className = 'contest-difficulty-fetch-btn';
+    difficultyFetchButton.textContent = 'Fetch Difficulty';
+    difficultyFetchButton.addEventListener('click', () => {
+        contest.data.problems.forEach((problem, problemIdx) => {
+            updateProblemSolvedacDifficulty(contest.id, problemIdx);
+        });
+    });
+    statsContainer.appendChild(difficultyFetchButton);
+
     contestInfo.appendChild(statsContainer);
 
     // Add links section
@@ -929,21 +949,23 @@ function handleProblemClick(problemCell) {
     difficultyFetchButton.className = 'difficulty-fetch-btn';
     difficultyFetchButton.textContent = 'Fetch Difficulty';
     difficultyFetchButton.addEventListener('click', () => {
-        console.log('Fetching difficulty for problem:', problem.BOJ);
-        const bojnum = problem.BOJ.split('/').pop();
-        getProblemSolvedacDifficulty(bojnum).then(data => {
-            if (data && data.level) {
-                problem.difficulty = data.level;
-                console.log('Fetched difficulty:', problem.difficulty);
-                if(!userProblemData[name]) userProblemData[name] = {};
-                userProblemData[name].difficulty = problem.difficulty;
-                updateDifficultyDisplay();
-                updateProblemCell(contestId, problemIdx);
-            }
-        });
+        updateProblemSolvedacDifficulty(contestId, problemIdx);
     });
-
     selector.appendChild(difficultyFetchButton);
+    
+    const difficultyResetButton = document.createElement('button');
+    difficultyResetButton.className = 'difficulty-fetch-btn';
+    difficultyResetButton.textContent = 'Reset Difficulty';
+    difficultyResetButton.addEventListener('click', () => {
+        problem.difficulty = 0;
+        if(!userProblemData[name]) userProblemData[name] = {};
+        userProblemData[name].difficulty = problem.difficulty;
+        updateDifficultyDisplay();
+        updateProblemCell(contestId, problemIdx);
+    });
+    selector.appendChild(difficultyResetButton);
+
+
     difficultyContainer.appendChild(selector);
 
     controls.appendChild(difficultyContainer);
