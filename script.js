@@ -1,6 +1,4 @@
 // Firebase configuration (replace with your own)
-
-
 const firebaseConfig = {
     apiKey: "AIzaSyD6MxdZTBOmboCgPGB7Y_gNogHeljm7RVM",
     authDomain: "ps-checklist-v1.firebaseapp.com",
@@ -16,6 +14,9 @@ const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+// Google Auth Provider
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+
 // UI Elements
 const loginForm = document.getElementById('login-form');
 const signupForm = document.getElementById('signup-form');
@@ -25,7 +26,7 @@ const dataInput = document.getElementById('data-input');
 const dataOutput = document.getElementById('data-output');
 
 // Auth State Listener
-auth.onAuthStateChanged(user => {
+firebase.auth().onAuthStateChanged(user => {
     if (user) {
         // User is signed in
         showAppContent(user);
@@ -41,7 +42,7 @@ function signup() {
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
 
-    auth.createUserWithEmailAndPassword(email, password)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
@@ -58,7 +59,7 @@ function login() {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    auth.signInWithEmailAndPassword(email, password)
+    firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
@@ -72,7 +73,29 @@ function login() {
 }
 
 function logout() {
-    auth.signOut();
+    firebase.auth().signOut();
+}
+
+// Google Sign-In Function
+function googleSignIn() {
+    firebase.auth().signInWithPopup(googleProvider)
+        .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = result.credential;
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            console.log('Google Sign-In successful:', user);
+        }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.email;
+            // The credential that was used.
+            const credential = error.credential;
+            console.error('Google Sign-In error:', error);
+        });
 }
 
 // Firestore Functions
@@ -111,6 +134,7 @@ function loadData(uid) {
 function showAppContent(user) {
     loginForm.classList.add('hidden');
     signupForm.classList.add('hidden');
+    document.querySelector('button[onclick="googleSignIn()"]').classList.add('hidden');
     appContent.classList.remove('hidden');
     userEmailDisplay.textContent = user.email;
 }
@@ -118,5 +142,6 @@ function showAppContent(user) {
 function showAuthForms() {
     loginForm.classList.remove('hidden');
     signupForm.classList.remove('hidden');
+    document.querySelector('button[onclick="googleSignIn()"]').classList.remove('hidden');
     appContent.classList.add('hidden');
 }
