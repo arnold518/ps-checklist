@@ -85,6 +85,22 @@ function updateProgressBar(progressContainer, problemStats) {
     const hoverBox = progressContainer.querySelector('#hoverBox');
     const totalElements = Math.max(1, problemStats.reduce((sum, count) => sum + count, 0));
 
+    // Function to update hover box content
+    const updateHoverBox = (segment, e) => {
+        const state = segment.dataset.state;
+        const count = parseInt(segment.dataset.count) || 0;
+        const percentage = ((count / totalElements) * 100).toFixed(1);
+        
+        hoverBox.innerHTML = `
+            <div><strong>${problemStates[state]}</strong></div>
+            <div>Problems: ${count}/${totalElements}</div>
+            <div>Percentage: ${percentage}%</div>
+        `;
+        hoverBox.classList.add('show');
+        hoverBox.style.left = `${e.clientX + 10}px`;
+        hoverBox.style.top = `${e.clientY + 10}px`;
+    };
+
     // Process all states in order (0, 1, 2, 3)
     [0, 1, 2, 3].forEach(state => {
         const count = problemStats[state] || 0;
@@ -108,15 +124,7 @@ function updateProgressBar(progressContainer, problemStats) {
 
             // Add hover events
             segment.addEventListener('mousemove', (e) => {
-                const percentage = ((count / totalElements) * 100).toFixed(1);
-                hoverBox.innerHTML = `
-                    <div><strong>${problemStates[state]}</strong></div>
-                    <div>Problems: ${count}/${totalElements}</div>
-                    <div>Percentage: ${percentage}%</div>
-                `;
-                hoverBox.classList.add('show');
-                hoverBox.style.left = `${e.clientX + 10}px`;
-                hoverBox.style.top = `${e.clientY + 10}px`;
+                updateHoverBox(segment, e);
             });
 
             segment.addEventListener('mouseleave', () => {
