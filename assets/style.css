@@ -784,63 +784,6 @@ body {
     }
 }
 
-/* ========== Home Page Styles ========== */
-.home-container {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.token-form {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
-
-.token-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid var(--gray-medium);
-    border-radius: 4px;
-}
-
-.token-help {
-    font-size: 0.9em;
-    color: var(--gray-dark);
-    margin-bottom: 15px;
-}
-
-.btn {
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    border: none;
-}
-
-.btn-primary {
-    background: var(--primary-color);
-    color: white;
-}
-
-.status-message {
-    margin-top: 10px;
-    padding: 8px;
-    border-radius: 4px;
-}
-
-.status-success {
-    background: #e8f5e9;
-    color: #2e7d32;
-}
-
-.status-error {
-    background: #ffebee;
-    color: #c62828;
-}
-
 /* Navigation Actions Styles */
 .nav-actions {
     margin-left: auto;
@@ -983,4 +926,158 @@ body {
     border-width: 5px;
     border-style: solid;
     border-color: rgba(0,0,0,0.85) transparent transparent transparent;
+}
+
+
+
+
+.btn {
+    padding: 0.8rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #3367d6;
+}
+
+/* Add the CSS from the previous answer here */
+/* ========== Auth Page Styles ========== */
+.auth-container {
+    max-width: 500px;
+    width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.auth-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--gray-dark);
+}
+
+.form-input {
+    padding: 0.8rem;
+    border: 1px solid var(--gray-medium);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+}
+
+.form-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.btn-google {
+    background: #4285F4;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.8rem;
+    border-radius: 6px;
+    font-weight: 500;
+    width: 100%;
+}
+
+.btn-google:hover {
+    background: #357ae8;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+    color: var(--gray-medium);
+}
+
+.divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid var(--gray-medium);
+}
+
+.divider::before {
+    margin-right: 1rem;
+}
+
+.divider::after {
+    margin-left: 1rem;
+}
+
+.auth-toggle {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--gray-dark);
+}
+
+.toggle-link {
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.toggle-link:hover {
+    text-decoration: underline;
+}
+
+.auth-status {
+    padding: 0.8rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.auth-success {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.auth-error {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.user-info {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    font-weight: 500;
 }

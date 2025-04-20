@@ -1,3 +1,5 @@
+import * as auth from './auth.js';
+
 // Complete Contest Data
 const contestDatabase = {};
 
@@ -31,36 +33,70 @@ const NAV_ITEMS = [
     // Add other categories as needed
 ];
 
-// Add this function to create the home page
-function createHomePage() {
-    const mainContent = document.getElementById('main-content');
-    mainContent.innerHTML = `
-        <div id="home-content" class="home-container">
-            <h1>Welcome to Contest Problem Manager</h1>
-            <div class="token-form">
-                <h2>GitHub Integration</h2>
-                <label for="github-token">Personal Access Token:</label>
-                <input type="password" id="github-token" class="token-input" placeholder="ghp_...">
-                <p class="token-help">
-                    Create a token with 'repo' scope at 
-                    <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings</a>
-                </p>
-                <button id="save-token" class="btn btn-primary">Save Token</button>
-                <div id="token-status" class="status-message"></div>
-            </div>
-        </div>
-    `;
-
-    // Load saved token if exists
-    const savedToken = localStorage.getItem('githubToken');
-    if (savedToken) {
-        document.getElementById('github-token').value = savedToken;
-        showTokenStatus('Token loaded from storage', 'success');
-    }
-
-    // Add token save handler
-    document.getElementById('save-token').addEventListener('click', saveGitHubToken);
+async function fetchUserProblemData() {
+    userProblemData = await auth.loadData('userProblemData') || {};
+    console.log('User problem data loaded:', userProblemData);
 }
+async function fetchUserContestTree() {
+    const data = await auth.loadData('userContestTree') || {};
+    userContestTree = {};
+    Object.entries(data).forEach(([categoryName, categoryData]) => {
+        if (categoryData.expandedNodes === undefined) categoryData.expandedNodes = [];
+        if (!(categoryData.expandedNodes instanceof Array)) categoryData.expandedNodes = [];
+        if (categoryData.visibleContests === undefined) categoryData.visibleContests = [];
+        if (!(categoryData.visibleContests instanceof Array)) categoryData.visibleContests = [];
+        
+        userContestTree[categoryName] = {
+            expandedNodes: new Set(categoryData.expandedNodes),
+            visibleContests: new Set(categoryData.visibleContests)
+        };
+    });
+    console.log('User contest tree loaded:', userContestTree);
+}
+
+function saveUserProblemData() {
+    console.log('Saving user problem data:', userProblemData);
+    auth.saveData('userProblemData', userProblemData).then(success => {
+        if(success) {
+            console.log('User problem data saved successfully:', userProblemData);
+        } else {
+            console.error('Failed to save user problem data:', userProblemData);
+        }
+    });
+}
+function saveUserContestTree() {
+    let savedata = {};
+    Object.entries(userContestTree).forEach(([category, data]) => {
+        savedata[category] = {
+            expandedNodes: Array.from(data.expandedNodes),
+            visibleContests: Array.from(data.visibleContests)
+        };
+    });
+    console.log('Saving user contest tree:', savedata);
+    auth.saveData('userContestTree', savedata).then(success => {
+        if(success) {
+            console.log('User contest tree saved successfully:', savedata);
+        } else {
+            console.error('Failed to save user contest tree:', savedata);
+        }
+    });
+}
+
+export async function fetchUserData() {
+    await fetchUserProblemData();
+    await fetchUserContestTree();
+}
+export function saveUserData() {
+    saveUserProblemData();
+    saveUserContestTree();
+}
+export function clearUserData() {
+    userProblemData = {};
+    userContestTree = {};
+}
+
+// ==================================================================
+// ==================================================================
 
 function createProgressBar() {
     const progressContainer = document.createElement('div');
@@ -156,37 +192,6 @@ function updateProgressBars() {
     });
 }
 
-async function saveGitHubToken() {
-    authToken = document.getElementById('github-token').value.trim();
-    const statusElement = document.getElementById('token-status');
-    
-    if (authToken) {
-        localStorage.setItem('githubToken', authToken);
-        console.log('Token saved');
-        
-        const owner = 'arnold518';
-        const repo = 'ps-checklist';
-        const branch = 'alpha';
-        const branchExistsResult = await branchExists(owner, repo, branch);
-        if (branchExistsResult) {
-            showTokenStatus('Login Success!', 'success');
-            await fetchUserProblemData();
-            await fetchUserContestTree();
-        } else {
-            showTokenStatus('Login Failed!', 'error');
-            userProblemData = {};
-            userContestTree = {};
-        }
-    } else {
-        showTokenStatus('Please enter a valid token', 'error');
-    }
-}
-
-function showTokenStatus(message, type) {
-    const statusElement = document.getElementById('token-status');
-    statusElement.textContent = message;
-    statusElement.className = `status-message status-${type}`;
-}
 
 // Initialize Navigation
 function initNavigation() {
@@ -248,175 +253,6 @@ function parseContestTree(data, myid) {
     console.assert(tree.name && tree.id, 'Tree node must have a name and an ID');
     console.assert((!tree.contests && tree.children) || (tree.contests && !tree.children), 'Tree node must have either contests or children, not both');
     return tree;
-}
-
-async function branchExists(owner, repo, branch) {
-    try {
-        const url = `https://api.github.com/repos/${owner}/${repo}/branches/${branch}`;
-        const response = await fetch(url, {
-            headers: {
-                'Authorization': `token ${authToken}`,
-                'Accept': 'application/vnd.github.v3+json'
-            }
-        });
-        return response.ok;
-    } catch (error) {
-        console.error('Error checking branch:', error);
-        return false;
-    }
-}
-
-async function fetchGithubData(filepath, branch) {
-    const owner = 'arnold518';
-    const repo = 'ps-checklist';
-    let receivedData = undefined;
-
-    if (!authToken) {
-        console.error('GitHub token is not set');
-        return;
-    }
-
-    console.log('Fetching github data from:', filepath, branch);
-
-    try {
-        const branchExistsResult = await branchExists(owner, repo, branch);
-        if (!branchExistsResult) {
-            console.error(`Branch "${branch}" does not exist`);
-            return;
-        }
-
-        const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}?ref=${branch}`;
-        const response = await fetch(url, {
-            headers: {
-                'Authorization': `token ${authToken}`,
-                'Accept': 'application/vnd.github.v3+json'
-            }
-        });
-
-        if (!response.ok) {
-            console.error(`Failed to fetch data. HTTP status: ${response.status}`);
-            return;
-        }
-
-        const data = await response.json();
-        const decodedContent = atob(data.content.replace(/\s/g, ''));
-
-        try {
-            receivedData = JSON.parse(decodedContent);
-            console.log('Data loaded successfully:', receivedData);
-        } catch (jsonError) {
-            console.error('Error parsing data JSON:', jsonError);
-            receivedData = undefined;
-        }
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        receivedData = undefined;
-    }
-    return receivedData;
-}
-async function fetchUserProblemData() {
-    const filepath = 'userdata/userproblemdata.json';
-    userProblemData = await fetchGithubData(filepath, 'alpha') || {};
-}
-async function fetchUserContestTree() {
-    const filepath = 'userdata/usercontesttree.json';
-    data = await fetchGithubData(filepath, 'alpha') || {};
-    userContestTree = {};
-    Object.entries(data).forEach(([categoryName, categoryData]) => {
-        if (categoryData.expandedNodes === undefined) categoryData.expandedNodes = [];
-        if (!(categoryData.expandedNodes instanceof Array)) categoryData.expandedNodes = [];
-        if (categoryData.visibleContests === undefined) categoryData.visibleContests = [];
-        if (!(categoryData.visibleContests instanceof Array)) categoryData.visibleContests = [];
-        
-        userContestTree[categoryName] = {
-            expandedNodes: new Set(categoryData.expandedNodes),
-            visibleContests: new Set(categoryData.visibleContests)
-        };
-    });
-}
-
-async function saveGithubData(filepath, branch, savedata) {
-    const owner = 'arnold518';
-    const repo = 'ps-checklist';
-
-    if (!authToken) {
-        console.error('GitHub token is not set');
-        return;
-    }
-
-    console.log('Saving github data:', filepath, branch, savedata);
-
-    try {
-        let sha = '';
-        const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filepath}?ref=${branch}`;
-        const getResponse = await fetch(getUrl, {
-            headers: {
-                'Authorization': `token ${authToken}`,
-                'Accept': 'application/vnd.github.v3+json'
-            }
-        });
-
-        if (getResponse.ok) {
-            const data = await getResponse.json();
-            sha = data.sha;
-        } else if (getResponse.status !== 404) {
-            console.error(`Failed to fetch file metadata. HTTP status: ${getResponse.status}`);
-            return;
-        }
-
-        const content = btoa(JSON.stringify(savedata, null, 4));
-        const putResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${filepath}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${authToken}`,
-                'Accept': 'application/vnd.github.v3+json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: `Update ${filepath}: ${new Date().toISOString()}`,
-                content: content,
-                branch: branch,
-                sha: sha || undefined
-            })
-        });
-
-        if (!putResponse.ok) {
-            console.error(`Failed to save data. HTTP status: ${putResponse.status}`);
-            return false;
-        }
-        console.log('Data saved successfully:', savedata);
-        return true;
-    } catch (error) {
-        console.error('Error saving data:', error);
-    }
-    return false;
-}
-async function saveUserProblemData() {
-    const filepath = 'userdata/userproblemdata.json';
-    console.log('Saving user problem data:', userProblemData);
-    if(await saveGithubData(filepath, 'alpha', userProblemData)) {
-        console.log('User problem data saved successfully:', userProblemData);
-    }
-    else {
-        console.error('Failed to save user problem data:', userProblemData);
-    }
-}
-async function saveUserContestTree() {
-    const filepath = 'userdata/usercontesttree.json';
-    let savedata = {};
-    Object.entries(userContestTree).forEach(([category, data]) => {
-        savedata[category] = {
-            expandedNodes: Array.from(data.expandedNodes),
-            visibleContests: Array.from(data.visibleContests)
-        };
-    });
-    console.log('Saving user contest tree:', savedata);
-    if(await saveGithubData(filepath, 'alpha', savedata)) {
-        console.log('User contest tree saved successfully:', savedata);
-    }
-    else {
-        console.error('Failed to save user contest tree:', savedata);
-    }
 }
 
 async function fetchContestListData() {
@@ -482,7 +318,7 @@ async function loadCategory(category) {
     
     if (category === 'home') {
         mainContent.innerHTML = '';
-        createHomePage();
+        auth.createAuthPage();
         document.getElementById('sidebar').innerHTML = '';
         return;
     }
@@ -619,7 +455,7 @@ function calculateProblemStats(node) {
             if (state.visibleContests.has(contest.id)) {
                 contest.data.problems.forEach((problem, problemIdx) => {
                     const name = contest.id + ' >> ' + problemIdx;
-                    if (userProblemData[name]) stats[userProblemData[name].status]++;
+                    if (userProblemData[name] && userProblemData[name].status) stats[userProblemData[name].status]++;
                     else stats[0]++;
                 });
             }
