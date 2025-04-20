@@ -1,3 +1,18 @@
+// Initialize Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyD6MxdZTBOmboCgPGB7Y_gNogHeljm7RVM",
+    authDomain: "ps-checklist-v1.firebaseapp.com",
+    projectId: "ps-checklist-v1",
+    storageBucket: "ps-checklist-v1.firebasestorage.app",
+    messagingSenderId: "822272041679",
+    appId: "1:822272041679:web:4aeb518ef0b9e8dd868dba",
+    measurementId: "G-QP73JXLSXH"
+};
+
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+
 // Auth state management
 let authState = {
     isLogin: true, // Toggle between login/signup
@@ -24,7 +39,7 @@ function createAuthPage() {
                     <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                     <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                 </svg>
-                ${authState.isLogin ? 'Login' : 'Sign up'} with Google
+                Continue with Google
             </button>
             
             <div class="divider">or</div>
@@ -57,7 +72,6 @@ function createAuthPage() {
     `;
 
     // Initialize DOM references
-    authContainer = document.querySelector('.auth-container');
     emailInput = document.getElementById('email');
     passwordInput = document.getElementById('password');
     authForm = document.getElementById('auth-form');
@@ -73,8 +87,13 @@ function createAuthPage() {
     authForm.addEventListener('submit', handleAuthSubmit);
     googleAuthBtn.addEventListener('click', handleGoogleAuth);
 
-    // Check if user is already logged in
-    checkAuthState();
+    // Set up auth state listener
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            authState.user = user;
+            showUserInfo(user.email);
+        }
+    });
 }
 
 // Toggle between login/signup
@@ -92,15 +111,11 @@ async function handleAuthSubmit(e) {
     
     try {
         if (authState.isLogin) {
-            // Simulate login (replace with actual auth API call)
             await loginWithEmail(email, password);
             showAuthStatus('Login successful!', 'success');
-            showUserInfo(email);
         } else {
-            // Simulate signup (replace with actual auth API call)
             await signUpWithEmail(email, password);
             showAuthStatus('Account created successfully!', 'success');
-            showUserInfo(email);
         }
     } catch (error) {
         showAuthStatus(error.message, 'error');
@@ -110,68 +125,40 @@ async function handleAuthSubmit(e) {
 // Handle Google auth
 async function handleGoogleAuth() {
     try {
-        // Simulate Google auth (replace with actual implementation)
-        const email = await authenticateWithGoogle();
+        await auth.signInWithPopup(googleProvider);
         showAuthStatus('Google authentication successful!', 'success');
-        showUserInfo(email);
+        authState.isLogin = true;
+        createAuthPage();
     } catch (error) {
-        showAuthStatus('Google authentication failed', 'error');
+        showAuthStatus(error.message, 'error');
+        console.error('Google Sign-In error:', error);
     }
 }
 
-// Mock auth functions (replace with real implementations)
+// Firebase auth functions
 async function loginWithEmail(email, password) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            // Simulate successful login
-            if (email && password.length >= 6) {
-                authState.user = { email };
-                localStorage.setItem('authUser', JSON.stringify(authState.user));
-                resolve();
-            } else {
-                reject(new Error('Invalid email or password'));
-            }
-        }, 800);
-    });
+    try {
+        await auth.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+        throw new Error(getFriendlyAuthError(error.code));
+    }
 }
 
 async function signUpWithEmail(email, password) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            // Simulate successful signup
-            if (email && password.length >= 6) {
-                authState.user = { email };
-                localStorage.setItem('authUser', JSON.stringify(authState.user));
-                resolve();
-            } else {
-                reject(new Error('Please provide a valid email and password (min 6 characters)'));
-            }
-        }, 800);
-    });
-}
-
-async function authenticateWithGoogle() {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            // Simulate Google auth returning a user
-            const email = `user${Math.floor(Math.random() * 1000)}@example.com`;
-            authState.user = { email };
-            localStorage.setItem('authUser', JSON.stringify(authState.user));
-            resolve(email);
-        }, 800);
-    });
-}
-
-// Check if user is already authenticated
-function checkAuthState() {
-    const savedUser = localStorage.getItem('authUser');
-    if (savedUser) {
-        authState.user = JSON.parse(savedUser);
-        showUserInfo(authState.user.email);
+    try {
+        await auth.createUserWithEmailAndPassword(email, password);
+    } catch (error) {
+        throw new Error(getFriendlyAuthError(error.code));
     }
 }
 
-// Show auth status message
+function logout() {
+    auth.signOut();
+    authState.user = null;
+    createAuthPage();
+}
+
+// Helper functions
 function showAuthStatus(message, type) {
     authStatus.textContent = message;
     authStatus.className = `auth-status auth-${type}`;
@@ -183,9 +170,11 @@ function showAuthStatus(message, type) {
     }, 5000);
 }
 
-// Show user info
 function showUserInfo(email) {
-    userInfo.textContent = `Logged in as: ${email}`;
+    userInfo.innerHTML = `
+        <p>Logged in as: ${email}</p>
+        <button id="logout-btn" class="btn">Logout</button>
+    `;
     userInfo.style.display = 'block';
     
     // Update UI for logged in state
@@ -194,23 +183,24 @@ function showUserInfo(email) {
     document.querySelector('.divider').style.display = 'none';
     document.querySelector('.auth-toggle').style.display = 'none';
     
-    // Add logout button
-    if (!document.getElementById('logout-btn')) {
-        const logoutBtn = document.createElement('button');
-        logoutBtn.id = 'logout-btn';
-        logoutBtn.className = 'btn';
-        logoutBtn.textContent = 'Logout';
-        logoutBtn.style.marginTop = '1rem';
-        logoutBtn.addEventListener('click', handleLogout);
-        authContainer.appendChild(logoutBtn);
-    }
+    // Add logout handler
+    document.getElementById('logout-btn').addEventListener('click', logout);
 }
 
-// Handle logout
-function handleLogout() {
-    authState.user = null;
-    localStorage.removeItem('authUser');
-    createAuthPage();
+function getFriendlyAuthError(errorCode) {
+    const errors = {
+        'auth/invalid-email': 'Invalid email address',
+        'auth/user-disabled': 'This account has been disabled',
+        'auth/user-not-found': 'No account found with this email',
+        'auth/wrong-password': 'Incorrect password',
+        'auth/email-already-in-use': 'Email already in use',
+        'auth/operation-not-allowed': 'Email/password accounts are not enabled',
+        'auth/weak-password': 'Password should be at least 6 characters',
+        'auth/too-many-requests': 'Too many attempts. Try again later',
+        'auth/network-request-failed': 'Network error. Please check your connection'
+    };
+    
+    return errors[errorCode] || 'Authentication failed. Please try again';
 }
 
 // Initialize the page
