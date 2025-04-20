@@ -958,7 +958,7 @@ function handleProblemClick(problemCell) {
     }
     problemInfo = document.createElement('div');
     problemInfo.className = 'problem-info info-panel';
-    contestContent.insertBefore(problemInfo, contestContent.firstChild.nextSibling);
+    contestContent.insertBefore(problemInfo, contestContent.firstChild.nextSibling?.nextSibling);
 
     // Create header section
     const header = document.createElement('div');
