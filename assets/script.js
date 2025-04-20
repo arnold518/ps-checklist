@@ -818,7 +818,7 @@ function handleContestClick(contestCell) {
     }
     contestInfo = document.createElement('div');
     contestInfo.className = 'contest-info info-panel';
-    contestContent.insertBefore(contestInfo, contestContent.firstChild);
+    contestContent.insertBefore(contestInfo, contestContent.firstChild.nextSibling);
 
     // Create header section
     const header = document.createElement('div');
