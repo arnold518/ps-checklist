@@ -459,5 +459,18 @@
         "qoj_url": "https://qoj.ac/contest/1109",
         "statements_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2022%20Asia%20Jakarta%20Regional%20Contest/problems.pdf",
         "editorials_url": "https://competition.binus.ac.id/icpc2022/problem_analysis.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
+        "year": "2021",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2021/",
+        "official_url": "https://competition.binus.ac.id/icpc2021/",
+        "standing_url": "https://competition.binus.ac.id/icpc2021/final.html",
+        "boj_url": "https://www.acmicpc.net/category/detail/3347",
+        "cf_url": "",
+        "qoj_url": "https://qoj.ac/contest/989",
+        "statements_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2021%20Asia%20Jakarta%20Regional%20Contest/problems.pdf",
+        "editorials_url": "https://competition.binus.ac.id/icpc2021/icpc21jak-analysis.pdf"
     }
 ]
