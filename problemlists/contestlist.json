@@ -374,5 +374,18 @@
         "qoj_url": "https://qoj.ac/contest/442?v=1",
         "statements_url": "https://icpc.iisf.or.jp/2019-yokohama/wp-content/uploads/sites/6/2019/11/all.pdf",
         "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2019/commentaries-2019.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
+        "year": "2018",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2018/",
+        "official_url": "https://icpc.iisf.or.jp/2018-yokohama/asiaregional/",
+        "standing_url": "https://codeforces.com/gym/102082/standings",
+        "boj_url": "https://www.acmicpc.net/category/detail/1982",
+        "cf_url": "https://codeforces.com/gym/102082",
+        "qoj_url": "https://qoj.ac/contest/750?v=1",
+        "statements_url": "https://storage.googleapis.com/icpcsec/2018-regional/problems_all.pdf",
+        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2018/commentaries-2018.pdf"
     }
 ]
