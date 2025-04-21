@@ -863,7 +863,12 @@ function handleProblemClick(problemCell) {
 
     const icon = document.createElement('div');
     icon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
-    // Update the icon class when problem.difficulty changes
+    // Store the original value in a backing field
+    if (!problem._difficulty) {
+        problem._difficulty = problem.difficulty;
+    }
+
+    // Define the property with getter/setter
     Object.defineProperty(problem, 'difficulty', {
         set(value) {
             this._difficulty = value;
@@ -871,7 +876,9 @@ function handleProblemClick(problemCell) {
         },
         get() {
             return this._difficulty;
-        }
+        },
+        enumerable: true,
+        configurable: true
     });
 
     // Initialize the icon class
