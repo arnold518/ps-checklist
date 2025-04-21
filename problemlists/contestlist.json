@@ -292,5 +292,18 @@
         "boj_url": "https://www.acmicpc.net/category/detail/1778",
         "cf_url": "https://codeforces.com/gym/101667",
         "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2017/statements.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
+        "year": "2024",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2024/",
+        "official_url": "https://icpc.iisf.or.jp/2024-yokohama/regional/",
+        "standing_url": "https://icpc.iisf.or.jp/past-icpc/regional2024/standings.html",
+        "boj_url": "https://www.acmicpc.net/category/detail/4371",
+        "cf_url": "https://codeforces.com/gym/105633",
+        "qoj_url": "https://qoj.ac/contest/1987",
+        "statements_url": "https://icpc.iisf.or.jp/2024-yokohama/wp-content/uploads/sites/12/2024/12/all_with_cover_web.pdf",
+        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2024/commentaries-2024.pdf"
     }
 ]
