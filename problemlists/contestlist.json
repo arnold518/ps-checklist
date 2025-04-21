@@ -218,5 +218,18 @@
         "qoj_url": "https://qoj.ac/contest/277",
         "statements_url": "https://icpc.global/worldfinals/problems/2012-ICPC-World-Finals/icpc2012.pdf",
         "editorials_url": "https://archive.algo.is/icpc/2012/finals2012solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2011",
+        "filepath": "problemlists/icpc/world-finals/2011/",
+        "official_url": "https://icpc.global/community/results-2011",
+        "standing_url": "https://clist.by/standings/35th-annual-acm-icpc-world-finals-orlando-florida-usa-17371797/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2",
+        "cf_url": "https://codeforces.com/gym/101175",
+        "qoj_url": "https://qoj.ac/contest/276",
+        "statements_url": "https://icpc.global/worldfinals/problems/2011-ICPC-World-Finals/2011WorldFinalProblemSet.pdf",
+        "editorials_url": "https://www.csc.kth.se/~austrin/icpc/finals2011solutions.pdf"
     }
 ]
