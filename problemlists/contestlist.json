@@ -62,5 +62,18 @@
         "qoj_url": "https://qoj.ac/contest/1662",
         "statements_url": "https://icpc.global/worldfinals/problems/2023-ICPC-World-Finals/icpc2023.pdf",
         "editorials_url": "https://icpc.global/worldfinals/problems/2023-ICPC-World-Finals/finals2023solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2022",
+        "filepath": "problemlists/icpc/world-finals/2022/",
+        "official_url": "",
+        "standing_url": "https://clist.by/standings/46th-annual-icpc-world-finals-luxor-egypt-51207620/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/4210",
+        "cf_url": "https://codeforces.com/gym/105254",
+        "qoj_url": "https://qoj.ac/contest/1661",
+        "statements_url": "https://icpc.global/worldfinals/problems/2022-ICPC-World-Finals/icpc2022.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2022-ICPC-World-Finals/finals2022solutions.pdf"
     }
 ]
