@@ -1178,6 +1178,11 @@ function adjustTableColumns() {
             const problemCells = row.querySelectorAll('td[data-problem-id]');
             maxProblems = Math.max(maxProblems, problemCells.length);
         });
+        let minProblems = maxProblems;
+        rows.forEach(row => {
+            const problemCells = row.querySelectorAll('td[data-problem-id]');
+            minProblems = Math.min(minProblems, problemCells.length);
+        });
         
         if (maxProblems === 0) return;
         
