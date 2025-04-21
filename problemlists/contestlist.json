@@ -348,5 +348,18 @@
         "qoj_url": "https://qoj.ac/contest/912",
         "statements_url": "https://icpc.iisf.or.jp/past-icpc/regional2021/problems-2021.pdf",
         "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2021/commentaries-2021.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
+        "year": "2020",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/",
+        "official_url": "https://icpc.iisf.or.jp/2020-yokohama/regional/",
+        "standing_url": "https://icpc.iisf.or.jp/2020-yokohama/icpc-2020-yokohama-regional-standings/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2567",
+        "cf_url": "",
+        "qoj_url": "https://qoj.ac/contest/791",
+        "statements_url": "https://icpc.iisf.or.jp/past-icpc/regional2020/problems-2020.pdf",
+        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2020/commentaries-2020.pptx"
     }
 ]
