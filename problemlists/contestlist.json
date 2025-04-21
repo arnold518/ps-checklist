@@ -291,5 +291,18 @@
         "qoj_url": "",
         "statements_url": "https://icpckorea.org/2018/regional/problemset-2018.pdf",
         "editorials_url": "https://koosaga.com/220"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
+        "year": "2017",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2017/",
+        "official_url": "https://icpckorea.org/2017-daejeon/regional",
+        "standing_url": "",
+        "boj_url": "https://www.acmicpc.net/category/detail/1778",
+        "cf_url": "https://codeforces.com/gym/101667",
+        "qoj_url": "",
+        "statements_url": "https://icpckorea.org/2017/regional/problemset-2017.pdf",
+        "editorials_url": ""
     }
 ]
