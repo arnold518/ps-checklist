@@ -192,5 +192,18 @@
         "qoj_url": "https://qoj.ac/contest/280",
         "statements_url": "https://icpc.global/worldfinals/problems/2014-ICPC-World-Finals/icpc2014.pdf",
         "editorials_url": "https://keet.wordpress.com/2014/06/28/acm-icpc-2014-solution-to-problem-a-baggage/"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2013",
+        "filepath": "problemlists/icpc/world-finals/2013/",
+        "official_url": "https://icpc.global/community/results-2013",
+        "standing_url": "",
+        "boj_url": "https://www.acmicpc.net/category/detail/1059",
+        "cf_url": "https://codeforces.com/gym/101208",
+        "qoj_url": "https://qoj.ac/contest/278",
+        "statements_url": "https://icpc.global/worldfinals/problems/2013-ICPC-World-Finals/icpc2013.pdf",
+        "editorials_url": "https://archive.algo.is/icpc/2013/finals2013solutions.pdf"
     }
 ]
