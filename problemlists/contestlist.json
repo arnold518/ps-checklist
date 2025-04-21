@@ -252,5 +252,18 @@
         "qoj_url": "https://qoj.ac/contest/1450",
         "statements_url": "http://static.icpckorea.net/2023/regional/problemset.pdf",
         "editorials_url": "https://sharaelong.com/posts/2023-icpc-seoul-solution"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
+        "year": "2022",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2022/",
+        "official_url": "https://icpckorea.org/2022-seoul/regional",
+        "standing_url": "http://static.icpckorea.net/20221119/scoreboard/",
+        "boj_url": "https://www.acmicpc.net/category/detail/3227",
+        "cf_url": "",
+        "qoj_url": "https://qoj.ac/contest/1045",
+        "statements_url": "http://static.icpckorea.net/20221119/problems.pdf",
+        "editorials_url": "https://koosaga.com/306"
     }
 ]
