@@ -1,0 +1,114 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2023 > 2025-04-22 00:50:41.590465",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2023",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2023/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2023/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2023/editorials.pdf",
+        "official": "https://2023.nwerc.eu/",
+        "standing": "https://2023.nwerc.eu/main/scoreboard/",
+        "BOJ": "https://www.acmicpc.net/category/detail/4062",
+        "CF": "https://codeforces.com/gym/105112",
+        "QOJ": "https://qoj.ac/contest/1446"
+    },
+    "name": "The 2023 ICPC Northwestern Europe Regional Contest (NWERC 2023)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Arranging Adapters",
+            "BOJ": "https://www.acmicpc.net/problem/30898",
+            "CF": "https://codeforces.com/gym/105112/problem/A",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7907"
+        },
+        {
+            "id": "B",
+            "title": "Brickwork",
+            "BOJ": "https://www.acmicpc.net/problem/30899",
+            "CF": "https://codeforces.com/gym/105112/problem/B",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7908"
+        },
+        {
+            "id": "C",
+            "title": "Chair Dance",
+            "BOJ": "https://www.acmicpc.net/problem/30900",
+            "CF": "https://codeforces.com/gym/105112/problem/C",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7909"
+        },
+        {
+            "id": "D",
+            "title": "Date Picker",
+            "BOJ": "https://www.acmicpc.net/problem/30901",
+            "CF": "https://codeforces.com/gym/105112/problem/D",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7910"
+        },
+        {
+            "id": "E",
+            "title": "Exponentiation",
+            "BOJ": "https://www.acmicpc.net/problem/30902",
+            "CF": "https://codeforces.com/gym/105112/problem/E",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7911"
+        },
+        {
+            "id": "F",
+            "title": "Fixing Fractions",
+            "BOJ": "https://www.acmicpc.net/problem/30903",
+            "CF": "https://codeforces.com/gym/105112/problem/F",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7912"
+        },
+        {
+            "id": "G",
+            "title": "Galaxy Quest",
+            "BOJ": "https://www.acmicpc.net/problem/30904",
+            "CF": "https://codeforces.com/gym/105112/problem/G",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7913"
+        },
+        {
+            "id": "H",
+            "title": "Higher Arithmetic",
+            "BOJ": "https://www.acmicpc.net/problem/30905",
+            "CF": "https://codeforces.com/gym/105112/problem/H",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7914"
+        },
+        {
+            "id": "I",
+            "title": "Isolated Island",
+            "BOJ": "https://www.acmicpc.net/problem/30906",
+            "CF": "https://codeforces.com/gym/105112/problem/I",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7915"
+        },
+        {
+            "id": "J",
+            "title": "Jogging Tour",
+            "BOJ": "https://www.acmicpc.net/problem/30907",
+            "CF": "https://codeforces.com/gym/105112/problem/J",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7916"
+        },
+        {
+            "id": "K",
+            "title": "Klompendans",
+            "BOJ": "https://www.acmicpc.net/problem/30908",
+            "CF": "https://codeforces.com/gym/105112/problem/K",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7917"
+        },
+        {
+            "id": "L",
+            "title": "Lateral Damage",
+            "BOJ": "https://www.acmicpc.net/problem/30909",
+            "CF": "https://codeforces.com/gym/105112/problem/L",
+            "QOJ": "https://qoj.ac/contest/1446/problem/7918"
+        }
+    ],
+    "crawled_data": {
+        "cf-problem-set.pdf": "https://codeforces.com/gym/105112/attachments/download/25112/problem-set.pdf",
+        "cf-solutions.pdf": "https://codeforces.com/gym/105112/attachments/download/25113/solutions.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1446&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1446&r=1"
+    }
+}

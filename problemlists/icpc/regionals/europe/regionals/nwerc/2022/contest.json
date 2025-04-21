@@ -1,0 +1,114 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2022 > 2025-04-22 00:51:20.327380",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2022",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2022/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2022/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2022/editorials.pdf",
+        "official": "https://2022.nwerc.eu/",
+        "standing": "https://2022.nwerc.eu/main/scoreboard/",
+        "BOJ": "https://www.acmicpc.net/category/detail/3237",
+        "CF": "https://codeforces.com/gym/104875",
+        "QOJ": "https://qoj.ac/contest/1054"
+    },
+    "name": "The 2022 ICPC Northwestern Europe Regional Contest (NWERC 2022)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Alternating Algorithm",
+            "BOJ": "https://www.acmicpc.net/problem/26174",
+            "CF": "https://codeforces.com/gym/104875/problem/A",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5150"
+        },
+        {
+            "id": "B",
+            "title": "Bottle Flip",
+            "BOJ": "https://www.acmicpc.net/problem/26175",
+            "CF": "https://codeforces.com/gym/104875/problem/B",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5151"
+        },
+        {
+            "id": "C",
+            "title": "Circular Caramel Cookie",
+            "BOJ": "https://www.acmicpc.net/problem/26176",
+            "CF": "https://codeforces.com/gym/104875/problem/C",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5152"
+        },
+        {
+            "id": "D",
+            "title": "Delft Distance",
+            "BOJ": "https://www.acmicpc.net/problem/26177",
+            "CF": "https://codeforces.com/gym/104875/problem/D",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5153"
+        },
+        {
+            "id": "E",
+            "title": "ETA",
+            "BOJ": "https://www.acmicpc.net/problem/26178",
+            "CF": "https://codeforces.com/gym/104875/problem/E",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5154"
+        },
+        {
+            "id": "F",
+            "title": "Faster Than Light",
+            "BOJ": "https://www.acmicpc.net/problem/26179",
+            "CF": "https://codeforces.com/gym/104875/problem/F",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5155"
+        },
+        {
+            "id": "G",
+            "title": "Going in Circles",
+            "BOJ": "https://www.acmicpc.net/problem/26180",
+            "CF": "https://codeforces.com/gym/104875/problem/G",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5156"
+        },
+        {
+            "id": "H",
+            "title": "High-quality Tree",
+            "BOJ": "https://www.acmicpc.net/problem/26181",
+            "CF": "https://codeforces.com/gym/104875/problem/H",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5157"
+        },
+        {
+            "id": "I",
+            "title": "Interview Question",
+            "BOJ": "https://www.acmicpc.net/problem/26182",
+            "CF": "https://codeforces.com/gym/104875/problem/I",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5158"
+        },
+        {
+            "id": "J",
+            "title": "Justice Served",
+            "BOJ": "https://www.acmicpc.net/problem/26183",
+            "CF": "https://codeforces.com/gym/104875/problem/J",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5159"
+        },
+        {
+            "id": "K",
+            "title": "Kebab Pizza",
+            "BOJ": "https://www.acmicpc.net/problem/26184",
+            "CF": "https://codeforces.com/gym/104875/problem/K",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5160"
+        },
+        {
+            "id": "L",
+            "title": "Last Guess",
+            "BOJ": "https://www.acmicpc.net/problem/26185",
+            "CF": "https://codeforces.com/gym/104875/problem/L",
+            "QOJ": "https://qoj.ac/contest/1054/problem/5161"
+        }
+    ],
+    "crawled_data": {
+        "cf-20222023-icpc-northwestern-european-regional-programming-contest-nwerc-2022-en.pdf": "https://codeforces.com/gym/104875/attachments/download/23452/20222023-icpc-northwestern-european-regional-programming-contest-nwerc-2022-en.pdf",
+        "cf-solutions.pdf": "https://codeforces.com/gym/104875/attachments/download/23453/solutions.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1054&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1054&r=1"
+    }
+}

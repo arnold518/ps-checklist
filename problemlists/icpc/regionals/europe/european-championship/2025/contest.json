@@ -1,0 +1,105 @@
+{
+    "id": "ICPC > Regionals > Europe > European Championship > 2025 > 2025-04-22 00:49:02.503908",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "European Championship"
+    ],
+    "year": "2025",
+    "filepath": "problemlists/icpc/regionals/europe/european-championship/2025/",
+    "link": {
+        "statements": "https://euc.icpc.global/wp-content/uploads/2025/03/euc2025-official.pdf",
+        "editorials": "https://euc.icpc.global/wp-content/uploads/2025/03/solutions.pdf",
+        "official": "https://euc.icpc.global/home-2025/",
+        "standing": "https://www.domjudge.org/scoreboard/euc2025/",
+        "BOJ": "https://www.acmicpc.net/category/detail/4445",
+        "CF": "https://codeforces.com/contest/2068",
+        "QOJ": "https://qoj.ac/contest/1964"
+    },
+    "name": "The 2025 ICPC Europe Championship",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Condorcet Elections",
+            "BOJ": "https://www.acmicpc.net/problem/33597",
+            "CF": "https://codeforces.com/contest/2068/problem/A",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10310"
+        },
+        {
+            "id": "B",
+            "title": "Urban Planning",
+            "BOJ": "https://www.acmicpc.net/problem/33598",
+            "CF": "https://codeforces.com/contest/2068/problem/B",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10311"
+        },
+        {
+            "id": "C",
+            "title": "Ads",
+            "BOJ": "https://www.acmicpc.net/problem/33599",
+            "CF": "https://codeforces.com/contest/2068/problem/C",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10312"
+        },
+        {
+            "id": "D",
+            "title": "Morse Code",
+            "BOJ": "https://www.acmicpc.net/problem/33600",
+            "CF": "https://codeforces.com/contest/2068/problem/D",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10313"
+        },
+        {
+            "id": "E",
+            "title": "Porto Vs. Benfica",
+            "BOJ": "https://www.acmicpc.net/problem/33601",
+            "CF": "https://codeforces.com/contest/2068/problem/E",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10314"
+        },
+        {
+            "id": "F",
+            "title": "Mascot Naming",
+            "BOJ": "https://www.acmicpc.net/problem/33602",
+            "CF": "https://codeforces.com/contest/2068/problem/F",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10315"
+        },
+        {
+            "id": "G",
+            "title": "A Very Long Hike",
+            "BOJ": "https://www.acmicpc.net/problem/33603",
+            "CF": "https://codeforces.com/contest/2068/problem/G",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10316"
+        },
+        {
+            "id": "H",
+            "title": "Statues",
+            "BOJ": "https://www.acmicpc.net/problem/33604",
+            "CF": "https://codeforces.com/contest/2068/problem/H",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10317"
+        },
+        {
+            "id": "I",
+            "title": "Pinball",
+            "BOJ": "https://www.acmicpc.net/problem/33605",
+            "CF": "https://codeforces.com/contest/2068/problem/I",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10318"
+        },
+        {
+            "id": "J",
+            "title": "The Ultimate Wine Tasting Event",
+            "BOJ": "https://www.acmicpc.net/problem/33606",
+            "CF": "https://codeforces.com/contest/2068/problem/J",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10319"
+        },
+        {
+            "id": "K",
+            "title": "Amusement Park Rides",
+            "BOJ": "https://www.acmicpc.net/problem/33607",
+            "CF": "https://codeforces.com/contest/2068/problem/K",
+            "QOJ": "https://qoj.ac/contest/1964/problem/10320"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1964&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1964&r=1",
+        "qoj-Tutorials-(slides;-en).pdf": "https://qoj.ac/download.php?type=attachments&id=1964&r=2"
+    }
+}
