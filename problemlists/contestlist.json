@@ -49,5 +49,18 @@
         "qoj_url": "https://qoj.ac/contest/1886",
         "statements_url": "./problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/statements.pdf",
         "editorials_url": "./problemlists/icpc/regionals/asia-pacific/asia-pacific-championship/2024/editorials.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2023",
+        "filepath": "problemlists/icpc/world-finals/2023/",
+        "official_url": "",
+        "standing_url": "https://clist.by/standings/47th-annual-icpc-world-finals-luxor-egypt-50284536/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/4211",
+        "cf_url": "https://codeforces.com/gym/105255",
+        "qoj_url": "https://qoj.ac/contest/1662",
+        "statements_url": "https://icpc.global/worldfinals/problems/2023-ICPC-World-Finals/icpc2023.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2023-ICPC-World-Finals/finals2023solutions.pdf"
     }
 ]
