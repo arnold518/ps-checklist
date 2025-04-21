@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2019 > 2025-04-21 18:57:09.030301",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2019 > 2025-04-21 21:36:20.558498",
     "category": [
         "ICPC",
         "Regionals",
@@ -12,6 +12,7 @@
     "link": {
         "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2019/statements.pdf",
         "official": "https://icpckorea.org/2019-seoul/regional",
+        "standing": "https://icpc.global/regionals/finder/Seoul-2020/standings",
         "BOJ": "https://www.acmicpc.net/category/detail/2111"
     },
     "name": "Asia Regional - Seoul 2019",

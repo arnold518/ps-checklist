@@ -1,0 +1,114 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2024 > 2025-04-21 21:36:55.056875",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2024",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2024/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2024/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2024/editorials.pdf",
+        "official": "https://icpc.iisf.or.jp/2024-yokohama/regional/",
+        "standing": "https://icpc.iisf.or.jp/past-icpc/regional2024/standings.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/4371",
+        "CF": "https://codeforces.com/gym/105633",
+        "QOJ": "https://qoj.ac/contest/1987"
+    },
+    "name": "The 2024 ICPC Asia Yokohama Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Ribbon on the Christmas Present",
+            "BOJ": "https://www.acmicpc.net/problem/32999",
+            "CF": "https://codeforces.com/gym/105633/problem/A",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10474"
+        },
+        {
+            "id": "B",
+            "title": "The Sparsest Number in Between",
+            "BOJ": "https://www.acmicpc.net/problem/33000",
+            "CF": "https://codeforces.com/gym/105633/problem/B",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10475"
+        },
+        {
+            "id": "C",
+            "title": "Omnes Viae Yokohamam Ducunt?",
+            "BOJ": "https://www.acmicpc.net/problem/33001",
+            "CF": "https://codeforces.com/gym/105633/problem/C",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10476"
+        },
+        {
+            "id": "D",
+            "title": "Tree Generators",
+            "BOJ": "https://www.acmicpc.net/problem/33002",
+            "CF": "https://codeforces.com/gym/105633/problem/D",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10477"
+        },
+        {
+            "id": "E",
+            "title": "E-Circuit Is Now on Sale!",
+            "BOJ": "https://www.acmicpc.net/problem/33003",
+            "CF": "https://codeforces.com/gym/105633/problem/E",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10478"
+        },
+        {
+            "id": "F",
+            "title": "The Farthest Point",
+            "BOJ": "https://www.acmicpc.net/problem/33004",
+            "CF": "https://codeforces.com/gym/105633/problem/F",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10479"
+        },
+        {
+            "id": "G",
+            "title": "Beyond the Former Explorer",
+            "BOJ": "https://www.acmicpc.net/problem/33005",
+            "CF": "https://codeforces.com/gym/105633/problem/G",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10480"
+        },
+        {
+            "id": "H",
+            "title": "Remodeling the Dungeon 2",
+            "BOJ": "https://www.acmicpc.net/problem/33006",
+            "CF": "https://codeforces.com/gym/105633/problem/H",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10481"
+        },
+        {
+            "id": "I",
+            "title": "Greatest of the Greatest Common Divisors",
+            "BOJ": "https://www.acmicpc.net/problem/33007",
+            "CF": "https://codeforces.com/gym/105633/problem/I",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10482"
+        },
+        {
+            "id": "J",
+            "title": "Mixing Solutions",
+            "BOJ": "https://www.acmicpc.net/problem/33008",
+            "CF": "https://codeforces.com/gym/105633/problem/J",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10483"
+        },
+        {
+            "id": "K",
+            "title": "Scheduling Two Meetings",
+            "BOJ": "https://www.acmicpc.net/problem/33009",
+            "CF": "https://codeforces.com/gym/105633/problem/K",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10484"
+        },
+        {
+            "id": "L",
+            "title": "Peculiar Protocol",
+            "BOJ": "https://www.acmicpc.net/problem/33010",
+            "CF": "https://codeforces.com/gym/105633/problem/L",
+            "QOJ": "https://qoj.ac/contest/1987/problem/10485"
+        }
+    ],
+    "crawled_data": {
+        "cf-all_with_cover_web.pdf": "https://codeforces.com/gym/105633/attachments/download/29098/all_with_cover_web.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1987&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1987&r=1",
+        "qoj-Summary-(ja).pdf": "https://qoj.ac/download.php?type=attachments&id=1987&r=2"
+    }
+}
