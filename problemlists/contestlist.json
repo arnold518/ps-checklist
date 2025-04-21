@@ -153,5 +153,18 @@
         "qoj_url": "https://qoj.ac/contest/414",
         "statements_url": "https://icpc.global/worldfinals/problems/2017-ICPC-World-Finals/icpc2017.pdf",
         "editorials_url": "https://icpc.global/worldfinals/problems/2017-ICPC-World-Finals/finals2017solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2016",
+        "filepath": "problemlists/icpc/world-finals/2016/",
+        "official_url": "",
+        "standing_url": "https://clist.by/standings/40th-annual-acm-icpc-world-finals-phuket-thailand-17371764/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1490",
+        "cf_url": "https://codeforces.com/gym/101242",
+        "qoj_url": "https://qoj.ac/contest/281",
+        "statements_url": "https://icpc.global/worldfinals/problems/2016-ICPC-World-Finals/icpc2016.pdf",
+        "editorials_url": "https://www.csc.kth.se/~austrin/icpc/finals2016solutions.pdf"
     }
 ]
