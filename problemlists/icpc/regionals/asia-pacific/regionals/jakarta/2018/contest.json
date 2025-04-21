@@ -1,0 +1,95 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2018 > 2025-04-21 23:44:44.414251",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Indonesia (Jakarta)"
+    ],
+    "year": "2018",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2018/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2018/statements.pdf",
+        "editorials": "https://raw.githubusercontent.com/jonathanirvings/icpc-jakarta-2018/master/icpc18-analysis.pdf",
+        "official": "https://competition.binus.ac.id/icpc2018/",
+        "standing": "https://competition.binus.ac.id/icpc2018/final.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/1965",
+        "CF": "https://codeforces.com/gym/102001"
+    },
+    "name": "2018 ICPC Asia Jakarta Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Edit Distance",
+            "BOJ": "https://www.acmicpc.net/problem/16573",
+            "CF": "https://codeforces.com/gym/102001/problem/A"
+        },
+        {
+            "id": "B",
+            "title": "Rotating Gear",
+            "BOJ": "https://www.acmicpc.net/problem/16574",
+            "CF": "https://codeforces.com/gym/102001/problem/B"
+        },
+        {
+            "id": "C",
+            "title": "Smart Thief",
+            "BOJ": "https://www.acmicpc.net/problem/16575",
+            "CF": "https://codeforces.com/gym/102001/problem/C"
+        },
+        {
+            "id": "D",
+            "title": "Icy Land",
+            "BOJ": "https://www.acmicpc.net/problem/16576",
+            "CF": "https://codeforces.com/gym/102001/problem/D"
+        },
+        {
+            "id": "E",
+            "title": "Artilleries and Defensive Walls",
+            "BOJ": "https://www.acmicpc.net/problem/16577",
+            "CF": "https://codeforces.com/gym/102001/problem/E"
+        },
+        {
+            "id": "F",
+            "title": "Popping Balloons",
+            "BOJ": "https://www.acmicpc.net/problem/16578",
+            "CF": "https://codeforces.com/gym/102001/problem/F"
+        },
+        {
+            "id": "G",
+            "title": "Go Make It Complete",
+            "BOJ": "https://www.acmicpc.net/problem/16579",
+            "CF": "https://codeforces.com/gym/102001/problem/G"
+        },
+        {
+            "id": "H",
+            "title": "Lexical Sign Sequence",
+            "BOJ": "https://www.acmicpc.net/problem/16580",
+            "CF": "https://codeforces.com/gym/102001/problem/H"
+        },
+        {
+            "id": "I",
+            "title": "Lie Detector",
+            "BOJ": "https://www.acmicpc.net/problem/16581",
+            "CF": "https://codeforces.com/gym/102001/problem/I"
+        },
+        {
+            "id": "J",
+            "title": "Future Generation",
+            "BOJ": "https://www.acmicpc.net/problem/16582",
+            "CF": "https://codeforces.com/gym/102001/problem/J"
+        },
+        {
+            "id": "K",
+            "title": "Boomerangs",
+            "BOJ": "https://www.acmicpc.net/problem/16583",
+            "CF": "https://codeforces.com/gym/102001/problem/K"
+        },
+        {
+            "id": "L",
+            "title": "Binary String",
+            "BOJ": "https://www.acmicpc.net/problem/16584",
+            "CF": "https://codeforces.com/gym/102001/problem/L"
+        }
+    ]
+}

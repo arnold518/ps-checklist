@@ -1,0 +1,98 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2019 > 2025-04-21 23:44:22.773107",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Indonesia (Jakarta)"
+    ],
+    "year": "2019",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2019/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2019/statements.pdf",
+        "editorials": "https://raw.githubusercontent.com/jonathanirvings/icpc-jakarta-2019/master/problem_analysis.pdf",
+        "official": "https://competition.binus.ac.id/icpc2019/",
+        "standing": "https://competition.binus.ac.id/icpc2019/final.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/2235",
+        "CF": "https://codeforces.com/contest/1252"
+    },
+    "name": "2019-2020 ICPC, Asia Jakarta Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Copying Homework",
+            "BOJ": "https://www.acmicpc.net/problem/19155",
+            "CF": "https://codeforces.com/contest/1252/problem/A"
+        },
+        {
+            "id": "B",
+            "title": "Cleaning Robots",
+            "BOJ": "https://www.acmicpc.net/problem/19156",
+            "CF": "https://codeforces.com/contest/1252/problem/B"
+        },
+        {
+            "id": "C",
+            "title": "Even Path",
+            "BOJ": "https://www.acmicpc.net/problem/19157",
+            "CF": "https://codeforces.com/contest/1252/problem/C"
+        },
+        {
+            "id": "D",
+            "title": "Find String in a Grid",
+            "BOJ": "https://www.acmicpc.net/problem/19158",
+            "CF": "https://codeforces.com/contest/1252/problem/D"
+        },
+        {
+            "id": "E",
+            "title": "Songwriter",
+            "BOJ": "https://www.acmicpc.net/problem/19159",
+            "CF": "https://codeforces.com/contest/1252/problem/E"
+        },
+        {
+            "id": "F",
+            "title": "Regular Forestation",
+            "BOJ": "https://www.acmicpc.net/problem/19160",
+            "CF": "https://codeforces.com/contest/1252/problem/F"
+        },
+        {
+            "id": "G",
+            "title": "Performance Review",
+            "BOJ": "https://www.acmicpc.net/problem/19161",
+            "CF": "https://codeforces.com/contest/1252/problem/G"
+        },
+        {
+            "id": "H",
+            "title": "Twin Buildings",
+            "BOJ": "https://www.acmicpc.net/problem/19162",
+            "CF": "https://codeforces.com/contest/1252/problem/H"
+        },
+        {
+            "id": "I",
+            "title": "Mission Possible",
+            "BOJ": "https://www.acmicpc.net/problem/19163",
+            "CF": "https://codeforces.com/contest/1252/problem/I"
+        },
+        {
+            "id": "J",
+            "title": "Tiling Terrace",
+            "BOJ": "https://www.acmicpc.net/problem/19164",
+            "CF": "https://codeforces.com/contest/1252/problem/J"
+        },
+        {
+            "id": "K",
+            "title": "Addition Robot",
+            "BOJ": "https://www.acmicpc.net/problem/19165",
+            "CF": "https://codeforces.com/contest/1252/problem/K"
+        },
+        {
+            "id": "L",
+            "title": "Road Construction",
+            "BOJ": "https://www.acmicpc.net/problem/19166",
+            "CF": "https://codeforces.com/contest/1252/problem/L"
+        }
+    ],
+    "crawled_data": {
+        "cf-problem_analysis.pdf": "https://github.com/jonathanirvings/icpc-jakarta-2019/blob/master/problem_analysis.pdf"
+    }
+}

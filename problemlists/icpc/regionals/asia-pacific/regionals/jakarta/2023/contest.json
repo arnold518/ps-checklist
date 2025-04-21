@@ -1,0 +1,119 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2023 > 2025-04-21 23:43:14.362665",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Indonesia (Jakarta)"
+    ],
+    "year": "2023",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2023/",
+    "link": {
+        "statements": "https://codeforces.com/contest/1906/attachments/download/25627/pset.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2023/editorials.pdf",
+        "official": "https://competition.binus.ac.id/icpc2023/",
+        "standing": "https://competition.binus.ac.id/icpc2023/final.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/4255",
+        "CF": "https://codeforces.com/contest/1906",
+        "QOJ": "https://qoj.ac/contest/1991"
+    },
+    "name": "The 2023 ICPC Asia Jakarta Onsite Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Easy As ABC",
+            "BOJ": "https://www.acmicpc.net/problem/32076",
+            "CF": "https://codeforces.com/contest/1906/problem/A",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10558"
+        },
+        {
+            "id": "B",
+            "title": "Button Pressing",
+            "BOJ": "https://www.acmicpc.net/problem/32077",
+            "CF": "https://codeforces.com/contest/1906/problem/B",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10559"
+        },
+        {
+            "id": "C",
+            "title": "Cursed Game",
+            "BOJ": "https://www.acmicpc.net/problem/32078",
+            "CF": "https://codeforces.com/contest/1906/problem/C",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10560"
+        },
+        {
+            "id": "D",
+            "title": "Spaceship Exploration",
+            "BOJ": "https://www.acmicpc.net/problem/32079",
+            "CF": "https://codeforces.com/contest/1906/problem/D",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10561"
+        },
+        {
+            "id": "E",
+            "title": "Merge Not Sort",
+            "BOJ": "https://www.acmicpc.net/problem/32080",
+            "CF": "https://codeforces.com/contest/1906/problem/E",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10562"
+        },
+        {
+            "id": "F",
+            "title": "Maximize The Value",
+            "BOJ": "https://www.acmicpc.net/problem/32081",
+            "CF": "https://codeforces.com/contest/1906/problem/F",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10563"
+        },
+        {
+            "id": "G",
+            "title": "Grid Game 2",
+            "BOJ": "https://www.acmicpc.net/problem/32082",
+            "CF": "https://codeforces.com/contest/1906/problem/G",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10564"
+        },
+        {
+            "id": "H",
+            "title": "Twin Friends",
+            "BOJ": "https://www.acmicpc.net/problem/32083",
+            "CF": "https://codeforces.com/contest/1906/problem/H",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10565"
+        },
+        {
+            "id": "I",
+            "title": "Contingency Plan 2",
+            "BOJ": "https://www.acmicpc.net/problem/32084",
+            "CF": "https://codeforces.com/contest/1906/problem/I",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10566"
+        },
+        {
+            "id": "J",
+            "title": "Count BFS Graph",
+            "BOJ": "https://www.acmicpc.net/problem/32085",
+            "CF": "https://codeforces.com/contest/1906/problem/J",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10567"
+        },
+        {
+            "id": "K",
+            "title": "Deck-Building Game",
+            "BOJ": "https://www.acmicpc.net/problem/32086",
+            "CF": "https://codeforces.com/contest/1906/problem/K",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10568"
+        },
+        {
+            "id": "L",
+            "title": "Palindromic Parentheses",
+            "BOJ": "https://www.acmicpc.net/problem/32087",
+            "CF": "https://codeforces.com/contest/1906/problem/L",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10569"
+        },
+        {
+            "id": "M",
+            "title": "Triangle Construction",
+            "BOJ": "https://www.acmicpc.net/problem/32088",
+            "CF": "https://codeforces.com/contest/1906/problem/M",
+            "QOJ": "https://qoj.ac/contest/1991/problem/10570"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1991&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1991&r=1"
+    }
+}

@@ -422,7 +422,7 @@
         "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2015/statements.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2024 > 2025-04-21 23:42:49.093976",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
         "year": "2024",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2024/",
@@ -432,10 +432,10 @@
         "cf_url": "https://codeforces.com/contest/2045",
         "qoj_url": "https://qoj.ac/contest/1992",
         "statements_url": "https://codeforces.com/contest/2045/attachments/download/28649/ICPCAsiaJakarta2024statements.pdf",
-        "editorials_url": "https://competition.binus.ac.id/icpc2024/problem_analysis.pdf"
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2024/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2023 > 2025-04-21 23:43:14.362665",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
         "year": "2023",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2023/",
@@ -445,49 +445,44 @@
         "cf_url": "https://codeforces.com/contest/1906",
         "qoj_url": "https://qoj.ac/contest/1991",
         "statements_url": "https://codeforces.com/contest/1906/attachments/download/25627/pset.pdf",
-        "editorials_url": "https://competition.binus.ac.id/icpc2023/problem_analysis.pdf"
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2023/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2022 > 2025-04-21 23:43:37.955560",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
         "year": "2022",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2022/",
         "official_url": "https://competition.binus.ac.id/icpc2022/",
         "standing_url": "https://competition.binus.ac.id/icpc2022/final.html",
         "boj_url": "https://www.acmicpc.net/category/detail/4254",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/1109",
-        "statements_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2022%20Asia%20Jakarta%20Regional%20Contest/problems.pdf",
-        "editorials_url": "https://competition.binus.ac.id/icpc2022/problem_analysis.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2022/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2022/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2021 > 2025-04-21 23:43:56.675504",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
         "year": "2021",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2021/",
         "official_url": "https://competition.binus.ac.id/icpc2021/",
         "standing_url": "https://competition.binus.ac.id/icpc2021/final.html",
         "boj_url": "https://www.acmicpc.net/category/detail/3347",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/989",
-        "statements_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2021%20Asia%20Jakarta%20Regional%20Contest/problems.pdf",
-        "editorials_url": "https://competition.binus.ac.id/icpc2021/icpc21jak-analysis.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2021/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2021/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2020 > 2025-04-21 23:44:13.675910",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
         "year": "2020",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2020/",
         "official_url": "https://competition.binus.ac.id/icpc2020/",
         "standing_url": "https://competition.binus.ac.id/icpc2020/final.html",
         "boj_url": "https://www.acmicpc.net/category/detail/2396",
-        "cf_url": "",
-        "qoj_url": "https://qoj.ac/contest/1019",
-        "statements_url": "",
-        "editorials_url": ""
+        "qoj_url": "https://qoj.ac/contest/1019"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2019 > 2025-04-21 23:44:22.773107",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
         "year": "2019",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2019/",
@@ -495,12 +490,11 @@
         "standing_url": "https://competition.binus.ac.id/icpc2019/final.html",
         "boj_url": "https://www.acmicpc.net/category/detail/2235",
         "cf_url": "https://codeforces.com/contest/1252",
-        "qoj_url": "",
-        "statements_url": "https://jonathanirvin.gs/files/icpc19/icpc19.pdf",
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2019/statements.pdf",
         "editorials_url": "https://raw.githubusercontent.com/jonathanirvings/icpc-jakarta-2019/master/problem_analysis.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2018 > 2025-04-21 23:44:44.414251",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
         "year": "2018",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2018/",
@@ -508,21 +502,18 @@
         "standing_url": "https://competition.binus.ac.id/icpc2018/final.html",
         "boj_url": "https://www.acmicpc.net/category/detail/1965",
         "cf_url": "https://codeforces.com/gym/102001",
-        "qoj_url": "",
-        "statements_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2018%20Asia%20Jakarta%20Regional%20Contest/problems.pdf",
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2018/statements.pdf",
         "editorials_url": "https://raw.githubusercontent.com/jonathanirvings/icpc-jakarta-2018/master/icpc18-analysis.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2017 > 2025-04-21 23:45:02.335640",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
         "year": "2017",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/",
         "official_url": "https://competition.binus.ac.id/icpc2017/",
         "standing_url": "https://competition.binus.ac.id/icpc2017/final.html",
         "boj_url": "https://www.acmicpc.net/category/detail/1884",
-        "cf_url": "",
-        "qoj_url": "",
-        "statements_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2017%20Asia%20Jakarta%20Regional%20Contest/problems.pdf",
-        "editorials_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2017%20Asia%20Jakarta%20Regional%20Contest/solution.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/editorials.pdf"
     }
 ]

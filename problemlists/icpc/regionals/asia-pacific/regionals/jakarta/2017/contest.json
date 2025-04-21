@@ -1,0 +1,82 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2017 > 2025-04-21 23:45:02.335640",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Indonesia (Jakarta)"
+    ],
+    "year": "2017",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/editorials.pdf",
+        "official": "https://competition.binus.ac.id/icpc2017/",
+        "standing": "https://competition.binus.ac.id/icpc2017/final.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/1884"
+    },
+    "name": "ACM-ICPC Regional Contest, Jakarta 2017",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Winning ICPC",
+            "BOJ": "https://www.acmicpc.net/problem/15845"
+        },
+        {
+            "id": "B",
+            "title": "Travelling Businessmen Problem",
+            "BOJ": "https://www.acmicpc.net/problem/15846"
+        },
+        {
+            "id": "C",
+            "title": "Non-Interactive Guessing Number",
+            "BOJ": "https://www.acmicpc.net/problem/15847"
+        },
+        {
+            "id": "D",
+            "title": "Make a Forest",
+            "BOJ": "https://www.acmicpc.net/problem/15848"
+        },
+        {
+            "id": "E",
+            "title": "Parks of Jakarta",
+            "BOJ": "https://www.acmicpc.net/problem/15849"
+        },
+        {
+            "id": "F",
+            "title": "Random Number Generator",
+            "BOJ": "https://www.acmicpc.net/problem/15850"
+        },
+        {
+            "id": "G",
+            "title": "National Disaster: Two Towers",
+            "BOJ": "https://www.acmicpc.net/problem/15851"
+        },
+        {
+            "id": "H",
+            "title": "ANTS",
+            "BOJ": "https://www.acmicpc.net/problem/15852"
+        },
+        {
+            "id": "I",
+            "title": "XEN 3166",
+            "BOJ": "https://www.acmicpc.net/problem/15853"
+        },
+        {
+            "id": "J",
+            "title": "Meeting",
+            "BOJ": "https://www.acmicpc.net/problem/15854"
+        },
+        {
+            "id": "K",
+            "title": "Permutation",
+            "BOJ": "https://www.acmicpc.net/problem/15855"
+        },
+        {
+            "id": "L",
+            "title": "Sacred Scarecrows",
+            "BOJ": "https://www.acmicpc.net/problem/15856"
+        }
+    ]
+}

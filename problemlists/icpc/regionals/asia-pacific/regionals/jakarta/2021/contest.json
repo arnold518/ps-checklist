@@ -1,0 +1,104 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2021 > 2025-04-21 23:43:56.675504",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Indonesia (Jakarta)"
+    ],
+    "year": "2021",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2021/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2021/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2021/editorials.pdf",
+        "official": "https://competition.binus.ac.id/icpc2021/",
+        "standing": "https://competition.binus.ac.id/icpc2021/final.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/3347",
+        "QOJ": "https://qoj.ac/contest/989"
+    },
+    "name": "2021-2022 ICPC Asia Pacific - Jakarta Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "XOR Pairs",
+            "BOJ": "https://www.acmicpc.net/problem/26850",
+            "QOJ": "https://qoj.ac/contest/989/problem/4579"
+        },
+        {
+            "id": "B",
+            "title": "Bicycle Tour",
+            "BOJ": "https://www.acmicpc.net/problem/26851",
+            "QOJ": "https://qoj.ac/contest/989/problem/4580"
+        },
+        {
+            "id": "C",
+            "title": "Energy Generation",
+            "BOJ": "https://www.acmicpc.net/problem/26852",
+            "QOJ": "https://qoj.ac/contest/989/problem/4581"
+        },
+        {
+            "id": "D",
+            "title": "Uniform Maker",
+            "BOJ": "https://www.acmicpc.net/problem/26853",
+            "QOJ": "https://qoj.ac/contest/989/problem/4582"
+        },
+        {
+            "id": "E",
+            "title": "Concerto de Pandemic",
+            "BOJ": "https://www.acmicpc.net/problem/26854",
+            "QOJ": "https://qoj.ac/contest/989/problem/4583"
+        },
+        {
+            "id": "F",
+            "title": "Not One",
+            "BOJ": "https://www.acmicpc.net/problem/26855",
+            "QOJ": "https://qoj.ac/contest/989/problem/4584"
+        },
+        {
+            "id": "G",
+            "title": "Greedy Knapsack",
+            "BOJ": "https://www.acmicpc.net/problem/26856",
+            "QOJ": "https://qoj.ac/contest/989/problem/4585"
+        },
+        {
+            "id": "H",
+            "title": "Cell Game",
+            "BOJ": "https://www.acmicpc.net/problem/26857",
+            "QOJ": "https://qoj.ac/contest/989/problem/4586"
+        },
+        {
+            "id": "I",
+            "title": "Stable Planetary System",
+            "BOJ": "https://www.acmicpc.net/problem/26858",
+            "QOJ": "https://qoj.ac/contest/989/problem/4587"
+        },
+        {
+            "id": "J",
+            "title": "Feeder Robot",
+            "BOJ": "https://www.acmicpc.net/problem/26859",
+            "QOJ": "https://qoj.ac/contest/989/problem/4588"
+        },
+        {
+            "id": "K",
+            "title": "White-Black Tree",
+            "BOJ": "https://www.acmicpc.net/problem/26860",
+            "QOJ": "https://qoj.ac/contest/989/problem/4589"
+        },
+        {
+            "id": "L",
+            "title": "Happy Travelling",
+            "BOJ": "https://www.acmicpc.net/problem/26861",
+            "QOJ": "https://qoj.ac/contest/989/problem/4590"
+        },
+        {
+            "id": "M",
+            "title": "Maxdifficent Group",
+            "BOJ": "https://www.acmicpc.net/problem/26862",
+            "QOJ": "https://qoj.ac/contest/989/problem/4591"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=989&r=0"
+    }
+}
