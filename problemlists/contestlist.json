@@ -101,5 +101,18 @@
         "qoj_url": "",
         "statements_url": "https://assets.codeforces.com/rounds/1578/ICPC-World-Finals-Moscow-Invitational-Problems.pdf",
         "editorials_url": "https://assets.codeforces.com/rounds/1578/tutorial.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2020",
+        "filepath": "problemlists/icpc/world-finals/2020/",
+        "official_url": "",
+        "standing_url": "https://clist.by/standings/44th-annual-icpc-world-finals-moscow-russia-30281388/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/2805",
+        "cf_url": "https://codeforces.com/gym/104633",
+        "qoj_url": "https://qoj.ac/contest/782",
+        "statements_url": "https://icpc.global/worldfinals/problems/2020-ICPC-World-Finals/icpc2020.pdf",
+        "editorials_url": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2020%20ICPC%20World%20Finals/solution"
     }
 ]
