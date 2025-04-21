@@ -205,5 +205,18 @@
         "qoj_url": "https://qoj.ac/contest/278",
         "statements_url": "https://icpc.global/worldfinals/problems/2013-ICPC-World-Finals/icpc2013.pdf",
         "editorials_url": "https://archive.algo.is/icpc/2013/finals2013solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2012",
+        "filepath": "problemlists/icpc/world-finals/2012/",
+        "official_url": "https://icpc.global/community/results-2012",
+        "standing_url": "https://clist.by/standings/36th-annual-acm-icpc-world-finals-warsaw-poland-17371768/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1",
+        "cf_url": "https://codeforces.com/gym/101205",
+        "qoj_url": "https://qoj.ac/contest/277",
+        "statements_url": "https://icpc.global/worldfinals/problems/2012-ICPC-World-Finals/icpc2012.pdf",
+        "editorials_url": "https://archive.algo.is/icpc/2012/finals2012solutions.pdf"
     }
 ]
