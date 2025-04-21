@@ -1,0 +1,106 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2017 > 2025-04-21 22:29:08.354131",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2017",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2017/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2017/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2017/editorials.pdf",
+        "official": "https://icpc.iisf.or.jp/2017-tsukuba/regional/",
+        "standing": "https://icpc.iisf.or.jp/past-icpc/regional2017/standings.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/1819",
+        "CF": "https://codeforces.com/gym/101986",
+        "QOJ": "https://qoj.ac/contest/435"
+    },
+    "name": "2017-2018 ICPC Asia Pacific - Tsukuba Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Secret of Chocolate Poles",
+            "BOJ": "https://www.acmicpc.net/problem/15329",
+            "CF": "https://codeforces.com/gym/101986/problem/A",
+            "QOJ": "https://qoj.ac/contest/435/problem/3282"
+        },
+        {
+            "id": "B",
+            "title": "Parallel Lines",
+            "BOJ": "https://www.acmicpc.net/problem/15330",
+            "CF": "https://codeforces.com/gym/101986/problem/B",
+            "QOJ": "https://qoj.ac/contest/435/problem/3283"
+        },
+        {
+            "id": "C",
+            "title": "Medical Checkup",
+            "BOJ": "https://www.acmicpc.net/problem/15331",
+            "CF": "https://codeforces.com/gym/101986/problem/C",
+            "QOJ": "https://qoj.ac/contest/435/problem/3284"
+        },
+        {
+            "id": "D",
+            "title": "Making Perimeter of the Convex Hull Shortest",
+            "BOJ": "https://www.acmicpc.net/problem/15332",
+            "CF": "https://codeforces.com/gym/101986/problem/D",
+            "QOJ": "https://qoj.ac/contest/435/problem/3285"
+        },
+        {
+            "id": "E",
+            "title": "Black or White",
+            "BOJ": "https://www.acmicpc.net/problem/15333",
+            "CF": "https://codeforces.com/gym/101986/problem/E",
+            "QOJ": "https://qoj.ac/contest/435/problem/3286"
+        },
+        {
+            "id": "F",
+            "title": "Pizza Delivery",
+            "BOJ": "https://www.acmicpc.net/problem/15334",
+            "CF": "https://codeforces.com/gym/101986/problem/F",
+            "QOJ": "https://qoj.ac/contest/435/problem/3287"
+        },
+        {
+            "id": "G",
+            "title": "Rendezvous on a Tetrahedron",
+            "BOJ": "https://www.acmicpc.net/problem/15335",
+            "CF": "https://codeforces.com/gym/101986/problem/G",
+            "QOJ": "https://qoj.ac/contest/435/problem/3288"
+        },
+        {
+            "id": "H",
+            "title": "Homework",
+            "BOJ": "https://www.acmicpc.net/problem/15336",
+            "CF": "https://codeforces.com/gym/101986/problem/H",
+            "QOJ": "https://qoj.ac/contest/435/problem/3289"
+        },
+        {
+            "id": "I",
+            "title": "Starting a Scenic Railroad Service",
+            "BOJ": "https://www.acmicpc.net/problem/15337",
+            "CF": "https://codeforces.com/gym/101986/problem/I",
+            "QOJ": "https://qoj.ac/contest/435/problem/3290"
+        },
+        {
+            "id": "J",
+            "title": "String Puzzle",
+            "BOJ": "https://www.acmicpc.net/problem/15338",
+            "CF": "https://codeforces.com/gym/101986/problem/J",
+            "QOJ": "https://qoj.ac/contest/435/problem/3291"
+        },
+        {
+            "id": "K",
+            "title": "Counting Cycles",
+            "BOJ": "https://www.acmicpc.net/problem/15339",
+            "CF": "https://codeforces.com/gym/101986/problem/K",
+            "QOJ": "https://qoj.ac/contest/435/problem/3292"
+        }
+    ],
+    "crawled_data": {
+        "cf-20172018-acmicpc-asia-tsukuba-regional-contest-en.pdf": "https://codeforces.com/gym/101986/attachments/download/7911/20172018-acmicpc-asia-tsukuba-regional-contest-en.pdf",
+        "cf-solution.pdf": "https://codeforces.com/gym/101986/attachments/download/22674/solution.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=435&r=0"
+    }
+}

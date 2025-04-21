@@ -1,0 +1,93 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2016 > 2025-04-21 22:29:37.479781",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2016",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2016/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2016/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2016/editorials.pdf",
+        "official": "https://icpc.iisf.or.jp/2016-tsukuba/regional/?lang=en",
+        "standing": "https://icpc.iisf.or.jp/2016-tsukuba/wp-content/uploads/sites/3/2017/02/2016-regional-final.png",
+        "BOJ": "https://www.acmicpc.net/category/detail/1533",
+        "QOJ": "https://qoj.ac/contest/101"
+    },
+    "name": "2016-2017 ICPC Asia Pacific - Tsukuba Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Rearranging a Sequence",
+            "BOJ": "https://www.acmicpc.net/problem/13399",
+            "QOJ": "https://qoj.ac/contest/101/problem/173"
+        },
+        {
+            "id": "B",
+            "title": "Quality of Check Digits",
+            "BOJ": "https://www.acmicpc.net/problem/13400",
+            "QOJ": "https://qoj.ac/contest/101/problem/174"
+        },
+        {
+            "id": "C",
+            "title": "Distribution Center",
+            "BOJ": "https://www.acmicpc.net/problem/13401",
+            "QOJ": "https://qoj.ac/contest/101/problem/175"
+        },
+        {
+            "id": "D",
+            "title": "Hidden Anagrams",
+            "BOJ": "https://www.acmicpc.net/problem/13402",
+            "QOJ": "https://qoj.ac/contest/101/problem/176"
+        },
+        {
+            "id": "E",
+            "title": "Infallibly Crack Perplexing Cryptarithm",
+            "BOJ": "https://www.acmicpc.net/problem/13403",
+            "QOJ": "https://qoj.ac/contest/101/problem/177"
+        },
+        {
+            "id": "F",
+            "title": "Three Kingdoms of Bourdelot",
+            "BOJ": "https://www.acmicpc.net/problem/13404",
+            "QOJ": "https://qoj.ac/contest/101/problem/178"
+        },
+        {
+            "id": "G",
+            "title": "Placing Medals on a Binary Tree",
+            "BOJ": "https://www.acmicpc.net/problem/13405",
+            "QOJ": "https://qoj.ac/contest/101/problem/179"
+        },
+        {
+            "id": "H",
+            "title": "Animal Companion in Maze",
+            "BOJ": "https://www.acmicpc.net/problem/13406",
+            "QOJ": "https://qoj.ac/contest/101/problem/180"
+        },
+        {
+            "id": "I",
+            "title": "Skinny Polygon",
+            "BOJ": "https://www.acmicpc.net/problem/13407",
+            "QOJ": "https://qoj.ac/contest/101/problem/181"
+        },
+        {
+            "id": "J",
+            "title": "Cover the Polygon with Your Disk",
+            "BOJ": "https://www.acmicpc.net/problem/13408",
+            "QOJ": "https://qoj.ac/contest/101/problem/182"
+        },
+        {
+            "id": "K",
+            "title": "Black and White Boxes",
+            "BOJ": "https://www.acmicpc.net/problem/13409",
+            "QOJ": "https://qoj.ac/contest/101/problem/183"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=101&r=0",
+        "qoj-Statements-(en)-(PTZ).pdf": "https://qoj.ac/download.php?type=attachments&id=101&r=1"
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2022 > 2025-04-21 22:27:13.385930",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2022",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2022/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2022/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2022/editorials.pdf",
+        "official": "https://icpc.iisf.or.jp/2022-yokohama/asia-yokohama-regional-contest-2022/",
+        "standing": "https://codeforces.com/gym/104849/standings",
+        "BOJ": "https://www.acmicpc.net/category/detail/3481",
+        "CF": "https://codeforces.com/gym/104849",
+        "QOJ": "https://qoj.ac/contest/1101"
+    },
+    "name": "2022-2023 ICPC Asia Pacific - Yokohama Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Hasty Santa Claus",
+            "BOJ": "https://www.acmicpc.net/problem/27416",
+            "CF": "https://codeforces.com/gym/104849/problem/A",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5470"
+        },
+        {
+            "id": "B",
+            "title": "Interactive Number Guessing",
+            "BOJ": "https://www.acmicpc.net/problem/27417",
+            "CF": "https://codeforces.com/gym/104849/problem/B",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5471"
+        },
+        {
+            "id": "C",
+            "title": "Secure the Top Secret",
+            "BOJ": "https://www.acmicpc.net/problem/27418",
+            "CF": "https://codeforces.com/gym/104849/problem/C",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5472"
+        },
+        {
+            "id": "D",
+            "title": "Move One Coin",
+            "BOJ": "https://www.acmicpc.net/problem/27419",
+            "CF": "https://codeforces.com/gym/104849/problem/D",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5473"
+        },
+        {
+            "id": "E",
+            "title": "Incredibly Cute Penguin Chicks",
+            "BOJ": "https://www.acmicpc.net/problem/27420",
+            "CF": "https://codeforces.com/gym/104849/problem/E",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5474"
+        },
+        {
+            "id": "F",
+            "title": "Make a Loop",
+            "BOJ": "https://www.acmicpc.net/problem/27421",
+            "CF": "https://codeforces.com/gym/104849/problem/F",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5475"
+        },
+        {
+            "id": "G",
+            "title": "Remodeling the Dungeon",
+            "BOJ": "https://www.acmicpc.net/problem/27422",
+            "CF": "https://codeforces.com/gym/104849/problem/G",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5476"
+        },
+        {
+            "id": "H",
+            "title": "Cake Decoration",
+            "BOJ": "https://www.acmicpc.net/problem/27423",
+            "CF": "https://codeforces.com/gym/104849/problem/H",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5477"
+        },
+        {
+            "id": "I",
+            "title": "Quiz Contest",
+            "BOJ": "https://www.acmicpc.net/problem/27424",
+            "CF": "https://codeforces.com/gym/104849/problem/I",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5478"
+        },
+        {
+            "id": "J",
+            "title": "Traveling Salesperson in an Island",
+            "BOJ": "https://www.acmicpc.net/problem/27425",
+            "CF": "https://codeforces.com/gym/104849/problem/J",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5479"
+        },
+        {
+            "id": "K",
+            "title": "New Year Festival",
+            "BOJ": "https://www.acmicpc.net/problem/27426",
+            "CF": "https://codeforces.com/gym/104849/problem/K",
+            "QOJ": "https://qoj.ac/contest/1101/problem/5480"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1101&r=0"
+    }
+}
