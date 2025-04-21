@@ -127,5 +127,18 @@
         "qoj_url": "https://qoj.ac/contest/431",
         "statements_url": "https://icpc.global/worldfinals/problems/2019-ICPC-World-Finals/icpc2019.pdf",
         "editorials_url": "https://icpc.global/worldfinals/problems/2019-ICPC-World-Finals/finals2019solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2018",
+        "filepath": "problemlists/icpc/world-finals/2018/",
+        "official_url": "",
+        "standing_url": "https://clist.by/standings/42th-annual-acm-icpc-world-finals-beijing-china-17371762/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1859",
+        "cf_url": "https://codeforces.com/gym/102482",
+        "qoj_url": "https://qoj.ac/contest/425",
+        "statements_url": "https://icpc.global/worldfinals/problems/2018-ICPC-World-Finals/icpc2018.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2018-ICPC-World-Finals/finals2018solutions.pdf"
     }
 ]
