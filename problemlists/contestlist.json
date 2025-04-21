@@ -179,5 +179,18 @@
         "qoj_url": "https://qoj.ac/contest/280",
         "statements_url": "https://icpc.global/worldfinals/problems/2015-ICPC-World-Finals/icpc2015.pdf",
         "editorials_url": "https://www.csc.kth.se/~austrin/icpc/finals2015solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2014",
+        "filepath": "problemlists/icpc/world-finals/2014/",
+        "official_url": "",
+        "standing_url": "https://clist.by/standings/38th-annual-acm-icpc-world-finals-yekaterinbug-russia-17371766/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1250",
+        "cf_url": "https://codeforces.com/gym/101221",
+        "qoj_url": "https://qoj.ac/contest/280",
+        "statements_url": "https://icpc.global/worldfinals/problems/2014-ICPC-World-Finals/icpc2014.pdf",
+        "editorials_url": "https://keet.wordpress.com/2014/06/28/acm-icpc-2014-solution-to-problem-a-baggage/"
     }
 ]
