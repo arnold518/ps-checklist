@@ -75,5 +75,18 @@
         "qoj_url": "https://qoj.ac/contest/1661",
         "statements_url": "https://icpc.global/worldfinals/problems/2022-ICPC-World-Finals/icpc2022.pdf",
         "editorials_url": "https://icpc.global/worldfinals/problems/2022-ICPC-World-Finals/finals2022solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2021",
+        "filepath": "problemlists/icpc/world-finals/2021/",
+        "official_url": "",
+        "standing_url": "https://clist.by/standings/45th-annual-icpc-world-finals-dhaka-bangladesh-38603613/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/3230",
+        "cf_url": "https://codeforces.com/gym/104288",
+        "qoj_url": "https://qoj.ac/contest/1050",
+        "statements_url": "https://icpc.global/worldfinals/problems/2021-ICPC-World-Finals/icpc2021.pdf",
+        "editorials_url": ""
     }
 ]
