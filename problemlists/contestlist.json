@@ -498,5 +498,18 @@
         "qoj_url": "",
         "statements_url": "https://jonathanirvin.gs/files/icpc19/icpc19.pdf",
         "editorials_url": "https://raw.githubusercontent.com/jonathanirvings/icpc-jakarta-2019/master/problem_analysis.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
+        "year": "2018",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2018/",
+        "official_url": "https://competition.binus.ac.id/icpc2018/",
+        "standing_url": "https://competition.binus.ac.id/icpc2018/final.html",
+        "boj_url": "https://www.acmicpc.net/category/detail/1965",
+        "cf_url": "https://codeforces.com/gym/102001",
+        "qoj_url": "",
+        "statements_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2018%20Asia%20Jakarta%20Regional%20Contest/problems.pdf",
+        "editorials_url": "https://raw.githubusercontent.com/jonathanirvings/icpc-jakarta-2018/master/icpc18-analysis.pdf"
     }
 ]
