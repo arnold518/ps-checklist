@@ -1,0 +1,104 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2022 > 2025-04-21 23:43:37.955560",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Indonesia (Jakarta)"
+    ],
+    "year": "2022",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2022/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2022/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2022/editorials.pdf",
+        "official": "https://competition.binus.ac.id/icpc2022/",
+        "standing": "https://competition.binus.ac.id/icpc2022/final.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/4254",
+        "QOJ": "https://qoj.ac/contest/1109"
+    },
+    "name": "2022-2023 ICPC Asia Pacific - Jakarta Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Storing Eggs",
+            "BOJ": "https://www.acmicpc.net/problem/32055",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5537"
+        },
+        {
+            "id": "B",
+            "title": "Magical Barrier",
+            "BOJ": "https://www.acmicpc.net/problem/32056",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5538"
+        },
+        {
+            "id": "C",
+            "title": "Nightmare Brother",
+            "BOJ": "https://www.acmicpc.net/problem/32057",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5539"
+        },
+        {
+            "id": "D",
+            "title": "City Hall",
+            "BOJ": "https://www.acmicpc.net/problem/32058",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5540"
+        },
+        {
+            "id": "E",
+            "title": "Substring Sort",
+            "BOJ": "https://www.acmicpc.net/problem/32059",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5541"
+        },
+        {
+            "id": "F",
+            "title": "Doubled GCD",
+            "BOJ": "https://www.acmicpc.net/problem/32060",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5542"
+        },
+        {
+            "id": "G",
+            "title": "The Only Mode",
+            "BOJ": "https://www.acmicpc.net/problem/32061",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5543"
+        },
+        {
+            "id": "H",
+            "title": "Grid Game",
+            "BOJ": "https://www.acmicpc.net/problem/32062",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5544"
+        },
+        {
+            "id": "I",
+            "title": "Contingency Plan",
+            "BOJ": "https://www.acmicpc.net/problem/32063",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5545"
+        },
+        {
+            "id": "J",
+            "title": "Sharing Bread",
+            "BOJ": "https://www.acmicpc.net/problem/32064",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5546"
+        },
+        {
+            "id": "K",
+            "title": "Short Function",
+            "BOJ": "https://www.acmicpc.net/problem/32065",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5547"
+        },
+        {
+            "id": "L",
+            "title": "Increase the Toll Fees",
+            "BOJ": "https://www.acmicpc.net/problem/32066",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5548"
+        },
+        {
+            "id": "M",
+            "title": "Game Show",
+            "BOJ": "https://www.acmicpc.net/problem/32067",
+            "QOJ": "https://qoj.ac/contest/1109/problem/5549"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1109&r=0"
+    }
+}

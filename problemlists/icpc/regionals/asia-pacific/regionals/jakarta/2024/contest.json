@@ -1,0 +1,119 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2024 > 2025-04-21 23:42:49.093976",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Indonesia (Jakarta)"
+    ],
+    "year": "2024",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2024/",
+    "link": {
+        "statements": "https://codeforces.com/contest/2045/attachments/download/28649/ICPCAsiaJakarta2024statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2024/editorials.pdf",
+        "official": "https://competition.binus.ac.id/icpc2024/",
+        "standing": "https://competition.binus.ac.id/icpc2024/final.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/4385",
+        "CF": "https://codeforces.com/contest/2045",
+        "QOJ": "https://qoj.ac/contest/1992"
+    },
+    "name": "The 2024 ICPC Asia Jakarta Onsite Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Scrambled Scrabble",
+            "BOJ": "https://www.acmicpc.net/problem/33119",
+            "CF": "https://codeforces.com/contest/2045/problem/A",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10571"
+        },
+        {
+            "id": "B",
+            "title": "ICPC Square",
+            "BOJ": "https://www.acmicpc.net/problem/33120",
+            "CF": "https://codeforces.com/contest/2045/problem/B",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10572"
+        },
+        {
+            "id": "C",
+            "title": "Saraga",
+            "BOJ": "https://www.acmicpc.net/problem/33121",
+            "CF": "https://codeforces.com/contest/2045/problem/C",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10573"
+        },
+        {
+            "id": "D",
+            "title": "Aquatic Dragon",
+            "BOJ": "https://www.acmicpc.net/problem/33122",
+            "CF": "https://codeforces.com/contest/2045/problem/D",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10574"
+        },
+        {
+            "id": "E",
+            "title": "Narrower Passageway",
+            "BOJ": "https://www.acmicpc.net/problem/33123",
+            "CF": "https://codeforces.com/contest/2045/problem/E",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10575"
+        },
+        {
+            "id": "F",
+            "title": "Grid Game 3-angle",
+            "BOJ": "https://www.acmicpc.net/problem/33124",
+            "CF": "https://codeforces.com/contest/2045/problem/F",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10576"
+        },
+        {
+            "id": "G",
+            "title": "X Aura",
+            "BOJ": "https://www.acmicpc.net/problem/33125",
+            "CF": "https://codeforces.com/contest/2045/problem/G",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10577"
+        },
+        {
+            "id": "H",
+            "title": "Missing Separators",
+            "BOJ": "https://www.acmicpc.net/problem/33126",
+            "CF": "https://codeforces.com/contest/2045/problem/H",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10578"
+        },
+        {
+            "id": "I",
+            "title": "Microwavable Subsequence",
+            "BOJ": "https://www.acmicpc.net/problem/33127",
+            "CF": "https://codeforces.com/contest/2045/problem/I",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10579"
+        },
+        {
+            "id": "J",
+            "title": "Xorderable Array",
+            "BOJ": "https://www.acmicpc.net/problem/33128",
+            "CF": "https://codeforces.com/contest/2045/problem/J",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10580"
+        },
+        {
+            "id": "K",
+            "title": "GCDDCG",
+            "BOJ": "https://www.acmicpc.net/problem/33129",
+            "CF": "https://codeforces.com/contest/2045/problem/K",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10581"
+        },
+        {
+            "id": "L",
+            "title": "Buggy DFS",
+            "BOJ": "https://www.acmicpc.net/problem/33130",
+            "CF": "https://codeforces.com/contest/2045/problem/L",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10582"
+        },
+        {
+            "id": "M",
+            "title": "Mirror Maze",
+            "BOJ": "https://www.acmicpc.net/problem/33131",
+            "CF": "https://codeforces.com/contest/2045/problem/M",
+            "QOJ": "https://qoj.ac/contest/1992/problem/10583"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1992&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1992&r=1"
+    }
+}

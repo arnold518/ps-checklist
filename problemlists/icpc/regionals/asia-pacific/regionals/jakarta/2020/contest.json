@@ -1,0 +1,99 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2020 > 2025-04-21 23:44:13.675910",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Indonesia (Jakarta)"
+    ],
+    "year": "2020",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2020/",
+    "link": {
+        "official": "https://competition.binus.ac.id/icpc2020/",
+        "standing": "https://competition.binus.ac.id/icpc2020/final.html",
+        "BOJ": "https://www.acmicpc.net/category/detail/2396",
+        "QOJ": "https://qoj.ac/contest/1019"
+    },
+    "name": "2020-2021 ICPC Asia Pacific - Jakarta Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Comic Binge",
+            "BOJ": "https://www.acmicpc.net/problem/20686",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4931"
+        },
+        {
+            "id": "B",
+            "title": "Moon and Sun",
+            "BOJ": "https://www.acmicpc.net/problem/20687",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4932"
+        },
+        {
+            "id": "C",
+            "title": "Cul-De-Sac Parades",
+            "BOJ": "https://www.acmicpc.net/problem/20688",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4933"
+        },
+        {
+            "id": "D",
+            "title": "Forbidden Card",
+            "BOJ": "https://www.acmicpc.net/problem/20689",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4934"
+        },
+        {
+            "id": "E",
+            "title": "Exchange Bottleneck",
+            "BOJ": "https://www.acmicpc.net/problem/20690",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4935"
+        },
+        {
+            "id": "F",
+            "title": "Shopping Changes",
+            "BOJ": "https://www.acmicpc.net/problem/20691",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4936"
+        },
+        {
+            "id": "G",
+            "title": "Permutation Transformation",
+            "BOJ": "https://www.acmicpc.net/problem/20692",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4937"
+        },
+        {
+            "id": "H",
+            "title": "Writing Tasks",
+            "BOJ": "https://www.acmicpc.net/problem/20693",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4938"
+        },
+        {
+            "id": "I",
+            "title": "Red Black Ball",
+            "BOJ": "https://www.acmicpc.net/problem/20694",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4939"
+        },
+        {
+            "id": "J",
+            "title": "Token Distance",
+            "BOJ": "https://www.acmicpc.net/problem/20695",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4940"
+        },
+        {
+            "id": "K",
+            "title": "Tree Beauty",
+            "BOJ": "https://www.acmicpc.net/problem/20696",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4941"
+        },
+        {
+            "id": "L",
+            "title": "Robust Defense",
+            "BOJ": "https://www.acmicpc.net/problem/20697",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4942"
+        },
+        {
+            "id": "M",
+            "title": "Police Stations",
+            "BOJ": "https://www.acmicpc.net/problem/20698",
+            "QOJ": "https://qoj.ac/contest/1019/problem/4943"
+        }
+    ]
+}

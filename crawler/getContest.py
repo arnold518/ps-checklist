@@ -156,7 +156,7 @@ class ContestCrawler:
     # =========================================================================
 
     def update_by_cf(self, name, url, problems, pdf_set):
-        self.handler.update_nested_value(["name"], name, overwrite=True)
+        self.handler.update_nested_value(["name"], name, overwrite=False)
         self.handler.update_nested_value(["link", "CF"], url)
         if pdf_set is not None:
             for pdfname, pdflink in pdf_set.items():
