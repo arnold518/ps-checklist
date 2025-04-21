@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > World Finals > 2020 > 2025-04-21 17:04:12.492492",
+    "id": "ICPC > World Finals > 2020 > 2025-04-21 17:57:42.695042",
     "category": [
         "ICPC",
         "World Finals"
@@ -9,6 +9,7 @@
     "link": {
         "statements": "./problemlists/icpc/world-finals/2020/statements.pdf",
         "editorials": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2020%20ICPC%20World%20Finals/solution",
+        "official": "https://icpc.global/community/results-2020",
         "standing": "https://clist.by/standings/44th-annual-icpc-world-finals-moscow-russia-30281388/?timeline=",
         "BOJ": "https://www.acmicpc.net/category/detail/2805",
         "CF": "https://codeforces.com/gym/104633",

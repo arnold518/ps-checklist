@@ -1,0 +1,110 @@
+{
+    "id": "ICPC > World Finals > 2017 > 2025-04-21 17:59:22.543544",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2017",
+    "filepath": "problemlists/icpc/world-finals/2017/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2017/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2017/editorials.pdf",
+        "official": "https://icpc.global/community/results-2017",
+        "standing": "https://clist.by/standings/41th-annual-acm-icpc-world-finals-rapid-city-south-dakota-usa-17371763/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/1747",
+        "CF": "https://codeforces.com/gym/101471",
+        "QOJ": "https://qoj.ac/contest/414"
+    },
+    "name": "ACM-ICPC World Finals 2017 - Rapid City",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Airport Construction",
+            "BOJ": "https://www.acmicpc.net/problem/14633",
+            "CF": "https://codeforces.com/gym/101471/problem/A",
+            "QOJ": "https://qoj.ac/contest/414/problem/2767"
+        },
+        {
+            "id": "B",
+            "title": "Get a Clue!",
+            "BOJ": "https://www.acmicpc.net/problem/14634",
+            "CF": "https://codeforces.com/gym/101471/problem/B",
+            "QOJ": "https://qoj.ac/contest/414/problem/2768"
+        },
+        {
+            "id": "C",
+            "title": "Mission Improbable",
+            "BOJ": "https://www.acmicpc.net/problem/14635",
+            "CF": "https://codeforces.com/gym/101471/problem/C",
+            "QOJ": "https://qoj.ac/contest/414/problem/2769"
+        },
+        {
+            "id": "D",
+            "title": "Money for Nothing",
+            "BOJ": "https://www.acmicpc.net/problem/14636",
+            "CF": "https://codeforces.com/gym/101471/problem/D",
+            "QOJ": "https://qoj.ac/contest/414/problem/2770"
+        },
+        {
+            "id": "E",
+            "title": "Need for Speed",
+            "BOJ": "https://www.acmicpc.net/problem/14637",
+            "CF": "https://codeforces.com/gym/101471/problem/E",
+            "QOJ": "https://qoj.ac/contest/414/problem/2771"
+        },
+        {
+            "id": "F",
+            "title": "Posterize",
+            "BOJ": "https://www.acmicpc.net/problem/14638",
+            "CF": "https://codeforces.com/gym/101471/problem/F",
+            "QOJ": "https://qoj.ac/contest/414/problem/2772"
+        },
+        {
+            "id": "G",
+            "title": "Replicate Replicate Rfplicbte",
+            "BOJ": "https://www.acmicpc.net/problem/14639",
+            "CF": "https://codeforces.com/gym/101471/problem/G",
+            "QOJ": "https://qoj.ac/contest/414/problem/2773"
+        },
+        {
+            "id": "H",
+            "title": "Scenery",
+            "BOJ": "https://www.acmicpc.net/problem/14640",
+            "CF": "https://codeforces.com/gym/101471/problem/H",
+            "QOJ": "https://qoj.ac/contest/414/problem/2774"
+        },
+        {
+            "id": "I",
+            "title": "Secret Chamber at Mount Rushmore",
+            "BOJ": "https://www.acmicpc.net/problem/14641",
+            "CF": "https://codeforces.com/gym/101471/problem/I",
+            "QOJ": "https://qoj.ac/contest/414/problem/2775"
+        },
+        {
+            "id": "J",
+            "title": "Son of Pipe Stream",
+            "BOJ": "https://www.acmicpc.net/problem/14642",
+            "CF": "https://codeforces.com/gym/101471/problem/J",
+            "QOJ": "https://qoj.ac/contest/414/problem/2776"
+        },
+        {
+            "id": "K",
+            "title": "Tarot Sham Boast",
+            "BOJ": "https://www.acmicpc.net/problem/14643",
+            "CF": "https://codeforces.com/gym/101471/problem/K",
+            "QOJ": "https://qoj.ac/contest/414/problem/2777"
+        },
+        {
+            "id": "L",
+            "title": "Visual Python++",
+            "BOJ": "https://www.acmicpc.net/problem/14644",
+            "CF": "https://codeforces.com/gym/101471/problem/L",
+            "QOJ": "https://qoj.ac/contest/414/problem/2778"
+        }
+    ],
+    "crawled_data": {
+        "cf-2017-acmicpc-world-finals-en.pdf": "https://codeforces.com/gym/101471/attachments/download/5852/2017-acmicpc-world-finals-en.pdf",
+        "cf-finals2017solutions.pdf": "http://www.csc.kth.se/~austrin/icpc/finals2017solutions.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=414&r=0"
+    }
+}

@@ -1,0 +1,114 @@
+{
+    "id": "ICPC > World Finals > 2014 > 2025-04-21 18:00:57.762673",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2014",
+    "filepath": "problemlists/icpc/world-finals/2014/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2014/statements.pdf",
+        "editorials": "https://keet.wordpress.com/2014/06/28/acm-icpc-2014-solution-to-problem-a-baggage/",
+        "official": "https://icpc.global/community/results-2014",
+        "standing": "https://clist.by/standings/38th-annual-acm-icpc-world-finals-yekaterinbug-russia-17371766/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/1250",
+        "CF": "https://codeforces.com/gym/101221",
+        "QOJ": "https://qoj.ac/contest/280"
+    },
+    "name": "ACM-ICPC World Finals 2015 - Marrakesh",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Baggage",
+            "BOJ": "https://www.acmicpc.net/problem/10050",
+            "CF": "https://codeforces.com/gym/101221/problem/A",
+            "QOJ": "https://qoj.ac/contest/280/problem/4676"
+        },
+        {
+            "id": "B",
+            "title": "Buffed Buffet",
+            "BOJ": "https://www.acmicpc.net/problem/10051",
+            "CF": "https://codeforces.com/gym/101221/problem/B",
+            "QOJ": "https://qoj.ac/contest/280/problem/4677"
+        },
+        {
+            "id": "C",
+            "title": "Crane Balancing",
+            "BOJ": "https://www.acmicpc.net/problem/10052",
+            "CF": "https://codeforces.com/gym/101221/problem/C",
+            "QOJ": "https://qoj.ac/contest/280/problem/4678"
+        },
+        {
+            "id": "D",
+            "title": "Game Strategy",
+            "BOJ": "https://www.acmicpc.net/problem/10053",
+            "CF": "https://codeforces.com/gym/101221/problem/D",
+            "QOJ": "https://qoj.ac/contest/280/problem/4679"
+        },
+        {
+            "id": "E",
+            "title": "Maze Reduction",
+            "BOJ": "https://www.acmicpc.net/problem/10054",
+            "CF": "https://codeforces.com/gym/101221/problem/E",
+            "QOJ": "https://qoj.ac/contest/280/problem/4680"
+        },
+        {
+            "id": "F",
+            "title": "Messenger",
+            "BOJ": "https://www.acmicpc.net/problem/10055",
+            "CF": "https://codeforces.com/gym/101221/problem/F",
+            "QOJ": "https://qoj.ac/contest/280/problem/4681"
+        },
+        {
+            "id": "G",
+            "title": "Metal Processing Plant",
+            "BOJ": "https://www.acmicpc.net/problem/10056",
+            "CF": "https://codeforces.com/gym/101221/problem/G",
+            "QOJ": "https://qoj.ac/contest/280/problem/4682"
+        },
+        {
+            "id": "H",
+            "title": "Pachinko",
+            "BOJ": "https://www.acmicpc.net/problem/10057",
+            "CF": "https://codeforces.com/gym/101221/problem/H",
+            "QOJ": "https://qoj.ac/contest/280/problem/4683"
+        },
+        {
+            "id": "I",
+            "title": "Sensor Network",
+            "BOJ": "https://www.acmicpc.net/problem/10058",
+            "CF": "https://codeforces.com/gym/101221/problem/I",
+            "QOJ": "https://qoj.ac/contest/280/problem/4684"
+        },
+        {
+            "id": "J",
+            "title": "Skiing",
+            "BOJ": "https://www.acmicpc.net/problem/10059",
+            "CF": "https://codeforces.com/gym/101221/problem/J",
+            "QOJ": "https://qoj.ac/contest/280/problem/4685"
+        },
+        {
+            "id": "K",
+            "title": "Surveillance",
+            "BOJ": "https://www.acmicpc.net/problem/10060",
+            "CF": "https://codeforces.com/gym/101221/problem/K",
+            "QOJ": "https://qoj.ac/contest/280/problem/4686"
+        },
+        {
+            "id": "L",
+            "title": "Wire Crossing",
+            "BOJ": "https://www.acmicpc.net/problem/10061",
+            "CF": "https://codeforces.com/gym/101221/problem/L",
+            "QOJ": "https://qoj.ac/contest/280/problem/4687"
+        },
+        {
+            "id": "M",
+            "title": "Window Manager",
+            "QOJ": "https://qoj.ac/contest/280/problem/4688"
+        }
+    ],
+    "crawled_data": {
+        "cf-2014-acmicpc-world-finals-en.pdf": "https://codeforces.com/gym/101221/attachments/download/5028/2014-acmicpc-world-finals-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=280&r=0"
+    }
+}

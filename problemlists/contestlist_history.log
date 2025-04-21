@@ -192,3 +192,149 @@
     }
 ]
 2025-04-21 17:04:34.548337
+[
+    {
+        "id": "ICPC > World Finals > 2023 > 2025-04-21 17:56:18.693539",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2023",
+        "filepath": "problemlists/icpc/world-finals/2023/",
+        "official_url": "https://icpc.global/community/results-2023",
+        "standing_url": "https://clist.by/standings/47th-annual-icpc-world-finals-luxor-egypt-50284536/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/4211",
+        "cf_url": "https://codeforces.com/gym/105255",
+        "qoj_url": "https://qoj.ac/contest/1662",
+        "statements_url": "https://icpc.global/worldfinals/problems/2023-ICPC-World-Finals/icpc2023.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2023-ICPC-World-Finals/finals2023solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2022 > 2025-04-21 17:56:49.130336",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2022",
+        "filepath": "problemlists/icpc/world-finals/2022/",
+        "official_url": "https://icpc.global/community/results-2022",
+        "standing_url": "https://clist.by/standings/46th-annual-icpc-world-finals-luxor-egypt-51207620/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/4210",
+        "cf_url": "https://codeforces.com/gym/105254",
+        "qoj_url": "https://qoj.ac/contest/1661",
+        "statements_url": "https://icpc.global/worldfinals/problems/2022-ICPC-World-Finals/icpc2022.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2022-ICPC-World-Finals/finals2022solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2021 > 2025-04-21 17:57:11.361300",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2021",
+        "filepath": "problemlists/icpc/world-finals/2021/",
+        "official_url": "https://icpc.global/community/results-2021",
+        "standing_url": "https://clist.by/standings/45th-annual-icpc-world-finals-dhaka-bangladesh-38603613/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/3230",
+        "cf_url": "https://codeforces.com/gym/104288",
+        "qoj_url": "https://qoj.ac/contest/1050",
+        "statements_url": "https://icpc.global/worldfinals/problems/2021-ICPC-World-Finals/icpc2021.pdf",
+        "editorials_url": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2021%20ICPC%20World%20Finals/solution"
+    },
+    {
+        "id": "ICPC > World Finals > 2020-I > 2025-04-21 17:57:31.586437",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2020-I",
+        "filepath": "problemlists/icpc/world-finals/2020-i/",
+        "official_url": null,
+        "standing_url": null,
+        "boj_url": null,
+        "cf_url": "https://codeforces.com/contest/1578",
+        "qoj_url": null,
+        "statements_url": "https://assets.codeforces.com/rounds/1578/ICPC-World-Finals-Moscow-Invitational-Problems.pdf",
+        "editorials_url": "https://assets.codeforces.com/rounds/1578/tutorial.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2020 > 2025-04-21 17:57:42.695042",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2020",
+        "filepath": "problemlists/icpc/world-finals/2020/",
+        "official_url": "https://icpc.global/community/results-2020",
+        "standing_url": "https://clist.by/standings/44th-annual-icpc-world-finals-moscow-russia-30281388/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/2805",
+        "cf_url": "https://codeforces.com/gym/104633",
+        "qoj_url": "https://qoj.ac/contest/782",
+        "statements_url": "https://icpc.global/worldfinals/problems/2020-ICPC-World-Finals/icpc2020.pdf",
+        "editorials_url": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2020%20ICPC%20World%20Finals/solution"
+    },
+    {
+        "id": "ICPC > World Finals > 2019 > 2025-04-21 17:58:00.391017",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2019",
+        "filepath": "problemlists/icpc/world-finals/2019/",
+        "official_url": "https://icpc.global/community/results-2019",
+        "standing_url": "https://clist.by/standings/43th-annual-icpc-world-finals-porto-portugal-17371761/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/2021",
+        "cf_url": "https://codeforces.com/gym/102511",
+        "qoj_url": "https://qoj.ac/contest/431",
+        "statements_url": "https://icpc.global/worldfinals/problems/2019-ICPC-World-Finals/icpc2019.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2019-ICPC-World-Finals/finals2019solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2018 > 2025-04-21 17:58:28.195996",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2018",
+        "filepath": "problemlists/icpc/world-finals/2018/",
+        "official_url": "https://icpc.global/community/results-2018",
+        "standing_url": "https://clist.by/standings/42th-annual-acm-icpc-world-finals-beijing-china-17371762/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1859",
+        "cf_url": "https://codeforces.com/gym/102482",
+        "qoj_url": "https://qoj.ac/contest/425",
+        "statements_url": "https://icpc.global/worldfinals/problems/2018-ICPC-World-Finals/icpc2018.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2018-ICPC-World-Finals/finals2018solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2017 > 2025-04-21 17:59:22.543544",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2017",
+        "filepath": "problemlists/icpc/world-finals/2017/",
+        "official_url": "https://icpc.global/community/results-2017",
+        "standing_url": "https://clist.by/standings/41th-annual-acm-icpc-world-finals-rapid-city-south-dakota-usa-17371763/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1747",
+        "cf_url": "https://codeforces.com/gym/101471",
+        "qoj_url": "https://qoj.ac/contest/414",
+        "statements_url": "https://icpc.global/worldfinals/problems/2017-ICPC-World-Finals/icpc2017.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2017-ICPC-World-Finals/finals2017solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2016 > 2025-04-21 17:59:44.208154",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2016",
+        "filepath": "problemlists/icpc/world-finals/2016/",
+        "official_url": "https://icpc.global/community/results-2016",
+        "standing_url": "https://clist.by/standings/40th-annual-acm-icpc-world-finals-phuket-thailand-17371764/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1490",
+        "cf_url": "https://codeforces.com/gym/101242",
+        "qoj_url": "https://qoj.ac/contest/281",
+        "statements_url": "https://icpc.global/worldfinals/problems/2016-ICPC-World-Finals/icpc2016.pdf",
+        "editorials_url": "https://www.csc.kth.se/~austrin/icpc/finals2016solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2015 > 2025-04-21 18:00:27.848890",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2015",
+        "filepath": "problemlists/icpc/world-finals/2015/",
+        "official_url": "https://icpc.global/community/results-2015",
+        "standing_url": "https://clist.by/standings/39th-annual-acm-icpc-world-finals-marrakech-morocco-17371765/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1347",
+        "cf_url": "https://codeforces.com/gym/101239",
+        "qoj_url": "https://qoj.ac/contest/280",
+        "statements_url": "https://icpc.global/worldfinals/problems/2015-ICPC-World-Finals/icpc2015.pdf",
+        "editorials_url": "https://www.csc.kth.se/~austrin/icpc/finals2015solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2014 > 2025-04-21 18:00:57.762673",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2014",
+        "filepath": "problemlists/icpc/world-finals/2014/",
+        "official_url": "https://icpc.global/community/results-2014",
+        "standing_url": "https://clist.by/standings/38th-annual-acm-icpc-world-finals-yekaterinbug-russia-17371766/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1250",
+        "cf_url": "https://codeforces.com/gym/101221",
+        "qoj_url": "https://qoj.ac/contest/280",
+        "statements_url": "https://icpc.global/worldfinals/problems/2014-ICPC-World-Finals/icpc2014.pdf",
+        "editorials_url": "https://keet.wordpress.com/2014/06/28/acm-icpc-2014-solution-to-problem-a-baggage/"
+    }
+]
+2025-04-21 18:01:13.813620

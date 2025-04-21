@@ -1,0 +1,116 @@
+{
+    "id": "ICPC > World Finals > 2016 > 2025-04-21 17:59:44.208154",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2016",
+    "filepath": "problemlists/icpc/world-finals/2016/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2016/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2016/editorials.pdf",
+        "official": "https://icpc.global/community/results-2016",
+        "standing": "https://clist.by/standings/40th-annual-acm-icpc-world-finals-phuket-thailand-17371764/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/1490",
+        "CF": "https://codeforces.com/gym/101242",
+        "QOJ": "https://qoj.ac/contest/281"
+    },
+    "name": "ACM-ICPC World Finals 2016 - Phuket",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Balanced Diet",
+            "BOJ": "https://www.acmicpc.net/problem/12765",
+            "CF": "https://codeforces.com/gym/101242/problem/A",
+            "QOJ": "https://qoj.ac/contest/281/problem/4362"
+        },
+        {
+            "id": "B",
+            "title": "Branch Assignment",
+            "BOJ": "https://www.acmicpc.net/problem/12766",
+            "CF": "https://codeforces.com/gym/101242/problem/B",
+            "QOJ": "https://qoj.ac/contest/281/problem/4363"
+        },
+        {
+            "id": "C",
+            "title": "Ceiling Function",
+            "BOJ": "https://www.acmicpc.net/problem/12767",
+            "CF": "https://codeforces.com/gym/101242/problem/C",
+            "QOJ": "https://qoj.ac/contest/281/problem/4364"
+        },
+        {
+            "id": "D",
+            "title": "Clock Breaking",
+            "BOJ": "https://www.acmicpc.net/problem/12768",
+            "CF": "https://codeforces.com/gym/101242/problem/D",
+            "QOJ": "https://qoj.ac/contest/281/problem/4365"
+        },
+        {
+            "id": "E",
+            "title": "Forever Young",
+            "BOJ": "https://www.acmicpc.net/problem/12769",
+            "CF": "https://codeforces.com/gym/101242/problem/E",
+            "QOJ": "https://qoj.ac/contest/281/problem/4366"
+        },
+        {
+            "id": "F",
+            "title": "Longest Rivers",
+            "BOJ": "https://www.acmicpc.net/problem/12770",
+            "CF": "https://codeforces.com/gym/101242/problem/F",
+            "QOJ": "https://qoj.ac/contest/281/problem/4367"
+        },
+        {
+            "id": "G",
+            "title": "Oil",
+            "BOJ": "https://www.acmicpc.net/problem/12771",
+            "CF": "https://codeforces.com/gym/101242/problem/G",
+            "QOJ": "https://qoj.ac/contest/281/problem/4368"
+        },
+        {
+            "id": "H",
+            "title": "Polygonal Puzzle",
+            "BOJ": "https://www.acmicpc.net/problem/12772",
+            "CF": "https://codeforces.com/gym/101242/problem/H",
+            "QOJ": "https://qoj.ac/contest/281/problem/4369"
+        },
+        {
+            "id": "I",
+            "title": "Road Times",
+            "BOJ": "https://www.acmicpc.net/problem/12773",
+            "CF": "https://codeforces.com/gym/101242/problem/I",
+            "QOJ": "https://qoj.ac/contest/281/problem/4370"
+        },
+        {
+            "id": "J",
+            "title": "Spin Doctor",
+            "BOJ": "https://www.acmicpc.net/problem/12774",
+            "CF": "https://codeforces.com/gym/101242/problem/J",
+            "QOJ": "https://qoj.ac/contest/281/problem/4371"
+        },
+        {
+            "id": "K",
+            "title": "String Theory",
+            "BOJ": "https://www.acmicpc.net/problem/12775",
+            "CF": "https://codeforces.com/gym/101242/problem/K",
+            "QOJ": "https://qoj.ac/contest/281/problem/4372"
+        },
+        {
+            "id": "L",
+            "title": "Swap Space",
+            "BOJ": "https://www.acmicpc.net/problem/12776",
+            "CF": "https://codeforces.com/gym/101242/problem/L",
+            "QOJ": "https://qoj.ac/contest/281/problem/4373"
+        },
+        {
+            "id": "M",
+            "title": "What Really Happened on Mars?",
+            "BOJ": "https://www.acmicpc.net/problem/12777",
+            "CF": "https://codeforces.com/gym/101242/problem/M",
+            "QOJ": "https://qoj.ac/contest/281/problem/4374"
+        }
+    ],
+    "crawled_data": {
+        "cf-2016-acmicpc-world-finals-en.pdf": "https://codeforces.com/gym/101242/attachments/download/5087/2016-acmicpc-world-finals-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=281&r=0"
+    }
+}

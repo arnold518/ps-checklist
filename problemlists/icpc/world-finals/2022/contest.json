@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > World Finals > 2022 > 2025-04-21 17:03:20.781164",
+    "id": "ICPC > World Finals > 2022 > 2025-04-21 17:56:49.130336",
     "category": [
         "ICPC",
         "World Finals"
@@ -9,6 +9,7 @@
     "link": {
         "statements": "./problemlists/icpc/world-finals/2022/statements.pdf",
         "editorials": "./problemlists/icpc/world-finals/2022/editorials.pdf",
+        "official": "https://icpc.global/community/results-2022",
         "standing": "https://clist.by/standings/46th-annual-icpc-world-finals-luxor-egypt-51207620/?timeline=",
         "BOJ": "https://www.acmicpc.net/category/detail/4210",
         "CF": "https://codeforces.com/gym/105254",

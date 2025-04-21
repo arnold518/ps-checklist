@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > World Finals > 2023 > 2025-04-21 17:02:56.985516",
+    "id": "ICPC > World Finals > 2023 > 2025-04-21 17:56:18.693539",
     "category": [
         "ICPC",
         "World Finals"
@@ -9,6 +9,7 @@
     "link": {
         "statements": "./problemlists/icpc/world-finals/2023/statements.pdf",
         "editorials": "./problemlists/icpc/world-finals/2023/editorials.pdf",
+        "official": "https://icpc.global/community/results-2023",
         "standing": "https://clist.by/standings/47th-annual-icpc-world-finals-luxor-egypt-50284536/?timeline=",
         "BOJ": "https://www.acmicpc.net/category/detail/4211",
         "CF": "https://codeforces.com/gym/105255",

@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > World Finals > 2021 > 2025-04-21 17:03:43.789331",
+    "id": "ICPC > World Finals > 2021 > 2025-04-21 17:57:11.361300",
     "category": [
         "ICPC",
         "World Finals"
@@ -9,6 +9,7 @@
     "link": {
         "statements": "./problemlists/icpc/world-finals/2021/statements.pdf",
         "editorials": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2021%20ICPC%20World%20Finals/solution",
+        "official": "https://icpc.global/community/results-2021",
         "standing": "https://clist.by/standings/45th-annual-icpc-world-finals-dhaka-bangladesh-38603613/?timeline=",
         "BOJ": "https://www.acmicpc.net/category/detail/3230",
         "CF": "https://codeforces.com/gym/104288",

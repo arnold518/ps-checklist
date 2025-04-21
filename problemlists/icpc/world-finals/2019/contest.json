@@ -1,0 +1,103 @@
+{
+    "id": "ICPC > World Finals > 2019 > 2025-04-21 17:58:00.391017",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2019",
+    "filepath": "problemlists/icpc/world-finals/2019/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2019/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2019/editorials.pdf",
+        "official": "https://icpc.global/community/results-2019",
+        "standing": "https://clist.by/standings/43th-annual-icpc-world-finals-porto-portugal-17371761/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/2021",
+        "CF": "https://codeforces.com/gym/102511",
+        "QOJ": "https://qoj.ac/contest/431"
+    },
+    "name": "The 2019 ICPC World Finals - Porto",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Azulejos",
+            "BOJ": "https://www.acmicpc.net/problem/17150",
+            "CF": "https://codeforces.com/gym/102511/problem/A",
+            "QOJ": "https://qoj.ac/contest/431/problem/2337"
+        },
+        {
+            "id": "B",
+            "title": "Beautiful Bridges",
+            "BOJ": "https://www.acmicpc.net/problem/17151",
+            "CF": "https://codeforces.com/gym/102511/problem/B",
+            "QOJ": "https://qoj.ac/contest/431/problem/2338"
+        },
+        {
+            "id": "C",
+            "title": "Checks Post Facto",
+            "BOJ": "https://www.acmicpc.net/problem/17152",
+            "CF": "https://codeforces.com/gym/102511/problem/C",
+            "QOJ": "https://qoj.ac/contest/431/problem/2339"
+        },
+        {
+            "id": "D",
+            "title": "Circular DNA",
+            "BOJ": "https://www.acmicpc.net/problem/17153",
+            "CF": "https://codeforces.com/gym/102511/problem/D",
+            "QOJ": "https://qoj.ac/contest/431/problem/2340"
+        },
+        {
+            "id": "E",
+            "title": "Dead-End Detector",
+            "BOJ": "https://www.acmicpc.net/problem/17154",
+            "CF": "https://codeforces.com/gym/102511/problem/E",
+            "QOJ": "https://qoj.ac/contest/431/problem/2341"
+        },
+        {
+            "id": "F",
+            "title": "Directing Rainfall",
+            "BOJ": "https://www.acmicpc.net/problem/17155",
+            "CF": "https://codeforces.com/gym/102511/problem/F",
+            "QOJ": "https://qoj.ac/contest/431/problem/2342"
+        },
+        {
+            "id": "G",
+            "title": "First of Her Name",
+            "BOJ": "https://www.acmicpc.net/problem/17156",
+            "CF": "https://codeforces.com/gym/102511/problem/G",
+            "QOJ": "https://qoj.ac/contest/431/problem/2343"
+        },
+        {
+            "id": "H",
+            "title": "Hobsons' trains",
+            "BOJ": "https://www.acmicpc.net/problem/17157",
+            "CF": "https://codeforces.com/gym/102511/problem/H",
+            "QOJ": "https://qoj.ac/contest/431/problem/2344"
+        },
+        {
+            "id": "I",
+            "title": "Karel the Robot",
+            "BOJ": "https://www.acmicpc.net/problem/17158",
+            "CF": "https://codeforces.com/gym/102511/problem/I",
+            "QOJ": "https://qoj.ac/contest/431/problem/2345"
+        },
+        {
+            "id": "J",
+            "title": "Miniature Golf",
+            "BOJ": "https://www.acmicpc.net/problem/17159",
+            "CF": "https://codeforces.com/gym/102511/problem/J",
+            "QOJ": "https://qoj.ac/contest/431/problem/2346"
+        },
+        {
+            "id": "K",
+            "title": "Traffic Blights",
+            "BOJ": "https://www.acmicpc.net/problem/17160",
+            "CF": "https://codeforces.com/gym/102511/problem/K",
+            "QOJ": "https://qoj.ac/contest/431/problem/2347"
+        }
+    ],
+    "crawled_data": {
+        "cf-statements.pdf": "https://codeforces.com/gym/102511/attachments/download/10357/statements.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=431&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=431&r=1"
+    }
+}
