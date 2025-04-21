@@ -1,0 +1,109 @@
+{
+    "id": "ICPC > World Finals > 2012 > 2025-04-21 18:04:58.006009",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2012",
+    "filepath": "problemlists/icpc/world-finals/2012/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2012/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2012/editorials.pdf",
+        "official": "https://icpc.global/community/results-2012",
+        "standing": "https://clist.by/standings/36th-annual-acm-icpc-world-finals-warsaw-poland-17371768/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/1",
+        "CF": "https://codeforces.com/gym/101205",
+        "QOJ": "https://qoj.ac/contest/277"
+    },
+    "name": "ACM-ICPC World Finals 2012 - Warsaw",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Asteroid Rangers",
+            "BOJ": "https://www.acmicpc.net/problem/4203",
+            "CF": "https://codeforces.com/gym/101205/problem/A",
+            "QOJ": "https://qoj.ac/contest/277/problem/10439"
+        },
+        {
+            "id": "B",
+            "title": "Curvy Little Bottles",
+            "BOJ": "https://www.acmicpc.net/problem/4204",
+            "CF": "https://codeforces.com/gym/101205/problem/B",
+            "QOJ": "https://qoj.ac/contest/277/problem/10440"
+        },
+        {
+            "id": "C",
+            "title": "Bus Tour",
+            "BOJ": "https://www.acmicpc.net/problem/4205",
+            "CF": "https://codeforces.com/gym/101205/problem/C",
+            "QOJ": "https://qoj.ac/contest/277/problem/10441"
+        },
+        {
+            "id": "D",
+            "title": "Fibonacci Words",
+            "BOJ": "https://www.acmicpc.net/problem/4206",
+            "CF": "https://codeforces.com/gym/101205/problem/D",
+            "QOJ": "https://qoj.ac/contest/277/problem/10442"
+        },
+        {
+            "id": "E",
+            "title": "Infiltration",
+            "BOJ": "https://www.acmicpc.net/problem/4207",
+            "CF": "https://codeforces.com/gym/101205/problem/E",
+            "QOJ": "https://qoj.ac/contest/277/problem/10443"
+        },
+        {
+            "id": "F",
+            "title": "Keys",
+            "BOJ": "https://www.acmicpc.net/problem/4208",
+            "CF": "https://codeforces.com/gym/101205/problem/F",
+            "QOJ": "https://qoj.ac/contest/277/problem/10444"
+        },
+        {
+            "id": "G",
+            "title": "Minimum Cost Flow",
+            "BOJ": "https://www.acmicpc.net/problem/4209",
+            "CF": "https://codeforces.com/gym/101205/problem/G",
+            "QOJ": "https://qoj.ac/contest/277/problem/10445"
+        },
+        {
+            "id": "H",
+            "title": "Room Service",
+            "BOJ": "https://www.acmicpc.net/problem/4210",
+            "CF": "https://codeforces.com/gym/101205/problem/H",
+            "QOJ": "https://qoj.ac/contest/277/problem/10446"
+        },
+        {
+            "id": "I",
+            "title": "A Safe Bet",
+            "BOJ": "https://www.acmicpc.net/problem/4211",
+            "CF": "https://codeforces.com/gym/101205/problem/I",
+            "QOJ": "https://qoj.ac/contest/277/problem/10447"
+        },
+        {
+            "id": "J",
+            "title": "Shortest Flight Path",
+            "BOJ": "https://www.acmicpc.net/problem/4212",
+            "CF": "https://codeforces.com/gym/101205/problem/J",
+            "QOJ": "https://qoj.ac/contest/277/problem/10448"
+        },
+        {
+            "id": "K",
+            "title": "Stacking Plates",
+            "BOJ": "https://www.acmicpc.net/problem/4213",
+            "CF": "https://codeforces.com/gym/101205/problem/K",
+            "QOJ": "https://qoj.ac/contest/277/problem/10449"
+        },
+        {
+            "id": "L",
+            "title": "Takeover Wars",
+            "BOJ": "https://www.acmicpc.net/problem/4214",
+            "CF": "https://codeforces.com/gym/101205/problem/L",
+            "QOJ": "https://qoj.ac/contest/277/problem/10450"
+        }
+    ],
+    "crawled_data": {
+        "cf-2012-acmicpc-world-finals-en.pdf": "https://codeforces.com/gym/101205/attachments/download/4991/2012-acmicpc-world-finals-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=277&r=0"
+    }
+}

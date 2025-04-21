@@ -1,0 +1,102 @@
+{
+    "id": "ICPC > World Finals > 2011 > 2025-04-21 18:05:34.835115",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2011",
+    "filepath": "problemlists/icpc/world-finals/2011/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2011/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2011/editorials.pdf",
+        "official": "https://icpc.global/community/results-2011",
+        "standing": "https://clist.by/standings/35th-annual-acm-icpc-world-finals-orlando-florida-usa-17371797/",
+        "BOJ": "https://www.acmicpc.net/category/detail/2",
+        "CF": "https://codeforces.com/gym/101175",
+        "QOJ": "https://qoj.ac/contest/276"
+    },
+    "name": "ACM-ICPC World Finals 2011 - Orlando",
+    "problems": [
+        {
+            "id": "A",
+            "title": "To Add or to Multiply",
+            "BOJ": "https://www.acmicpc.net/problem/4215",
+            "CF": "https://codeforces.com/gym/101175/problem/A",
+            "QOJ": "https://qoj.ac/contest/276/problem/10463"
+        },
+        {
+            "id": "B",
+            "title": "Affine Mess",
+            "BOJ": "https://www.acmicpc.net/problem/4216",
+            "CF": "https://codeforces.com/gym/101175/problem/B",
+            "QOJ": "https://qoj.ac/contest/276/problem/10464"
+        },
+        {
+            "id": "C",
+            "title": "Ancient Messages",
+            "BOJ": "https://www.acmicpc.net/problem/4217",
+            "CF": "https://codeforces.com/gym/101175/problem/C",
+            "QOJ": "https://qoj.ac/contest/276/problem/10465"
+        },
+        {
+            "id": "D",
+            "title": "Chips Challenge",
+            "BOJ": "https://www.acmicpc.net/problem/4218",
+            "CF": "https://codeforces.com/gym/101175/problem/D",
+            "QOJ": "https://qoj.ac/contest/276/problem/10466"
+        },
+        {
+            "id": "E",
+            "title": "Coffee Central",
+            "BOJ": "https://www.acmicpc.net/problem/4219",
+            "CF": "https://codeforces.com/gym/101175/problem/E",
+            "QOJ": "https://qoj.ac/contest/276/problem/10467"
+        },
+        {
+            "id": "F",
+            "title": "Machine Works",
+            "BOJ": "https://www.acmicpc.net/problem/4220",
+            "CF": "https://codeforces.com/gym/101175/problem/F",
+            "QOJ": "https://qoj.ac/contest/276/problem/10468"
+        },
+        {
+            "id": "G",
+            "title": "Magic Sticks",
+            "BOJ": "https://www.acmicpc.net/problem/4221",
+            "CF": "https://codeforces.com/gym/101175/problem/G",
+            "QOJ": "https://qoj.ac/contest/276/problem/10469"
+        },
+        {
+            "id": "H",
+            "title": "Mining Your Own Business",
+            "BOJ": "https://www.acmicpc.net/problem/4222",
+            "CF": "https://codeforces.com/gym/101175/problem/H",
+            "QOJ": "https://qoj.ac/contest/276/problem/10470"
+        },
+        {
+            "id": "I",
+            "title": "Mummy Madness",
+            "BOJ": "https://www.acmicpc.net/problem/4223",
+            "CF": "https://codeforces.com/gym/101175/problem/I",
+            "QOJ": "https://qoj.ac/contest/276/problem/10471"
+        },
+        {
+            "id": "J",
+            "title": "Pyramids",
+            "BOJ": "https://www.acmicpc.net/problem/4224",
+            "CF": "https://codeforces.com/gym/101175/problem/J",
+            "QOJ": "https://qoj.ac/contest/276/problem/10472"
+        },
+        {
+            "id": "K",
+            "title": "Trash Removal",
+            "BOJ": "https://www.acmicpc.net/problem/4225",
+            "CF": "https://codeforces.com/gym/101175/problem/K",
+            "QOJ": "https://qoj.ac/contest/276/problem/10473"
+        }
+    ],
+    "crawled_data": {
+        "cf-2011-acmicpc-world-finals-en.pdf": "https://codeforces.com/gym/101175/attachments/download/4878/2011-acmicpc-world-finals-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=276&r=0"
+    }
+}

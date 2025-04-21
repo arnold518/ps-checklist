@@ -338,3 +338,45 @@
     }
 ]
 2025-04-21 18:01:13.813620
+[
+    {
+        "id": "ICPC > World Finals > 2013 > 2025-04-21 18:04:34.255837",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2013",
+        "filepath": "problemlists/icpc/world-finals/2013/",
+        "official_url": "https://icpc.global/community/results-2013",
+        "standing_url": null,
+        "boj_url": "https://www.acmicpc.net/category/detail/1059",
+        "cf_url": "https://codeforces.com/gym/101208",
+        "qoj_url": "https://qoj.ac/contest/278",
+        "statements_url": "https://icpc.global/worldfinals/problems/2013-ICPC-World-Finals/icpc2013.pdf",
+        "editorials_url": "https://archive.algo.is/icpc/2013/finals2013solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2012 > 2025-04-21 18:04:58.006009",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2012",
+        "filepath": "problemlists/icpc/world-finals/2012/",
+        "official_url": "https://icpc.global/community/results-2012",
+        "standing_url": "https://clist.by/standings/36th-annual-acm-icpc-world-finals-warsaw-poland-17371768/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1",
+        "cf_url": "https://codeforces.com/gym/101205",
+        "qoj_url": "https://qoj.ac/contest/277",
+        "statements_url": "https://icpc.global/worldfinals/problems/2012-ICPC-World-Finals/icpc2012.pdf",
+        "editorials_url": "https://archive.algo.is/icpc/2012/finals2012solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2011 > 2025-04-21 18:05:34.835115",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2011",
+        "filepath": "problemlists/icpc/world-finals/2011/",
+        "official_url": "https://icpc.global/community/results-2011",
+        "standing_url": "https://clist.by/standings/35th-annual-acm-icpc-world-finals-orlando-florida-usa-17371797/",
+        "boj_url": "https://www.acmicpc.net/category/detail/2",
+        "cf_url": "https://codeforces.com/gym/101175",
+        "qoj_url": "https://qoj.ac/contest/276",
+        "statements_url": "https://icpc.global/worldfinals/problems/2011-ICPC-World-Finals/2011WorldFinalProblemSet.pdf",
+        "editorials_url": "https://www.csc.kth.se/~austrin/icpc/finals2011solutions.pdf"
+    }
+]
+2025-04-21 18:06:00.962047
