@@ -386,6 +386,7 @@ function updateProblemSolvedacDifficulty(contestId, problemIdx) {
             userProblemData[name].difficulty = problem.difficulty;
             console.log(`Fetched difficulty for problem ${bojnum}:`, problem.difficulty);
             updateProblemCell(contest.id, problemIdx);
+            
         }
     }).catch(error => {
         console.error(`Error fetching difficulty for problem ${bojnum}:`, error);
@@ -862,6 +863,19 @@ function handleProblemClick(problemCell) {
 
     const icon = document.createElement('div');
     icon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
+    // Update the icon class when problem.difficulty changes
+    Object.defineProperty(problem, 'difficulty', {
+        set(value) {
+            this._difficulty = value;
+            icon.className = `difficulty-icon difficulty-${value || 0}`;
+        },
+        get() {
+            return this._difficulty;
+        }
+    });
+
+    // Initialize the icon class
+    icon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
 
     const plusBtn = document.createElement('button');
     plusBtn.className = 'difficulty-btn';
@@ -1016,6 +1030,8 @@ function renderVisibleContests(node, container, name) {
     }
 
     if (node.contests) {
+        // console.log('Rendering contests for node:', node.id, 'with name:', name);
+
         const visibleContests = node.contests.filter(contest => 
             state.visibleContests.has(contest.id)
         );
@@ -1030,7 +1046,7 @@ function renderVisibleContests(node, container, name) {
 
         const title = document.createElement('div');
         title.className = 'contest-title';
-        title.textContent = `${name}`;
+        title.textContent = `${name + ' > ' + node.name}`;
         
         const closeBtn = document.createElement('button');
         closeBtn.className = 'close-contest';
