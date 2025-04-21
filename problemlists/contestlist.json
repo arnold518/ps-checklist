@@ -528,5 +528,18 @@
         "qoj_url": "https://qoj.ac/contest/1964",
         "statements_url": "https://euc.icpc.global/wp-content/uploads/2025/03/euc2025-official.pdf",
         "editorials_url": "https://euc.icpc.global/wp-content/uploads/2025/03/solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Europe", "European Championship" ],
+        "year": "2024",
+        "filepath": "problemlists/icpc/regionals/europe/european-championship/2024/",
+        "official_url": "https://euc.icpc.global/home-2024/",
+        "standing_url": "https://www.domjudge.org/scoreboard/euc2024/",
+        "boj_url": "https://www.acmicpc.net/category/detail/4444",
+        "cf_url": "https://codeforces.com/contest/1949",
+        "qoj_url": "https://qoj.ac/contest/1967",
+        "statements_url": "https://euc.icpc.global/wp-content/uploads/2024/03/EUC2024_ProblemSet.pdf",
+        "editorials_url": "https://euc.icpc.global/wp-content/uploads/2024/03/EUC-Solutions.pdf"
     }
 ]
