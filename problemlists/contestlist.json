@@ -324,7 +324,7 @@
         "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2022 > 2025-04-21 22:27:13.385930",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2022",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2022/",
@@ -333,50 +333,47 @@
         "boj_url": "https://www.acmicpc.net/category/detail/3481",
         "cf_url": "https://codeforces.com/gym/104849",
         "qoj_url": "https://qoj.ac/contest/1101",
-        "statements_url": "https://icpc.iisf.or.jp/2022-yokohama/wp-content/uploads/sites/9/2022/12/all_with_cover.pdf",
-        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2022/commentaries2022.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2022/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2022/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2021 > 2025-04-21 22:27:42.334521",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2021",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2021/",
         "official_url": "https://icpc.iisf.or.jp/2021-yokohama/regional/",
         "standing_url": "https://icpc.iisf.or.jp/2021-yokohama/icpc-2021-yokohama-regional-standings/",
         "boj_url": "https://www.acmicpc.net/category/detail/3082",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/912",
-        "statements_url": "https://icpc.iisf.or.jp/past-icpc/regional2021/problems-2021.pdf",
-        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2021/commentaries-2021.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2021/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2021/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2020 > 2025-04-21 22:27:58.453368",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2020",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/",
         "official_url": "https://icpc.iisf.or.jp/2020-yokohama/regional/",
         "standing_url": "https://icpc.iisf.or.jp/2020-yokohama/icpc-2020-yokohama-regional-standings/",
         "boj_url": "https://www.acmicpc.net/category/detail/2567",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/791",
-        "statements_url": "https://icpc.iisf.or.jp/past-icpc/regional2020/problems-2020.pdf",
-        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2020/commentaries-2020.pptx"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/editorials.pptx"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2019 > 2025-04-21 22:28:17.278899",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2019",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2019/",
         "official_url": "https://icpc.iisf.or.jp/2019-yokohama/asia-yokohama-regional-contest-2019/",
         "standing_url": "https://icpc.iisf.or.jp/2019-yokohama/regional-standings/",
         "boj_url": "https://www.acmicpc.net/category/detail/2137",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/442?v=1",
-        "statements_url": "https://icpc.iisf.or.jp/2019-yokohama/wp-content/uploads/sites/6/2019/11/all.pdf",
-        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2019/commentaries-2019.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2019/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2019/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2018 > 2025-04-21 22:28:37.643879",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2018",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2018/",
@@ -385,11 +382,11 @@
         "boj_url": "https://www.acmicpc.net/category/detail/1982",
         "cf_url": "https://codeforces.com/gym/102082",
         "qoj_url": "https://qoj.ac/contest/750?v=1",
-        "statements_url": "https://storage.googleapis.com/icpcsec/2018-regional/problems_all.pdf",
-        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2018/commentaries-2018.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2018/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2018/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2017 > 2025-04-21 22:29:08.354131",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2017",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2017/",
@@ -398,33 +395,30 @@
         "boj_url": "https://www.acmicpc.net/category/detail/1819",
         "cf_url": "https://codeforces.com/gym/101986",
         "qoj_url": "https://qoj.ac/contest/435",
-        "statements_url": "https://icpc.iisf.or.jp/past-icpc/regional2017/problems.pdf",
-        "editorials_url": "https://icpc.iisf.or.jp/2017-tsukuba/wp-content/uploads/sites/4/2017/12/commentaries2.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2017/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2017/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2016 > 2025-04-21 22:29:37.479781",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2016",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2016/",
         "official_url": "https://icpc.iisf.or.jp/2016-tsukuba/regional/?lang=en",
         "standing_url": "https://icpc.iisf.or.jp/2016-tsukuba/wp-content/uploads/sites/3/2017/02/2016-regional-final.png",
         "boj_url": "https://www.acmicpc.net/category/detail/1533",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/101",
-        "statements_url": "https://icpc.iisf.or.jp/past-icpc/regional2016/problems.pdf",
-        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/comments/2016-slides.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2016/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2016/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2015 > 2025-04-21 22:30:01.012146",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2015",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2015/",
         "official_url": "https://icpc.iisf.or.jp/2015-tsukuba/regional/?lang=en",
         "standing_url": "https://icpc.iisf.or.jp/2015-tsukuba/regional/results/?lang=en",
         "boj_url": "https://www.acmicpc.net/category/detail/1440",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/98",
-        "statements_url": "https://icpc.iisf.or.jp/past-icpc/regional2015/problems.pdf",
-        "editorials_url": ""
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2015/statements.pdf"
     }
 ]

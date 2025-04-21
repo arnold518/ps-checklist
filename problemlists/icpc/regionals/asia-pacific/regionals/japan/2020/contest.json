@@ -1,0 +1,93 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2020 > 2025-04-21 22:27:58.453368",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2020",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/editorials.pptx",
+        "official": "https://icpc.iisf.or.jp/2020-yokohama/regional/",
+        "standing": "https://icpc.iisf.or.jp/2020-yokohama/icpc-2020-yokohama-regional-standings/",
+        "BOJ": "https://www.acmicpc.net/category/detail/2567",
+        "QOJ": "https://qoj.ac/contest/791"
+    },
+    "name": "2020-2021 ICPC Asia Pacific - Yokohama Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Three-Axis Views",
+            "BOJ": "https://www.acmicpc.net/problem/21926",
+            "QOJ": "https://qoj.ac/contest/791/problem/2263"
+        },
+        {
+            "id": "B",
+            "title": "Secrets of Legendary Treasure",
+            "BOJ": "https://www.acmicpc.net/problem/21927",
+            "QOJ": "https://qoj.ac/contest/791/problem/2264"
+        },
+        {
+            "id": "C",
+            "title": "Short Coding",
+            "BOJ": "https://www.acmicpc.net/problem/21928",
+            "QOJ": "https://qoj.ac/contest/791/problem/2265"
+        },
+        {
+            "id": "D",
+            "title": "Colorful Rectangle",
+            "BOJ": "https://www.acmicpc.net/problem/21929",
+            "QOJ": "https://qoj.ac/contest/791/problem/2266"
+        },
+        {
+            "id": "E",
+            "title": "Jewelry Size",
+            "BOJ": "https://www.acmicpc.net/problem/21930",
+            "QOJ": "https://qoj.ac/contest/791/problem/2267"
+        },
+        {
+            "id": "F",
+            "title": "Solar Car",
+            "BOJ": "https://www.acmicpc.net/problem/21931",
+            "QOJ": "https://qoj.ac/contest/791/problem/2268"
+        },
+        {
+            "id": "G",
+            "title": "To be Connected, or not to be, that is the Question",
+            "BOJ": "https://www.acmicpc.net/problem/21932",
+            "QOJ": "https://qoj.ac/contest/791/problem/2269"
+        },
+        {
+            "id": "H",
+            "title": "LCM of GCDs",
+            "BOJ": "https://www.acmicpc.net/problem/21933",
+            "QOJ": "https://qoj.ac/contest/791/problem/2270"
+        },
+        {
+            "id": "I",
+            "title": "High-Tech Detective",
+            "BOJ": "https://www.acmicpc.net/problem/21934",
+            "QOJ": "https://qoj.ac/contest/791/problem/2271"
+        },
+        {
+            "id": "J",
+            "title": "Formica Sokobanica",
+            "BOJ": "https://www.acmicpc.net/problem/21935",
+            "QOJ": "https://qoj.ac/contest/791/problem/2272"
+        },
+        {
+            "id": "K",
+            "title": "Suffixes may Contain Prefixes",
+            "BOJ": "https://www.acmicpc.net/problem/21936",
+            "QOJ": "https://qoj.ac/contest/791/problem/2273"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=791&r=0",
+        "qoj-Statements-(en)-(MW).pdf": "https://qoj.ac/download.php?type=attachments&id=791&r=1"
+    }
+}

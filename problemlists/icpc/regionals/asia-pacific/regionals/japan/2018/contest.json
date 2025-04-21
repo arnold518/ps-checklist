@@ -1,0 +1,106 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2018 > 2025-04-21 22:28:37.643879",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2018",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2018/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2018/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2018/editorials.pdf",
+        "official": "https://icpc.iisf.or.jp/2018-yokohama/asiaregional/",
+        "standing": "https://codeforces.com/gym/102082/standings",
+        "BOJ": "https://www.acmicpc.net/category/detail/1982",
+        "CF": "https://codeforces.com/gym/102082",
+        "QOJ": "https://qoj.ac/contest/750?v=1"
+    },
+    "name": "2018-2019 ICPC Asia Pacific - Yokohama Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Digits Are Not Just Characters",
+            "BOJ": "https://www.acmicpc.net/problem/16739",
+            "CF": "https://codeforces.com/gym/102082/problem/A",
+            "QOJ": "https://qoj.ac/contest/750/problem/3311?v=1"
+        },
+        {
+            "id": "B",
+            "title": "Arithmetic Progressions",
+            "BOJ": "https://www.acmicpc.net/problem/16740",
+            "CF": "https://codeforces.com/gym/102082/problem/B",
+            "QOJ": "https://qoj.ac/contest/750/problem/3312?v=1"
+        },
+        {
+            "id": "C",
+            "title": "Emergency Evacuation",
+            "BOJ": "https://www.acmicpc.net/problem/16741",
+            "CF": "https://codeforces.com/gym/102082/problem/C",
+            "QOJ": "https://qoj.ac/contest/750/problem/3313?v=1"
+        },
+        {
+            "id": "D",
+            "title": "Shortest Common Non-Subsequence",
+            "BOJ": "https://www.acmicpc.net/problem/16742",
+            "CF": "https://codeforces.com/gym/102082/problem/D",
+            "QOJ": "https://qoj.ac/contest/750/problem/3314?v=1"
+        },
+        {
+            "id": "E",
+            "title": "Eulerian Flight Tour",
+            "BOJ": "https://www.acmicpc.net/problem/16743",
+            "CF": "https://codeforces.com/gym/102082/problem/E",
+            "QOJ": "https://qoj.ac/contest/750/problem/3315?v=1"
+        },
+        {
+            "id": "F",
+            "title": "Fair Chocolate-Cutting",
+            "BOJ": "https://www.acmicpc.net/problem/16744",
+            "CF": "https://codeforces.com/gym/102082/problem/F",
+            "QOJ": "https://qoj.ac/contest/750/problem/3316?v=1"
+        },
+        {
+            "id": "G",
+            "title": "What Goes Up Must Come Down",
+            "BOJ": "https://www.acmicpc.net/problem/16745",
+            "CF": "https://codeforces.com/gym/102082/problem/G",
+            "QOJ": "https://qoj.ac/contest/750/problem/3317?v=1"
+        },
+        {
+            "id": "H",
+            "title": "Four-Coloring",
+            "BOJ": "https://www.acmicpc.net/problem/16746",
+            "CF": "https://codeforces.com/gym/102082/problem/H",
+            "QOJ": "https://qoj.ac/contest/750/problem/3318?v=1"
+        },
+        {
+            "id": "I",
+            "title": "Ranks",
+            "BOJ": "https://www.acmicpc.net/problem/16747",
+            "CF": "https://codeforces.com/gym/102082/problem/I",
+            "QOJ": "https://qoj.ac/contest/750/problem/3319?v=1"
+        },
+        {
+            "id": "J",
+            "title": "Colorful Tree",
+            "BOJ": "https://www.acmicpc.net/problem/16748",
+            "CF": "https://codeforces.com/gym/102082/problem/J",
+            "QOJ": "https://qoj.ac/contest/750/problem/3320?v=1"
+        },
+        {
+            "id": "K",
+            "title": "Sixth Sense",
+            "BOJ": "https://www.acmicpc.net/problem/16749",
+            "CF": "https://codeforces.com/gym/102082/problem/K",
+            "QOJ": "https://qoj.ac/contest/750/problem/3321?v=1"
+        }
+    ],
+    "crawled_data": {
+        "cf-asia-yokohama-regional-contest-2018-en.pdf": "https://codeforces.com/gym/102082/attachments/download/8301/asia-yokohama-regional-contest-2018-en.pdf",
+        "qoj-Statements.pdf": "https://qoj.ac/download.php?type=attachments&id=750&r=0",
+        "qoj-Statements-(PTZ).pdf": "https://qoj.ac/download.php?type=attachments&id=750&r=1"
+    }
+}

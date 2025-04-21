@@ -5,6 +5,7 @@ import time
 import re
 from urllib.parse import urljoin
 from pathlib import Path
+from getSolvedAC import get_problem_original_name
 
 class BOJCrawler:
     def __init__(self):
@@ -69,12 +70,17 @@ class BOJCrawler:
                 cells = row.find_all('td')
                 if len(cells) != 7:  # Skip malformed rows
                     continue
-                    
+                
+                number = cells[0].get_text(strip=True)
+                title = cells[2].get_text(strip=True)
+                solved_title = get_problem_original_name(int(cells[0].get_text(strip=True)))
+                if solved_title is not None:
+                    title = solved_title
                 # Extract data from each cell
                 problem = {
-                    'number': cells[0].get_text(strip=True),
+                    'number': number,
                     'letter': ('' if len(tableidx)==1 else str(tidx+1)+'.') + cells[1].get_text(strip=True),
-                    'title': cells[2].get_text(strip=True),
+                    'title': title,
                     'link': urljoin(base_url, cells[2].find('a')['href']),
                     # 'tags': ', '.join([tag.get_text(strip=True) for tag in cells[3].find_all('span', class_='problem-label')]),
                     # 'solved_count': cells[4].get_text(strip=True),

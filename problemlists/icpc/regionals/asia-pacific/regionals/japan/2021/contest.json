@@ -1,0 +1,92 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2021 > 2025-04-21 22:27:42.334521",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2021",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2021/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2021/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2021/editorials.pdf",
+        "official": "https://icpc.iisf.or.jp/2021-yokohama/regional/",
+        "standing": "https://icpc.iisf.or.jp/2021-yokohama/icpc-2021-yokohama-regional-standings/",
+        "BOJ": "https://www.acmicpc.net/category/detail/3082",
+        "QOJ": "https://qoj.ac/contest/912"
+    },
+    "name": "2021-2022 ICPC Asia Pacific - Yokohama Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Loop of Chocolate",
+            "BOJ": "https://www.acmicpc.net/problem/24957",
+            "QOJ": "https://qoj.ac/contest/912/problem/3794"
+        },
+        {
+            "id": "B",
+            "title": "Lottery Fun Time",
+            "BOJ": "https://www.acmicpc.net/problem/24958",
+            "QOJ": "https://qoj.ac/contest/912/problem/3795"
+        },
+        {
+            "id": "C",
+            "title": "Reversible Compression",
+            "BOJ": "https://www.acmicpc.net/problem/24959",
+            "QOJ": "https://qoj.ac/contest/912/problem/3796"
+        },
+        {
+            "id": "D",
+            "title": "Wireless Communication Network",
+            "BOJ": "https://www.acmicpc.net/problem/24960",
+            "QOJ": "https://qoj.ac/contest/912/problem/3797"
+        },
+        {
+            "id": "E",
+            "title": "Planning Railroad Discontinuation",
+            "BOJ": "https://www.acmicpc.net/problem/24961",
+            "QOJ": "https://qoj.ac/contest/912/problem/3798"
+        },
+        {
+            "id": "F",
+            "title": "It’s Surely Complex",
+            "BOJ": "https://www.acmicpc.net/problem/24962",
+            "QOJ": "https://qoj.ac/contest/912/problem/3799"
+        },
+        {
+            "id": "G",
+            "title": "Genealogy of Puppets",
+            "BOJ": "https://www.acmicpc.net/problem/24963",
+            "QOJ": "https://qoj.ac/contest/912/problem/3800"
+        },
+        {
+            "id": "H",
+            "title": "Cancer DNA",
+            "BOJ": "https://www.acmicpc.net/problem/24964",
+            "QOJ": "https://qoj.ac/contest/912/problem/3801"
+        },
+        {
+            "id": "I",
+            "title": "“Even” Division",
+            "BOJ": "https://www.acmicpc.net/problem/24965",
+            "QOJ": "https://qoj.ac/contest/912/problem/3802"
+        },
+        {
+            "id": "J",
+            "title": "The Cross Covers Everything",
+            "BOJ": "https://www.acmicpc.net/problem/24966",
+            "QOJ": "https://qoj.ac/contest/912/problem/3803"
+        },
+        {
+            "id": "K",
+            "title": "Distributing the Treasure",
+            "BOJ": "https://www.acmicpc.net/problem/24967",
+            "QOJ": "https://qoj.ac/contest/912/problem/3804"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=912&r=0"
+    }
+}

@@ -1,0 +1,94 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2019 > 2025-04-21 22:28:17.278899",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2019",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2019/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2019/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2019/editorials.pdf",
+        "official": "https://icpc.iisf.or.jp/2019-yokohama/asia-yokohama-regional-contest-2019/",
+        "standing": "https://icpc.iisf.or.jp/2019-yokohama/regional-standings/",
+        "BOJ": "https://www.acmicpc.net/category/detail/2137",
+        "QOJ": "https://qoj.ac/contest/442?v=1"
+    },
+    "name": "2019-2020 ICPC Asia Pacific - Yokohama Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Fast Forwarding",
+            "BOJ": "https://www.acmicpc.net/problem/18210",
+            "QOJ": "https://qoj.ac/contest/442/problem/1187?v=1"
+        },
+        {
+            "id": "B",
+            "title": "Estimating the Flood Risk",
+            "BOJ": "https://www.acmicpc.net/problem/18211",
+            "QOJ": "https://qoj.ac/contest/442/problem/1188?v=1"
+        },
+        {
+            "id": "C",
+            "title": "Wall Painting",
+            "BOJ": "https://www.acmicpc.net/problem/18212",
+            "QOJ": "https://qoj.ac/contest/442/problem/1189?v=1"
+        },
+        {
+            "id": "D",
+            "title": "Twin Trees Bros.",
+            "BOJ": "https://www.acmicpc.net/problem/18213",
+            "QOJ": "https://qoj.ac/contest/442/problem/1190?v=1"
+        },
+        {
+            "id": "E",
+            "title": "Reordering the Documents",
+            "BOJ": "https://www.acmicpc.net/problem/18214",
+            "QOJ": "https://qoj.ac/contest/442/problem/1191?v=1"
+        },
+        {
+            "id": "F",
+            "title": "Halting Problem",
+            "BOJ": "https://www.acmicpc.net/problem/18215",
+            "QOJ": "https://qoj.ac/contest/442/problem/1192?v=1"
+        },
+        {
+            "id": "G",
+            "title": "Ambiguous Encoding",
+            "BOJ": "https://www.acmicpc.net/problem/18216",
+            "QOJ": "https://qoj.ac/contest/442/problem/1193?v=1"
+        },
+        {
+            "id": "H",
+            "title": "Parentheses Editor",
+            "BOJ": "https://www.acmicpc.net/problem/18217",
+            "QOJ": "https://qoj.ac/contest/442/problem/1194?v=1"
+        },
+        {
+            "id": "I",
+            "title": "One-Way Conveyors",
+            "BOJ": "https://www.acmicpc.net/problem/18218",
+            "QOJ": "https://qoj.ac/contest/442/problem/1195?v=1"
+        },
+        {
+            "id": "J",
+            "title": "Fun Region",
+            "BOJ": "https://www.acmicpc.net/problem/18219",
+            "QOJ": "https://qoj.ac/contest/442/problem/1196?v=1"
+        },
+        {
+            "id": "K",
+            "title": "Draw in Straight Lines",
+            "BOJ": "https://www.acmicpc.net/problem/18220",
+            "QOJ": "https://qoj.ac/contest/442/problem/1197?v=1"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=442&r=0",
+        "qoj-Statements-(PTZ)-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=442&r=1",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=442&r=2"
+    }
+}

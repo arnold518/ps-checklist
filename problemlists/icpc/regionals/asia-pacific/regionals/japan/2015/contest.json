@@ -1,0 +1,91 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2015 > 2025-04-21 22:30:01.012146",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2015",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2015/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2015/statements.pdf",
+        "official": "https://icpc.iisf.or.jp/2015-tsukuba/regional/?lang=en",
+        "standing": "https://icpc.iisf.or.jp/2015-tsukuba/regional/results/?lang=en",
+        "BOJ": "https://www.acmicpc.net/category/detail/1440",
+        "QOJ": "https://qoj.ac/contest/98"
+    },
+    "name": "2015-2016 ICPC Asia Pacific - Tsukuba Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Decimal Sequences",
+            "BOJ": "https://www.acmicpc.net/problem/11747",
+            "QOJ": "https://qoj.ac/contest/98/problem/4701"
+        },
+        {
+            "id": "B",
+            "title": "Squeeze the Cylinders",
+            "BOJ": "https://www.acmicpc.net/problem/11748",
+            "QOJ": "https://qoj.ac/contest/98/problem/4702"
+        },
+        {
+            "id": "C",
+            "title": "Sibling Rivalry",
+            "BOJ": "https://www.acmicpc.net/problem/11749",
+            "QOJ": "https://qoj.ac/contest/98/problem/4703"
+        },
+        {
+            "id": "D",
+            "title": "Wall Clocks",
+            "BOJ": "https://www.acmicpc.net/problem/11750",
+            "QOJ": "https://qoj.ac/contest/98/problem/4704"
+        },
+        {
+            "id": "E",
+            "title": "Bringing Order to Disorder",
+            "BOJ": "https://www.acmicpc.net/problem/11751",
+            "QOJ": "https://qoj.ac/contest/98/problem/4705"
+        },
+        {
+            "id": "F",
+            "title": "Deadlock Detection",
+            "BOJ": "https://www.acmicpc.net/problem/11752",
+            "QOJ": "https://qoj.ac/contest/98/problem/4706"
+        },
+        {
+            "id": "G",
+            "title": "Do Geese See God?",
+            "BOJ": "https://www.acmicpc.net/problem/11753",
+            "QOJ": "https://qoj.ac/contest/98/problem/4707"
+        },
+        {
+            "id": "H",
+            "title": "Rotating Cutter Bits",
+            "BOJ": "https://www.acmicpc.net/problem/11754",
+            "QOJ": "https://qoj.ac/contest/98/problem/4708"
+        },
+        {
+            "id": "I",
+            "title": "Routing a Marathon Race",
+            "BOJ": "https://www.acmicpc.net/problem/11755",
+            "QOJ": "https://qoj.ac/contest/98/problem/4709"
+        },
+        {
+            "id": "J",
+            "title": "Post Office Investigation",
+            "BOJ": "https://www.acmicpc.net/problem/11756",
+            "QOJ": "https://qoj.ac/contest/98/problem/4710"
+        },
+        {
+            "id": "K",
+            "title": "Min-Max Distance Game",
+            "BOJ": "https://www.acmicpc.net/problem/11757",
+            "QOJ": "https://qoj.ac/contest/98/problem/4711"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=98&r=0"
+    }
+}
