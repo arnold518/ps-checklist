@@ -88,5 +88,18 @@
         "qoj_url": "https://qoj.ac/contest/1050",
         "statements_url": "https://icpc.global/worldfinals/problems/2021-ICPC-World-Finals/icpc2021.pdf",
         "editorials_url": ""
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2020-I",
+        "filepath": "problemlists/icpc/world-finals/2020-i/",
+        "official_url": "",
+        "standing_url": "",
+        "boj_url": "",
+        "cf_url": "https://codeforces.com/contest/1578",
+        "qoj_url": "",
+        "statements_url": "https://assets.codeforces.com/rounds/1578/ICPC-World-Finals-Moscow-Invitational-Problems.pdf",
+        "editorials_url": "https://assets.codeforces.com/rounds/1578/tutorial.pdf"
     }
 ]
