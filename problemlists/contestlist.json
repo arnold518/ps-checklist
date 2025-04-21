@@ -265,5 +265,18 @@
         "qoj_url": "https://qoj.ac/contest/1045",
         "statements_url": "http://static.icpckorea.net/20221119/problems.pdf",
         "editorials_url": "https://koosaga.com/306"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
+        "year": "2019",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2019/",
+        "official_url": "https://icpckorea.org/2019-seoul/regional",
+        "standing_url": "",
+        "boj_url": "https://www.acmicpc.net/category/detail/2111",
+        "cf_url": "",
+        "qoj_url": "",
+        "statements_url": "https://icpckorea.org/2019/regional/problems.pdf",
+        "editorials_url": ""
     }
 ]
