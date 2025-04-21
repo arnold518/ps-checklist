@@ -166,5 +166,18 @@
         "qoj_url": "https://qoj.ac/contest/281",
         "statements_url": "https://icpc.global/worldfinals/problems/2016-ICPC-World-Finals/icpc2016.pdf",
         "editorials_url": "https://www.csc.kth.se/~austrin/icpc/finals2016solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2015",
+        "filepath": "problemlists/icpc/world-finals/2015/",
+        "official_url": "",
+        "standing_url": "https://clist.by/standings/39th-annual-acm-icpc-world-finals-marrakech-morocco-17371765/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/1347",
+        "cf_url": "https://codeforces.com/gym/101239",
+        "qoj_url": "https://qoj.ac/contest/280",
+        "statements_url": "https://icpc.global/worldfinals/problems/2015-ICPC-World-Finals/icpc2015.pdf",
+        "editorials_url": "https://www.csc.kth.se/~austrin/icpc/finals2015solutions.pdf"
     }
 ]
