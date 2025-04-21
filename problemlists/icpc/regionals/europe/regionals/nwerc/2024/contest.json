@@ -1,0 +1,121 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2024 > 2025-04-22 00:49:55.271255",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2024",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2024/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2024/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2024/editorials.pdf",
+        "official": "https://2024.nwerc.eu/",
+        "standing": "https://2024.nwerc.eu/main/scoreboard/",
+        "BOJ": "https://www.acmicpc.net/category/detail/4356",
+        "CF": "https://codeforces.com/gym/105562",
+        "QOJ": "https://qoj.ac/contest/1863"
+    },
+    "name": "The 2024 ICPC Northwestern Europe Regional Contest (NWERC 2024)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Alphabetical Aristocrats",
+            "BOJ": "https://www.acmicpc.net/problem/32889",
+            "CF": "https://codeforces.com/gym/105562/problem/A",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9811"
+        },
+        {
+            "id": "B",
+            "title": "Binary Search",
+            "BOJ": "https://www.acmicpc.net/problem/32890",
+            "CF": "https://codeforces.com/gym/105562/problem/B",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9812"
+        },
+        {
+            "id": "C",
+            "title": "Connect Five",
+            "BOJ": "https://www.acmicpc.net/problem/32891",
+            "CF": "https://codeforces.com/gym/105562/problem/C",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9813"
+        },
+        {
+            "id": "D",
+            "title": "Dutch Democracy",
+            "BOJ": "https://www.acmicpc.net/problem/32892",
+            "CF": "https://codeforces.com/gym/105562/problem/D",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9814"
+        },
+        {
+            "id": "E",
+            "title": "Evolving Etymology",
+            "BOJ": "https://www.acmicpc.net/problem/32893",
+            "CF": "https://codeforces.com/gym/105562/problem/E",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9815"
+        },
+        {
+            "id": "F",
+            "title": "Flowing Fountain",
+            "BOJ": "https://www.acmicpc.net/problem/32894",
+            "CF": "https://codeforces.com/gym/105562/problem/F",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9816"
+        },
+        {
+            "id": "G",
+            "title": "Glued Grid",
+            "BOJ": "https://www.acmicpc.net/problem/32895",
+            "CF": "https://codeforces.com/gym/105562/problem/G",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9817"
+        },
+        {
+            "id": "H",
+            "title": "Hash Collision",
+            "BOJ": "https://www.acmicpc.net/problem/32896",
+            "CF": "https://codeforces.com/gym/105562/problem/H",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9818"
+        },
+        {
+            "id": "I",
+            "title": "It's a Kind of Magic",
+            "BOJ": "https://www.acmicpc.net/problem/32897",
+            "CF": "https://codeforces.com/gym/105562/problem/I",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9819"
+        },
+        {
+            "id": "J",
+            "title": "Jib Job",
+            "BOJ": "https://www.acmicpc.net/problem/32898",
+            "CF": "https://codeforces.com/gym/105562/problem/J",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9820"
+        },
+        {
+            "id": "K",
+            "title": "Kruidnoten",
+            "BOJ": "https://www.acmicpc.net/problem/32899",
+            "CF": "https://codeforces.com/gym/105562/problem/K",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9821"
+        },
+        {
+            "id": "L",
+            "title": "Limited Library",
+            "BOJ": "https://www.acmicpc.net/problem/32900",
+            "CF": "https://codeforces.com/gym/105562/problem/L",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9822"
+        },
+        {
+            "id": "M",
+            "title": "Mouse Trap",
+            "BOJ": "https://www.acmicpc.net/problem/32901",
+            "CF": "https://codeforces.com/gym/105562/problem/M",
+            "QOJ": "https://qoj.ac/contest/1863/problem/9823"
+        }
+    ],
+    "crawled_data": {
+        "cf-problem-set.pdf": "https://codeforces.com/gym/105562/attachments/download/28567/problem-set.pdf",
+        "cf-solutions.pdf": "https://codeforces.com/gym/105562/attachments/download/28568/solutions.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1863&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1863&r=1"
+    }
+}

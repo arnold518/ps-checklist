@@ -517,7 +517,7 @@
         "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Europe > European Championship > 2025 > 2025-04-22 00:49:02.503908",
         "category": [ "ICPC", "Regionals", "Europe", "European Championship" ],
         "year": "2025",
         "filepath": "problemlists/icpc/regionals/europe/european-championship/2025/",
@@ -530,7 +530,7 @@
         "editorials_url": "https://euc.icpc.global/wp-content/uploads/2025/03/solutions.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Europe > European Championship > 2024 > 2025-04-22 00:49:27.029053",
         "category": [ "ICPC", "Regionals", "Europe", "European Championship" ],
         "year": "2024",
         "filepath": "problemlists/icpc/regionals/europe/european-championship/2024/",
@@ -543,7 +543,7 @@
         "editorials_url": "https://euc.icpc.global/wp-content/uploads/2024/03/EUC-Solutions.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2024 > 2025-04-22 00:49:55.271255",
         "category": [ "ICPC", "Regionals", "Europe", "Regionals", "Northwestern European Regional Contest (NWERC)" ],
         "year": "2024",
         "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2024/",
@@ -552,11 +552,11 @@
         "boj_url": "https://www.acmicpc.net/category/detail/4356",
         "cf_url": "https://codeforces.com/gym/105562",
         "qoj_url": "https://qoj.ac/contest/1863",
-        "statements_url": "https://2024.nwerc.eu/main/problem-set.pdf",
-        "editorials_url": "https://2024.nwerc.eu/main/solutions.pdf"
+        "statements_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2024/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2024/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2023 > 2025-04-22 00:50:41.590465",
         "category": [ "ICPC", "Regionals", "Europe", "Regionals", "Northwestern European Regional Contest (NWERC)" ],
         "year": "2023",
         "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2023/",
@@ -565,11 +565,11 @@
         "boj_url": "https://www.acmicpc.net/category/detail/4062",
         "cf_url": "https://codeforces.com/gym/105112",
         "qoj_url": "https://qoj.ac/contest/1446",
-        "statements_url": "https://2023.nwerc.eu/main/problem-set.pdf",
-        "editorials_url": "https://2023.nwerc.eu/main/solutions.pdf"
+        "statements_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2023/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2023/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2022 > 2025-04-22 00:51:20.327380",
         "category": [ "ICPC", "Regionals", "Europe", "Regionals", "Northwestern European Regional Contest (NWERC)" ],
         "year": "2022",
         "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2022/",
@@ -578,11 +578,11 @@
         "boj_url": "https://www.acmicpc.net/category/detail/3237",
         "cf_url": "https://codeforces.com/gym/104875",
         "qoj_url": "https://qoj.ac/contest/1054",
-        "statements_url": "https://2022.nwerc.eu/main/problem-set.pdf",
-        "editorials_url": "https://2022.nwerc.eu/main/solutions.pdf"
+        "statements_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2022/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2022/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2021 > 2025-04-22 00:52:06.509305",
         "category": [ "ICPC", "Regionals", "Europe", "Regionals", "Northwestern European Regional Contest (NWERC)" ],
         "year": "2021",
         "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2021/",
@@ -591,11 +591,11 @@
         "boj_url": "https://www.acmicpc.net/category/detail/2887",
         "cf_url": "https://codeforces.com/gym/104064",
         "qoj_url": "https://qoj.ac/contest/810",
-        "statements_url": "https://2021.nwerc.eu/files/nwerc2021problems.pdf",
-        "editorials_url": "https://2021.nwerc.eu/files/nwerc2021slides.pdf"
+        "statements_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2021/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2021/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2020 > 2025-04-22 00:52:46.887631",
         "category": [ "ICPC", "Regionals", "Europe", "Regionals", "Northwestern European Regional Contest (NWERC)" ],
         "year": "2020",
         "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2020/",
@@ -604,7 +604,7 @@
         "boj_url": "https://www.acmicpc.net/category/detail/2488",
         "cf_url": "https://codeforces.com/gym/103049",
         "qoj_url": "https://qoj.ac/contest/561",
-        "statements_url": "https://2020.nwerc.eu/files/nwerc2020problems.pdf",
-        "editorials_url": "https://2020.nwerc.eu/files/nwerc2020slides.pdf"
+        "statements_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/editorials.pdf"
     }
 ]

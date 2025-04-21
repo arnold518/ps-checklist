@@ -1,0 +1,106 @@
+{
+    "id": "ICPC > Regionals > Europe > European Championship > 2024 > 2025-04-22 00:49:27.029053",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "European Championship"
+    ],
+    "year": "2024",
+    "filepath": "problemlists/icpc/regionals/europe/european-championship/2024/",
+    "link": {
+        "statements": "https://euc.icpc.global/wp-content/uploads/2024/03/EUC2024_ProblemSet.pdf",
+        "editorials": "https://euc.icpc.global/wp-content/uploads/2024/03/EUC-Solutions.pdf",
+        "official": "https://euc.icpc.global/home-2024/",
+        "standing": "https://www.domjudge.org/scoreboard/euc2024/",
+        "BOJ": "https://www.acmicpc.net/category/detail/4444",
+        "CF": "https://codeforces.com/contest/1949",
+        "QOJ": "https://qoj.ac/contest/1967"
+    },
+    "name": "The 2024 ICPC Europe Championship",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Grove",
+            "BOJ": "https://www.acmicpc.net/problem/33586",
+            "CF": "https://codeforces.com/contest/1949/problem/A",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10336"
+        },
+        {
+            "id": "B",
+            "title": "Charming Meals",
+            "BOJ": "https://www.acmicpc.net/problem/33587",
+            "CF": "https://codeforces.com/contest/1949/problem/B",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10337"
+        },
+        {
+            "id": "C",
+            "title": "Annual Ants' Gathering",
+            "BOJ": "https://www.acmicpc.net/problem/33588",
+            "CF": "https://codeforces.com/contest/1949/problem/C",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10338"
+        },
+        {
+            "id": "D",
+            "title": "Funny or Scary?",
+            "BOJ": "https://www.acmicpc.net/problem/33589",
+            "CF": "https://codeforces.com/contest/1949/problem/D",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10339"
+        },
+        {
+            "id": "E",
+            "title": "Damage per Second",
+            "BOJ": "https://www.acmicpc.net/problem/33590",
+            "CF": "https://codeforces.com/contest/1949/problem/E",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10340"
+        },
+        {
+            "id": "F",
+            "title": "Dating",
+            "BOJ": "https://www.acmicpc.net/problem/33591",
+            "CF": "https://codeforces.com/contest/1949/problem/F",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10341"
+        },
+        {
+            "id": "G",
+            "title": "Scooter",
+            "BOJ": "https://www.acmicpc.net/problem/33592",
+            "CF": "https://codeforces.com/contest/1949/problem/G",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10342"
+        },
+        {
+            "id": "H",
+            "title": "Division Avoidance",
+            "BOJ": "https://www.acmicpc.net/problem/33593",
+            "CF": "https://codeforces.com/contest/1949/problem/H",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10343"
+        },
+        {
+            "id": "I",
+            "title": "Disks",
+            "BOJ": "https://www.acmicpc.net/problem/33594",
+            "CF": "https://codeforces.com/contest/1949/problem/I",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10344"
+        },
+        {
+            "id": "J",
+            "title": "Amanda the Amoeba",
+            "BOJ": "https://www.acmicpc.net/problem/33595",
+            "CF": "https://codeforces.com/contest/1949/problem/J",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10345"
+        },
+        {
+            "id": "K",
+            "title": "Make Triangle",
+            "BOJ": "https://www.acmicpc.net/problem/33596",
+            "CF": "https://codeforces.com/contest/1949/problem/K",
+            "QOJ": "https://qoj.ac/contest/1967/problem/10346"
+        }
+    ],
+    "crawled_data": {
+        "cf-statements.pdf": "https://codeforces.com/contest/1949/attachments/download/24725/statements.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1967&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1967&r=1",
+        "qoj-Tutorials-(slides;-en).pdf": "https://qoj.ac/download.php?type=attachments&id=1967&r=2"
+    }
+}

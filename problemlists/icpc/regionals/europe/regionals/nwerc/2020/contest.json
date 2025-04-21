@@ -1,0 +1,105 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2020 > 2025-04-22 00:52:46.887631",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2020",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2020/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/editorials.pdf",
+        "official": "https://2020.nwerc.eu/",
+        "standing": "https://2020.nwerc.eu/standings/",
+        "BOJ": "https://www.acmicpc.net/category/detail/2488",
+        "CF": "https://codeforces.com/gym/103049",
+        "QOJ": "https://qoj.ac/contest/561"
+    },
+    "name": "2020-2021 ICPC Northwestern Europe Regional Contest (NWERC 2020)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Atomic Energy",
+            "BOJ": "https://www.acmicpc.net/problem/21337",
+            "CF": "https://codeforces.com/gym/103049/problem/A",
+            "QOJ": "https://qoj.ac/contest/561/problem/2360"
+        },
+        {
+            "id": "B",
+            "title": "Bulldozer",
+            "BOJ": "https://www.acmicpc.net/problem/21338",
+            "CF": "https://codeforces.com/gym/103049/problem/B",
+            "QOJ": "https://qoj.ac/contest/561/problem/2361"
+        },
+        {
+            "id": "C",
+            "title": "Contest Struggles",
+            "BOJ": "https://www.acmicpc.net/problem/21339",
+            "CF": "https://codeforces.com/gym/103049/problem/C",
+            "QOJ": "https://qoj.ac/contest/561/problem/2362"
+        },
+        {
+            "id": "D",
+            "title": "Dragon Balls",
+            "BOJ": "https://www.acmicpc.net/problem/21340",
+            "CF": "https://codeforces.com/gym/103049/problem/D",
+            "QOJ": "https://qoj.ac/contest/561/problem/2363"
+        },
+        {
+            "id": "E",
+            "title": "Endgame",
+            "BOJ": "https://www.acmicpc.net/problem/21341",
+            "CF": "https://codeforces.com/gym/103049/problem/E",
+            "QOJ": "https://qoj.ac/contest/561/problem/2364"
+        },
+        {
+            "id": "F",
+            "title": "Flight Collision",
+            "BOJ": "https://www.acmicpc.net/problem/21342",
+            "CF": "https://codeforces.com/gym/103049/problem/F",
+            "QOJ": "https://qoj.ac/contest/561/problem/2365"
+        },
+        {
+            "id": "G",
+            "title": "Great Expectations",
+            "BOJ": "https://www.acmicpc.net/problem/21343",
+            "CF": "https://codeforces.com/gym/103049/problem/G",
+            "QOJ": "https://qoj.ac/contest/561/problem/2366"
+        },
+        {
+            "id": "H",
+            "title": "Hot Springs",
+            "BOJ": "https://www.acmicpc.net/problem/21344",
+            "CF": "https://codeforces.com/gym/103049/problem/H",
+            "QOJ": "https://qoj.ac/contest/561/problem/2367"
+        },
+        {
+            "id": "I",
+            "title": "Island Tour",
+            "BOJ": "https://www.acmicpc.net/problem/21345",
+            "CF": "https://codeforces.com/gym/103049/problem/I",
+            "QOJ": "https://qoj.ac/contest/561/problem/2368"
+        },
+        {
+            "id": "J",
+            "title": "Joint Excavation",
+            "BOJ": "https://www.acmicpc.net/problem/21346",
+            "CF": "https://codeforces.com/gym/103049/problem/J",
+            "QOJ": "https://qoj.ac/contest/561/problem/2369"
+        },
+        {
+            "id": "K",
+            "title": "Keyboardd",
+            "BOJ": "https://www.acmicpc.net/problem/21347",
+            "CF": "https://codeforces.com/gym/103049/problem/K",
+            "QOJ": "https://qoj.ac/contest/561/problem/2370"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=561&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=561&r=1"
+    }
+}

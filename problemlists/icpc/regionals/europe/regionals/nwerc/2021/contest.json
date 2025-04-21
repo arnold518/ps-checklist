@@ -1,0 +1,114 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2021 > 2025-04-22 00:52:06.509305",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2021",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2021/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2021/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2021/editorials.pdf",
+        "official": "https://2021.nwerc.eu/",
+        "standing": "https://2021.nwerc.eu/standings/",
+        "BOJ": "https://www.acmicpc.net/category/detail/2887",
+        "CF": "https://codeforces.com/gym/104064",
+        "QOJ": "https://qoj.ac/contest/810"
+    },
+    "name": "2021-2022 ICPC Northwestern Europe Regional Contest (NWERC 2021)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Access Denied",
+            "BOJ": "https://www.acmicpc.net/problem/23767",
+            "CF": "https://codeforces.com/gym/104064/problem/A",
+            "QOJ": "https://qoj.ac/contest/810/problem/2292"
+        },
+        {
+            "id": "B",
+            "title": "Boredom Buster",
+            "BOJ": "https://www.acmicpc.net/problem/23768",
+            "CF": "https://codeforces.com/gym/104064/problem/B",
+            "QOJ": "https://qoj.ac/contest/810/problem/2293"
+        },
+        {
+            "id": "C",
+            "title": "Cutting Edge",
+            "BOJ": "https://www.acmicpc.net/problem/23769",
+            "CF": "https://codeforces.com/gym/104064/problem/C",
+            "QOJ": "https://qoj.ac/contest/810/problem/2294"
+        },
+        {
+            "id": "D",
+            "title": "Dyson Circle",
+            "BOJ": "https://www.acmicpc.net/problem/23770",
+            "CF": "https://codeforces.com/gym/104064/problem/D",
+            "QOJ": "https://qoj.ac/contest/810/problem/2295"
+        },
+        {
+            "id": "E",
+            "title": "Exchange Students",
+            "BOJ": "https://www.acmicpc.net/problem/23771",
+            "CF": "https://codeforces.com/gym/104064/problem/E",
+            "QOJ": "https://qoj.ac/contest/810/problem/2296"
+        },
+        {
+            "id": "F",
+            "title": "Flatland Olympics",
+            "BOJ": "https://www.acmicpc.net/problem/23772",
+            "CF": "https://codeforces.com/gym/104064/problem/F",
+            "QOJ": "https://qoj.ac/contest/810/problem/2297"
+        },
+        {
+            "id": "G",
+            "title": "Glossary Arrangement",
+            "BOJ": "https://www.acmicpc.net/problem/23773",
+            "CF": "https://codeforces.com/gym/104064/problem/G",
+            "QOJ": "https://qoj.ac/contest/810/problem/2298"
+        },
+        {
+            "id": "H",
+            "title": "Heating Up",
+            "BOJ": "https://www.acmicpc.net/problem/23774",
+            "CF": "https://codeforces.com/gym/104064/problem/H",
+            "QOJ": "https://qoj.ac/contest/810/problem/2299"
+        },
+        {
+            "id": "I",
+            "title": "IXth Problem",
+            "BOJ": "https://www.acmicpc.net/problem/23775",
+            "CF": "https://codeforces.com/gym/104064/problem/I",
+            "QOJ": "https://qoj.ac/contest/810/problem/2300"
+        },
+        {
+            "id": "J",
+            "title": "Jet Set",
+            "BOJ": "https://www.acmicpc.net/problem/23776",
+            "CF": "https://codeforces.com/gym/104064/problem/J",
+            "QOJ": "https://qoj.ac/contest/810/problem/2301"
+        },
+        {
+            "id": "K",
+            "title": "Knitpicking",
+            "BOJ": "https://www.acmicpc.net/problem/23777",
+            "CF": "https://codeforces.com/gym/104064/problem/K",
+            "QOJ": "https://qoj.ac/contest/810/problem/2302"
+        },
+        {
+            "id": "L",
+            "title": "Lucky Shirt",
+            "BOJ": "https://www.acmicpc.net/problem/23778",
+            "CF": "https://codeforces.com/gym/104064/problem/L",
+            "QOJ": "https://qoj.ac/contest/810/problem/2303"
+        }
+    ],
+    "crawled_data": {
+        "cf-nwerc2021problems.pdf": "https://codeforces.com/gym/104064/attachments/download/17914/nwerc2021problems.pdf",
+        "cf-nwerc2021slides.pdf": "https://codeforces.com/gym/104064/attachments/download/17915/nwerc2021slides.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=810&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=810&r=1"
+    }
+}
