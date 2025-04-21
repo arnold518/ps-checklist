@@ -511,5 +511,18 @@
         "qoj_url": "",
         "statements_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2018%20Asia%20Jakarta%20Regional%20Contest/problems.pdf",
         "editorials_url": "https://raw.githubusercontent.com/jonathanirvings/icpc-jakarta-2018/master/icpc18-analysis.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
+        "year": "2017",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/",
+        "official_url": "https://competition.binus.ac.id/icpc2017/",
+        "standing_url": "https://competition.binus.ac.id/icpc2017/final.html",
+        "boj_url": "https://www.acmicpc.net/category/detail/1884",
+        "cf_url": "",
+        "qoj_url": "",
+        "statements_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2017%20Asia%20Jakarta%20Regional%20Contest/problems.pdf",
+        "editorials_url": "https://icpcarchive.github.io/Asia%20Pacific%20Contests/Indonesia/2017%20Asia%20Jakarta%20Regional%20Contest/solution.pdf"
     }
 ]
