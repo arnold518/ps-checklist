@@ -554,5 +554,18 @@
         "qoj_url": "https://qoj.ac/contest/1863",
         "statements_url": "https://2024.nwerc.eu/main/problem-set.pdf",
         "editorials_url": "https://2024.nwerc.eu/main/solutions.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Europe", "Regionals", "Northwestern European Regional Contest (NWERC)" ],
+        "year": "2023",
+        "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2023/",
+        "official_url": "https://2023.nwerc.eu/",
+        "standing_url": "https://2023.nwerc.eu/main/scoreboard/",
+        "boj_url": "https://www.acmicpc.net/category/detail/4062",
+        "cf_url": "https://codeforces.com/gym/105112",
+        "qoj_url": "https://qoj.ac/contest/1446",
+        "statements_url": "https://2023.nwerc.eu/main/problem-set.pdf",
+        "editorials_url": "https://2023.nwerc.eu/main/solutions.pdf"
     }
 ]
