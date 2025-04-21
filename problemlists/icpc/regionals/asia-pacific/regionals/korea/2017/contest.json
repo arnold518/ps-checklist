@@ -1,0 +1,93 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2017 > 2025-04-21 18:57:28.293322",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Korea"
+    ],
+    "year": "2017",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2017/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2017/statements.pdf",
+        "official": "https://icpckorea.org/2017-daejeon/regional",
+        "BOJ": "https://www.acmicpc.net/category/detail/1778",
+        "CF": "https://codeforces.com/gym/101667"
+    },
+    "name": "2017-2018 ACM-ICPC, Asia Daejeon Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Broadcast Stations",
+            "BOJ": "https://www.acmicpc.net/problem/14951",
+            "CF": "https://codeforces.com/gym/101667/problem/A"
+        },
+        {
+            "id": "B",
+            "title": "Connect3",
+            "BOJ": "https://www.acmicpc.net/problem/14952",
+            "CF": "https://codeforces.com/gym/101667/problem/B"
+        },
+        {
+            "id": "C",
+            "title": "Game Map",
+            "BOJ": "https://www.acmicpc.net/problem/14953",
+            "CF": "https://codeforces.com/gym/101667/problem/C"
+        },
+        {
+            "id": "D",
+            "title": "Happy Number",
+            "BOJ": "https://www.acmicpc.net/problem/14954",
+            "CF": "https://codeforces.com/gym/101667/problem/D"
+        },
+        {
+            "id": "E",
+            "title": "How Many to Be Happy?",
+            "BOJ": "https://www.acmicpc.net/problem/14955",
+            "CF": "https://codeforces.com/gym/101667/problem/E"
+        },
+        {
+            "id": "F",
+            "title": "Philosopher's Walk",
+            "BOJ": "https://www.acmicpc.net/problem/14956",
+            "CF": "https://codeforces.com/gym/101667/problem/F"
+        },
+        {
+            "id": "G",
+            "title": "Rectilinear Regions",
+            "BOJ": "https://www.acmicpc.net/problem/14957",
+            "CF": "https://codeforces.com/gym/101667/problem/G"
+        },
+        {
+            "id": "H",
+            "title": "Rock Paper Scissors",
+            "BOJ": "https://www.acmicpc.net/problem/14958",
+            "CF": "https://codeforces.com/gym/101667/problem/H"
+        },
+        {
+            "id": "I",
+            "title": "Slot Machines",
+            "BOJ": "https://www.acmicpc.net/problem/14959",
+            "CF": "https://codeforces.com/gym/101667/problem/I"
+        },
+        {
+            "id": "J",
+            "title": "Strongly Matchable",
+            "BOJ": "https://www.acmicpc.net/problem/14960",
+            "CF": "https://codeforces.com/gym/101667/problem/J"
+        },
+        {
+            "id": "K",
+            "title": "Untangling Chain",
+            "BOJ": "https://www.acmicpc.net/problem/14961",
+            "CF": "https://codeforces.com/gym/101667/problem/K"
+        },
+        {
+            "id": "L",
+            "title": "Vacation Plans",
+            "BOJ": "https://www.acmicpc.net/problem/14962",
+            "CF": "https://codeforces.com/gym/101667/problem/L"
+        }
+    ]
+}

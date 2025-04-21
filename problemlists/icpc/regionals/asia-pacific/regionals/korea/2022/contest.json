@@ -1,0 +1,98 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2022 > 2025-04-21 18:57:01.949728",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Korea"
+    ],
+    "year": "2022",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2022/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2022/statements.pdf",
+        "editorials": "https://koosaga.com/306",
+        "official": "https://icpckorea.org/2022-seoul/regional",
+        "standing": "http://static.icpckorea.net/20221119/scoreboard/",
+        "BOJ": "https://www.acmicpc.net/category/detail/3227",
+        "QOJ": "https://qoj.ac/contest/1045"
+    },
+    "name": "2022-2023 ICPC Asia Pacific - Seoul Regional",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Card Game",
+            "BOJ": "https://www.acmicpc.net/problem/26102",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5077"
+        },
+        {
+            "id": "B",
+            "title": "Castle Design",
+            "BOJ": "https://www.acmicpc.net/problem/26103",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5078"
+        },
+        {
+            "id": "C",
+            "title": "Empty Quadrilaterals",
+            "BOJ": "https://www.acmicpc.net/problem/26104",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5079"
+        },
+        {
+            "id": "D",
+            "title": "Folding Stick",
+            "BOJ": "https://www.acmicpc.net/problem/26105",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5080"
+        },
+        {
+            "id": "E",
+            "title": "Forbidden Turns",
+            "BOJ": "https://www.acmicpc.net/problem/26106",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5081"
+        },
+        {
+            "id": "F",
+            "title": "Frog Jump",
+            "BOJ": "https://www.acmicpc.net/problem/26107",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5082"
+        },
+        {
+            "id": "G",
+            "title": "Linear Regression",
+            "BOJ": "https://www.acmicpc.net/problem/26108",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5083"
+        },
+        {
+            "id": "H",
+            "title": "Longest Substring",
+            "BOJ": "https://www.acmicpc.net/problem/26109",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5084"
+        },
+        {
+            "id": "I",
+            "title": "Palindrome Type",
+            "BOJ": "https://www.acmicpc.net/problem/26110",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5085"
+        },
+        {
+            "id": "J",
+            "title": "Parentheses Tree",
+            "BOJ": "https://www.acmicpc.net/problem/26111",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5086"
+        },
+        {
+            "id": "K",
+            "title": "Shuffle Game",
+            "BOJ": "https://www.acmicpc.net/problem/26112",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5087"
+        },
+        {
+            "id": "L",
+            "title": "Two Choreographies",
+            "BOJ": "https://www.acmicpc.net/problem/26113",
+            "QOJ": "https://qoj.ac/contest/1045/problem/5088"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1045&r=0"
+    }
+}

@@ -1,0 +1,94 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2018 > 2025-04-21 18:57:14.257898",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Korea"
+    ],
+    "year": "2018",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2018/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2018/statements.pdf",
+        "editorials": "https://koosaga.com/220",
+        "official": "https://icpckorea.org/2018-seoul/regional",
+        "BOJ": "https://www.acmicpc.net/category/detail/1942",
+        "CF": "https://codeforces.com/gym/101987"
+    },
+    "name": "2018-2019 ACM-ICPC, Asia Seoul Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Circuits",
+            "BOJ": "https://www.acmicpc.net/problem/16357",
+            "CF": "https://codeforces.com/gym/101987/problem/A"
+        },
+        {
+            "id": "B",
+            "title": "Cosmetic Survey",
+            "BOJ": "https://www.acmicpc.net/problem/16358",
+            "CF": "https://codeforces.com/gym/101987/problem/B"
+        },
+        {
+            "id": "C",
+            "title": "Disks Arrangement",
+            "BOJ": "https://www.acmicpc.net/problem/16359",
+            "CF": "https://codeforces.com/gym/101987/problem/C"
+        },
+        {
+            "id": "D",
+            "title": "Go Latin",
+            "BOJ": "https://www.acmicpc.net/problem/16360",
+            "CF": "https://codeforces.com/gym/101987/problem/D"
+        },
+        {
+            "id": "E",
+            "title": "LED",
+            "BOJ": "https://www.acmicpc.net/problem/16361",
+            "CF": "https://codeforces.com/gym/101987/problem/E"
+        },
+        {
+            "id": "F",
+            "title": "Parentheses",
+            "BOJ": "https://www.acmicpc.net/problem/16362",
+            "CF": "https://codeforces.com/gym/101987/problem/F"
+        },
+        {
+            "id": "G",
+            "title": "Secret Code",
+            "BOJ": "https://www.acmicpc.net/problem/16363",
+            "CF": "https://codeforces.com/gym/101987/problem/G"
+        },
+        {
+            "id": "H",
+            "title": "Simple Polygon",
+            "BOJ": "https://www.acmicpc.net/problem/16364",
+            "CF": "https://codeforces.com/gym/101987/problem/H"
+        },
+        {
+            "id": "I",
+            "title": "Square Root",
+            "BOJ": "https://www.acmicpc.net/problem/16365",
+            "CF": "https://codeforces.com/gym/101987/problem/I"
+        },
+        {
+            "id": "J",
+            "title": "Starwars",
+            "BOJ": "https://www.acmicpc.net/problem/16366",
+            "CF": "https://codeforces.com/gym/101987/problem/J"
+        },
+        {
+            "id": "K",
+            "title": "TV Show Game",
+            "BOJ": "https://www.acmicpc.net/problem/16367",
+            "CF": "https://codeforces.com/gym/101987/problem/K"
+        },
+        {
+            "id": "L",
+            "title": "Working Plan",
+            "BOJ": "https://www.acmicpc.net/problem/16368",
+            "CF": "https://codeforces.com/gym/101987/problem/L"
+        }
+    ]
+}

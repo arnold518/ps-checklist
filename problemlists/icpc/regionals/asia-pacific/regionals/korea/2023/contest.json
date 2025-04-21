@@ -1,0 +1,98 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2023 > 2025-04-21 18:56:52.738589",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Korea"
+    ],
+    "year": "2023",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2023/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2023/statements.pdf",
+        "editorials": "https://sharaelong.com/posts/2023-icpc-seoul-solution",
+        "official": "https://icpckorea.org/2023-seoul/regional",
+        "standing": "http://static.icpckorea.net/2023/regional/scoreboard/",
+        "BOJ": "https://www.acmicpc.net/category/detail/4058",
+        "QOJ": "https://qoj.ac/contest/1450"
+    },
+    "name": "The 2023 ICPC Asia Seoul Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Apricot Seeds",
+            "BOJ": "https://www.acmicpc.net/problem/30852",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7945"
+        },
+        {
+            "id": "B",
+            "title": "Black Box",
+            "BOJ": "https://www.acmicpc.net/problem/30853",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7946"
+        },
+        {
+            "id": "C",
+            "title": "Farm",
+            "BOJ": "https://www.acmicpc.net/problem/30854",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7947"
+        },
+        {
+            "id": "D",
+            "title": "Fraction",
+            "BOJ": "https://www.acmicpc.net/problem/30855",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7948"
+        },
+        {
+            "id": "E",
+            "title": "K-Lottery",
+            "BOJ": "https://www.acmicpc.net/problem/30856",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7949"
+        },
+        {
+            "id": "F",
+            "title": "Lucky Draws",
+            "BOJ": "https://www.acmicpc.net/problem/30857",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7950"
+        },
+        {
+            "id": "G",
+            "title": "Magic Cards",
+            "BOJ": "https://www.acmicpc.net/problem/30858",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7951"
+        },
+        {
+            "id": "H",
+            "title": "M. S. I. S.",
+            "BOJ": "https://www.acmicpc.net/problem/30859",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7952"
+        },
+        {
+            "id": "I",
+            "title": "Product Delivery",
+            "BOJ": "https://www.acmicpc.net/problem/30860",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7953"
+        },
+        {
+            "id": "J",
+            "title": "Special Numbers",
+            "BOJ": "https://www.acmicpc.net/problem/30861",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7954"
+        },
+        {
+            "id": "K",
+            "title": "Tandem Copy",
+            "BOJ": "https://www.acmicpc.net/problem/30862",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7955"
+        },
+        {
+            "id": "L",
+            "title": "Walk Swapping",
+            "BOJ": "https://www.acmicpc.net/problem/30863",
+            "QOJ": "https://qoj.ac/contest/1450/problem/7956"
+        }
+    ],
+    "crawled_data": {
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1450&r=0"
+    }
+}
