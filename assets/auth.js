@@ -232,8 +232,13 @@ export function saveData(key, value) {
                             return true;
                         });
                 } else {
-                    console.error('No document found for the user');
-                    return false;
+                    // Create a new document with the key-value pair
+                    const newData = { [key]: value };
+                    return db.collection('users').doc(user.uid).set(newData)
+                        .then(() => {
+                            console.log('New document created and data saved!');
+                            return true;
+                        });
                 }
             })
             .catch(error => {
