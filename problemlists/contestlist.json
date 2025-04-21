@@ -322,5 +322,18 @@
         "qoj_url": "https://qoj.ac/contest/1447",
         "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/statements.pdf",
         "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/editorials.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
+        "year": "2022",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2022/",
+        "official_url": "https://icpc.iisf.or.jp/2022-yokohama/asia-yokohama-regional-contest-2022/",
+        "standing_url": "https://codeforces.com/gym/104849/standings",
+        "boj_url": "https://www.acmicpc.net/category/detail/3481",
+        "cf_url": "https://codeforces.com/gym/104849",
+        "qoj_url": "https://qoj.ac/contest/1101",
+        "statements_url": "https://icpc.iisf.or.jp/2022-yokohama/wp-content/uploads/sites/9/2022/12/all_with_cover.pdf",
+        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2022/commentaries2022.pdf"
     }
 ]
