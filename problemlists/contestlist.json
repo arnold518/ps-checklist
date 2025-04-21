@@ -413,5 +413,18 @@
         "qoj_url": "https://qoj.ac/contest/101",
         "statements_url": "https://icpc.iisf.or.jp/past-icpc/regional2016/problems.pdf",
         "editorials_url": "https://icpc.iisf.or.jp/past-icpc/comments/2016-slides.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
+        "year": "2015",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2015/",
+        "official_url": "https://icpc.iisf.or.jp/2015-tsukuba/regional/?lang=en",
+        "standing_url": "https://icpc.iisf.or.jp/2015-tsukuba/regional/results/?lang=en",
+        "boj_url": "https://www.acmicpc.net/category/detail/1440",
+        "cf_url": "",
+        "qoj_url": "https://qoj.ac/contest/98",
+        "statements_url": "https://icpc.iisf.or.jp/past-icpc/regional2015/problems.pdf",
+        "editorials_url": ""
     }
 ]
