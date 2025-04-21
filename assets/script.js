@@ -1344,15 +1344,6 @@ function setupResizableSidebar() {
 function initSaveButtons() {
     document.getElementById('save-userdata').addEventListener('click', saveUserProblemData);
     document.getElementById('save-contesttree').addEventListener('click', saveUserContestTree);
-    
-    // Disable buttons if no GitHub token
-    const token = localStorage.getItem('githubToken');
-    if (!token) {
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.disabled = true;
-            btn.title = 'GitHub token required - set it in Home page';
-        });
-    }
 }
 
 // Initialize Application
