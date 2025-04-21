@@ -1,0 +1,104 @@
+{
+    "id": "ICPC > World Finals > 2023 > 2025-04-21 17:56:18.693539",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2023",
+    "filepath": "problemlists/icpc/world-finals/2023/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2023/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2023/editorials.pdf",
+        "official": "https://icpc.global/community/results-2023",
+        "standing": "https://clist.by/standings/47th-annual-icpc-world-finals-luxor-egypt-50284536/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/4211",
+        "CF": "https://codeforces.com/gym/105255",
+        "QOJ": "https://qoj.ac/contest/1662"
+    },
+    "name": "The 2023 ICPC World Finals Luxor",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Riddle of the Sphinx",
+            "BOJ": "https://www.acmicpc.net/problem/31897",
+            "CF": "https://codeforces.com/gym/105255/problem/A",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8674"
+        },
+        {
+            "id": "B",
+            "title": "Schedule",
+            "BOJ": "https://www.acmicpc.net/problem/31901",
+            "CF": "https://codeforces.com/gym/105255/problem/B",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8675"
+        },
+        {
+            "id": "C",
+            "title": "Three Kinds of Dice",
+            "BOJ": "https://www.acmicpc.net/problem/31896",
+            "CF": "https://codeforces.com/gym/105255/problem/C",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8676"
+        },
+        {
+            "id": "D",
+            "title": "Carl's Vacation",
+            "BOJ": "https://www.acmicpc.net/problem/31894",
+            "CF": "https://codeforces.com/gym/105255/problem/D",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8677"
+        },
+        {
+            "id": "E",
+            "title": "A Recurring Problem",
+            "BOJ": "https://www.acmicpc.net/problem/31902",
+            "CF": "https://codeforces.com/gym/105255/problem/E",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8678"
+        },
+        {
+            "id": "F",
+            "title": "Tilting Tiles",
+            "BOJ": "https://www.acmicpc.net/problem/31903",
+            "CF": "https://codeforces.com/gym/105255/problem/F",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8679"
+        },
+        {
+            "id": "G",
+            "title": "Turning Red",
+            "BOJ": "https://www.acmicpc.net/problem/31890",
+            "CF": "https://codeforces.com/gym/105255/problem/G",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8680"
+        },
+        {
+            "id": "H",
+            "title": "Jet Lag",
+            "BOJ": "https://www.acmicpc.net/problem/31904",
+            "CF": "https://codeforces.com/gym/105255/problem/H",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8681"
+        },
+        {
+            "id": "I",
+            "title": "Waterworld",
+            "BOJ": "https://www.acmicpc.net/problem/31905",
+            "CF": "https://codeforces.com/gym/105255/problem/I",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8682"
+        },
+        {
+            "id": "J",
+            "title": "Bridging the Gap",
+            "BOJ": "https://www.acmicpc.net/problem/31893",
+            "CF": "https://codeforces.com/gym/105255/problem/J",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8683"
+        },
+        {
+            "id": "K",
+            "title": "Alea Iacta Est",
+            "BOJ": "https://www.acmicpc.net/problem/31906",
+            "CF": "https://codeforces.com/gym/105255/problem/K",
+            "QOJ": "https://qoj.ac/contest/1662/problem/8684"
+        }
+    ],
+    "crawled_data": {
+        "cf-icpc2023.pdf": "https://codeforces.com/gym/105255/attachments/download/26135/icpc2023.pdf",
+        "cf-finals2023solutions.pdf": "https://codeforces.com/gym/105255/attachments/download/26136/finals2023solutions.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1662&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1662&r=1"
+    }
+}

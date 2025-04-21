@@ -1,0 +1,130 @@
+{
+    "id": "ICPC > World Finals > 2020 > 2025-04-21 17:57:42.695042",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2020",
+    "filepath": "problemlists/icpc/world-finals/2020/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2020/statements.pdf",
+        "editorials": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2020%20ICPC%20World%20Finals/solution",
+        "official": "https://icpc.global/community/results-2020",
+        "standing": "https://clist.by/standings/44th-annual-icpc-world-finals-moscow-russia-30281388/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/2805",
+        "CF": "https://codeforces.com/gym/104633",
+        "QOJ": "https://qoj.ac/contest/782"
+    },
+    "name": "The 2020 ICPC World Finals - Moscow",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Cardiology",
+            "BOJ": "https://www.acmicpc.net/problem/23192",
+            "CF": "https://codeforces.com/gym/104633/problem/A",
+            "QOJ": "https://qoj.ac/contest/782/problem/2160"
+        },
+        {
+            "id": "B",
+            "title": "The Cost of Speed Limits",
+            "BOJ": "https://www.acmicpc.net/problem/23193",
+            "CF": "https://codeforces.com/gym/104633/problem/B",
+            "QOJ": "https://qoj.ac/contest/782/problem/2161"
+        },
+        {
+            "id": "C",
+            "title": "Domes",
+            "BOJ": "https://www.acmicpc.net/problem/23194",
+            "CF": "https://codeforces.com/gym/104633/problem/C",
+            "QOJ": "https://qoj.ac/contest/782/problem/2162"
+        },
+        {
+            "id": "D",
+            "title": "Gene Folding",
+            "BOJ": "https://www.acmicpc.net/problem/23195",
+            "CF": "https://codeforces.com/gym/104633/problem/D",
+            "QOJ": "https://qoj.ac/contest/782/problem/2163"
+        },
+        {
+            "id": "E",
+            "title": "Landscape Generator",
+            "BOJ": "https://www.acmicpc.net/problem/23196",
+            "CF": "https://codeforces.com/gym/104633/problem/E",
+            "QOJ": "https://qoj.ac/contest/782/problem/2164"
+        },
+        {
+            "id": "F",
+            "title": "Ley Lines",
+            "BOJ": "https://www.acmicpc.net/problem/23197",
+            "CF": "https://codeforces.com/gym/104633/problem/F",
+            "QOJ": "https://qoj.ac/contest/782/problem/2165"
+        },
+        {
+            "id": "G",
+            "title": "Opportunity Cost",
+            "BOJ": "https://www.acmicpc.net/problem/23198",
+            "CF": "https://codeforces.com/gym/104633/problem/G",
+            "QOJ": "https://qoj.ac/contest/782/problem/2166"
+        },
+        {
+            "id": "H",
+            "title": "QC QC",
+            "BOJ": "https://www.acmicpc.net/problem/23199",
+            "CF": "https://codeforces.com/gym/104633/problem/H",
+            "QOJ": "https://qoj.ac/contest/782/problem/2167"
+        },
+        {
+            "id": "I",
+            "title": "Quests",
+            "BOJ": "https://www.acmicpc.net/problem/23200",
+            "CF": "https://codeforces.com/gym/104633/problem/I",
+            "QOJ": "https://qoj.ac/contest/782/problem/2168"
+        },
+        {
+            "id": "J",
+            "title": "’S No Problem",
+            "BOJ": "https://www.acmicpc.net/problem/23201",
+            "CF": "https://codeforces.com/gym/104633/problem/J",
+            "QOJ": "https://qoj.ac/contest/782/problem/2169"
+        },
+        {
+            "id": "K",
+            "title": "Space Walls",
+            "BOJ": "https://www.acmicpc.net/problem/23202",
+            "CF": "https://codeforces.com/gym/104633/problem/K",
+            "QOJ": "https://qoj.ac/contest/782/problem/2170"
+        },
+        {
+            "id": "L",
+            "title": "Sweep Stakes",
+            "BOJ": "https://www.acmicpc.net/problem/23203",
+            "CF": "https://codeforces.com/gym/104633/problem/L",
+            "QOJ": "https://qoj.ac/contest/782/problem/2171"
+        },
+        {
+            "id": "M",
+            "title": "Trailing Digits",
+            "BOJ": "https://www.acmicpc.net/problem/23204",
+            "CF": "https://codeforces.com/gym/104633/problem/M",
+            "QOJ": "https://qoj.ac/contest/782/problem/2172"
+        },
+        {
+            "id": "N",
+            "title": "What’s Our Vector, Victor?",
+            "BOJ": "https://www.acmicpc.net/problem/23205",
+            "CF": "https://codeforces.com/gym/104633/problem/N",
+            "QOJ": "https://qoj.ac/contest/782/problem/2173"
+        },
+        {
+            "id": "O",
+            "title": "Which Planet is This?!",
+            "BOJ": "https://www.acmicpc.net/problem/23206",
+            "CF": "https://codeforces.com/gym/104633/problem/O",
+            "QOJ": "https://qoj.ac/contest/782/problem/2174"
+        }
+    ],
+    "crawled_data": {
+        "cf-2020-icpc-world-finals-en.pdf": "https://codeforces.com/gym/104633/attachments/download/22248/2020-icpc-world-finals-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=782&r=0"
+    }
+}

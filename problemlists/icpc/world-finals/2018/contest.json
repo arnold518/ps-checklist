@@ -1,0 +1,102 @@
+{
+    "id": "ICPC > World Finals > 2018 > 2025-04-21 17:58:28.195996",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2018",
+    "filepath": "problemlists/icpc/world-finals/2018/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2018/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2018/editorials.pdf",
+        "official": "https://icpc.global/community/results-2018",
+        "standing": "https://clist.by/standings/42th-annual-acm-icpc-world-finals-beijing-china-17371762/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/1859",
+        "CF": "https://codeforces.com/gym/102482",
+        "QOJ": "https://qoj.ac/contest/425"
+    },
+    "name": "ACM-ICPC World Finals 2018 - Beijing",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Catch the Plane",
+            "BOJ": "https://www.acmicpc.net/problem/15689",
+            "CF": "https://codeforces.com/gym/102482/problem/A",
+            "QOJ": "https://qoj.ac/contest/425/problem/2427"
+        },
+        {
+            "id": "B",
+            "title": "Comma Sprinkler",
+            "BOJ": "https://www.acmicpc.net/problem/15690",
+            "CF": "https://codeforces.com/gym/102482/problem/B",
+            "QOJ": "https://qoj.ac/contest/425/problem/2428"
+        },
+        {
+            "id": "C",
+            "title": "Conquer the World",
+            "BOJ": "https://www.acmicpc.net/problem/15691",
+            "CF": "https://codeforces.com/gym/102482/problem/C",
+            "QOJ": "https://qoj.ac/contest/425/problem/2429"
+        },
+        {
+            "id": "D",
+            "title": "Gem Island",
+            "BOJ": "https://www.acmicpc.net/problem/15692",
+            "CF": "https://codeforces.com/gym/102482/problem/D",
+            "QOJ": "https://qoj.ac/contest/425/problem/2430"
+        },
+        {
+            "id": "E",
+            "title": "Getting a Jump on Crime",
+            "BOJ": "https://www.acmicpc.net/problem/15693",
+            "CF": "https://codeforces.com/gym/102482/problem/E",
+            "QOJ": "https://qoj.ac/contest/425/problem/2431"
+        },
+        {
+            "id": "F",
+            "title": "Go with the Flow",
+            "BOJ": "https://www.acmicpc.net/problem/15694",
+            "CF": "https://codeforces.com/gym/102482/problem/F",
+            "QOJ": "https://qoj.ac/contest/425/problem/2432"
+        },
+        {
+            "id": "G",
+            "title": "Panda Preserve",
+            "BOJ": "https://www.acmicpc.net/problem/15695",
+            "CF": "https://codeforces.com/gym/102482/problem/G",
+            "QOJ": "https://qoj.ac/contest/425/problem/2433"
+        },
+        {
+            "id": "H",
+            "title": "Single Cut of Failure",
+            "BOJ": "https://www.acmicpc.net/problem/15696",
+            "CF": "https://codeforces.com/gym/102482/problem/H",
+            "QOJ": "https://qoj.ac/contest/425/problem/2434"
+        },
+        {
+            "id": "I",
+            "title": "Triangles",
+            "BOJ": "https://www.acmicpc.net/problem/15697",
+            "CF": "https://codeforces.com/gym/102482/problem/I",
+            "QOJ": "https://qoj.ac/contest/425/problem/2435"
+        },
+        {
+            "id": "J",
+            "title": "Uncrossed Knight's Tour",
+            "BOJ": "https://www.acmicpc.net/problem/15698",
+            "CF": "https://codeforces.com/gym/102482/problem/J",
+            "QOJ": "https://qoj.ac/contest/425/problem/2436"
+        },
+        {
+            "id": "K",
+            "title": "Wireless is the New Fiber",
+            "BOJ": "https://www.acmicpc.net/problem/15699",
+            "CF": "https://codeforces.com/gym/102482/problem/K",
+            "QOJ": "https://qoj.ac/contest/425/problem/2437"
+        }
+    ],
+    "crawled_data": {
+        "cf-statements.pdf": "https://codeforces.com/gym/102482/attachments/download/10352/statements.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=425&r=0"
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "id": "ICPC > World Finals > 2022 > 2025-04-21 17:56:49.130336",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2022",
+    "filepath": "problemlists/icpc/world-finals/2022/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2022/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2022/editorials.pdf",
+        "official": "https://icpc.global/community/results-2022",
+        "standing": "https://clist.by/standings/46th-annual-icpc-world-finals-luxor-egypt-51207620/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/4210",
+        "CF": "https://codeforces.com/gym/105254",
+        "QOJ": "https://qoj.ac/contest/1661"
+    },
+    "name": "The 2022 ICPC World Finals Luxor",
+    "problems": [
+        {
+            "id": "P",
+            "title": "Turning Red",
+            "BOJ": "https://www.acmicpc.net/problem/31890",
+            "CF": "https://codeforces.com/gym/105254/problem/P",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8680"
+        },
+        {
+            "id": "Q",
+            "title": "Doing the Container Shuffle",
+            "BOJ": "https://www.acmicpc.net/problem/31891",
+            "CF": "https://codeforces.com/gym/105254/problem/Q",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8685"
+        },
+        {
+            "id": "R",
+            "title": "Zoo Management",
+            "BOJ": "https://www.acmicpc.net/problem/31892",
+            "CF": "https://codeforces.com/gym/105254/problem/R",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8686"
+        },
+        {
+            "id": "S",
+            "title": "Bridging the Gap",
+            "BOJ": "https://www.acmicpc.net/problem/31893",
+            "CF": "https://codeforces.com/gym/105254/problem/S",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8683"
+        },
+        {
+            "id": "T",
+            "title": "Carl's Vacation",
+            "BOJ": "https://www.acmicpc.net/problem/31894",
+            "CF": "https://codeforces.com/gym/105254/problem/T",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8677"
+        },
+        {
+            "id": "U",
+            "title": "Toy Train Tracks",
+            "BOJ": "https://www.acmicpc.net/problem/31895",
+            "CF": "https://codeforces.com/gym/105254/problem/U",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8687"
+        },
+        {
+            "id": "V",
+            "title": "Three Kinds of Dice",
+            "BOJ": "https://www.acmicpc.net/problem/31896",
+            "CF": "https://codeforces.com/gym/105254/problem/V",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8676"
+        },
+        {
+            "id": "W",
+            "title": "Riddle of the Sphinx",
+            "BOJ": "https://www.acmicpc.net/problem/31897",
+            "CF": "https://codeforces.com/gym/105254/problem/W",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8674"
+        },
+        {
+            "id": "X",
+            "title": "Quartets",
+            "BOJ": "https://www.acmicpc.net/problem/31898",
+            "CF": "https://codeforces.com/gym/105254/problem/X",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8688"
+        },
+        {
+            "id": "Y",
+            "title": "Compression",
+            "BOJ": "https://www.acmicpc.net/problem/31899",
+            "CF": "https://codeforces.com/gym/105254/problem/Y",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8689"
+        },
+        {
+            "id": "Z",
+            "title": "Archaeological Recovery",
+            "BOJ": "https://www.acmicpc.net/problem/31900",
+            "CF": "https://codeforces.com/gym/105254/problem/Z",
+            "QOJ": "https://qoj.ac/contest/1661/problem/8690"
+        }
+    ],
+    "crawled_data": {
+        "cf-icpc2022.pdf": "https://codeforces.com/gym/105254/attachments/download/26133/icpc2022.pdf",
+        "cf-finals2022solutions.pdf": "https://codeforces.com/gym/105254/attachments/download/26134/finals2022solutions.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1661&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1661&r=1"
+    }
+}

@@ -1,0 +1,101 @@
+{
+    "id": "ICPC > World Finals > 2013 > 2025-04-21 18:04:34.255837",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2013",
+    "filepath": "problemlists/icpc/world-finals/2013/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2013/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2013/editorials.pdf",
+        "official": "https://icpc.global/community/results-2013",
+        "BOJ": "https://www.acmicpc.net/category/detail/1059",
+        "CF": "https://codeforces.com/gym/101208",
+        "QOJ": "https://qoj.ac/contest/278"
+    },
+    "name": "ACM-ICPC World Finals 2013 - St. Petersburg",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Self-Assembly",
+            "BOJ": "https://www.acmicpc.net/problem/8877",
+            "CF": "https://codeforces.com/gym/101208/problem/A",
+            "QOJ": "https://qoj.ac/contest/278/problem/8852"
+        },
+        {
+            "id": "B",
+            "title": "Hey, Better Bettor",
+            "BOJ": "https://www.acmicpc.net/problem/8878",
+            "CF": "https://codeforces.com/gym/101208/problem/B",
+            "QOJ": "https://qoj.ac/contest/278/problem/8853"
+        },
+        {
+            "id": "C",
+            "title": "Surely You Congest",
+            "BOJ": "https://www.acmicpc.net/problem/8879",
+            "CF": "https://codeforces.com/gym/101208/problem/C",
+            "QOJ": "https://qoj.ac/contest/278/problem/8854"
+        },
+        {
+            "id": "D",
+            "title": "Factors",
+            "BOJ": "https://www.acmicpc.net/problem/8880",
+            "CF": "https://codeforces.com/gym/101208/problem/D",
+            "QOJ": "https://qoj.ac/contest/278/problem/8855"
+        },
+        {
+            "id": "E",
+            "title": "Harvard",
+            "BOJ": "https://www.acmicpc.net/problem/8881",
+            "CF": "https://codeforces.com/gym/101208/problem/E",
+            "QOJ": "https://qoj.ac/contest/278/problem/8856"
+        },
+        {
+            "id": "F",
+            "title": "Low Power",
+            "BOJ": "https://www.acmicpc.net/problem/8882",
+            "CF": "https://codeforces.com/gym/101208/problem/F",
+            "QOJ": "https://qoj.ac/contest/278/problem/8857"
+        },
+        {
+            "id": "G",
+            "title": "Map Tiles",
+            "BOJ": "https://www.acmicpc.net/problem/8883",
+            "CF": "https://codeforces.com/gym/101208/problem/G",
+            "QOJ": "https://qoj.ac/contest/278/problem/8858"
+        },
+        {
+            "id": "H",
+            "title": "Matryoshka",
+            "BOJ": "https://www.acmicpc.net/problem/8884",
+            "CF": "https://codeforces.com/gym/101208/problem/H",
+            "QOJ": "https://qoj.ac/contest/278/problem/8859"
+        },
+        {
+            "id": "I",
+            "title": "Pirate Chest",
+            "BOJ": "https://www.acmicpc.net/problem/8885",
+            "CF": "https://codeforces.com/gym/101208/problem/I",
+            "QOJ": "https://qoj.ac/contest/278/problem/8860"
+        },
+        {
+            "id": "J",
+            "title": "Pollution Solution",
+            "BOJ": "https://www.acmicpc.net/problem/8886",
+            "CF": "https://codeforces.com/gym/101208/problem/J",
+            "QOJ": "https://qoj.ac/contest/278/problem/8861"
+        },
+        {
+            "id": "K",
+            "title": "Up a Tree",
+            "BOJ": "https://www.acmicpc.net/problem/8887",
+            "CF": "https://codeforces.com/gym/101208/problem/K",
+            "QOJ": "https://qoj.ac/contest/278/problem/8862"
+        }
+    ],
+    "crawled_data": {
+        "cf-2013-acmicpc-world-finals-en.pdf": "https://codeforces.com/gym/101208/attachments/download/5017/2013-acmicpc-world-finals-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=278&r=0"
+    }
+}

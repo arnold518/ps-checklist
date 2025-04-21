@@ -1,0 +1,116 @@
+{
+    "id": "ICPC > World Finals > 2015 > 2025-04-21 18:00:27.848890",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2015",
+    "filepath": "problemlists/icpc/world-finals/2015/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2015/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2015/editorials.pdf",
+        "official": "https://icpc.global/community/results-2015",
+        "standing": "https://clist.by/standings/39th-annual-acm-icpc-world-finals-marrakech-morocco-17371765/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/1347",
+        "CF": "https://codeforces.com/gym/101239",
+        "QOJ": "https://qoj.ac/contest/280"
+    },
+    "name": "ACM-ICPC World Finals 2015 - Marrakesh",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Amalgamated Artichokes",
+            "BOJ": "https://www.acmicpc.net/problem/10784",
+            "CF": "https://codeforces.com/gym/101239/problem/A",
+            "QOJ": "https://qoj.ac/contest/280/problem/4676"
+        },
+        {
+            "id": "B",
+            "title": "Asteroids",
+            "BOJ": "https://www.acmicpc.net/problem/10785",
+            "CF": "https://codeforces.com/gym/101239/problem/B",
+            "QOJ": "https://qoj.ac/contest/280/problem/4677"
+        },
+        {
+            "id": "C",
+            "title": "Catering",
+            "BOJ": "https://www.acmicpc.net/problem/10786",
+            "CF": "https://codeforces.com/gym/101239/problem/C",
+            "QOJ": "https://qoj.ac/contest/280/problem/4678"
+        },
+        {
+            "id": "D",
+            "title": "Cutting Cheese",
+            "BOJ": "https://www.acmicpc.net/problem/10787",
+            "CF": "https://codeforces.com/gym/101239/problem/D",
+            "QOJ": "https://qoj.ac/contest/280/problem/4679"
+        },
+        {
+            "id": "E",
+            "title": "Evolution in Parallel",
+            "BOJ": "https://www.acmicpc.net/problem/10788",
+            "CF": "https://codeforces.com/gym/101239/problem/E",
+            "QOJ": "https://qoj.ac/contest/280/problem/4680"
+        },
+        {
+            "id": "F",
+            "title": "Keyboarding",
+            "BOJ": "https://www.acmicpc.net/problem/10789",
+            "CF": "https://codeforces.com/gym/101239/problem/F",
+            "QOJ": "https://qoj.ac/contest/280/problem/4681"
+        },
+        {
+            "id": "G",
+            "title": "Pipe Stream",
+            "BOJ": "https://www.acmicpc.net/problem/10790",
+            "CF": "https://codeforces.com/gym/101239/problem/G",
+            "QOJ": "https://qoj.ac/contest/280/problem/4682"
+        },
+        {
+            "id": "H",
+            "title": "Qanat",
+            "BOJ": "https://www.acmicpc.net/problem/10791",
+            "CF": "https://codeforces.com/gym/101239/problem/H",
+            "QOJ": "https://qoj.ac/contest/280/problem/4683"
+        },
+        {
+            "id": "I",
+            "title": "Ship Traffic",
+            "BOJ": "https://www.acmicpc.net/problem/10792",
+            "CF": "https://codeforces.com/gym/101239/problem/I",
+            "QOJ": "https://qoj.ac/contest/280/problem/4684"
+        },
+        {
+            "id": "J",
+            "title": "Tile Cutting",
+            "BOJ": "https://www.acmicpc.net/problem/10793",
+            "CF": "https://codeforces.com/gym/101239/problem/J",
+            "QOJ": "https://qoj.ac/contest/280/problem/4685"
+        },
+        {
+            "id": "K",
+            "title": "Tours",
+            "BOJ": "https://www.acmicpc.net/problem/10794",
+            "CF": "https://codeforces.com/gym/101239/problem/K",
+            "QOJ": "https://qoj.ac/contest/280/problem/4686"
+        },
+        {
+            "id": "L",
+            "title": "Weather Report",
+            "BOJ": "https://www.acmicpc.net/problem/10983",
+            "CF": "https://codeforces.com/gym/101239/problem/L",
+            "QOJ": "https://qoj.ac/contest/280/problem/4687"
+        },
+        {
+            "id": "M",
+            "title": "Window Manager",
+            "BOJ": "https://www.acmicpc.net/problem/10796",
+            "CF": "https://codeforces.com/gym/101239/problem/M",
+            "QOJ": "https://qoj.ac/contest/280/problem/4688"
+        }
+    ],
+    "crawled_data": {
+        "cf-2015-acmicpc-world-finals-en.pdf": "https://codeforces.com/gym/101239/attachments/download/5089/2015-acmicpc-world-finals-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=280&r=0"
+    }
+}
