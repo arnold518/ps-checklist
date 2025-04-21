@@ -228,81 +228,69 @@
         "editorials_url": "./problemlists/icpc/world-finals/2011/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2024 > 2025-04-21 18:56:41.527427",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2024",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2024/",
         "official_url": "https://icpckorea.org/2024-seoul/regional",
         "standing_url": "http://static.icpckorea.net/2024/regional/scoreboard/",
         "boj_url": "https://www.acmicpc.net/category/detail/4348",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/1989",
-        "statements_url": "http://static.icpckorea.net/2024/regional/problemset.pdf",
-        "editorials_url": "http://static.icpckorea.net/2024/regional/writeups.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2024/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2024/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2023 > 2025-04-21 18:56:52.738589",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2023",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2023/",
         "official_url": "https://icpckorea.org/2023-seoul/regional",
         "standing_url": "http://static.icpckorea.net/2023/regional/scoreboard/",
         "boj_url": "https://www.acmicpc.net/category/detail/4058",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/1450",
-        "statements_url": "http://static.icpckorea.net/2023/regional/problemset.pdf",
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2023/statements.pdf",
         "editorials_url": "https://sharaelong.com/posts/2023-icpc-seoul-solution"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2022 > 2025-04-21 18:57:01.949728",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2022",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2022/",
         "official_url": "https://icpckorea.org/2022-seoul/regional",
         "standing_url": "http://static.icpckorea.net/20221119/scoreboard/",
         "boj_url": "https://www.acmicpc.net/category/detail/3227",
-        "cf_url": "",
         "qoj_url": "https://qoj.ac/contest/1045",
-        "statements_url": "http://static.icpckorea.net/20221119/problems.pdf",
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2022/statements.pdf",
         "editorials_url": "https://koosaga.com/306"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2019 > 2025-04-21 18:57:09.030301",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2019",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2019/",
         "official_url": "https://icpckorea.org/2019-seoul/regional",
-        "standing_url": "",
         "boj_url": "https://www.acmicpc.net/category/detail/2111",
-        "cf_url": "",
-        "qoj_url": "",
-        "statements_url": "https://icpckorea.org/2019/regional/problems.pdf",
-        "editorials_url": ""
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2019/statements.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2018 > 2025-04-21 18:57:14.257898",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2018",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2018/",
         "official_url": "https://icpckorea.org/2018-seoul/regional",
-        "standing_url": "",
         "boj_url": "https://www.acmicpc.net/category/detail/1942",
         "cf_url": "https://codeforces.com/gym/101987",
-        "qoj_url": "",
-        "statements_url": "https://icpckorea.org/2018/regional/problemset-2018.pdf",
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2018/statements.pdf",
         "editorials_url": "https://koosaga.com/220"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2017 > 2025-04-21 18:57:28.293322",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2017",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2017/",
         "official_url": "https://icpckorea.org/2017-daejeon/regional",
-        "standing_url": "",
         "boj_url": "https://www.acmicpc.net/category/detail/1778",
         "cf_url": "https://codeforces.com/gym/101667",
-        "qoj_url": "",
-        "statements_url": "https://icpckorea.org/2017/regional/problemset-2017.pdf",
-        "editorials_url": ""
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2017/statements.pdf"
     }
 ]

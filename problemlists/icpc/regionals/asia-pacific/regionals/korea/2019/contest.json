@@ -1,0 +1,80 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2019 > 2025-04-21 18:57:09.030301",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Korea"
+    ],
+    "year": "2019",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2019/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2019/statements.pdf",
+        "official": "https://icpckorea.org/2019-seoul/regional",
+        "BOJ": "https://www.acmicpc.net/category/detail/2111"
+    },
+    "name": "Asia Regional - Seoul 2019",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Fire on Field",
+            "BOJ": "https://www.acmicpc.net/problem/17968"
+        },
+        {
+            "id": "B",
+            "title": "Gene Tree",
+            "BOJ": "https://www.acmicpc.net/problem/17969"
+        },
+        {
+            "id": "C",
+            "title": "Islands",
+            "BOJ": "https://www.acmicpc.net/problem/17970"
+        },
+        {
+            "id": "D",
+            "title": "Ladder Game",
+            "BOJ": "https://www.acmicpc.net/problem/17971"
+        },
+        {
+            "id": "E",
+            "title": "Network Vulnerability",
+            "BOJ": "https://www.acmicpc.net/problem/17972"
+        },
+        {
+            "id": "F",
+            "title": "Quadrilaterals",
+            "BOJ": "https://www.acmicpc.net/problem/17973"
+        },
+        {
+            "id": "G",
+            "title": "Same Color",
+            "BOJ": "https://www.acmicpc.net/problem/17974"
+        },
+        {
+            "id": "H",
+            "title": "Strike Zone",
+            "BOJ": "https://www.acmicpc.net/problem/17975"
+        },
+        {
+            "id": "I",
+            "title": "Thread Knots",
+            "BOJ": "https://www.acmicpc.net/problem/17976"
+        },
+        {
+            "id": "J",
+            "title": "Triangulation",
+            "BOJ": "https://www.acmicpc.net/problem/17977"
+        },
+        {
+            "id": "K",
+            "title": "Washer",
+            "BOJ": "https://www.acmicpc.net/problem/17978"
+        },
+        {
+            "id": "L",
+            "title": "What’s Mine is Mine",
+            "BOJ": "https://www.acmicpc.net/problem/17979"
+        }
+    ]
+}
