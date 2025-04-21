@@ -515,5 +515,18 @@
         "boj_url": "https://www.acmicpc.net/category/detail/1884",
         "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/statements.pdf",
         "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2017/editorials.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Europe", "European Championship" ],
+        "year": "2025",
+        "filepath": "problemlists/icpc/regionals/europe/european-championship/2025/",
+        "official_url": "https://euc.icpc.global/home-2025/",
+        "standing_url": "https://www.domjudge.org/scoreboard/euc2025/",
+        "boj_url": "https://www.acmicpc.net/category/detail/4445",
+        "cf_url": "https://codeforces.com/contest/2068",
+        "qoj_url": "https://qoj.ac/contest/1964",
+        "statements_url": "https://euc.icpc.global/wp-content/uploads/2025/03/euc2025-official.pdf",
+        "editorials_url": "https://euc.icpc.global/wp-content/uploads/2025/03/solutions.pdf"
     }
 ]
