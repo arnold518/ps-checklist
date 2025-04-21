@@ -1,0 +1,108 @@
+{
+    "id": "ICPC > World Finals > 2021 > 2025-04-21 17:03:43.789331",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2021",
+    "filepath": "problemlists/icpc/world-finals/2021/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2021/statements.pdf",
+        "editorials": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2021%20ICPC%20World%20Finals/solution",
+        "standing": "https://clist.by/standings/45th-annual-icpc-world-finals-dhaka-bangladesh-38603613/?timeline=",
+        "BOJ": "https://www.acmicpc.net/category/detail/3230",
+        "CF": "https://codeforces.com/gym/104288",
+        "QOJ": "https://qoj.ac/contest/1050"
+    },
+    "name": "The 2021 ICPC World Finals - Dhaka",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Crystal Crosswind",
+            "BOJ": "https://www.acmicpc.net/problem/26130",
+            "CF": "https://codeforces.com/gym/104288/problem/A",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5101"
+        },
+        {
+            "id": "B",
+            "title": "Dungeon Crawler",
+            "BOJ": "https://www.acmicpc.net/problem/26131",
+            "CF": "https://codeforces.com/gym/104288/problem/B",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5102"
+        },
+        {
+            "id": "C",
+            "title": "Fair Division",
+            "BOJ": "https://www.acmicpc.net/problem/26132",
+            "CF": "https://codeforces.com/gym/104288/problem/C",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5103"
+        },
+        {
+            "id": "D",
+            "title": "Guardians of the Gallery",
+            "BOJ": "https://www.acmicpc.net/problem/26133",
+            "CF": "https://codeforces.com/gym/104288/problem/D",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5104"
+        },
+        {
+            "id": "E",
+            "title": "Hand of the Free Marked",
+            "BOJ": "https://www.acmicpc.net/problem/26134",
+            "CF": "https://codeforces.com/gym/104288/problem/E",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5105"
+        },
+        {
+            "id": "F",
+            "title": "Islands from the Sky",
+            "BOJ": "https://www.acmicpc.net/problem/26135",
+            "CF": "https://codeforces.com/gym/104288/problem/F",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5106"
+        },
+        {
+            "id": "G",
+            "title": "Mosaic Browsing",
+            "BOJ": "https://www.acmicpc.net/problem/26136",
+            "CF": "https://codeforces.com/gym/104288/problem/G",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5107"
+        },
+        {
+            "id": "H",
+            "title": "Prehistoric Programs",
+            "BOJ": "https://www.acmicpc.net/problem/26137",
+            "CF": "https://codeforces.com/gym/104288/problem/H",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5108"
+        },
+        {
+            "id": "I",
+            "title": "Spider Walk",
+            "BOJ": "https://www.acmicpc.net/problem/26138",
+            "CF": "https://codeforces.com/gym/104288/problem/I",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5109"
+        },
+        {
+            "id": "J",
+            "title": "Splitstream",
+            "BOJ": "https://www.acmicpc.net/problem/26139",
+            "CF": "https://codeforces.com/gym/104288/problem/J",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5110"
+        },
+        {
+            "id": "K",
+            "title": "Take On Meme",
+            "BOJ": "https://www.acmicpc.net/problem/26140",
+            "CF": "https://codeforces.com/gym/104288/problem/K",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5111"
+        },
+        {
+            "id": "L",
+            "title": "Where Am I?",
+            "BOJ": "https://www.acmicpc.net/problem/26141",
+            "CF": "https://codeforces.com/gym/104288/problem/L",
+            "QOJ": "https://qoj.ac/contest/1050/problem/5112"
+        }
+    ],
+    "crawled_data": {
+        "cf-statements.pdf": "https://codeforces.com/gym/104288/attachments/download/19595/statements.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1050&r=0"
+    }
+}

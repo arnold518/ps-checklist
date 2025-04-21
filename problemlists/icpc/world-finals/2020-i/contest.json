@@ -1,0 +1,85 @@
+{
+    "id": "ICPC > World Finals > 2020-I > 2025-04-21 17:04:01.263985",
+    "category": [
+        "ICPC",
+        "World Finals"
+    ],
+    "year": "2020-I",
+    "filepath": "problemlists/icpc/world-finals/2020-i/",
+    "link": {
+        "statements": "./problemlists/icpc/world-finals/2020-i/statements.pdf",
+        "editorials": "./problemlists/icpc/world-finals/2020-i/editorials.pdf",
+        "CF": "https://codeforces.com/contest/1578"
+    },
+    "name": "ICPC WF Moscow Invitational Contest - Online Mirror (Unrated, ICPC Rules, Teams Preferred)",
+    "crawled_data": {
+        "cf-ICPC-World-Finals-Moscow-Invitational-Problems.pdf": "https://assets.codeforces.com/rounds/1578/ICPC-World-Finals-Moscow-Invitational-Problems.pdf"
+    },
+    "problems": [
+        {
+            "id": "A",
+            "title": "Anti-Tetris",
+            "CF": "https://codeforces.com/contest/1578/problem/A"
+        },
+        {
+            "id": "B",
+            "title": "Building Forest Trails",
+            "CF": "https://codeforces.com/contest/1578/problem/B"
+        },
+        {
+            "id": "C",
+            "title": "Cactus Lady and her Cing",
+            "CF": "https://codeforces.com/contest/1578/problem/C"
+        },
+        {
+            "id": "D",
+            "title": "Dragon Curve",
+            "CF": "https://codeforces.com/contest/1578/problem/D"
+        },
+        {
+            "id": "E",
+            "title": "Easy Scheduling",
+            "CF": "https://codeforces.com/contest/1578/problem/E"
+        },
+        {
+            "id": "F",
+            "title": "Framing Pictures",
+            "CF": "https://codeforces.com/contest/1578/problem/F"
+        },
+        {
+            "id": "G",
+            "title": "Game of Chance",
+            "CF": "https://codeforces.com/contest/1578/problem/G"
+        },
+        {
+            "id": "H",
+            "title": "Higher Order Functions",
+            "CF": "https://codeforces.com/contest/1578/problem/H"
+        },
+        {
+            "id": "I",
+            "title": "Interactive Rays",
+            "CF": "https://codeforces.com/contest/1578/problem/I"
+        },
+        {
+            "id": "J",
+            "title": "Just Kingdom",
+            "CF": "https://codeforces.com/contest/1578/problem/J"
+        },
+        {
+            "id": "K",
+            "title": "Kingdom of Islands",
+            "CF": "https://codeforces.com/contest/1578/problem/K"
+        },
+        {
+            "id": "L",
+            "title": "Labyrinth",
+            "CF": "https://codeforces.com/contest/1578/problem/L"
+        },
+        {
+            "id": "M",
+            "title": "The Mind",
+            "CF": "https://codeforces.com/contest/1578/problem/M"
+        }
+    ]
+}

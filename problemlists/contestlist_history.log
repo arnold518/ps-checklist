@@ -124,3 +124,71 @@
     }
 ]
 2025-04-15 20:06:54.737597
+[
+    {
+        "id": "ICPC > World Finals > 2023 > 2025-04-21 17:02:56.985516",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2023",
+        "filepath": "problemlists/icpc/world-finals/2023/",
+        "official_url": null,
+        "standing_url": "https://clist.by/standings/47th-annual-icpc-world-finals-luxor-egypt-50284536/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/4211",
+        "cf_url": "https://codeforces.com/gym/105255",
+        "qoj_url": "https://qoj.ac/contest/1662",
+        "statements_url": "https://icpc.global/worldfinals/problems/2023-ICPC-World-Finals/icpc2023.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2023-ICPC-World-Finals/finals2023solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2022 > 2025-04-21 17:03:20.781164",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2022",
+        "filepath": "problemlists/icpc/world-finals/2022/",
+        "official_url": null,
+        "standing_url": "https://clist.by/standings/46th-annual-icpc-world-finals-luxor-egypt-51207620/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/4210",
+        "cf_url": "https://codeforces.com/gym/105254",
+        "qoj_url": "https://qoj.ac/contest/1661",
+        "statements_url": "https://icpc.global/worldfinals/problems/2022-ICPC-World-Finals/icpc2022.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2022-ICPC-World-Finals/finals2022solutions.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2021 > 2025-04-21 17:03:43.789331",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2021",
+        "filepath": "problemlists/icpc/world-finals/2021/",
+        "official_url": null,
+        "standing_url": "https://clist.by/standings/45th-annual-icpc-world-finals-dhaka-bangladesh-38603613/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/3230",
+        "cf_url": "https://codeforces.com/gym/104288",
+        "qoj_url": "https://qoj.ac/contest/1050",
+        "statements_url": "https://icpc.global/worldfinals/problems/2021-ICPC-World-Finals/icpc2021.pdf",
+        "editorials_url": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2021%20ICPC%20World%20Finals/solution"
+    },
+    {
+        "id": "ICPC > World Finals > 2020-I > 2025-04-21 17:04:01.263985",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2020-I",
+        "filepath": "problemlists/icpc/world-finals/2020-i/",
+        "official_url": null,
+        "standing_url": null,
+        "boj_url": null,
+        "cf_url": "https://codeforces.com/contest/1578",
+        "qoj_url": null,
+        "statements_url": "https://assets.codeforces.com/rounds/1578/ICPC-World-Finals-Moscow-Invitational-Problems.pdf",
+        "editorials_url": "https://assets.codeforces.com/rounds/1578/tutorial.pdf"
+    },
+    {
+        "id": "ICPC > World Finals > 2020 > 2025-04-21 17:04:12.492492",
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2020",
+        "filepath": "problemlists/icpc/world-finals/2020/",
+        "official_url": null,
+        "standing_url": "https://clist.by/standings/44th-annual-icpc-world-finals-moscow-russia-30281388/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/2805",
+        "cf_url": "https://codeforces.com/gym/104633",
+        "qoj_url": "https://qoj.ac/contest/782",
+        "statements_url": "https://icpc.global/worldfinals/problems/2020-ICPC-World-Finals/icpc2020.pdf",
+        "editorials_url": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2020%20ICPC%20World%20Finals/solution"
+    }
+]
+2025-04-21 17:04:34.548337
