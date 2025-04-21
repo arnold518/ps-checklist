@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2018 > 2025-04-21 18:57:14.257898",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2018 > 2025-04-21 21:36:25.523767",
     "category": [
         "ICPC",
         "Regionals",
@@ -13,6 +13,7 @@
         "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2018/statements.pdf",
         "editorials": "https://koosaga.com/220",
         "official": "https://icpckorea.org/2018-seoul/regional",
+        "standing": "https://codeforces.com/gym/101987/standings",
         "BOJ": "https://www.acmicpc.net/category/detail/1942",
         "CF": "https://codeforces.com/gym/101987"
     },
@@ -90,5 +91,8 @@
             "BOJ": "https://www.acmicpc.net/problem/16368",
             "CF": "https://codeforces.com/gym/101987/problem/L"
         }
-    ]
+    ],
+    "crawled_data": {
+        "cf-20182019-acmicpc-asia-seoul-regional-contest-en.pdf": "https://codeforces.com/gym/101987/attachments/download/7921/20182019-acmicpc-asia-seoul-regional-contest-en.pdf"
+    }
 }

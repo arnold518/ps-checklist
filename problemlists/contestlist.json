@@ -190,11 +190,12 @@
         "editorials_url": "https://keet.wordpress.com/2014/06/28/acm-icpc-2014-solution-to-problem-a-baggage/"
     },
     {
-        "id": "ICPC > World Finals > 2013 > 2025-04-21 18:04:34.255837",
+        "id": "ICPC > World Finals > 2013 > 2025-04-21 21:36:00.977961",
         "category": [ "ICPC", "World Finals" ],
         "year": "2013",
         "filepath": "problemlists/icpc/world-finals/2013/",
         "official_url": "https://icpc.global/community/results-2013",
+        "standing_url": "https://codeforces.com/gym/101208/standings",
         "boj_url": "https://www.acmicpc.net/category/detail/1059",
         "cf_url": "https://codeforces.com/gym/101208",
         "qoj_url": "https://qoj.ac/contest/278",
@@ -264,37 +265,40 @@
         "editorials_url": "https://koosaga.com/306"
     },
     {
-        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2019 > 2025-04-21 18:57:09.030301",
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2019 > 2025-04-21 21:36:20.558498",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2019",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2019/",
         "official_url": "https://icpckorea.org/2019-seoul/regional",
+        "standing_url": "https://icpc.global/regionals/finder/Seoul-2020/standings",
         "boj_url": "https://www.acmicpc.net/category/detail/2111",
         "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2019/statements.pdf"
     },
     {
-        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2018 > 2025-04-21 18:57:14.257898",
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2018 > 2025-04-21 21:36:25.523767",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2018",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2018/",
         "official_url": "https://icpckorea.org/2018-seoul/regional",
+        "standing_url": "https://codeforces.com/gym/101987/standings",
         "boj_url": "https://www.acmicpc.net/category/detail/1942",
         "cf_url": "https://codeforces.com/gym/101987",
         "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2018/statements.pdf",
         "editorials_url": "https://koosaga.com/220"
     },
     {
-        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2017 > 2025-04-21 18:57:28.293322",
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2017 > 2025-04-21 21:36:42.990869",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Korea" ],
         "year": "2017",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2017/",
         "official_url": "https://icpckorea.org/2017-daejeon/regional",
+        "standing_url": "https://codeforces.com/gym/101667/standings",
         "boj_url": "https://www.acmicpc.net/category/detail/1778",
         "cf_url": "https://codeforces.com/gym/101667",
         "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2017/statements.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2024 > 2025-04-21 21:36:55.056875",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2024",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2024/",
@@ -303,20 +307,20 @@
         "boj_url": "https://www.acmicpc.net/category/detail/4371",
         "cf_url": "https://codeforces.com/gym/105633",
         "qoj_url": "https://qoj.ac/contest/1987",
-        "statements_url": "https://icpc.iisf.or.jp/2024-yokohama/wp-content/uploads/sites/12/2024/12/all_with_cover_web.pdf",
-        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2024/commentaries-2024.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2024/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2024/editorials.pdf"
     },
     {
-        "id": null,
+        "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2023 > 2025-04-21 21:37:16.629077",
         "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Japan" ],
         "year": "2023",
         "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/",
         "official_url": "https://icpc.iisf.or.jp/2023-yokohama/regional/",
-        "standing_url": "",
+        "standing_url": "https://codeforces.com/gym/104832/standings",
         "boj_url": "https://www.acmicpc.net/category/detail/4070",
         "cf_url": "https://codeforces.com/gym/104832",
         "qoj_url": "https://qoj.ac/contest/1447",
-        "statements_url": "https://icpc.iisf.or.jp/2023-yokohama/wp-content/uploads/sites/11/2023/11/all_with_cover_web.pdf",
-        "editorials_url": "https://icpc.iisf.or.jp/past-icpc/regional2023/commentaries-2023.pdf"
+        "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/statements.pdf",
+        "editorials_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/editorials.pdf"
     }
 ]

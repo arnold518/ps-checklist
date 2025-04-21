@@ -1,0 +1,106 @@
+{
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2023 > 2025-04-21 21:37:16.629077",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Asia Pacific",
+        "Regionals",
+        "Japan"
+    ],
+    "year": "2023",
+    "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/editorials.pdf",
+        "official": "https://icpc.iisf.or.jp/2023-yokohama/regional/",
+        "standing": "https://codeforces.com/gym/104832/standings",
+        "BOJ": "https://www.acmicpc.net/category/detail/4070",
+        "CF": "https://codeforces.com/gym/104832",
+        "QOJ": "https://qoj.ac/contest/1447"
+    },
+    "name": "The 2023 ICPC Asia Yokohama Regional Contest",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Yokohama Phenomena",
+            "BOJ": "https://www.acmicpc.net/problem/30928",
+            "CF": "https://codeforces.com/gym/104832/problem/A",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7921"
+        },
+        {
+            "id": "B",
+            "title": "Rank Promotion",
+            "BOJ": "https://www.acmicpc.net/problem/30929",
+            "CF": "https://codeforces.com/gym/104832/problem/B",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7922"
+        },
+        {
+            "id": "C",
+            "title": "Ferris Wheel",
+            "BOJ": "https://www.acmicpc.net/problem/30930",
+            "CF": "https://codeforces.com/gym/104832/problem/C",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7923"
+        },
+        {
+            "id": "D",
+            "title": "Nested Repetition Compression",
+            "BOJ": "https://www.acmicpc.net/problem/30931",
+            "CF": "https://codeforces.com/gym/104832/problem/D",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7924"
+        },
+        {
+            "id": "E",
+            "title": "Chayas",
+            "BOJ": "https://www.acmicpc.net/problem/30932",
+            "CF": "https://codeforces.com/gym/104832/problem/E",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7925"
+        },
+        {
+            "id": "F",
+            "title": "Color Inversion on a Huge Chessboard",
+            "BOJ": "https://www.acmicpc.net/problem/30933",
+            "CF": "https://codeforces.com/gym/104832/problem/F",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7926"
+        },
+        {
+            "id": "G",
+            "title": "Fortune Telling",
+            "BOJ": "https://www.acmicpc.net/problem/30934",
+            "CF": "https://codeforces.com/gym/104832/problem/G",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7927"
+        },
+        {
+            "id": "H",
+            "title": "Task Assignment to Two Employees",
+            "BOJ": "https://www.acmicpc.net/problem/30935",
+            "CF": "https://codeforces.com/gym/104832/problem/H",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7928"
+        },
+        {
+            "id": "I",
+            "title": "Liquid Distribution",
+            "BOJ": "https://www.acmicpc.net/problem/30936",
+            "CF": "https://codeforces.com/gym/104832/problem/I",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7929"
+        },
+        {
+            "id": "J",
+            "title": "Do It Yourself?",
+            "BOJ": "https://www.acmicpc.net/problem/30937",
+            "CF": "https://codeforces.com/gym/104832/problem/J",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7930"
+        },
+        {
+            "id": "K",
+            "title": "Probing the Disk",
+            "BOJ": "https://www.acmicpc.net/problem/30938",
+            "CF": "https://codeforces.com/gym/104832/problem/K",
+            "QOJ": "https://qoj.ac/contest/1447/problem/7931"
+        }
+    ],
+    "crawled_data": {
+        "cf-statement.pdf": "https://codeforces.com/gym/104832/attachments/download/23342/statement.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1447&r=0",
+        "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1447&r=1"
+    }
+}

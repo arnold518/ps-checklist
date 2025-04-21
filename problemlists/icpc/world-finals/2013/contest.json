@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > World Finals > 2013 > 2025-04-21 18:04:34.255837",
+    "id": "ICPC > World Finals > 2013 > 2025-04-21 21:36:00.977961",
     "category": [
         "ICPC",
         "World Finals"
@@ -10,6 +10,7 @@
         "statements": "./problemlists/icpc/world-finals/2013/statements.pdf",
         "editorials": "./problemlists/icpc/world-finals/2013/editorials.pdf",
         "official": "https://icpc.global/community/results-2013",
+        "standing": "https://codeforces.com/gym/101208/standings",
         "BOJ": "https://www.acmicpc.net/category/detail/1059",
         "CF": "https://codeforces.com/gym/101208",
         "QOJ": "https://qoj.ac/contest/278"

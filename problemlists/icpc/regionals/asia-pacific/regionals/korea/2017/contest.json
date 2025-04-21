@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2017 > 2025-04-21 18:57:28.293322",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2017 > 2025-04-21 21:36:42.990869",
     "category": [
         "ICPC",
         "Regionals",
@@ -12,6 +12,7 @@
     "link": {
         "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2017/statements.pdf",
         "official": "https://icpckorea.org/2017-daejeon/regional",
+        "standing": "https://codeforces.com/gym/101667/standings",
         "BOJ": "https://www.acmicpc.net/category/detail/1778",
         "CF": "https://codeforces.com/gym/101667"
     },
@@ -89,5 +90,8 @@
             "BOJ": "https://www.acmicpc.net/problem/14962",
             "CF": "https://codeforces.com/gym/101667/problem/L"
         }
-    ]
+    ],
+    "crawled_data": {
+        "cf-problemset-2017.pdf": "https://codeforces.com/gym/101667/attachments/download/6491/problemset-2017.pdf"
+    }
 }
