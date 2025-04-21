@@ -420,5 +420,18 @@
         "boj_url": "https://www.acmicpc.net/category/detail/1440",
         "qoj_url": "https://qoj.ac/contest/98",
         "statements_url": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2015/statements.pdf"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "Regionals", "Asia Pacific", "Regionals", "Indonesia (Jakarta)" ],
+        "year": "2024",
+        "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2024/",
+        "official_url": "https://competition.binus.ac.id/icpc2024/",
+        "standing_url": "https://competition.binus.ac.id/icpc2024/final.html",
+        "boj_url": "https://www.acmicpc.net/category/detail/4385",
+        "cf_url": "https://codeforces.com/contest/2045",
+        "qoj_url": "https://qoj.ac/contest/1992",
+        "statements_url": "https://codeforces.com/contest/2045/attachments/download/28649/ICPCAsiaJakarta2024statements.pdf",
+        "editorials_url": "https://competition.binus.ac.id/icpc2024/problem_analysis.pdf"
     }
 ]
