@@ -114,5 +114,18 @@
         "qoj_url": "https://qoj.ac/contest/782",
         "statements_url": "https://icpc.global/worldfinals/problems/2020-ICPC-World-Finals/icpc2020.pdf",
         "editorials_url": "https://icpcarchive.github.io/World%20Finals/ICPC%20World%20Finals/2020%20ICPC%20World%20Finals/solution"
+    },
+    {
+        "id": null,
+        "category": [ "ICPC", "World Finals" ],
+        "year": "2019",
+        "filepath": "problemlists/icpc/world-finals/2019/",
+        "official_url": "",
+        "standing_url": "https://clist.by/standings/43th-annual-icpc-world-finals-porto-portugal-17371761/?timeline=",
+        "boj_url": "https://www.acmicpc.net/category/detail/2021",
+        "cf_url": "https://codeforces.com/gym/102511",
+        "qoj_url": "https://qoj.ac/contest/431",
+        "statements_url": "https://icpc.global/worldfinals/problems/2019-ICPC-World-Finals/icpc2019.pdf",
+        "editorials_url": "https://icpc.global/worldfinals/problems/2019-ICPC-World-Finals/finals2019solutions.pdf"
     }
 ]
