@@ -13,9 +13,6 @@ const problemStates = ["Not Attempted", "Attempted", "Solved", "Reviewed"];
 let userContestTree = {};
 let userProblemData = {};
 
-// Github Token
-let authToken = localStorage.getItem('githubToken') || "";
-
 // Application State
 const state = {
     currentCategory: 'icpc',
@@ -1285,6 +1282,7 @@ function updateStatusBar() {
     const total = state.allContests.size;
     const visible = state.visibleContests.size;
     const ratio = total > 0 ? (visible / total) : 0;
+    console.log(state.visibleContests);
     
     document.getElementById('status-text').textContent = `${visible} contest${visible !== 1 ? 's' : ''} visible`;
     document.getElementById('visibility-ratio').textContent = `${visible}/${total}`;

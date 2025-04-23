@@ -178,7 +178,7 @@ body {
 }
 
 .tree-node-header {
-    padding: 8px 16px;
+    padding: 4px 16px;
     display: flex;
     align-items: center;
     border-radius: 4px;
@@ -228,7 +228,7 @@ body {
 .contest-leaf {
     display: flex;
     align-items: center;
-    padding: 8px 16px 8px 40px;
+    padding: 4px 16px 4px 40px;
     margin: 2px 8px;
     border-radius: 4px;
 }
@@ -395,7 +395,7 @@ body {
     align-items: center;
     gap: 8px;
     display: table-cell;
-    text-align: center;
+    text-align: left;
     vertical-align: middle;
 }
 

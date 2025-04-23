@@ -211,6 +211,7 @@ firebase.auth().onAuthStateChanged(user => {
     if (user) {
         // User is signed in
         console.log('User signed in:', user.email);
+        scr.clearUserData();
         scr.fetchUserData();
     } else {
         // User is signed out
