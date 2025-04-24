@@ -588,6 +588,8 @@ function renderContestLeaf(contest, parentElement, level) {
 
 // Toggle Node Expansion
 function toggleNodeExpansion(node) {
+    node.cache = null;
+
     if (state.expandedNodes.has(node.id)) {
         state.expandedNodes.delete(node.id);
         userContestTree[state.currentCategory].expandedNodes.delete(node.id);
