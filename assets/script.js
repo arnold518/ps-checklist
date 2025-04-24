@@ -475,18 +475,19 @@ function calculateProblemStats(node) {
     return stats;
 }
 
-// Get Visibility Color
+// Get Visibility Color - 3 distinct states
 function getVisibilityColor(visible, total) {
-    if (total === 0) return 'var(--gray-dark)';
-    const ratio = (total === 0 ? 0 : visible / total);
-    const lightness = 70 - Math.round(ratio * 40);
-    return `hsl(0, 0%, ${Math.max(30, lightness)}%)`;
+    if (total === 0) return '#ddd'; // Gray for empty directories
+    if (visible === 0) return '#ddd'; // Light gray for invisible
+    if (visible === total) return '#000'; // Black for fully visible
+    return '#777'; // Dark gray for partially visible
 }
 
 // Render Tree
 function renderTree(node, parentElement, level = 0) {
     const container = document.createElement('div');
     container.className = 'tree-node';
+    container.style.position = 'relative';
     
     if (node.children || node.contests) {
         const stats = state.directoryStats.get(node.id) || { total: 0, visible: 0 };
@@ -495,50 +496,52 @@ function renderTree(node, parentElement, level = 0) {
         const header = document.createElement('div');
         header.className = 'tree-node-header';
         
-        const actions = document.createElement('div');
-        actions.className = 'directory-actions';
+        // Collapse/expand icon button - more distinguishable
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'toggle-btn';
         
-        const showAllBtn = document.createElement('button');
-        showAllBtn.className = 'action-btn show-all';
-        showAllBtn.innerHTML = '<span>✓</span>';
-        showAllBtn.title = 'Show all contests in this directory';
-        showAllBtn.addEventListener('click', (e) => {
+        toggleBtn.innerHTML = state.expandedNodes.has(node.id) ? '▼' : '▶';
+        toggleBtn.title = state.expandedNodes.has(node.id) ? 'Collapse' : 'Expand';
+        toggleBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            setDirectoryVisibility(node, true);
+            toggleNodeExpansion(node);
         });
         
-        const hideAllBtn = document.createElement('button');
-        hideAllBtn.className = 'action-btn hide-all';
-        hideAllBtn.innerHTML = '<span>✗</span>';
-        hideAllBtn.title = 'Hide all contests in this directory';
-        hideAllBtn.addEventListener('click', (e) => {
+        // Directory name button with visibility toggle
+        const dirNameBtn = document.createElement('button');
+        dirNameBtn.className = 'dir-name-btn';
+        dirNameBtn.style.color = color;
+        dirNameBtn.textContent = node.name;
+        dirNameBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            setDirectoryVisibility(node, false);
-        });
-        
-        actions.append(showAllBtn, hideAllBtn);
-        
-        header.innerHTML = `
-            <span class="toggle-icon">${state.expandedNodes.has(node.id) ? '▼' : '▶'}</span>
-            <span class="directory-name" style="color: ${color}">${node.name}</span>
-            <span class="badge" style="margin-left: 8px; font-size: 12px; color: var(--gray-dark)">
-                ${stats.visible}/${stats.total}
-            </span>
-        `;
-        header.append(actions);
-        
-        header.addEventListener('click', (e) => {
-            if (e.target.classList.contains('tree-node-header') || 
-                e.target.classList.contains('toggle-icon') ||
-                e.target.classList.contains('directory-name') ||
-                e.target.classList.contains('badge')) {
-                toggleNodeExpansion(node);
+            // Toggle visibility according to requirements
+            if (stats.visible === stats.total) {
+                // If fully visible, make invisible
+                setDirectoryVisibility(node, false);
+            } else {
+                // If partially visible or invisible, make fully visible
+                setDirectoryVisibility(node, true);
             }
         });
         
+        // Badge showing visible/total
+        const badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.textContent = `${stats.visible}/${stats.total}`;
+        
+        header.append(toggleBtn, dirNameBtn, badge);
         container.appendChild(header);
         
+        // Children container
         const childrenContainer = document.createElement('div');
+        childrenContainer.className = 'tree-children';
+
+        // Add vertical line for hierarchy
+        const verticalLine = document.createElement('div');
+        verticalLine.className = 'vertical-line';
+        verticalLine.style.left = `10px`;
+        childrenContainer.appendChild(verticalLine);
+
         if (state.expandedNodes.has(node.id)) {
             if (node.children) {
                 node.children.forEach(child => {
@@ -547,7 +550,7 @@ function renderTree(node, parentElement, level = 0) {
             }
             if (node.contests) {
                 node.contests.forEach(contest => {
-                    renderContestLeaf(contest, childrenContainer, color);
+                    renderContestLeaf(contest, childrenContainer, level + 1);
                 });
             }
         }
@@ -557,20 +560,23 @@ function renderTree(node, parentElement, level = 0) {
     parentElement.appendChild(container);
 }
 
-// Render Contest Leaf
-function renderContestLeaf(contest, parentElement, color) {
+// Render Contest Leaf (simplified)
+function renderContestLeaf(contest, parentElement, level) {
     const isVisible = state.visibleContests.has(contest.id);
     const contestElement = document.createElement('div');
     contestElement.className = `contest-leaf ${isVisible ? 'visible' : 'hidden'}`;
+    contestElement.style.position = 'relative';
+    contestElement.style.left = '6px'
     
-    const element = document.createElement('span');
-    element.style.color = color;
-    element.textContent = contest.data.year;
+    const visibilityIcon = document.createElement('span');
+    visibilityIcon.className = 'visibility-icon';
+    visibilityIcon.textContent = isVisible ? '✓' : '✗';
     
-    contestElement.innerHTML = `
-        <span class="visibility-icon">${isVisible ? '✓' : '✗'}</span>
-    `;
-    contestElement.appendChild(element);
+    const yearElement = document.createElement('span');
+    yearElement.style.color = isVisible ? '#000' : '#ddd';
+    yearElement.textContent = contest.data.year;
+    
+    contestElement.append(visibilityIcon, yearElement);
     
     contestElement.addEventListener('click', (e) => {
         e.stopPropagation();
