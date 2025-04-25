@@ -56,8 +56,10 @@ function saveUserProblemData() {
     auth.saveData('userProblemData', userProblemData).then(success => {
         if(success) {
             console.log('User problem data saved successfully:', userProblemData);
+            showStatus('User problem data saved successfully', 'success');
         } else {
             console.error('Failed to save user problem data:', userProblemData);
+            showStatus('Failed to save user problem data', 'error');
         }
     });
 }
@@ -73,8 +75,10 @@ function saveUserContestTree() {
     auth.saveData('userContestTree', savedata).then(success => {
         if(success) {
             console.log('User contest tree saved successfully:', savedata);
+            showStatus('User contest tree saved successfully', 'success');
         } else {
             console.error('Failed to save user contest tree:', savedata);
+            showStatus('Failed to save user contest tree', 'error');
         }
     });
 }
@@ -191,6 +195,33 @@ function updateProgressBars() {
 
 // ==================================================================
 // ==================================================================
+
+function showStatus(message, type, duration = 3000) {
+    console.log(message, type, duration);
+
+    const panel = document.getElementById('statusPanel');
+    const messageElement = document.getElementById('statusMessage');
+    
+    // Set message and type
+    messageElement.textContent = message;
+    
+    // Remove all previous classes
+    panel.className = 'status-panel';
+    
+    // Add appropriate classes
+    panel.classList.add(type);
+    
+    // Show the panel with animation
+    panel.classList.remove('hide');
+    panel.classList.add('show');
+    
+    // Automatically hide after duration
+    setTimeout(() => {
+      panel.classList.remove('show');
+      panel.classList.add('hide');
+    }, duration);
+}
+
 
 // Initialize Navigation
 function initNavigation() {
@@ -550,7 +581,7 @@ function renderTree(node, parentElement, level = 0) {
             }
             if (node.contests) {
                 node.contests.forEach(contest => {
-                    renderContestLeaf(contest, childrenContainer, level + 1);
+                    renderContestLeaf(contest, childrenContainer, level + 1, node);
                 });
             }
         }
@@ -561,7 +592,7 @@ function renderTree(node, parentElement, level = 0) {
 }
 
 // Render Contest Leaf (simplified)
-function renderContestLeaf(contest, parentElement, level) {
+function renderContestLeaf(contest, parentElement, level, node) {
     const isVisible = state.visibleContests.has(contest.id);
     const contestElement = document.createElement('div');
     contestElement.className = `contest-leaf ${isVisible ? 'visible' : 'hidden'}`;
@@ -580,7 +611,7 @@ function renderContestLeaf(contest, parentElement, level) {
     
     contestElement.addEventListener('click', (e) => {
         e.stopPropagation();
-        toggleContestVisibility(contest.id);
+        toggleContestVisibility(contest.id, node);
     });
     
     parentElement.appendChild(contestElement);
@@ -611,6 +642,7 @@ function setDirectoryVisibility(node, makeVisible) {
                 state.visibleContests.delete(contest.id);
                 userContestTree[state.currentCategory].visibleContests.delete(contest.id);
             }
+            node.cache = null;
         });
     }
     
@@ -624,7 +656,9 @@ function setDirectoryVisibility(node, makeVisible) {
 }
 
 // Toggle Contest Visibility
-function toggleContestVisibility(contestId) {
+function toggleContestVisibility(contestId, node) {
+    node.cache = null;
+
     if (state.visibleContests.has(contestId)) {
         state.visibleContests.delete(contestId);
     } else {
@@ -840,8 +874,8 @@ function handleProblemClick(problemCell) {
     problemInfo.appendChild(header);
 
     // Create controls section
-    const controls = document.createElement('div');
-    controls.className = 'info-panel-controls problem-info-controls';
+    // const controls = document.createElement('div');
+    // controls.className = 'info-panel-controls problem-info-controls';
 
     // Add difficulty selector
     const difficultyContainer = document.createElement('div');
@@ -885,6 +919,36 @@ function handleProblemClick(problemCell) {
         enumerable: true,
         configurable: true
     });
+
+    
+    // Add status selector
+    const statusContainer = document.createElement('div');
+    statusContainer.className = 'problem-info-status';
+
+    const statusLabel = document.createElement('span');
+    statusLabel.textContent = 'Status:';
+    statusContainer.appendChild(statusLabel);
+
+    const statusBtn = document.createElement('button');
+    statusBtn.className = `status-btn status-${problem.status || 0}`;
+    statusBtn.textContent = problemStates[problem.status || 0];
+    statusBtn.addEventListener('click', () => {
+        const current = parseInt(problem.status) || 0;
+        const newStatus = (current + 1) % problemStates.length;
+        problem.status = newStatus;
+        statusBtn.className = `status-btn status-${newStatus}`;
+        statusBtn.textContent =  problemStates[newStatus];
+        if(!userProblemData[name]) userProblemData[name] = {};
+        userProblemData[name].status = problem.status;
+        // Update the problem cell
+        updateProblemCell(contestId, problemIdx);
+        updateProblemStats();
+
+        // Save to state or backend here
+    });
+    statusContainer.appendChild(statusBtn);
+
+    problemInfo.appendChild(statusContainer);
 
     // Initialize the icon class
     icon.className = `difficulty-icon difficulty-${problem.difficulty || 0}`;
@@ -931,37 +995,7 @@ function handleProblemClick(problemCell) {
 
     difficultyContainer.appendChild(selector);
 
-    controls.appendChild(difficultyContainer);
-
-    // Add status selector
-    const statusContainer = document.createElement('div');
-    statusContainer.className = 'problem-info-status';
-
-    const statusLabel = document.createElement('span');
-    statusLabel.textContent = 'Status:';
-    statusContainer.appendChild(statusLabel);
-
-    const statusBtn = document.createElement('button');
-    statusBtn.className = `status-btn status-${problem.status || 0}`;
-    statusBtn.textContent = problemStates[problem.status || 0];
-    statusBtn.addEventListener('click', () => {
-        const current = parseInt(problem.status) || 0;
-        const newStatus = (current + 1) % problemStates.length;
-        problem.status = newStatus;
-        statusBtn.className = `status-btn status-${newStatus}`;
-        statusBtn.textContent =  problemStates[newStatus];
-        if(!userProblemData[name]) userProblemData[name] = {};
-        userProblemData[name].status = problem.status;
-        // Update the problem cell
-        updateProblemCell(contestId, problemIdx);
-        updateProblemStats();
-
-        // Save to state or backend here
-    });
-    statusContainer.appendChild(statusBtn);
-
-    controls.appendChild(statusContainer);
-    problemInfo.appendChild(controls);
+    problemInfo.appendChild(difficultyContainer);
 
     // Add links section
     const linksContainer = document.createElement('div');
@@ -1029,18 +1063,7 @@ function updateProblemCell(contestId, problemIdx) {
     problemCell.dataset.status = problem.status || '0';
 }
 
-function renderVisibleContests(node, container, name) {
-    const stats = state.directoryStats.get(node.id);
-    if (stats && stats.visible === 0) {
-        return;
-    }
-
-    if (node.children) {
-        node.children.forEach(child => {
-            renderVisibleContests(child, container, name == '' ? node.name : (name + ' > ' + node.name));
-        });
-    }
-
+function cacheVisibleContests(node, name) {
     if (node.contests) {
         // console.log('Rendering contests for node:', node.id, 'with name:', name);
 
@@ -1073,24 +1096,6 @@ function renderVisibleContests(node, container, name) {
         const content = document.createElement('div');
         content.className = 'contest-content';
         
-        // Add stats bar
-        // const statsBar = document.createElement('div');
-        // statsBar.className = 'stats-bar';
-        // statsBar.innerHTML = `
-        //     <div class="stats-item">
-        //         <span class="stats-label">Problems:</span>
-        //         <span class="stats-value" id="problems-total">0</span>
-        //     </div>
-        //     <div class="stats-item">
-        //         <span class="stats-label">Solved:</span>
-        //         <span class="stats-value" id="problems-solved">0</span>
-        //     </div>
-        //     <div class="stats-item">
-        //         <span class="stats-label">Attempted:</span>
-        //         <span class="stats-value" id="problems-attempted">0</span>
-        //     </div>
-        // `;
-        // content.appendChild(statsBar);
         const progressBar = createProgressBar();
         progressBar.dataset.nodeId = node.id;
         content.appendChild(progressBar);
@@ -1169,8 +1174,27 @@ function renderVisibleContests(node, container, name) {
         content.appendChild(tableContainer);
         item.appendChild(header);
         item.appendChild(content);
-        container.appendChild(item);
+
+        node.cache = item;
     }
+}
+
+function renderVisibleContests(node, container, name) {
+    const stats = state.directoryStats.get(node.id);
+    if (stats && stats.visible === 0) {
+        return;
+    }
+
+    if (node.children) {
+        node.children.forEach(child => {
+            renderVisibleContests(child, container, name == '' ? node.name : (name + ' > ' + node.name));
+        });
+    }
+
+    if (node.contests) {
+        if (!node.cache) cacheVisibleContests(node, name);
+        container.appendChild(node.cache);
+    }    
 }
 
 function adjustTableColumns() {
@@ -1254,6 +1278,7 @@ function updateProblemStats() {
 }
 
 // Render Visible Contests
+let adjustTimeout;
 function renderFullVisibleContests() {
     const container = document.getElementById('contest-container');
     container.innerHTML = '';
@@ -1272,12 +1297,15 @@ function renderFullVisibleContests() {
         container.appendChild(progressBar);
         updateProgressBar(progressBar, state.problemStats.get(node.id));
     }
+    console.log('Render Full Visible Contests start');
     renderVisibleContests(contestTrees[state.currentCategory], container, '');
     
     // Adjust table columns after rendering
-    setTimeout(() => {
+    clearTimeout(adjustTimeout);
+    adjustTimeout = setTimeout(() => {
+        console.log('Final adjustment after rendering');
         adjustTableColumns();
-    }, 0);
+    }, 50);
 }
 
 // Add window resize listener
