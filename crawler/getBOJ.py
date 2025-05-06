@@ -49,7 +49,7 @@ class BOJCrawler:
 
     def parse_boj_problems_table(self, soup, tableidx):
         tables = soup.find_all('table', {'class': 'table table-striped table-bordered clickable-table'})
-        
+
         if not tables or len(tables) == 0:
             print("Problems table not found in the HTML")
             return None
@@ -92,6 +92,14 @@ class BOJCrawler:
                 problems.append(problem)
         
         return problems
+    
+    def parse_boj_problems_table_keyword(self, soup, keywords):
+        problems = self.parse_boj_problems_table(soup, [])
+
+        tabletitles = soup.find_all('div', {'class': 'headline'})
+        for tabletitle in tabletitles:
+            if any(keyword in tabletitle.get_text(strip=True) for keyword in keywords):
+                print(f"Table title: {tabletitle.get_text(strip=True)}")
 
     def parse_boj_pdf_links(self, filepath, soup):
         # Find all links ending with .pdf
@@ -138,7 +146,7 @@ class BOJCrawler:
         self.category_name = self.parse_boj_category_name(self.soup)
         self.problems = self.parse_boj_problems_table(self.soup, tableidx)
         self.pdf_set = self.parse_boj_pdf_links(pdfpath, self.soup)
-            
+
         # Display some basic info
         if self.category_name is not None and self.category_name != '':
             print(f"\nContest name: {self.category_name}")
@@ -153,6 +161,7 @@ class BOJCrawler:
         return self.category_name, self.problems, self.pdf_set
 
 
-# bojCrawler = BOJCrawler()
+bojCrawler = BOJCrawler()
+crawl_boj_category = bojCrawler.crawl_boj_category("https://acmicpc.net/category/detail/1885", "./test/", [0])
 # crawl_boj_category = bojCrawler.crawl_boj_category("https://www.acmicpc.net/category/detail/2339", "./test/")
 # crawl_boj_category = bojCrawler.crawl_boj_category("https://www.acmicpc.net/category/detail/2859", "./test/")

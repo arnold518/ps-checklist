@@ -1,11 +1,11 @@
-import * as scr from './script.js';
+import * as _state from './state.js';
 
 // Initialize Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyD6MxdZTBOmboCgPGB7Y_gNogHeljm7RVM",
     authDomain: "ps-checklist-v1.firebaseapp.com",
     projectId: "ps-checklist-v1",
-    storageBucket: "ps-checklist-v1.firebasestorage.app",
+    storageBucket: "ps-checklist-v1.appspot.com",
     messagingSenderId: "822272041679",
     appId: "1:822272041679:web:4aeb518ef0b9e8dd868dba",
     measurementId: "G-QP73JXLSXH"
@@ -18,7 +18,7 @@ const db = firebase.firestore();
 
 // Auth state management
 let authState = {
-    isLogin: true, // Toggle between login/signup
+    isLogin: true,
     user: null
 };
 
@@ -26,7 +26,6 @@ let authState = {
 let authContainer, emailInput, passwordInput, authForm, authTitle, 
     authSubmitBtn, authToggleBtn, authStatus, userInfo, googleAuthBtn;
 
-// Initialize auth page
 export function createAuthPage() {
     const mainContent = document.getElementById('main-content');
     mainContent.innerHTML = `
@@ -99,13 +98,11 @@ export function createAuthPage() {
     });
 }
 
-// Toggle between login/signup
 function toggleAuthMode() {
     authState.isLogin = !authState.isLogin;
     createAuthPage();
 }
 
-// Handle form submission
 async function handleAuthSubmit(e) {
     e.preventDefault();
     
@@ -125,7 +122,6 @@ async function handleAuthSubmit(e) {
     }
 }
 
-// Handle Google auth
 async function handleGoogleAuth() {
     try {
         await auth.signInWithPopup(googleProvider);
@@ -138,7 +134,6 @@ async function handleGoogleAuth() {
     }
 }
 
-// Firebase auth functions
 async function loginWithEmail(email, password) {
     try {
         await auth.signInWithEmailAndPassword(email, password);
@@ -161,13 +156,11 @@ function logout() {
     createAuthPage();
 }
 
-// Helper functions
 function showAuthStatus(message, type) {
     authStatus.textContent = message;
     authStatus.className = `auth-status auth-${type}`;
     authStatus.style.display = 'block';
     
-    // Hide after 5 seconds
     setTimeout(() => {
         authStatus.style.display = 'none';
     }, 5000);
@@ -180,13 +173,11 @@ function showUserInfo(email) {
     `;
     userInfo.style.display = 'block';
     
-    // Update UI for logged in state
     authForm.style.display = 'none';
     googleAuthBtn.style.display = 'none';
     document.querySelector('.divider').style.display = 'none';
     document.querySelector('.auth-toggle').style.display = 'none';
     
-    // Add logout handler
     document.getElementById('logout-btn').addEventListener('click', logout);
 }
 
@@ -209,13 +200,11 @@ function getFriendlyAuthError(errorCode) {
 // Auth State Listener
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-        // User is signed in
         console.log('User signed in:', user.email);
-        scr.clearUserData();
-        scr.fetchUserData();
+        _state.clearUserData();
+        _state.fetchUserData();
     } else {
-        // User is signed out
-        scr.clearUserData();
+        _state.clearUserData();
     }
 });
 
@@ -226,14 +215,13 @@ export function saveData(key, value) {
             .then(doc => {
                 if (doc.exists) {
                     const data = doc.data();
-                    data[key] = value; // Update the specific key with the new value
+                    data[key] = value;
                     return db.collection('users').doc(user.uid).set(data)
                         .then(() => {
                             console.log('Data updated!');
                             return true;
                         });
                 } else {
-                    // Create a new document with the key-value pair
                     const newData = { [key]: value };
                     return db.collection('users').doc(user.uid).set(newData)
                         .then(() => {
@@ -259,7 +247,7 @@ export async function loadData(key) {
             .then(doc => {
                 if (doc.exists) {
                     const data = doc.data();
-                    return data[key] || null; // Return the value for the specified key
+                    return data[key] || null;
                 }
             })
             .catch(error => {

@@ -174,6 +174,7 @@ body {
 /* Tree Node Structure */
 .tree-node {
     margin-left: 20px;
+    font-family: 'Roboto', Arial, sans-serif;
     position: relative;
 }
 
@@ -205,7 +206,7 @@ body {
 
 /* Toggle Button */
 .toggle-btn {
-    font: "Segoe UI Symbol", sans-serif;
+    /* font: "Segoe UI Symbol", sans-serif; */
     background: none;
     border: none;
     border-radius: 3px;
@@ -667,37 +668,37 @@ body {
 }
 
 /* Difficulty level images */
-.difficulty-0 { background-image: url('img/difficulty/difficulty-0.svg'); }
-.difficulty-1 { background-image: url('img/difficulty/difficulty-1.svg'); }
-.difficulty-2 { background-image: url('img/difficulty/difficulty-2.svg'); }
-.difficulty-3 { background-image: url('img/difficulty/difficulty-3.svg'); }
-.difficulty-4 { background-image: url('img/difficulty/difficulty-4.svg'); }
-.difficulty-5 { background-image: url('img/difficulty/difficulty-5.svg'); }
-.difficulty-6 { background-image: url('img/difficulty/difficulty-6.svg'); }
-.difficulty-7 { background-image: url('img/difficulty/difficulty-7.svg'); }
-.difficulty-8 { background-image: url('img/difficulty/difficulty-8.svg'); }
-.difficulty-9 { background-image: url('img/difficulty/difficulty-9.svg'); }
-.difficulty-10 { background-image: url('img/difficulty/difficulty-10.svg'); }
-.difficulty-11 { background-image: url('img/difficulty/difficulty-11.svg'); }
-.difficulty-12 { background-image: url('img/difficulty/difficulty-12.svg'); }
-.difficulty-13 { background-image: url('img/difficulty/difficulty-13.svg'); }
-.difficulty-14 { background-image: url('img/difficulty/difficulty-14.svg'); }
-.difficulty-15 { background-image: url('img/difficulty/difficulty-15.svg'); }
-.difficulty-16 { background-image: url('img/difficulty/difficulty-16.svg'); }
-.difficulty-17 { background-image: url('img/difficulty/difficulty-17.svg'); }
-.difficulty-18 { background-image: url('img/difficulty/difficulty-18.svg'); }
-.difficulty-19 { background-image: url('img/difficulty/difficulty-19.svg'); }
-.difficulty-20 { background-image: url('img/difficulty/difficulty-20.svg'); }
-.difficulty-21 { background-image: url('img/difficulty/difficulty-21.svg'); }
-.difficulty-22 { background-image: url('img/difficulty/difficulty-22.svg'); }
-.difficulty-23 { background-image: url('img/difficulty/difficulty-23.svg'); }
-.difficulty-24 { background-image: url('img/difficulty/difficulty-24.svg'); }
-.difficulty-25 { background-image: url('img/difficulty/difficulty-25.svg'); }
-.difficulty-26 { background-image: url('img/difficulty/difficulty-26.svg'); }
-.difficulty-27 { background-image: url('img/difficulty/difficulty-27.svg'); }
-.difficulty-28 { background-image: url('img/difficulty/difficulty-28.svg'); }
-.difficulty-29 { background-image: url('img/difficulty/difficulty-29.svg'); }
-.difficulty-30 { background-image: url('img/difficulty/difficulty-30.svg'); }
+.difficulty-0 { background-image: url('../assets/difficulty/difficulty-0.svg'); }
+.difficulty-1 { background-image: url('../assets/difficulty/difficulty-1.svg'); }
+.difficulty-2 { background-image: url('../assets/difficulty/difficulty-2.svg'); }
+.difficulty-3 { background-image: url('../assets/difficulty/difficulty-3.svg'); }
+.difficulty-4 { background-image: url('../assets/difficulty/difficulty-4.svg'); }
+.difficulty-5 { background-image: url('../assets/difficulty/difficulty-5.svg'); }
+.difficulty-6 { background-image: url('../assets/difficulty/difficulty-6.svg'); }
+.difficulty-7 { background-image: url('../assets/difficulty/difficulty-7.svg'); }
+.difficulty-8 { background-image: url('../assets/difficulty/difficulty-8.svg'); }
+.difficulty-9 { background-image: url('../assets/difficulty/difficulty-9.svg'); }
+.difficulty-10 { background-image: url('../assets/difficulty/difficulty-10.svg'); }
+.difficulty-11 { background-image: url('../assets/difficulty/difficulty-11.svg'); }
+.difficulty-12 { background-image: url('../assets/difficulty/difficulty-12.svg'); }
+.difficulty-13 { background-image: url('../assets/difficulty/difficulty-13.svg'); }
+.difficulty-14 { background-image: url('../assets/difficulty/difficulty-14.svg'); }
+.difficulty-15 { background-image: url('../assets/difficulty/difficulty-15.svg'); }
+.difficulty-16 { background-image: url('../assets/difficulty/difficulty-16.svg'); }
+.difficulty-17 { background-image: url('../assets/difficulty/difficulty-17.svg'); }
+.difficulty-18 { background-image: url('../assets/difficulty/difficulty-18.svg'); }
+.difficulty-19 { background-image: url('../assets/difficulty/difficulty-19.svg'); }
+.difficulty-20 { background-image: url('../assets/difficulty/difficulty-20.svg'); }
+.difficulty-21 { background-image: url('../assets/difficulty/difficulty-21.svg'); }
+.difficulty-22 { background-image: url('../assets/difficulty/difficulty-22.svg'); }
+.difficulty-23 { background-image: url('../assets/difficulty/difficulty-23.svg'); }
+.difficulty-24 { background-image: url('../assets/difficulty/difficulty-24.svg'); }
+.difficulty-25 { background-image: url('../assets/difficulty/difficulty-25.svg'); }
+.difficulty-26 { background-image: url('../assets/difficulty/difficulty-26.svg'); }
+.difficulty-27 { background-image: url('../assets/difficulty/difficulty-27.svg'); }
+.difficulty-28 { background-image: url('../assets/difficulty/difficulty-28.svg'); }
+.difficulty-29 { background-image: url('../assets/difficulty/difficulty-29.svg'); }
+.difficulty-30 { background-image: url('../assets/difficulty/difficulty-30.svg'); }
 
 .difficulty-fetch-btn {
     padding: 6px 12px;

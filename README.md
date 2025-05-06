@@ -2,11 +2,13 @@
 
 ## Adding new contest data
 
-- [Google form link](https://docs.google.com/forms/d/1L0unHXDweAP_FRDslBt7Lk0XfOaB3ilCY4XCpBILSUY/edit)
-- [Google form link (short)](https://forms.gle/5ac8SbgHhPsKxc8v5)
-- [Google form apps script link](https://script.google.com/home/projects/1usNeZ7eg12sNiNZzx99hO4er6qxYIO3z2G86HsLfQDfJAa7lu_-OfJf3/edit)
-- [Google form response spreadsheet link](https://docs.google.com/spreadsheets/d/1peQ86F_bLdb1XUnBD-CntcW9_oq2HR2Og1beCNvbQvE/edit?resourcekey&usp=forms_web_b&urp=linked#gid=1471396257)
-- [Google form response spreadsheet apps script link](https://script.google.com/u/0/home/projects/1zB3gag0A21kVYIVm-KqqCwQr4-hJiuVtNRCct5h1rYdMT30s3ML6PiwZ/edit)
+- ICPC
+    - [Google form link](https://docs.google.com/forms/d/1L0unHXDweAP_FRDslBt7Lk0XfOaB3ilCY4XCpBILSUY/edit)
+    - [Google form link (short)](https://forms.gle/5ac8SbgHhPsKxc8v5)
+    - [Google form apps script link](https://script.google.com/home/projects/1usNeZ7eg12sNiNZzx99hO4er6qxYIO3z2G86HsLfQDfJAa7lu_-OfJf3/edit)
+    - [Google form response spreadsheet link](https://docs.google.com/spreadsheets/d/1peQ86F_bLdb1XUnBD-CntcW9_oq2HR2Og1beCNvbQvE/edit?resourcekey&usp=forms_web_b&urp=linked#gid=1471396257)
+    - [Google form response spreadsheet apps script link](https://script.google.com/u/0/home/projects/1zB3gag0A21kVYIVm-KqqCwQr4-hJiuVtNRCct5h1rYdMT30s3ML6PiwZ/edit)
+- Olympiad
 - [Full contestlist spreadsheet link](https://docs.google.com/spreadsheets/d/1Ld3PMgmA2tEgRFT0fp0Yt9uhpOKUldWKtaIOkp0eG3Q/edit?gid=0#gid=0)
 - [Full contestlist spreadsheet apps script link](https://script.google.com/u/0/home/projects/1k15fpKUNV46tRCAkXiFkRAuPZ7UucYxn9j1FkPdlV5WaO0BLppHJaMdC/edit)
 
