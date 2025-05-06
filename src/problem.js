@@ -1,5 +1,6 @@
 import * as _state from './state.js';
 import * as _contest from './contest.js';
+import * as _ui from './ui.js';
 import { problemStates } from './constants.js';
 
 export async function getProblemSolvedacDifficulty(problemId) {
@@ -161,7 +162,7 @@ export function handleProblemClick(problemCell) {
         if(!_state.userProblemData[name]) _state.userProblemData[name] = {};
         _state.userProblemData[name].status = problem.status;
         updateProblemCell(contestId, problemIdx);
-        _state.updateProblemStats();
+        _ui.updateProblemStats();
     });
     statusContainer.appendChild(statusBtn);
 
