@@ -215,8 +215,10 @@ export function handleProblemClick(problemCell) {
     linksContainer.className = 'info-panel-links problem-info-links';
 
     // Create link elements
+    
+    if (typeof problem.BOJ === 'string') problem.BOJ = [problem.BOJ];
     const linkData = [
-        { type: 'boj', title: 'Baekjoon Online Judge', img: 'assets/icon/boj-icon.png', link: problem?.BOJ },
+        ...(Array.isArray(problem?.BOJ) ? problem.BOJ.map(link => ({ type: 'boj', title: 'Baekjoon Online Judge', img: 'assets/icon/boj-icon.png', link })) : []),
         { type: 'cf', title: 'Codeforces', img: 'assets/icon/cf-icon.png', link: problem?.CF },
         { type: 'qoj', title: 'QOJ', img: 'assets/icon/qoj-icon.png', link: problem?.QOJ }
     ];

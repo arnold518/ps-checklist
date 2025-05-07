@@ -227,5 +227,5 @@ class CFCrawler:
     
 #     # Run scraper
 #     scraper = CFCrawler()
-#     scraper.crawl_cf_contest(CONTEST_URL)
+#     scraper.crawl_cf_contest(CONTEST_URL, './test/')
 #     scraper.close()

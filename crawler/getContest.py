@@ -2,6 +2,7 @@ from JSONHandler import *
 from getBOJ import BOJCrawler
 from getCF import CFCrawler
 from getQOJ import QOJCrawler
+from getOJUZ import OJUZCrawler
 from getPDF import PDFCrawler
 
 def print_sep(): print("\n"+'='*100)
@@ -22,6 +23,7 @@ class ContestCrawler:
         self.BOJ_URL = None
         self.CF_URL = None
         self.QOJ_URL = None
+        self.OJUZ_URL = None
         self.STATEMENTS_URL = None
         self.EDITORIALS_URL = None
 
@@ -63,6 +65,7 @@ class ContestCrawler:
         self.BOJ_URL = data.get("boj_url")
         self.CF_URL = data.get("cf_url")
         self.QOJ_URL = data.get("qoj_url")
+        self.OJUZ_URL = data.get("ojuz_url")
         self.STATEMENTS_URL = data.get("statements_url")
         self.EDITORIALS_URL = data.get("editorials_url")
 
@@ -79,8 +82,20 @@ class ContestCrawler:
         self.handler.clear()
 
         return True
+    
+    def close(self):
+        if self.cfCrawler is not None:
+            self.cfCrawler.close()
+    
+    # =========================================================================
 
     def process(self):
+        if "ICPC" in self.CATEGORY:
+            self.process_icpc()
+        elif "Olympiad" in self.CATEGORY:
+            self.process_olympiad()
+
+    def process_icpc(self):
 
         self.update_by_default(self.ID, self.CATEGORY, self.YEAR, self.FILE_PATH.lstrip('../'))
         print_sep()
@@ -106,10 +121,36 @@ class ContestCrawler:
         print(f"Contest data saved to {self.FILE_PATH}contest.json")
         print_wall()
         print('\n'*5)
-    
-    def close(self):
-        if self.cfCrawler is not None:
-            self.cfCrawler.close()
+
+    def process_olympiad(self):
+        self.update_by_default(self.ID, self.CATEGORY, self.YEAR, self.FILE_PATH.lstrip('../'))
+        print_sep()
+
+        if self.BOJ_URL is not None:
+            self.boj2()
+            print_sep()
+
+        if self.CF_URL is not None:
+            self.cf()
+            print_sep()
+
+        if self.QOJ_URL is not None:
+            self.qoj2()
+            print_sep()
+
+        if self.OJUZ_URL is not None:
+            self.ojuz()
+            print_sep()
+
+        self.handler.save()
+        print()
+        print(self.handler)
+
+        print_wall()
+        print(f"Contest {self.ID} processed successfully.")
+        print(f"Contest data saved to {self.FILE_PATH}contest.json")
+        print_wall()
+        print('\n'*5)
 
     # =========================================================================
 
@@ -152,6 +193,10 @@ class ContestCrawler:
     def boj(self):
         name, problems, pdf_set = self.bojCrawler.crawl_boj_category(self.BOJ_URL, self.PDF_PATH, [0])
         self.update_by_boj(name, self.BOJ_URL, problems, pdf_set)
+    
+    def boj2(self):
+        name, problems, pdf_set = self.bojCrawler.crawl_boj_category(self.BOJ_URL, self.PDF_PATH, [], ["Day", "Contest"])
+        self.update_by_boj(name, self.BOJ_URL, problems, pdf_set)
 
     # =========================================================================
 
@@ -184,12 +229,69 @@ class ContestCrawler:
 
         if problems is not None:
             for idx, problem in enumerate(problems):
-                self.handler.update_problem_value(idx, ["id"], problem["letter"], overwrite=False)
+                self.handler.update_problem_value(idx, ["id"], problem["letter"], overwrite=True)
                 self.handler.update_problem_value(idx, ["title"], problem["title"], overwrite=False)
                 self.handler.update_problem_value(idx, ["link", "QOJ"], problem["url"])
 
     def qoj(self):
         name, category, problems, pdf_set = self.qojCrawler.crawl_qoj_contest(self.QOJ_URL, self.PDF_PATH)
         self.update_by_qoj(name, self.QOJ_URL, category, problems, pdf_set)
+    
+    def qoj2(self):
+        name, category, problems, pdf_set = self.qojCrawler.crawl_qoj_category(self.QOJ_URL, self.PDF_PATH)
+        self.update_by_qoj(name, self.QOJ_URL, category, problems, pdf_set)
 
     # =========================================================================
+
+    def update_by_ojuz(self, url, category, problems, pdf_set):
+        self.handler.update_nested_value(["category"], category, overwrite=False)
+        self.handler.update_nested_value(["link", "OJUZ"], url)
+        if pdf_set is not None:
+            for pdfname, pdflink in pdf_set.items():
+                self.handler.update_nested_value(["crawled_data", pdfname], pdflink)
+
+        if problems is not None:
+            for idx, problem in enumerate(problems):
+                self.handler.update_problem_value(idx, ["id"], problem["number"], overwrite=True)
+                self.handler.update_problem_value(idx, ["title"], problem["title"], overwrite=False)
+                self.handler.update_problem_value(idx, ["link", "OJUZ"], problem["link"])
+
+    def ojuz(self):
+        self.ojuzCrawler = OJUZCrawler()
+        category, problems, pdf_set = self.ojuzCrawler.crawl_ojuz_category(self.OJUZ_URL, self.PDF_PATH)
+        self.update_by_ojuz(self.OJUZ_URL, category, problems, pdf_set)
+
+    # =========================================================================
+
+contestCrawler = ContestCrawler()
+
+# contest = {
+#     "id": "",
+#     "category": [ "Olympiad", "JOISC" ],
+#     "year": "2020",
+#     "filepath": "./test/",
+#     "official_url": "https://joisc2020.contest.atcoder.jp/",
+#     "standing_url": "https://atcoder.jp/contests/joisc2020/standings",
+#     "boj_url": "https://www.acmicpc.net/category/detail/2205",
+#     "qoj_url": "https://qoj.ac/category/41",
+#     "ojuz_url": "https://oj.uz/problems/source/joisc2020?locale=en"
+# }
+
+contest = {
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2020 > 2025-04-22 00:52:46.887631",
+    "category": [ "ICPC", "Regionals", "Europe", "Regionals", "Northwestern European Regional Contest (NWERC)" ],
+    "year": "2020",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2020/",
+    "official_url": "https://2020.nwerc.eu/",
+    "standing_url": "https://2020.nwerc.eu/standings/",
+    "boj_url": "https://www.acmicpc.net/category/detail/2488",
+    "cf_url": "https://codeforces.com/gym/103049",
+    "qoj_url": "https://qoj.ac/contest/561",
+    "statements_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/statements.pdf",
+    "editorials_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/editorials.pdf"
+}
+
+if contestCrawler.open(contest):
+    contestCrawler.process()
+
+contestCrawler.close()
