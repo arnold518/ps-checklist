@@ -16,11 +16,16 @@ class BOJCrawler:
         self.category_name = None
         self.problems = None
         self.pdf_set = None
+    
+    def englify(self, url):
+        if url.startswith('https://www.acmicpc.net/'):
+            return url.replace('https://www.acmicpc.net/', 'https://www.acmicpc.net/lang?lang=1&next=/')
+        return url
 
     def fetch_boj_page(self, url, delay=1):
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Language": "en-US,en;q=0.7",
         }
         
         try:
@@ -49,7 +54,7 @@ class BOJCrawler:
 
     def parse_boj_problems_table(self, soup, tableidx):
         tables = soup.find_all('table', {'class': 'table table-striped table-bordered clickable-table'})
-        
+
         if not tables or len(tables) == 0:
             print("Problems table not found in the HTML")
             return None
@@ -82,16 +87,48 @@ class BOJCrawler:
                     'letter': ('' if len(tableidx)==1 else str(tidx+1)+'.') + cells[1].get_text(strip=True),
                     'title': title,
                     'link': urljoin(base_url, cells[2].find('a')['href']),
-                    # 'tags': ', '.join([tag.get_text(strip=True) for tag in cells[3].find_all('span', class_='problem-label')]),
+                    'tags': ', '.join([tag.get_text(strip=True) for tag in cells[3].find_all('span', class_='problem-label')]),
                     # 'solved_count': cells[4].get_text(strip=True),
                     # 'submitted_count': cells[5].get_text(strip=True),
                     # 'acceptance_rate': cells[6].get_text(strip=True),
                     # 'solved_link': urljoin(base_url, cells[4].find('a')['href']) if cells[4].find('a') else '',
                     # 'submitted_link': urljoin(base_url, cells[5].find('a')['href']) if cells[5].find('a') else ''
                 }
-                problems.append(problem)
+                # Check if there's already a problem with the same letter
+                existing_problem = next((p for p in problems if p['letter'] == problem['letter']), None)
+                if existing_problem:
+                    # Merge the new problem into the existing one
+                    if not isinstance(existing_problem['number'], list):
+                        existing_problem['number'] = [existing_problem['number']]
+                    if not isinstance(existing_problem['link'], list):
+                        existing_problem['link'] = [existing_problem['link']]
+                    
+                    existing_problem['number'].append(problem['number'])
+                    existing_problem['link'].append(problem['link'])
+                    
+                    # Update the title to the longest common prefix (LCP)
+                    existing_problem['title'] = ''.join(
+                        [c[0] for c in zip(existing_problem['title'], problem['title']) if c[0] == c[1]]
+                    ).strip()
+                    
+                    # Merge tags
+                    existing_problem['tags'] = ', '.join(sorted(set(existing_problem['tags'].split(', ') + problem['tags'].split(', '))))
+                else:
+                    problems.append(problem)
         
         return problems
+    
+    def parse_boj_problems_table_keyword(self, soup, keywords):
+        if keywords is None or len(keywords) == 0:
+            return []
+        tabletitles = soup.find_all('div', {'class': 'headline'})
+        if not tabletitles or len(tabletitles) == 0:
+            return []
+        selected_problems = []
+        for idx, tabletitle in enumerate(tabletitles):
+            if any(keyword in tabletitle.get_text(strip=True) for keyword in keywords):
+                selected_problems.append(idx)
+        return selected_problems
 
     def parse_boj_pdf_links(self, filepath, soup):
         # Find all links ending with .pdf
@@ -124,8 +161,12 @@ class BOJCrawler:
                 print(f"Failed to download {pdf_url}: {e}")
         return pdf_set
 
-    def crawl_boj_category(self, category_url, pdfpath, tableidx = []):
+    def crawl_boj_category(self, category_url, pdfpath, tableidx = [], keywords = []):
+        # empty list is equivalent to All
+        # returns the problems of the intersection of tableidx and keywords
+        
         print(f"Crawling BOJ category: {category_url}")
+        category_url = self.englify(category_url)
         self.url = category_url
         
         self.html = self.fetch_boj_page(category_url)
@@ -135,10 +176,17 @@ class BOJCrawler:
         
         self.soup = BeautifulSoup(self.html, 'html.parser')
 
+        if keywords is not None and len(keywords) > 0:
+            tableidx2 = self.parse_boj_problems_table_keyword(self.soup, keywords)
+            if tableidx is not None and len(tableidx) > 0:
+                tableidx = list(set(tableidx) & set(tableidx2))
+            else:
+                tableidx = tableidx2
+
         self.category_name = self.parse_boj_category_name(self.soup)
         self.problems = self.parse_boj_problems_table(self.soup, tableidx)
         self.pdf_set = self.parse_boj_pdf_links(pdfpath, self.soup)
-            
+
         # Display some basic info
         if self.category_name is not None and self.category_name != '':
             print(f"\nContest name: {self.category_name}")
@@ -154,5 +202,6 @@ class BOJCrawler:
 
 
 # bojCrawler = BOJCrawler()
+# crawl_boj_category = bojCrawler.crawl_boj_category("https://www.acmicpc.net/category/1056", "./test/", tableidx=[1, 2, 0], keywords=["Day"])
 # crawl_boj_category = bojCrawler.crawl_boj_category("https://www.acmicpc.net/category/detail/2339", "./test/")
 # crawl_boj_category = bojCrawler.crawl_boj_category("https://www.acmicpc.net/category/detail/2859", "./test/")

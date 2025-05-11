@@ -5,8 +5,9 @@ def is_pdf_file(url):
     try:
         # Verify headers
         h = requests.head(url, allow_redirects=True, timeout=5)
-        if 'pdf' not in h.headers.get('content-type', '').lower():
-            return False
+        print(h.headers.get('content-type', '').lower())
+        if 'pdf' in h.headers.get('content-type', '').lower():
+            return True
         
         r = requests.get(url, stream=True, timeout=10)
         return r.content.startswith(b'%PDF-')
