@@ -141,6 +141,8 @@ class ContestCrawler:
         if self.OJUZ_URL is not None:
             self.ojuz()
             print_sep()
+        
+        self.rewrite_olympiad_problem_id()
 
         self.handler.save()
         print()
@@ -151,6 +153,11 @@ class ContestCrawler:
         print(f"Contest data saved to {self.FILE_PATH}contest.json")
         print_wall()
         print('\n'*5)
+
+    # =========================================================================
+    
+    def rewrite_olympiad_problem_id(self):
+        
 
     # =========================================================================
 
