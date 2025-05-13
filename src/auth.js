@@ -27,6 +27,7 @@ let authContainer, emailInput, passwordInput, authForm, authTitle,
     authSubmitBtn, authToggleBtn, authStatus, userInfo, googleAuthBtn;
 
 export function createAuthPage() {
+    console.log('Creating auth page');
     const mainContent = document.getElementById('main-content');
     mainContent.innerHTML = `
         <div class="auth-container">
@@ -150,10 +151,15 @@ async function signUpWithEmail(email, password) {
     }
 }
 
-function logout() {
-    auth.signOut();
-    authState.user = null;
-    createAuthPage();
+async function logout() {
+    try {
+        await auth.signOut();
+        _state.clearUserData();
+        authState.user = null;
+        createAuthPage();
+    } catch (error) {
+        console.error('Error during logout:', error);
+    }
 }
 
 function showAuthStatus(message, type) {
