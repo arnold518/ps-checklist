@@ -80,14 +80,8 @@ for contest in contestList:
     if not all(contest.get(key) is not None for key in essential): continue
 
     contest["id"]=" > ".join(map(str, contest.get("category"))) + " > " + contest.get("year") + " > " + str(datetime.now())
-    
-    contestListRaw.append(contest.copy())
-
-    nullkey = [k for k, v in contest.items() if v is None]
-    for k in nullkey:
-        del contest[k]
-    
-    if contestCrawler.open(contest):
+        
+    if contestCrawler.open(contest.copy()):
         contestCrawler.process()
 
 contestCrawler.close()
@@ -95,6 +89,3 @@ contestCrawler.close()
 with open('../problemlists/contestlist.json', 'w', encoding='utf-8') as f:
     jsonstr = list(json.dumps(contestList, indent=4, ensure_ascii=False))
     f.write(parseJsonStr(jsonstr))
-with open('../problemlists/contestlist_history.log', 'a', encoding='utf-8') as f:
-    jsonstr = list(json.dumps(contestListRaw, indent=4, ensure_ascii=False))
-    f.write(parseJsonStr(jsonstr) + "\n" + str(datetime.now()) + "\n")
