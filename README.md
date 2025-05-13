@@ -1,6 +1,6 @@
 # ps-checklist
 
-## Setting up venv for fetContest.py
+## Setting up venv for fetchContest.py
 
 Must set up environment in Windows.
 
