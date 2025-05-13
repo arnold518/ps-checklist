@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2018 > 2025-04-21 21:36:25.523767",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2018 > 2025-05-14 00:35:13.930016",
     "category": [
         "ICPC",
         "Regionals",
@@ -17,7 +17,7 @@
         "BOJ": "https://www.acmicpc.net/category/detail/1942",
         "CF": "https://codeforces.com/gym/101987"
     },
-    "name": "2018-2019 ACM-ICPC, Asia Seoul Regional Contest",
+    "name": "Asia Regional - Seoul 2018",
     "problems": [
         {
             "id": "A",

@@ -54,8 +54,41 @@ sys.stdout = Tee(sys.stdout, log_file)
 
 # ==========================================================================
 
+def format_contesttree(data, indent=0):
+    if isinstance(data, str):
+        return '"' + data + '"\n'
+    ret = '[' + format_contesttree(data[0], indent + 1)
+    for i in range(1, len(data)):
+        ret += ' ' * (indent * 4 + 4) + ',' + format_contesttree(data[i], indent + 1)
+    ret += ' ' * (indent * 4) + ']\n'
+    return ret
+
+def update_contesttree(contest):
+    contesttree = contestTrees[contest.split(" > ")[0]]
+    contest_arr = contest.split(" > ")[1:-2]
+
+    for name in contest_arr:
+        for contesttree2 in contesttree[1:]:
+            if contesttree2[0] == name:
+                contesttree = contesttree2
+                break
+    
+    flag = False
+    for i, entry in enumerate(contesttree[1:]):
+        if isinstance(entry, str) and entry.split(" > ")[:-1] == contest.split(" > ")[:-1]:
+            contesttree[i + 1] = contest
+            flag = True
+            break
+    if not flag:
+        contesttree.append(contest)
+    contesttree[1:] = sorted(contesttree[1:], key=lambda x: x, reverse=True)
+
+# ==========================================================================
+
+categoryList = ["ICPC", "Olympiad"]
+contestTrees = {}
+
 contestList = None
-contestListRaw = []
 
 with open('../problemlists/contestlist.json', 'r', encoding='utf-8') as f:
     contestList = json.load(f)
@@ -63,6 +96,11 @@ with open('../problemlists/contestlist.json', 'r', encoding='utf-8') as f:
 if not isinstance(contestList, list):
     print("Failed to load problemlists/contestlist.json")
     exit(0)
+
+for category in categoryList:
+    with open(f'../problemlists/{category.lower()}/contesttree.json', 'r', encoding='utf-8') as f:
+        contestTrees[category] = json.load(f)
+
 
 contestCrawler = ContestCrawler()
 
@@ -79,22 +117,18 @@ for contest in contestList:
     essential = ["category", "year", "filepath"]
     if not all(contest.get(key) is not None for key in essential): continue
 
+    category = contest.get("category")[0]
     contest["id"]=" > ".join(map(str, contest.get("category"))) + " > " + contest.get("year") + " > " + str(datetime.now())
-    
-    contestListRaw.append(contest.copy())
-
-    nullkey = [k for k, v in contest.items() if v is None]
-    for k in nullkey:
-        del contest[k]
-    
-    if contestCrawler.open(contest):
+        
+    if contestCrawler.open(contest.copy()):
         contestCrawler.process()
+        update_contesttree(contest["id"])
+
+        with open('../problemlists/contestlist.json', 'w', encoding='utf-8') as f:
+            jsonstr = list(json.dumps(contestList, indent=4, ensure_ascii=False))
+            f.write(parseJsonStr(jsonstr))
+        
+        with open(f'../problemlists/{category.lower()}/contesttree.json', 'w', encoding='utf-8') as f:
+            f.write(format_contesttree(contestTrees[category]))
 
 contestCrawler.close()
-
-with open('../problemlists/contestlist.json', 'w', encoding='utf-8') as f:
-    jsonstr = list(json.dumps(contestList, indent=4, ensure_ascii=False))
-    f.write(parseJsonStr(jsonstr))
-with open('../problemlists/contestlist_history.log', 'a', encoding='utf-8') as f:
-    jsonstr = list(json.dumps(contestListRaw, indent=4, ensure_ascii=False))
-    f.write(parseJsonStr(jsonstr) + "\n" + str(datetime.now()) + "\n")

@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2021 > 2025-04-15 20:06:19.367286",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2021 > 2025-05-14 00:34:37.728768",
     "category": [
         "ICPC",
         "Regionals",
@@ -11,7 +11,7 @@
     "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/",
     "link": {
         "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/statements.pdf",
-        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/korea/2021/editorials.pdf",
+        "editorials": "https://qoj.ac/download.php?type=attachments&id=792&r=2",
         "official": "https://icpckorea.org/2021-seoul/regional",
         "standing": "http://static.icpckorea.net/2021/scoreboard_regional/",
         "BOJ": "https://www.acmicpc.net/category/detail/2859",

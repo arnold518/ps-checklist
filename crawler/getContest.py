@@ -157,7 +157,7 @@ class ContestCrawler:
     # =========================================================================
     
     def rewrite_olympiad_problem_id(self):
-        
+        pass
 
     # =========================================================================
 
@@ -270,7 +270,7 @@ class ContestCrawler:
 
     # =========================================================================
 
-contestCrawler = ContestCrawler()
+# contestCrawler = ContestCrawler()
 
 # contest = {
 #     "id": "",
@@ -284,21 +284,21 @@ contestCrawler = ContestCrawler()
 #     "ojuz_url": "https://oj.uz/problems/source/joisc2020?locale=en"
 # }
 
-contest = {
-    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2020 > 2025-04-22 00:52:46.887631",
-    "category": [ "ICPC", "Regionals", "Europe", "Regionals", "Northwestern European Regional Contest (NWERC)" ],
-    "year": "2020",
-    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2020/",
-    "official_url": "https://2020.nwerc.eu/",
-    "standing_url": "https://2020.nwerc.eu/standings/",
-    "boj_url": "https://www.acmicpc.net/category/detail/2488",
-    "cf_url": "https://codeforces.com/gym/103049",
-    "qoj_url": "https://qoj.ac/contest/561",
-    "statements_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/statements.pdf",
-    "editorials_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/editorials.pdf"
-}
+# contest = {
+#     "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2020 > 2025-04-22 00:52:46.887631",
+#     "category": [ "ICPC", "Regionals", "Europe", "Regionals", "Northwestern European Regional Contest (NWERC)" ],
+#     "year": "2020",
+#     "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2020/",
+#     "official_url": "https://2020.nwerc.eu/",
+#     "standing_url": "https://2020.nwerc.eu/standings/",
+#     "boj_url": "https://www.acmicpc.net/category/detail/2488",
+#     "cf_url": "https://codeforces.com/gym/103049",
+#     "qoj_url": "https://qoj.ac/contest/561",
+#     "statements_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/statements.pdf",
+#     "editorials_url": "./problemlists/icpc/regionals/europe/regionals/nwerc/2020/editorials.pdf"
+# }
 
-if contestCrawler.open(contest):
-    contestCrawler.process()
+# if contestCrawler.open(contest):
+#     contestCrawler.process()
 
-contestCrawler.close()
+# contestCrawler.close()

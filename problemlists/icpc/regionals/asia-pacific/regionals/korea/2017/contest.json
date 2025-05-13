@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2017 > 2025-04-21 21:36:42.990869",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2017 > 2025-05-14 00:35:30.007472",
     "category": [
         "ICPC",
         "Regionals",
@@ -16,7 +16,7 @@
         "BOJ": "https://www.acmicpc.net/category/detail/1778",
         "CF": "https://codeforces.com/gym/101667"
     },
-    "name": "2017-2018 ACM-ICPC, Asia Daejeon Regional Contest",
+    "name": "Asia Regional - Daejeon 2017",
     "problems": [
         {
             "id": "A",
