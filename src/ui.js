@@ -199,6 +199,13 @@ export async function loadCategory(category) {
         _state.userContestTree[category].expandedNodes = new Set();
         _state.userContestTree[category].visibleContests = new Set();
     }
+
+    let category_name = '';
+    NAV_ITEMS.forEach(item => {
+        if (item.id === category) {
+            category_name = item.name;
+        }
+    });
     
     _state.state.currentCategory = category;
     _state.state.expandedNodes = _state.userContestTree[category].expandedNodes || new Set();
@@ -209,7 +216,7 @@ export async function loadCategory(category) {
 
     mainContent.innerHTML = `
         <div class="content-header">
-            <h1>${category.toUpperCase()} Contests</h1>
+            <h1>${category_name} Contests</h1>
         </div>
         <div id="contest-container" class="contest-container"></div>
     `;
@@ -217,7 +224,7 @@ export async function loadCategory(category) {
     const sidebar = document.getElementById('sidebar');
     sidebar.innerHTML = `
         <div class="sidebar-header">
-            <h3>${category.toUpperCase()} Contests</h3>
+            <h3>${category_name} Contests</h3>
         </div>
         <div id="tree-container" class="tree-container"></div>
         <div class="status-bar">
