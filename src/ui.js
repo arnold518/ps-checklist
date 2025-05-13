@@ -234,7 +234,7 @@ export async function loadCategory(category) {
         setupResizableSidebar();
     }, 0);
 
-    await fetchCateogryContestTreeData(category);
+    await fetchCategoryContestTreeData(category);
 }
 
 export async function fetchContestListData() {
@@ -277,7 +277,7 @@ export async function fetchContestListData() {
     }
 }
 
-async function fetchCateogryContestTreeData(category) {
+async function fetchCategoryContestTreeData(category) {
     try {
         const response = await fetch(`./problemlists/${category}/contesttree.json`);
         const data = await response.json();
