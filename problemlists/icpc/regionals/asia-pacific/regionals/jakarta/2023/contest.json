@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2023 > 2025-04-21 23:43:14.362665",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2023 > 2025-05-14 00:39:13.150502",
     "category": [
         "ICPC",
         "Regionals",
@@ -10,7 +10,7 @@
     "year": "2023",
     "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2023/",
     "link": {
-        "statements": "https://codeforces.com/contest/1906/attachments/download/25627/pset.pdf",
+        "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2023/statements.pdf",
         "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2023/editorials.pdf",
         "official": "https://competition.binus.ac.id/icpc2023/",
         "standing": "https://competition.binus.ac.id/icpc2023/final.html",
@@ -113,6 +113,7 @@
         }
     ],
     "crawled_data": {
+        "cf-pset.pdf": "https://codeforces.com/contest/1906/attachments/download/25627/pset.pdf",
         "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1991&r=0",
         "qoj-Tutorials-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1991&r=1"
     }

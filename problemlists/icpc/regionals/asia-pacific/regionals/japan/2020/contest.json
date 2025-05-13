@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2020 > 2025-04-21 22:27:58.453368",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2020 > 2025-05-14 00:37:32.881655",
     "category": [
         "ICPC",
         "Regionals",
@@ -11,7 +11,7 @@
     "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/",
     "link": {
         "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/statements.pdf",
-        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2020/editorials.pptx",
+        "editorials": "https://icpc.iisf.or.jp/past-icpc/regional2020/commentaries-2020.pptx",
         "official": "https://icpc.iisf.or.jp/2020-yokohama/regional/",
         "standing": "https://icpc.iisf.or.jp/2020-yokohama/icpc-2020-yokohama-regional-standings/",
         "BOJ": "https://www.acmicpc.net/category/detail/2567",

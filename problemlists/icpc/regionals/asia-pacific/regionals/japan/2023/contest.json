@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2023 > 2025-04-21 21:37:16.629077",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Japan > 2023 > 2025-05-14 00:36:28.189984",
     "category": [
         "ICPC",
         "Regionals",
@@ -13,7 +13,7 @@
         "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/statements.pdf",
         "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/japan/2023/editorials.pdf",
         "official": "https://icpc.iisf.or.jp/2023-yokohama/regional/",
-        "standing": "https://codeforces.com/gym/104832/standings",
+        "standing": "https://codeforces.com/gym/104832",
         "BOJ": "https://www.acmicpc.net/category/detail/4070",
         "CF": "https://codeforces.com/gym/104832",
         "QOJ": "https://qoj.ac/contest/1447"

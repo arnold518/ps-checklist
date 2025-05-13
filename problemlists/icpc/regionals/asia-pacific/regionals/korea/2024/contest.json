@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2024 > 2025-04-21 18:56:41.527427",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Korea > 2024 > 2025-05-14 00:34:11.676153",
     "category": [
         "ICPC",
         "Regionals",
@@ -94,6 +94,7 @@
     ],
     "crawled_data": {
         "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=1989&r=0",
-        "qoj-Tutorials-(ko).pdf": "https://qoj.ac/download.php?type=attachments&id=1989&r=1"
+        "qoj-Tutorials-(ko).pdf": "https://qoj.ac/download.php?type=attachments&id=1989&r=1",
+        "qoj-Statements-(en;-PTZ).pdf": "https://qoj.ac/download.php?type=attachments&id=1989&r=2"
     }
 }

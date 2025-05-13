@@ -1,23 +1,28 @@
 # ps-checklist
 
+## Setting up venv for fetContest.py
+
+Must set up environment in Windows.
+
+```
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+
+cd crawler && python fetchContest.py
+```
+
 ## Adding new contest data
 
-- ICPC
-    - [Google form link](https://docs.google.com/forms/d/1L0unHXDweAP_FRDslBt7Lk0XfOaB3ilCY4XCpBILSUY/edit)
-    - [Google form link (short)](https://forms.gle/5ac8SbgHhPsKxc8v5)
-    - [Google form apps script link](https://script.google.com/home/projects/1usNeZ7eg12sNiNZzx99hO4er6qxYIO3z2G86HsLfQDfJAa7lu_-OfJf3/edit)
-    - [Google form response spreadsheet link](https://docs.google.com/spreadsheets/d/1peQ86F_bLdb1XUnBD-CntcW9_oq2HR2Og1beCNvbQvE/edit?resourcekey&usp=forms_web_b&urp=linked#gid=1471396257)
-    - [Google form response spreadsheet apps script link](https://script.google.com/u/0/home/projects/1zB3gag0A21kVYIVm-KqqCwQr4-hJiuVtNRCct5h1rYdMT30s3ML6PiwZ/edit)
-- Olympiad
+- [Raw contest data spreadsheet link](https://docs.google.com/spreadsheets/d/12M6sfXrC7eOhgHuu3Kk0ZpbAfHQ2h8ZUEr60nTVifiM/edit?gid=0#gid=0)
 - [Full contestlist spreadsheet link](https://docs.google.com/spreadsheets/d/1Ld3PMgmA2tEgRFT0fp0Yt9uhpOKUldWKtaIOkp0eG3Q/edit?gid=0#gid=0)
-- [Full contestlist spreadsheet apps script link](https://script.google.com/u/0/home/projects/1k15fpKUNV46tRCAkXiFkRAuPZ7UucYxn9j1FkPdlV5WaO0BLppHJaMdC/edit)
 
 Data from google form is updated in [`problemlists/contestlist.json`](problemlists/contestlist.json), in branch `data`.
 New data can be identified with `null` id.
 
-1. Merge branch `data` to active deployed branch.
-2. Run `cd crawler && python fetchContest.py` to get data for each contests with `null` id in [`problemlists/contestlist.json`](problemlists/contestlist.json).
-3. The crawler will publish an `id` for each contest, insert it to `problemlists/categoryname/contesttree.json`.
+1. Run `cd crawler && python fetchContest.py` to get data for each contests with `null` id in [`problemlists/contestlist.json`](problemlists/contestlist.json).
+2. The crawler will publish an `id` for each contest, and also it will insert it to `problemlists/categoryname/contesttree.json`.
+3. Merge branch `data` to active deployed branch.
 4. Push to origin to deploy.
 
 ## Contest Tree Rules

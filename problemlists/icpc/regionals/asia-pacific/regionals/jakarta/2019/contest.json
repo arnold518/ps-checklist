@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2019 > 2025-04-21 23:44:22.773107",
+    "id": "ICPC > Regionals > Asia Pacific > Regionals > Indonesia (Jakarta) > 2019 > 2025-05-14 00:39:59.916614",
     "category": [
         "ICPC",
         "Regionals",
@@ -11,13 +11,13 @@
     "filepath": "problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2019/",
     "link": {
         "statements": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2019/statements.pdf",
-        "editorials": "https://raw.githubusercontent.com/jonathanirvings/icpc-jakarta-2019/master/problem_analysis.pdf",
+        "editorials": "./problemlists/icpc/regionals/asia-pacific/regionals/jakarta/2019/editorials.pdf",
         "official": "https://competition.binus.ac.id/icpc2019/",
         "standing": "https://competition.binus.ac.id/icpc2019/final.html",
         "BOJ": "https://www.acmicpc.net/category/detail/2235",
         "CF": "https://codeforces.com/contest/1252"
     },
-    "name": "2019-2020 ICPC, Asia Jakarta Regional Contest",
+    "name": "The 2019 ICPC Asia Jakarta Regional Contest",
     "problems": [
         {
             "id": "A",

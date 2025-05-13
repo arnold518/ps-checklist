@@ -55,33 +55,40 @@ sys.stdout = Tee(sys.stdout, log_file)
 # ==========================================================================
 
 def format_contesttree(data, indent=0):
-    lines = []
-    prefix = " " * indent
-    if isinstance(data, list):
-        lines.append(prefix + "[")
-        for i, item in enumerate(data):
-            comma = "," if i != 0 else ""
-            if isinstance(item, list):
-                lines.append(prefix + comma + format_custom_json(item, indent + 4).lstrip())
-            else:
-                lines.append(f'{prefix}{comma}"{item}"')
-        lines.append(prefix + "]")
-    else:
-        raise TypeError("Input must be a nested list.")
-    return "\n".join(lines)
+    if isinstance(data, str):
+        return '"' + data + '"\n'
+    ret = '[' + format_contesttree(data[0], indent + 1)
+    for i in range(1, len(data)):
+        ret += ' ' * (indent * 4 + 4) + ',' + format_contesttree(data[i], indent + 1)
+    ret += ' ' * (indent * 4) + ']\n'
+    return ret
 
-def update_contesttree(contesttree, contest):
-    contest_arr = contest.split(" > ")
+def update_contesttree(contest):
+    contesttree = contestTrees[contest.split(" > ")[0]]
+    contest_arr = contest.split(" > ")[1:-2]
 
-    for name in 
+    for name in contest_arr:
+        for contesttree2 in contesttree[1:]:
+            if contesttree2[0] == name:
+                contesttree = contesttree2
+                break
+    
+    flag = False
+    for i, entry in enumerate(contesttree[1:]):
+        if isinstance(entry, str) and entry.split(" > ")[:-1] == contest.split(" > ")[:-1]:
+            contesttree[i + 1] = contest
+            flag = True
+            break
+    if not flag:
+        contesttree.append(contest)
+    contesttree[1:] = sorted(contesttree[1:], key=lambda x: x, reverse=True)
 
 # ==========================================================================
 
-categoryList = ["icpc", "olympiad"]
+categoryList = ["ICPC", "Olympiad"]
 contestTrees = {}
 
 contestList = None
-contestListRaw = []
 
 with open('../problemlists/contestlist.json', 'r', encoding='utf-8') as f:
     contestList = json.load(f)
@@ -91,7 +98,7 @@ if not isinstance(contestList, list):
     exit(0)
 
 for category in categoryList:
-    with open(f'../problemlists/{category}/contesttree.json', 'r', encoding='utf-8') as f:
+    with open(f'../problemlists/{category.lower()}/contesttree.json', 'r', encoding='utf-8') as f:
         contestTrees[category] = json.load(f)
 
 
@@ -110,13 +117,18 @@ for contest in contestList:
     essential = ["category", "year", "filepath"]
     if not all(contest.get(key) is not None for key in essential): continue
 
+    category = contest.get("category")[0]
     contest["id"]=" > ".join(map(str, contest.get("category"))) + " > " + contest.get("year") + " > " + str(datetime.now())
         
     if contestCrawler.open(contest.copy()):
         contestCrawler.process()
+        update_contesttree(contest["id"])
+
+        with open('../problemlists/contestlist.json', 'w', encoding='utf-8') as f:
+            jsonstr = list(json.dumps(contestList, indent=4, ensure_ascii=False))
+            f.write(parseJsonStr(jsonstr))
+        
+        with open(f'../problemlists/{category.lower()}/contesttree.json', 'w', encoding='utf-8') as f:
+            f.write(format_contesttree(contestTrees[category]))
 
 contestCrawler.close()
-
-with open('../problemlists/contestlist.json', 'w', encoding='utf-8') as f:
-    jsonstr = list(json.dumps(contestList, indent=4, ensure_ascii=False))
-    f.write(parseJsonStr(jsonstr))

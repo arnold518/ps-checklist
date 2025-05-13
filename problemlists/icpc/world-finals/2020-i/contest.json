@@ -1,5 +1,5 @@
 {
-    "id": "ICPC > World Finals > 2020-I > 2025-04-21 17:57:31.586437",
+    "id": "ICPC > World Finals > 2020-I > 2025-05-14 00:28:52.072695",
     "category": [
         "ICPC",
         "World Finals"
@@ -11,7 +11,7 @@
         "editorials": "./problemlists/icpc/world-finals/2020-i/editorials.pdf",
         "CF": "https://codeforces.com/contest/1578"
     },
-    "name": "ICPC WF Moscow Invitational Contest",
+    "name": "ICPC WF Moscow Invitational Contest - Online Mirror (Unrated, ICPC Rules, Teams Preferred)",
     "crawled_data": {
         "cf-ICPC-World-Finals-Moscow-Invitational-Problems.pdf": "https://assets.codeforces.com/rounds/1578/ICPC-World-Finals-Moscow-Invitational-Problems.pdf"
     },
