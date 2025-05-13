@@ -54,6 +54,32 @@ sys.stdout = Tee(sys.stdout, log_file)
 
 # ==========================================================================
 
+def format_contesttree(data, indent=0):
+    lines = []
+    prefix = " " * indent
+    if isinstance(data, list):
+        lines.append(prefix + "[")
+        for i, item in enumerate(data):
+            comma = "," if i != 0 else ""
+            if isinstance(item, list):
+                lines.append(prefix + comma + format_custom_json(item, indent + 4).lstrip())
+            else:
+                lines.append(f'{prefix}{comma}"{item}"')
+        lines.append(prefix + "]")
+    else:
+        raise TypeError("Input must be a nested list.")
+    return "\n".join(lines)
+
+def update_contesttree(contesttree, contest):
+    contest_arr = contest.split(" > ")
+
+    for name in 
+
+# ==========================================================================
+
+categoryList = ["icpc", "olympiad"]
+contestTrees = {}
+
 contestList = None
 contestListRaw = []
 
@@ -63,6 +89,11 @@ with open('../problemlists/contestlist.json', 'r', encoding='utf-8') as f:
 if not isinstance(contestList, list):
     print("Failed to load problemlists/contestlist.json")
     exit(0)
+
+for category in categoryList:
+    with open(f'../problemlists/{category}/contesttree.json', 'r', encoding='utf-8') as f:
+        contestTrees[category] = json.load(f)
+
 
 contestCrawler = ContestCrawler()
 
