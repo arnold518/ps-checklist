@@ -21,9 +21,36 @@ export const state = {
     problemStats: new Map()
 };
 
+function getUpdatedContestId(contestId) {
+    for (const key of Object.keys(contestDatabase)) {
+        let lcpIndex = 0;
+        for (let i = 0; i < Math.min(key.length, contestId.length); i++) {
+            if (key[i] === contestId[i]) {
+                lcpIndex = i + 1;
+            } else {
+                break;
+            }
+        }
+        const keySuffix = key.slice(lcpIndex);
+        const contestIdSuffix = contestId.slice(lcpIndex);
+
+        if (!keySuffix.includes('>') && !contestIdSuffix.includes('>')) {
+            return key;
+        }
+    }
+    return contestId;
+}
+
 export async function fetchUserProblemData() {
     userProblemData = await _auth.loadData('userProblemData') || {};
     console.log('User problem data loaded:', userProblemData);
+    const updatedData = {};
+    Object.entries(userProblemData).forEach(([key, value]) => {
+        const parts = key.split(' >> ');
+        const updatedKey = parts.length > 1 ? getUpdatedContestId(parts[0]) + ' >> ' + parts.slice(1).join(' >> ') : getUpdatedContestId(key);
+        updatedData[updatedKey] = value;
+    });
+    userProblemData = updatedData;
 }
 
 export async function fetchUserContestTree() {
@@ -34,10 +61,16 @@ export async function fetchUserContestTree() {
         if (!(categoryData.expandedNodes instanceof Array)) categoryData.expandedNodes = [];
         if (categoryData.visibleContests === undefined) categoryData.visibleContests = [];
         if (!(categoryData.visibleContests instanceof Array)) categoryData.visibleContests = [];
+
+        let visibleContest2 = new Set();
+        categoryData.visibleContests.forEach(visibleContest => {
+            visibleContest2.add(getUpdatedContestId(visibleContest));
+        });
+        console.log('Visible contests:', visibleContest2);
         
         userContestTree[categoryName] = {
             expandedNodes: new Set(categoryData.expandedNodes),
-            visibleContests: new Set(categoryData.visibleContests)
+            visibleContests: visibleContest2
         };
     });
     console.log('User contest tree loaded:', userContestTree);
