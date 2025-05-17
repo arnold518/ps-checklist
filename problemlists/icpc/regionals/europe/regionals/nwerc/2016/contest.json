@@ -1,0 +1,107 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2016 > 2025-05-18 02:33:59.289707",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2016",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2016/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2016/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2016/editorials.pdf",
+        "official": "http://staff.bath.ac.uk/masjhd/2016.NWERC/",
+        "standing": "https://people.bath.ac.uk/masjhd/2016.NWERC/nwerc2016-scoreboard/",
+        "BOJ": "https://www.acmicpc.net/category/detail/1578",
+        "CF": "https://codeforces.com/gym/101170",
+        "QOJ": "https://qoj.ac/contest/461"
+    },
+    "name": "2016-2017 ICPC Northwestern Europe Regional Contest (NWERC 2016)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Arranging Hat",
+            "BOJ": "https://www.acmicpc.net/problem/13928",
+            "CF": "https://codeforces.com/gym/101170/problem/A",
+            "QOJ": "https://qoj.ac/contest/461/problem/2682"
+        },
+        {
+            "id": "B",
+            "title": "British Menu",
+            "BOJ": "https://www.acmicpc.net/problem/13929",
+            "CF": "https://codeforces.com/gym/101170/problem/B",
+            "QOJ": "https://qoj.ac/contest/461/problem/2683"
+        },
+        {
+            "id": "C",
+            "title": "Careful Ascent",
+            "BOJ": "https://www.acmicpc.net/problem/13930",
+            "CF": "https://codeforces.com/gym/101170/problem/C",
+            "QOJ": "https://qoj.ac/contest/461/problem/2684"
+        },
+        {
+            "id": "D",
+            "title": "Driving in Optimistan",
+            "BOJ": "https://www.acmicpc.net/problem/13931",
+            "CF": "https://codeforces.com/gym/101170/problem/D",
+            "QOJ": "https://qoj.ac/contest/461/problem/2685"
+        },
+        {
+            "id": "E",
+            "title": "Exam Redistribution",
+            "BOJ": "https://www.acmicpc.net/problem/13932",
+            "CF": "https://codeforces.com/gym/101170/problem/E",
+            "QOJ": "https://qoj.ac/contest/461/problem/2686"
+        },
+        {
+            "id": "F",
+            "title": "Free Weights",
+            "BOJ": "https://www.acmicpc.net/problem/13933",
+            "CF": "https://codeforces.com/gym/101170/problem/F",
+            "QOJ": "https://qoj.ac/contest/461/problem/2687"
+        },
+        {
+            "id": "G",
+            "title": "Gotta Nudge 'Em All",
+            "BOJ": "https://www.acmicpc.net/problem/13934",
+            "CF": "https://codeforces.com/gym/101170/problem/G",
+            "QOJ": "https://qoj.ac/contest/461/problem/2688"
+        },
+        {
+            "id": "H",
+            "title": "Hamiltonian Hypercube",
+            "BOJ": "https://www.acmicpc.net/problem/13935",
+            "CF": "https://codeforces.com/gym/101170/problem/H",
+            "QOJ": "https://qoj.ac/contest/461/problem/2689"
+        },
+        {
+            "id": "I",
+            "title": "Iron and Coal",
+            "BOJ": "https://www.acmicpc.net/problem/13936",
+            "CF": "https://codeforces.com/gym/101170/problem/I",
+            "QOJ": "https://qoj.ac/contest/461/problem/2690"
+        },
+        {
+            "id": "J",
+            "title": "Jupiter Orbiter",
+            "BOJ": "https://www.acmicpc.net/problem/13937",
+            "CF": "https://codeforces.com/gym/101170/problem/J",
+            "QOJ": "https://qoj.ac/contest/461/problem/2691"
+        },
+        {
+            "id": "K",
+            "title": "Kiwi Trees",
+            "BOJ": "https://www.acmicpc.net/problem/13938",
+            "CF": "https://codeforces.com/gym/101170/problem/K",
+            "QOJ": "https://qoj.ac/contest/461/problem/2692"
+        }
+    ],
+    "crawled_data": {
+        "cf-20162017-acmicpc-northwestern-european-regional-programming-contest-nwerc-2016-en.pdf": "https://codeforces.com/gym/101170/attachments/download/4869/20162017-acmicpc-northwestern-european-regional-programming-contest-nwerc-2016-en.pdf",
+        "cf-nwerc2016slides.pdf": "http://staff.bath.ac.uk/masjhd/2016.NWERC/nwerc2016slides.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=461&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=461&r=1"
+    }
+}

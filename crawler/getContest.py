@@ -70,11 +70,11 @@ class ContestCrawler:
         self.EDITORIALS_URL = data.get("editorials_url")
 
         if self.STATEMENTS_URL is not None:
-            if PDFCrawler(self.STATEMENTS_URL, 'statements.pdf', self.FILE_PATH) :
+            if PDFCrawler(self.STATEMENTS_URL, 'statements.pdf', self.FILE_PATH, self.qojCrawler) :
                 self.STATEMENTS_URL = self.RAW_URL_PREFIX + data.get("filepath") + 'statements.pdf'
                 data["statements_url"] = self.STATEMENTS_URL
         if self.EDITORIALS_URL is not None:
-            if PDFCrawler(self.EDITORIALS_URL, 'editorials.pdf', self.FILE_PATH) :
+            if PDFCrawler(self.EDITORIALS_URL, 'editorials.pdf', self.FILE_PATH, self.qojCrawler) :
                 self.EDITORIALS_URL = self.RAW_URL_PREFIX + data.get("filepath") + 'editorials.pdf'        
                 data["editorials_url"] = self.EDITORIALS_URL
 

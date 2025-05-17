@@ -138,6 +138,35 @@ class QOJCrawler:
                 contests.append(link)
         print(contests)
         return contests
+    
+    def crawl_pdf_link(self, pdf_url, pdf_name, filepath):
+        try:
+            response = self.scraper.get(pdf_url, stream=True)
+            response.raise_for_status()  # Raise HTTPError for bad responses
+
+            # Verify content type is PDF
+            content_type = response.headers.get('Content-Type', '').lower()
+            if 'pdf' not in content_type:
+                print(f"Error: Expected PDF but got {content_type}")
+                return False
+
+            # Use the same scraper session for PDF downloads
+            response = self.scraper.get(pdf_url, stream=True)
+            response.raise_for_status()
+            
+            path = Path(filepath) / pdf_name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            
+            with open(path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    f.write(chunk)
+            
+            print(f"Downloaded: {pdf_name}")
+            return True
+            
+        except Exception as e:
+            print(f"Failed to download {pdf_url}: {e}")
+            return False
 
     def parse_qoj_pdf_links(self, filepath, soup):
         pdf_set = {}
@@ -153,37 +182,13 @@ class QOJCrawler:
                 pdf_url = f"https://qoj.ac{pdf_url}"
             
             print(f"Found link: [{display_text}]({pdf_url})")
+                
+            pdf_name = f"qoj-{display_text.replace(' ', '-')}"
+            if not pdf_name.endswith('.pdf'):
+                pdf_name += '.pdf'
             
-            try:
-                response = self.scraper.get(pdf_url, stream=True)
-                response.raise_for_status()  # Raise HTTPError for bad responses
-
-                # Verify content type is PDF
-                content_type = response.headers.get('Content-Type', '').lower()
-                if 'pdf' not in content_type:
-                    print(f"Error: Expected PDF but got {content_type}")
-                    continue
-
-                # Use the same scraper session for PDF downloads
-                response = self.scraper.get(pdf_url, stream=True)
-                response.raise_for_status()
-                
-                pdf_name = f"qoj-{display_text.replace(' ', '-')}"
-                if not pdf_name.endswith('.pdf'):
-                    pdf_name += '.pdf'
-                
-                path = Path(filepath) / pdf_name
-                path.parent.mkdir(parents=True, exist_ok=True)
-                
-                with open(path, 'wb') as f:
-                    for chunk in response.iter_content(chunk_size=8192):
-                        f.write(chunk)
-                
+            if self.crawl_pdf_link(pdf_url, pdf_name, filepath):
                 pdf_set[pdf_name] = pdf_url
-                print(f"Downloaded: {pdf_name}")
-                
-            except Exception as e:
-                print(f"Failed to download {pdf_url}: {e}")
         
         return pdf_set
 

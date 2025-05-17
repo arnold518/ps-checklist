@@ -1,0 +1,105 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2018 > 2025-05-18 02:33:14.177839",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2018",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2018/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2018/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2018/editorials.pdf",
+        "standing": "https://codeforces.com/gym/102483/standings",
+        "BOJ": "https://www.acmicpc.net/category/detail/1967",
+        "CF": "https://codeforces.com/gym/102483",
+        "QOJ": "https://qoj.ac/contest/520"
+    },
+    "name": "2018-2019 ICPC Northwestern Europe Regional Contest (NWERC 2018)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Access Points",
+            "BOJ": "https://www.acmicpc.net/problem/16601",
+            "CF": "https://codeforces.com/gym/102483/problem/A",
+            "QOJ": "https://qoj.ac/contest/520/problem/1290"
+        },
+        {
+            "id": "B",
+            "title": "Brexit Negotiations",
+            "BOJ": "https://www.acmicpc.net/problem/16602",
+            "CF": "https://codeforces.com/gym/102483/problem/B",
+            "QOJ": "https://qoj.ac/contest/520/problem/1291"
+        },
+        {
+            "id": "C",
+            "title": "Circuit Board Design",
+            "BOJ": "https://www.acmicpc.net/problem/16603",
+            "CF": "https://codeforces.com/gym/102483/problem/C",
+            "QOJ": "https://qoj.ac/contest/520/problem/1292"
+        },
+        {
+            "id": "D",
+            "title": "Date Pickup",
+            "BOJ": "https://www.acmicpc.net/problem/16604",
+            "CF": "https://codeforces.com/gym/102483/problem/D",
+            "QOJ": "https://qoj.ac/contest/520/problem/1293"
+        },
+        {
+            "id": "E",
+            "title": "Equality Control",
+            "BOJ": "https://www.acmicpc.net/problem/16605",
+            "CF": "https://codeforces.com/gym/102483/problem/E",
+            "QOJ": "https://qoj.ac/contest/520/problem/1294"
+        },
+        {
+            "id": "F",
+            "title": "Fastest Speedrun",
+            "BOJ": "https://www.acmicpc.net/problem/16606",
+            "CF": "https://codeforces.com/gym/102483/problem/F",
+            "QOJ": "https://qoj.ac/contest/520/problem/1295"
+        },
+        {
+            "id": "G",
+            "title": "Game Design",
+            "BOJ": "https://www.acmicpc.net/problem/16607",
+            "CF": "https://codeforces.com/gym/102483/problem/G",
+            "QOJ": "https://qoj.ac/contest/520/problem/1296"
+        },
+        {
+            "id": "H",
+            "title": "Hard Drive",
+            "BOJ": "https://www.acmicpc.net/problem/16608",
+            "CF": "https://codeforces.com/gym/102483/problem/H",
+            "QOJ": "https://qoj.ac/contest/520/problem/1297"
+        },
+        {
+            "id": "I",
+            "title": "Inflation",
+            "BOJ": "https://www.acmicpc.net/problem/16609",
+            "CF": "https://codeforces.com/gym/102483/problem/I",
+            "QOJ": "https://qoj.ac/contest/520/problem/1298"
+        },
+        {
+            "id": "J",
+            "title": "Jinxed Betting",
+            "BOJ": "https://www.acmicpc.net/problem/16610",
+            "CF": "https://codeforces.com/gym/102483/problem/J",
+            "QOJ": "https://qoj.ac/contest/520/problem/1299"
+        },
+        {
+            "id": "K",
+            "title": "Kleptography",
+            "BOJ": "https://www.acmicpc.net/problem/16611",
+            "CF": "https://codeforces.com/gym/102483/problem/K",
+            "QOJ": "https://qoj.ac/contest/520/problem/1300"
+        }
+    ],
+    "crawled_data": {
+        "cf-statements.pdf": "https://codeforces.com/gym/102483/attachments/download/10317/statements.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=520&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=520&r=1"
+    }
+}
