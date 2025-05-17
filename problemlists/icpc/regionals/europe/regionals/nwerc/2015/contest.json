@@ -1,0 +1,107 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2015 > 2025-05-18 02:34:29.924582",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2015",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2015/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2015/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2015/editorials.pdf",
+        "official": "http://2015.nwerc.eu/",
+        "standing": "http://2015.nwerc.eu/scoreboard/",
+        "BOJ": "https://www.acmicpc.net/category/detail/1431",
+        "CF": "https://codeforces.com/gym/101485",
+        "QOJ": "https://qoj.ac/contest/460"
+    },
+    "name": "2015-2016 ICPC Northwestern Europe Regional Contest (NWERC 2015)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Assigning Workstations",
+            "BOJ": "https://www.acmicpc.net/problem/11666",
+            "CF": "https://codeforces.com/gym/101485/problem/A",
+            "QOJ": "https://qoj.ac/contest/460/problem/3104"
+        },
+        {
+            "id": "B",
+            "title": "Better Productivity",
+            "BOJ": "https://www.acmicpc.net/problem/11667",
+            "CF": "https://codeforces.com/gym/101485/problem/B",
+            "QOJ": "https://qoj.ac/contest/460/problem/3105"
+        },
+        {
+            "id": "C",
+            "title": "Cleaning Pipes",
+            "BOJ": "https://www.acmicpc.net/problem/11668",
+            "CF": "https://codeforces.com/gym/101485/problem/C",
+            "QOJ": "https://qoj.ac/contest/460/problem/3106"
+        },
+        {
+            "id": "D",
+            "title": "Debugging",
+            "BOJ": "https://www.acmicpc.net/problem/11669",
+            "CF": "https://codeforces.com/gym/101485/problem/D",
+            "QOJ": "https://qoj.ac/contest/460/problem/3107"
+        },
+        {
+            "id": "E",
+            "title": "Elementary Math",
+            "BOJ": "https://www.acmicpc.net/problem/11670",
+            "CF": "https://codeforces.com/gym/101485/problem/E",
+            "QOJ": "https://qoj.ac/contest/460/problem/3108"
+        },
+        {
+            "id": "F",
+            "title": "Flight Plan Evaluation",
+            "BOJ": "https://www.acmicpc.net/problem/11671",
+            "CF": "https://codeforces.com/gym/101485/problem/F",
+            "QOJ": "https://qoj.ac/contest/460/problem/3109"
+        },
+        {
+            "id": "G",
+            "title": "Guessing Camels",
+            "BOJ": "https://www.acmicpc.net/problem/11672",
+            "CF": "https://codeforces.com/gym/101485/problem/G",
+            "QOJ": "https://qoj.ac/contest/460/problem/3110"
+        },
+        {
+            "id": "H",
+            "title": "Hole in One",
+            "BOJ": "https://www.acmicpc.net/problem/11673",
+            "CF": "https://codeforces.com/gym/101485/problem/H",
+            "QOJ": "https://qoj.ac/contest/460/problem/3111"
+        },
+        {
+            "id": "I",
+            "title": "Identifying Map Tiles",
+            "BOJ": "https://www.acmicpc.net/problem/11674",
+            "CF": "https://codeforces.com/gym/101485/problem/I",
+            "QOJ": "https://qoj.ac/contest/460/problem/3112"
+        },
+        {
+            "id": "J",
+            "title": "Jumbled Communication",
+            "BOJ": "https://www.acmicpc.net/problem/11675",
+            "CF": "https://codeforces.com/gym/101485/problem/J",
+            "QOJ": "https://qoj.ac/contest/460/problem/3113"
+        },
+        {
+            "id": "K",
+            "title": "Kitchen Combinatorics",
+            "BOJ": "https://www.acmicpc.net/problem/11676",
+            "CF": "https://codeforces.com/gym/101485/problem/K",
+            "QOJ": "https://qoj.ac/contest/460/problem/3114"
+        }
+    ],
+    "crawled_data": {
+        "cf-20152016-northwestern-european-regional-contest-nwerc-2015-en.pdf": "https://codeforces.com/gym/101485/attachments/download/5845/20152016-northwestern-european-regional-contest-nwerc-2015-en.pdf",
+        "cf-nwerc2015slides.pdf": "http://2015.nwerc.eu/contest/nwerc2015slides.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=460&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=460&r=1"
+    }
+}

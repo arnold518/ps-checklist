@@ -1,0 +1,105 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2019 > 2025-05-18 02:32:46.058247",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2019",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2019/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2019/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2019/editorials.pdf",
+        "standing": "https://codeforces.com/gym/102500/standings",
+        "BOJ": "https://www.acmicpc.net/category/detail/2121",
+        "CF": "https://codeforces.com/gym/102500",
+        "QOJ": "https://qoj.ac/contest/521"
+    },
+    "name": "2019-2020 ICPC Northwestern Europe Regional Contest (NWERC 2019)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Average Rank",
+            "BOJ": "https://www.acmicpc.net/problem/18080",
+            "CF": "https://codeforces.com/gym/102500/problem/A",
+            "QOJ": "https://qoj.ac/contest/521/problem/2410"
+        },
+        {
+            "id": "B",
+            "title": "Balanced Cut",
+            "BOJ": "https://www.acmicpc.net/problem/18081",
+            "CF": "https://codeforces.com/gym/102500/problem/B",
+            "QOJ": "https://qoj.ac/contest/521/problem/2411"
+        },
+        {
+            "id": "C",
+            "title": "Canvas Line",
+            "BOJ": "https://www.acmicpc.net/problem/18082",
+            "CF": "https://codeforces.com/gym/102500/problem/C",
+            "QOJ": "https://qoj.ac/contest/521/problem/2412"
+        },
+        {
+            "id": "D",
+            "title": "Disposable Switches",
+            "BOJ": "https://www.acmicpc.net/problem/18083",
+            "CF": "https://codeforces.com/gym/102500/problem/D",
+            "QOJ": "https://qoj.ac/contest/521/problem/2413"
+        },
+        {
+            "id": "E",
+            "title": "Expeditious Cubing",
+            "BOJ": "https://www.acmicpc.net/problem/18084",
+            "CF": "https://codeforces.com/gym/102500/problem/E",
+            "QOJ": "https://qoj.ac/contest/521/problem/2414"
+        },
+        {
+            "id": "F",
+            "title": "Firetrucks Are Red",
+            "BOJ": "https://www.acmicpc.net/problem/18085",
+            "CF": "https://codeforces.com/gym/102500/problem/F",
+            "QOJ": "https://qoj.ac/contest/521/problem/2415"
+        },
+        {
+            "id": "G",
+            "title": "Gnoll Hypothesis",
+            "BOJ": "https://www.acmicpc.net/problem/18086",
+            "CF": "https://codeforces.com/gym/102500/problem/G",
+            "QOJ": "https://qoj.ac/contest/521/problem/2416"
+        },
+        {
+            "id": "H",
+            "title": "Height Profile",
+            "BOJ": "https://www.acmicpc.net/problem/18087",
+            "CF": "https://codeforces.com/gym/102500/problem/H",
+            "QOJ": "https://qoj.ac/contest/521/problem/2417"
+        },
+        {
+            "id": "I",
+            "title": "Inverted Deck",
+            "BOJ": "https://www.acmicpc.net/problem/18088",
+            "CF": "https://codeforces.com/gym/102500/problem/I",
+            "QOJ": "https://qoj.ac/contest/521/problem/2418"
+        },
+        {
+            "id": "J",
+            "title": "Jackdaws And Crows",
+            "BOJ": "https://www.acmicpc.net/problem/18089",
+            "CF": "https://codeforces.com/gym/102500/problem/J",
+            "QOJ": "https://qoj.ac/contest/521/problem/2419"
+        },
+        {
+            "id": "K",
+            "title": "Kitesurfing",
+            "BOJ": "https://www.acmicpc.net/problem/18090",
+            "CF": "https://codeforces.com/gym/102500/problem/K",
+            "QOJ": "https://qoj.ac/contest/521/problem/2420"
+        }
+    ],
+    "crawled_data": {
+        "cf-statements.pdf": "https://codeforces.com/gym/102500/attachments/download/10339/statements.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=521&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=521&r=1"
+    }
+}

@@ -1,0 +1,106 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2017 > 2025-05-18 02:33:36.969651",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2017",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2017/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2017/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2017/editorials.pdf",
+        "official": "https://people.bath.ac.uk/masjhd/2017.NWERC/",
+        "standing": "https://people.bath.ac.uk/masjhd/2017.NWERC/nwerc2017-scoreboard/",
+        "BOJ": "https://www.acmicpc.net/category/detail/1852",
+        "CF": "https://codeforces.com/gym/101623",
+        "QOJ": "https://qoj.ac/contest/513"
+    },
+    "name": "2017-2018 ICPC Northwestern Europe Regional Contest (NWERC 2017)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Ascending Photo",
+            "BOJ": "https://www.acmicpc.net/problem/15599",
+            "CF": "https://codeforces.com/gym/101623/problem/A",
+            "QOJ": "https://qoj.ac/contest/513/problem/2632"
+        },
+        {
+            "id": "B",
+            "title": "Boss Battle",
+            "BOJ": "https://www.acmicpc.net/problem/15600",
+            "CF": "https://codeforces.com/gym/101623/problem/B",
+            "QOJ": "https://qoj.ac/contest/513/problem/2633"
+        },
+        {
+            "id": "C",
+            "title": "Connect the Dots",
+            "BOJ": "https://www.acmicpc.net/problem/15601",
+            "CF": "https://codeforces.com/gym/101623/problem/C",
+            "QOJ": "https://qoj.ac/contest/513/problem/2634"
+        },
+        {
+            "id": "D",
+            "title": "Dunglish",
+            "BOJ": "https://www.acmicpc.net/problem/15602",
+            "CF": "https://codeforces.com/gym/101623/problem/D",
+            "QOJ": "https://qoj.ac/contest/513/problem/2635"
+        },
+        {
+            "id": "E",
+            "title": "English Restaurant",
+            "BOJ": "https://www.acmicpc.net/problem/15603",
+            "CF": "https://codeforces.com/gym/101623/problem/E",
+            "QOJ": "https://qoj.ac/contest/513/problem/2636"
+        },
+        {
+            "id": "F",
+            "title": "Factor-Free Tree",
+            "BOJ": "https://www.acmicpc.net/problem/15604",
+            "CF": "https://codeforces.com/gym/101623/problem/F",
+            "QOJ": "https://qoj.ac/contest/513/problem/2637"
+        },
+        {
+            "id": "G",
+            "title": "Glyph Recognition",
+            "BOJ": "https://www.acmicpc.net/problem/15605",
+            "CF": "https://codeforces.com/gym/101623/problem/G",
+            "QOJ": "https://qoj.ac/contest/513/problem/2638"
+        },
+        {
+            "id": "H",
+            "title": "High Score",
+            "BOJ": "https://www.acmicpc.net/problem/15606",
+            "CF": "https://codeforces.com/gym/101623/problem/H",
+            "QOJ": "https://qoj.ac/contest/513/problem/2639"
+        },
+        {
+            "id": "I",
+            "title": "Installing Apps",
+            "BOJ": "https://www.acmicpc.net/problem/15607",
+            "CF": "https://codeforces.com/gym/101623/problem/I",
+            "QOJ": "https://qoj.ac/contest/513/problem/2640"
+        },
+        {
+            "id": "J",
+            "title": "Juggling Troupe",
+            "BOJ": "https://www.acmicpc.net/problem/15608",
+            "CF": "https://codeforces.com/gym/101623/problem/J",
+            "QOJ": "https://qoj.ac/contest/513/problem/2641"
+        },
+        {
+            "id": "K",
+            "title": "Knockout Tournament",
+            "BOJ": "https://www.acmicpc.net/problem/15609",
+            "CF": "https://codeforces.com/gym/101623/problem/K",
+            "QOJ": "https://qoj.ac/contest/513/problem/2642"
+        }
+    ],
+    "crawled_data": {
+        "cf-20172018-northwestern-european-regional-contest-nwerc-2017-en.pdf": "https://codeforces.com/gym/101623/attachments/download/6378/20172018-northwestern-european-regional-contest-nwerc-2017-en.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=513&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=513&r=1"
+    }
+}

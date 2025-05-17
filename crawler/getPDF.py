@@ -1,5 +1,6 @@
 import requests
 from pathlib import Path
+# from getQOJ import QOJCrawler
 
 def is_pdf_file(url):
     try:
@@ -10,6 +11,7 @@ def is_pdf_file(url):
             return True
         
         r = requests.get(url, stream=True, timeout=10)
+        print(r)
         return r.content.startswith(b'%PDF-')
     except:
         return False
@@ -32,9 +34,13 @@ def download_pdf(pdf_url, pdf_name, filepath):
         print(f"Failed to download {pdf_url}: {e}")
         return False
 
-def PDFCrawler(url, pdf_name, filepath):
-    if is_pdf_file(url):
+def PDFCrawler(url, pdf_name, filepath, qojCrawler):
+    if url.startswith("https://qoj.ac/download.php"):
+        return qojCrawler.crawl_pdf_link(url, pdf_name, filepath)
+    elif is_pdf_file(url):
         return download_pdf(url, pdf_name, filepath)
     else:
         print(f"URL {url} is not downloadable pdf")
         return False
+
+# PDFCrawler("https://qoj.ac/download.php?type=attachments&id=1886&r=0", "statement.pdf", "./test/", QOJCrawler("arnold518", "password"))

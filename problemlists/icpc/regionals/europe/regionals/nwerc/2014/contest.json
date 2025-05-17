@@ -1,0 +1,107 @@
+{
+    "id": "ICPC > Regionals > Europe > Regionals > Northwestern European Regional Contest (NWERC) > 2014 > 2025-05-18 02:34:54.707612",
+    "category": [
+        "ICPC",
+        "Regionals",
+        "Europe",
+        "Regionals",
+        "Northwestern European Regional Contest (NWERC)"
+    ],
+    "year": "2014",
+    "filepath": "problemlists/icpc/regionals/europe/regionals/nwerc/2014/",
+    "link": {
+        "statements": "./problemlists/icpc/regionals/europe/regionals/nwerc/2014/statements.pdf",
+        "editorials": "./problemlists/icpc/regionals/europe/regionals/nwerc/2014/editorials.pdf",
+        "official": "http://2014.nwerc.eu/",
+        "standing": "http://2014.nwerc.eu/scoreboard/",
+        "BOJ": "https://www.acmicpc.net/category/detail/1312",
+        "CF": "https://codeforces.com/gym/101482",
+        "QOJ": "https://qoj.ac/contest/452"
+    },
+    "name": "2014-2015 ICPC Northwestern Europe Regional Contest (NWERC 2014)",
+    "problems": [
+        {
+            "id": "A",
+            "title": "Around the Track",
+            "BOJ": "https://www.acmicpc.net/problem/10518",
+            "CF": "https://codeforces.com/gym/101482/problem/A",
+            "QOJ": "https://qoj.ac/contest/452/problem/3184"
+        },
+        {
+            "id": "B",
+            "title": "Biking Duck",
+            "BOJ": "https://www.acmicpc.net/problem/10519",
+            "CF": "https://codeforces.com/gym/101482/problem/B",
+            "QOJ": "https://qoj.ac/contest/452/problem/3185"
+        },
+        {
+            "id": "C",
+            "title": "Cent Savings",
+            "BOJ": "https://www.acmicpc.net/problem/10520",
+            "CF": "https://codeforces.com/gym/101482/problem/C",
+            "QOJ": "https://qoj.ac/contest/452/problem/3186"
+        },
+        {
+            "id": "D",
+            "title": "Digi Comp II",
+            "BOJ": "https://www.acmicpc.net/problem/10521",
+            "CF": "https://codeforces.com/gym/101482/problem/D",
+            "QOJ": "https://qoj.ac/contest/452/problem/3187"
+        },
+        {
+            "id": "E",
+            "title": "Euclidean TSP",
+            "BOJ": "https://www.acmicpc.net/problem/10522",
+            "CF": "https://codeforces.com/gym/101482/problem/E",
+            "QOJ": "https://qoj.ac/contest/452/problem/3188"
+        },
+        {
+            "id": "F",
+            "title": "Finding Lines",
+            "BOJ": "https://www.acmicpc.net/problem/10523",
+            "CF": "https://codeforces.com/gym/101482/problem/F",
+            "QOJ": "https://qoj.ac/contest/452/problem/3189"
+        },
+        {
+            "id": "G",
+            "title": "Gathering",
+            "BOJ": "https://www.acmicpc.net/problem/10524",
+            "CF": "https://codeforces.com/gym/101482/problem/G",
+            "QOJ": "https://qoj.ac/contest/452/problem/3190"
+        },
+        {
+            "id": "H",
+            "title": "Hyacinth",
+            "BOJ": "https://www.acmicpc.net/problem/10525",
+            "CF": "https://codeforces.com/gym/101482/problem/H",
+            "QOJ": "https://qoj.ac/contest/452/problem/3191"
+        },
+        {
+            "id": "I",
+            "title": "Indoorienteering",
+            "BOJ": "https://www.acmicpc.net/problem/10526",
+            "CF": "https://codeforces.com/gym/101482/problem/I",
+            "QOJ": "https://qoj.ac/contest/452/problem/3192"
+        },
+        {
+            "id": "J",
+            "title": "Judging Troubles",
+            "BOJ": "https://www.acmicpc.net/problem/10527",
+            "CF": "https://codeforces.com/gym/101482/problem/J",
+            "QOJ": "https://qoj.ac/contest/452/problem/3193"
+        },
+        {
+            "id": "K",
+            "title": "Knapsack Collection",
+            "BOJ": "https://www.acmicpc.net/problem/10528",
+            "CF": "https://codeforces.com/gym/101482/problem/K",
+            "QOJ": "https://qoj.ac/contest/452/problem/3194"
+        }
+    ],
+    "crawled_data": {
+        "cf-20142015-northwestern-european-regional-contest-nwerc-2014-en.pdf": "https://codeforces.com/gym/101482/attachments/download/5841/20142015-northwestern-european-regional-contest-nwerc-2014-en.pdf",
+        "cf-nwerc2014slides.pdf": "http://2014.nwerc.eu/contest/nwerc2014slides.pdf",
+        "qoj-Statements-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=452&r=0",
+        "qoj-Tutorial-(en).pdf": "https://qoj.ac/download.php?type=attachments&id=452&r=1"
+    }
+}
