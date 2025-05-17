@@ -24,7 +24,9 @@ export function updateProblemSolvedacDifficulty(contestId, problemIdx) {
     const name = contestId + ' >> ' + problemIdx;
 
     if (!problem.BOJ) return;
-    const bojnum = problem.BOJ.split('/').pop();
+    if (typeof problem.BOJ === 'string') problem.BOJ = [problem.BOJ];
+    if (problem.BOJ.length > 1) return;
+    const bojnum = problem.BOJ[0].split('/').pop();
     getProblemSolvedacDifficulty(bojnum).then(data => {
         if (data && data.level) {
             problem.difficulty = data.level;
