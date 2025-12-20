@@ -212,3 +212,78 @@ Some judges (QOJ) require authentication. Store credentials in `crawler/credenti
 - Crawler respects delays to avoid rate limiting
 - PDF downloads use undetected-chromedriver to bypass anti-bot measures
 - Selenium-based crawlers (CF, QOJ) require Chrome/Chromium installed
+
+## Practice Records Feature (Planned)
+
+**Overview**: Timeline-based practice session tracking that shares data with the main checklist.
+
+### Requirements
+
+**Design Philosophy**:
+- **Exact CSS/JS reuse**: Copy all styling and behavior from existing checklist components
+- **Data sharing**: Uses same `userProblemData` structure - changes sync bidirectionally
+- **Timeline UI**: Chronological view with newest records at top
+
+### UI/UX Flow
+
+1. **Adding Practice Records**:
+   - User clicks contest in main checklist → Contest info box appears
+   - New "Save Practice Record" button in contest info box
+   - Button navigates to Practice Records tab with that contest pre-loaded
+   - User confirms date (defaults to today) and saves
+
+2. **Timeline Display**:
+   - Vertical timeline line on left side
+   - Each record shows:
+     - Date marker
+     - Mini contest table (2 rows: header with A,B,C... + problem status row)
+     - Same styling as main checklist (difficulty icons, status colors)
+     - Delete button per record
+
+3. **Interactions** (Must Match Main Checklist Exactly):
+   - Click year cell → Shows contest info panel (blue border)
+   - Click problem cell → Shows problem info panel (green border)
+   - All panels use **exact same CSS and JS** from contest.js/problem.js
+   - Status changes update both timeline and main checklist immediately
+
+### Data Structures
+
+**Firebase Firestore** (new collection):
+```javascript
+users/{uid}/userPracticeRecords: {
+  "record-{timestamp}": {
+    contestId: "ICPC > World Finals > 2023 > ...",
+    date: "2025-12-21",
+    timestamp: 1703116800000,
+    notes: "" // optional
+  }
+}
+```
+
+**Shared Data** (existing structure, no changes):
+```javascript
+userProblemData: {
+  "{contestId} >> {problemIdx}": {status: 0-3, difficulty: 1-30}
+}
+```
+
+### Implementation Notes
+
+- **No new data duplication**: Problem statuses use existing `userProblemData`
+- **Component reuse**: Import and use existing `handleContestClick()` and `handleProblemClick()` from contest.js/problem.js
+- **CSS reuse**: Import all contest table, info panel, and progress bar styles
+- **Sync mechanism**: Both views read/write to same Firebase data, `updateProgressBars()` updates all views
+
+### Files to Create
+
+- `src/practiceRecords.js` - Main module for practice records tab
+- `docs/practice-records-implementation-plan.md` - Detailed implementation plan
+
+### Visual Prototype
+
+- Located at: `tests/practice-records-visual.html`
+- Shows timeline layout and design (note: behaviors need to match main checklist exactly)
+
+### Critical Design Constraint
+
+**All behaviors must exactly match the main checklist** - copy CSS and JS directly, do not reimplement. This ensures consistency and reduces maintenance burden.

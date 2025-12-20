@@ -112,7 +112,21 @@ export function updateProgressBar(progressContainer, problemStats) {
 export function updateProgressBars() {
     const progressBars = document.querySelectorAll('.progress-container');
     progressBars.forEach(progressBar => {
-        const nodeId = progressBar.dataset.nodeId;
-        updateProgressBar(progressBar, _state.state.problemStats.get(nodeId));
+        // Check if it's a contest-specific progress bar
+        if (progressBar.dataset.contestId) {
+            const contest = _state.state.allContests.get(progressBar.dataset.contestId);
+            if (contest) {
+                // Import calculateContestStats dynamically to avoid circular dependency
+                import('./contest.js').then(module => {
+                    const contestStats = module.calculateContestStats(contest);
+                    updateProgressBar(progressBar, contestStats);
+                });
+            }
+        }
+        // Otherwise it's a node-based progress bar
+        else if (progressBar.dataset.nodeId) {
+            const nodeId = progressBar.dataset.nodeId;
+            updateProgressBar(progressBar, _state.state.problemStats.get(nodeId));
+        }
     });
 }

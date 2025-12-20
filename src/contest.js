@@ -2,6 +2,7 @@ import * as _state from './state.js';
 import * as _ui from './ui.js';
 import * as _problem from './problem.js';
 import * as _progressBar from './progressBar.js';
+import { problemStates } from './constants.js';
 
 export function getMaxProblems(contests) {
     let max = 0;
@@ -11,6 +12,26 @@ export function getMaxProblems(contests) {
         }
     });
     return max;
+}
+
+/**
+ * Calculates problem status statistics for a single contest
+ * @param {Object} contest - Contest object with id and data
+ * @returns {Array<number>} Array of problem counts per status
+ */
+export function calculateContestStats(contest) {
+    const stats = new Array(problemStates.length).fill(0);
+
+    contest.data.problems.forEach((problem, problemIdx) => {
+        const name = contest.id + ' >> ' + problemIdx;
+        if (_state.userProblemData[name] && _state.userProblemData[name].status) {
+            stats[_state.userProblemData[name].status]++;
+        } else {
+            stats[0]++;
+        }
+    });
+
+    return stats;
 }
 
 export function handleContestClick(contestCell) {
@@ -33,6 +54,14 @@ export function handleContestClick(contestCell) {
     contestInfo = document.createElement('div');
     contestInfo.className = 'contest-info info-panel';
     contestContent.insertBefore(contestInfo, contestContent.firstChild.nextSibling);
+
+    // Create and add progress bar at the top
+    const progressBar = _progressBar.createProgressBar();
+    progressBar.className = 'progress-container contest-info-progress';
+    progressBar.dataset.contestId = contest.id; // Store contest ID for updates
+    const contestStats = calculateContestStats(contest);
+    _progressBar.updateProgressBar(progressBar, contestStats);
+    contestInfo.appendChild(progressBar);
 
     // Create header section
     const header = document.createElement('div');

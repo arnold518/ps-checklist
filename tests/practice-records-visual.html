@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Records - Visual Prototype</title>
+    <style>
+        /* ========== CSS Variables (from existing project) ========== */
+        :root {
+            /* Color Scheme */
+            --primary-color: #4285f4;
+            --primary-dark: #3367d6;
+            --success-color: #34a853;
+            --danger-color: #ea4335;
+            --warning-color: #fbbc05;
+
+            /* Grayscale */
+            --gray-light: #f5f5f5;
+            --gray-medium: #e0e0e0;
+            --gray-dark: #757575;
+            --gray-darker: #424242;
+
+            /* Text Colors */
+            --text-color: #212121;
+            --text-light: #ffffff;
+        }
+
+        /* ========== Base Styles ========== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            color: var(--text-color);
+            background-color: #fafafa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ========== Navigation Header ========== */
+        .nav-header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
+            margin: -20px -20px 20px -20px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        /* ========== Add Button ========== */
+        .add-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .add-section label {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .add-section select,
+        .add-section input[type="date"] {
+            padding: 8px 12px;
+            border: 2px solid var(--gray-medium);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            min-width: 200px;
+        }
+
+        .add-section select:focus,
+        .add-section input[type="date"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn-add {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn-add:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* ========== Timeline Container ========== */
+        .timeline-container {
+            position: relative;
+            padding-left: 80px;
+        }
+
+        /* ========== Timeline Line ========== */
+        .timeline-line {
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom,
+                var(--primary-color) 0%,
+                var(--primary-color) 100%);
+        }
+
+        /* ========== Timeline Record ========== */
+        .timeline-record {
+            position: relative;
+            margin-bottom: 40px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== Timeline Dot ========== */
+        .timeline-dot {
+            position: absolute;
+            left: -46px;
+            top: 12px;
+            width: 16px;
+            height: 16px;
+            background-color: var(--primary-color);
+            border: 3px solid white;
+            border-radius: 50%;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        /* ========== Date Label ========== */
+        .date-label {
+            position: absolute;
+            left: -130px;
+            top: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray-dark);
+            text-align: right;
+            width: 80px;
+        }
+
+        /* ========== Record Card ========== */
+        .record-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+
+        .record-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* ========== Record Header ========== */
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .record-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .record-meta {
+            font-size: 0.85rem;
+            color: var(--gray-dark);
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: var(--danger-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-delete:hover {
+            background-color: #ffebee;
+        }
+
+        /* ========== Mini Contest Table ========== */
+        .mini-contest-table {
+            border-collapse: collapse;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            table-layout: fixed;
+        }
+
+        .mini-contest-table thead th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+
+        .mini-contest-table thead th:first-child {
+            width: 80px;
+            min-width: 80px;
+        }
+
+        .mini-contest-table thead th:nth-child(2) {
+            text-align: center;
+        }
+
+        .mini-contest-table tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        .mini-contest-table tbody tr:hover {
+            background-color: #f1f8fe;
+        }
+
+        .mini-contest-table td {
+            padding: 10px 12px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+            vertical-align: middle;
+            width: 150px;
+            min-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mini-contest-table td:first-child {
+            font-weight: bold;
+            color: #2980b9;
+            background-color: #f8f9fa;
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+            text-align: center;
+        }
+
+        .mini-contest-table td[data-problem-id] {
+            color: #34495e;
+            transition: all 0.2s ease;
+            align-items: center;
+            gap: 8px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        /* Problem status colors */
+        .mini-contest-table td[data-status="0"] {
+            background-color: #f0f0f0;
+        }
+
+        .mini-contest-table td[data-status="1"] {
+            background-color: #ffe0b2;
+        }
+
+        .mini-contest-table td[data-status="2"] {
+            background-color: #c8e6c9;
+        }
+
+        .mini-contest-table td[data-status="3"] {
+            background-color: #b2ffb2;
+        }
+
+        .mini-contest-table td[data-contest-id]:hover,
+        .mini-contest-table td[data-problem-id]:hover {
+            background-color: #d6eaf8;
+            transform: scale(1.02);
+        }
+
+        .mini-contest-table td:active {
+            transform: scale(0.98);
+            background-color: #aed6f1;
+        }
+
+        /* ========== Difficulty Icons ========== */
+        .difficulty-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: background-image 0.15s ease-in-out;
+            vertical-align: middle;
+            margin-right: 4px;
+            margin-left: 4px;
+        }
+
+        /* Difficulty Levels - Using placeholder colored circles for the prototype */
+        .difficulty-0 { background: radial-gradient(circle, #999 0%, #666 100%); border-radius: 50%; }
+        .difficulty-1 { background: radial-gradient(circle, #ad5600 0%, #8b4000 100%); border-radius: 50%; }
+        .difficulty-2 { background: radial-gradient(circle, #ad5600 0%, #8b4000 100%); border-radius: 50%; }
+        .difficulty-3 { background: radial-gradient(circle, #ad5600 0%, #8b4000 100%); border-radius: 50%; }
+        .difficulty-4 { background: radial-gradient(circle, #ad5600 0%, #8b4000 100%); border-radius: 50%; }
+        .difficulty-5 { background: radial-gradient(circle, #ad5600 0%, #8b4000 100%); border-radius: 50%; }
+        .difficulty-6 { background: radial-gradient(circle, #ec9a00 0%, #d48800 100%); border-radius: 50%; }
+        .difficulty-7 { background: radial-gradient(circle, #ec9a00 0%, #d48800 100%); border-radius: 50%; }
+        .difficulty-8 { background: radial-gradient(circle, #ec9a00 0%, #d48800 100%); border-radius: 50%; }
+        .difficulty-9 { background: radial-gradient(circle, #ec9a00 0%, #d48800 100%); border-radius: 50%; }
+        .difficulty-10 { background: radial-gradient(circle, #ec9a00 0%, #d48800 100%); border-radius: 50%; }
+        .difficulty-11 { background: radial-gradient(circle, #27e2a4 0%, #1fc98d 100%); border-radius: 50%; }
+        .difficulty-12 { background: radial-gradient(circle, #27e2a4 0%, #1fc98d 100%); border-radius: 50%; }
+        .difficulty-13 { background: radial-gradient(circle, #27e2a4 0%, #1fc98d 100%); border-radius: 50%; }
+        .difficulty-14 { background: radial-gradient(circle, #27e2a4 0%, #1fc98d 100%); border-radius: 50%; }
+        .difficulty-15 { background: radial-gradient(circle, #27e2a4 0%, #1fc98d 100%); border-radius: 50%; }
+        .difficulty-16 { background: radial-gradient(circle, #00b4fc 0%, #0099d9 100%); border-radius: 50%; }
+        .difficulty-17 { background: radial-gradient(circle, #00b4fc 0%, #0099d9 100%); border-radius: 50%; }
+        .difficulty-18 { background: radial-gradient(circle, #00b4fc 0%, #0099d9 100%); border-radius: 50%; }
+        .difficulty-19 { background: radial-gradient(circle, #00b4fc 0%, #0099d9 100%); border-radius: 50%; }
+        .difficulty-20 { background: radial-gradient(circle, #00b4fc 0%, #0099d9 100%); border-radius: 50%; }
+        .difficulty-21 { background: radial-gradient(circle, #b491ff 0%, #9d78e8 100%); border-radius: 50%; }
+        .difficulty-22 { background: radial-gradient(circle, #b491ff 0%, #9d78e8 100%); border-radius: 50%; }
+        .difficulty-23 { background: radial-gradient(circle, #b491ff 0%, #9d78e8 100%); border-radius: 50%; }
+        .difficulty-24 { background: radial-gradient(circle, #b491ff 0%, #9d78e8 100%); border-radius: 50%; }
+        .difficulty-25 { background: radial-gradient(circle, #b491ff 0%, #9d78e8 100%); border-radius: 50%; }
+        .difficulty-26 { background: radial-gradient(circle, #ff0062 0%, #e00056 100%); border-radius: 50%; }
+        .difficulty-27 { background: radial-gradient(circle, #ff0062 0%, #e00056 100%); border-radius: 50%; }
+        .difficulty-28 { background: radial-gradient(circle, #ff0062 0%, #e00056 100%); border-radius: 50%; }
+        .difficulty-29 { background: radial-gradient(circle, #ff0062 0%, #e00056 100%); border-radius: 50%; }
+        .difficulty-30 { background: radial-gradient(circle, #ff0062 0%, #e00056 100%); border-radius: 50%; }
+
+        /* ========== Info Panel (Contest/Problem Info) ========== */
+        .info-panel {
+            display: none;
+            background-color: white;
+            border-radius: 16px;
+            padding: 18px;
+            margin-top: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .info-panel.active {
+            display: block;
+        }
+
+        .contest-info {
+            border: 2px solid var(--primary-color);
+        }
+
+        .problem-info {
+            border: 2px solid var(--success-color);
+        }
+
+        .info-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .info-panel-title-container {
+            flex: 1;
+        }
+
+        .info-panel-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .info-panel-subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-darker);
+            margin-bottom: 4px;
+        }
+
+        .info-panel-close {
+            background: none;
+            border: none;
+            color: var(--gray-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 4px;
+            margin-left: 12px;
+        }
+
+        .info-panel-close:hover {
+            color: var(--danger-color);
+        }
+
+        .info-panel-stats {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 12px;
+        }
+
+        .stats-badge {
+            background-color: var(--gray-light);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .info-panel-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-panel-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            transition: all 0.15s;
+            cursor: pointer;
+        }
+
+        .info-panel-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-panel-link img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+
+        .contest-info-title {
+            color: var(--primary-dark);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .contest-info-year {
+            color: var(--gray-darker);
+            font-size: 1.1rem;
+        }
+
+        .problem-info-difficulty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .problem-info-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .difficulty-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .difficulty-btn,
+        .contest-difficulty-fetch-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            min-width: 120px;
+            text-align: center;
+            background-color: var(--gray-light);
+        }
+
+        .difficulty-btn:hover,
+        .contest-difficulty-fetch-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .status-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            min-width: 120px;
+            min-height: 40px;
+            text-align: center;
+        }
+
+        .status-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-0 {
+            background-color: #f5f5f5;
+            color: var(--gray-dark);
+        }
+
+        .status-1 {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+
+        .status-2 {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-3 {
+            background-color: #d0ffd0;
+            color: #008000;
+        }
+
+        /* ========== Empty State ========== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-dark);
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <div class="nav-header">
+        <div class="nav-title">Practice Records - Visual Prototype</div>
+    </div>
+
+    <div class="container">
+        <!-- Add Practice Record Section -->
+        <div class="add-section">
+            <label for="contest-select">Contest:</label>
+            <select id="contest-select">
+                <option value="">Select a contest...</option>
+                <option value="icpc-2023">ICPC World Finals 2023</option>
+                <option value="icpc-2022">ICPC World Finals 2022</option>
+                <option value="ioi-2023">IOI 2023</option>
+                <option value="ceoi-2023">CEOI 2023</option>
+                <option value="bapc-2023">BAPC 2023</option>
+            </select>
+
+            <label for="date-select">Date:</label>
+            <input type="date" id="date-select" value="2025-12-21">
+
+            <button class="btn-add" onclick="addRecord()">Add Practice Record</button>
+        </div>
+
+        <!-- Timeline Container -->
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <!-- Sample Record 1 (Most Recent) -->
+            <div class="timeline-record">
+                <div class="timeline-dot"></div>
+                <div class="date-label">Dec 21<br>2025</div>
+
+                <div class="record-card">
+                    <div class="record-header">
+                        <div>
+                            <div class="record-title">ICPC World Finals 2023</div>
+                            <div class="record-meta">12 problems • Practiced 2 hours ago</div>
+                        </div>
+                        <button class="btn-delete" onclick="deleteRecord(this)" title="Delete record">&times;</button>
+                    </div>
+
+                    <table class="mini-contest-table">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>E</th>
+                                <th>F</th>
+                                <th>G</th>
+                                <th>H</th>
+                                <th>I</th>
+                                <th>J</th>
+                                <th>K</th>
+                                <th>L</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-contest-id="icpc-2023" onclick="showContestInfo('ICPC World Finals 2023')">2023</td>
+                                <td data-problem-id="A" data-contest-id="icpc-2023" data-problem-idx="0" data-status="2" onclick="showProblemInfo('A', 'Crystalline Structures')">
+                                    <div class="difficulty-icon difficulty-18"></div>A. Crystalline Structures
+                                </td>
+                                <td data-problem-id="B" data-contest-id="icpc-2023" data-problem-idx="1" data-status="2" onclick="showProblemInfo('B', 'Buffed Edges')">
+                                    <div class="difficulty-icon difficulty-15"></div>B. Buffed Edges
+                                </td>
+                                <td data-problem-id="C" data-contest-id="icpc-2023" data-problem-idx="2" data-status="1" onclick="showProblemInfo('C', 'Cheaters Detection')">
+                                    <div class="difficulty-icon difficulty-22"></div>C. Cheaters Detection
+                                </td>
+                                <td data-problem-id="D" data-contest-id="icpc-2023" data-problem-idx="3" data-status="0" onclick="showProblemInfo('D', 'Data Recovery')">
+                                    <div class="difficulty-icon difficulty-0"></div>D. Data Recovery
+                                </td>
+                                <td data-problem-id="E" data-contest-id="icpc-2023" data-problem-idx="4" data-status="2" onclick="showProblemInfo('E', 'Exquisite Strings')">
+                                    <div class="difficulty-icon difficulty-12"></div>E. Exquisite Strings
+                                </td>
+                                <td data-problem-id="F" data-contest-id="icpc-2023" data-problem-idx="5" data-status="0" onclick="showProblemInfo('F', 'Flight Planning')">
+                                    <div class="difficulty-icon difficulty-0"></div>F. Flight Planning
+                                </td>
+                                <td data-problem-id="G" data-contest-id="icpc-2023" data-problem-idx="6" data-status="1" onclick="showProblemInfo('G', 'Game Night')">
+                                    <div class="difficulty-icon difficulty-8"></div>G. Game Night
+                                </td>
+                                <td data-problem-id="H" data-contest-id="icpc-2023" data-problem-idx="7" data-status="0" onclick="showProblemInfo('H', 'Heavy Haulers')">
+                                    <div class="difficulty-icon difficulty-0"></div>H. Heavy Haulers
+                                </td>
+                                <td data-problem-id="I" data-contest-id="icpc-2023" data-problem-idx="8" data-status="0" onclick="showProblemInfo('I', 'Intermediate Geometry')">
+                                    <div class="difficulty-icon difficulty-0"></div>I. Intermediate Geometry
+                                </td>
+                                <td data-problem-id="J" data-contest-id="icpc-2023" data-problem-idx="9" data-status="3" onclick="showProblemInfo('J', 'Jump Game')">
+                                    <div class="difficulty-icon difficulty-11"></div>J. Jump Game
+                                </td>
+                                <td data-problem-id="K" data-contest-id="icpc-2023" data-problem-idx="10" data-status="0" onclick="showProblemInfo('K', 'Kayaking Trip')">
+                                    <div class="difficulty-icon difficulty-0"></div>K. Kayaking Trip
+                                </td>
+                                <td data-problem-id="L" data-contest-id="icpc-2023" data-problem-idx="11" data-status="0" onclick="showProblemInfo('L', 'Ladder Lottery')">
+                                    <div class="difficulty-icon difficulty-0"></div>L. Ladder Lottery
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Info panels will appear here -->
+                    <div id="contest-info-1" class="info-panel contest-info">
+                        <div class="info-panel-header">
+                            <div class="info-panel-title-container">
+                                <div class="info-panel-subtitle contest-info-year">2023</div>
+                                <h3 class="info-panel-title contest-info-title">ICPC World Finals 2023</h3>
+                            </div>
+                            <button class="info-panel-close" onclick="closeInfo('contest', 1)">&times;</button>
+                        </div>
+                        <div class="info-panel-stats">
+                            <div class="stats-badge">Problems: 12</div>
+                            <button class="contest-difficulty-fetch-btn">Fetch Difficulty</button>
+                        </div>
+                        <div class="info-panel-links">
+                            <div class="info-panel-link" title="Problem Statements">📄</div>
+                            <div class="info-panel-link" title="Editorials">📝</div>
+                            <div class="info-panel-link" title="Official Site">🌐</div>
+                            <div class="info-panel-link" title="BOJ Link">🔗</div>
+                            <div class="info-panel-link" title="Codeforces Link">🔗</div>
+                        </div>
+                    </div>
+                    <div id="problem-info-1" class="info-panel problem-info">
+                        <div class="info-panel-header">
+                            <div class="info-panel-title-container">
+                                <div class="info-panel-subtitle problem-info-id"></div>
+                                <h3 class="info-panel-title problem-info-name"></h3>
+                            </div>
+                            <button class="info-panel-close" onclick="closeInfo('problem', 1)">&times;</button>
+                        </div>
+                        <div class="problem-info-difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-selector">
+                                <button class="difficulty-btn">-</button>
+                                <div class="difficulty-icon difficulty-0"></div>
+                                <button class="difficulty-btn">+</button>
+                                <button class="difficulty-btn">Fetch</button>
+                                <button class="difficulty-btn">Reset</button>
+                            </div>
+                        </div>
+                        <div class="problem-info-status">
+                            <span>Status:</span>
+                            <button class="status-btn status-0" onclick="cycleStatus(event, 1)">Not Attempted</button>
+                        </div>
+                        <div class="info-panel-links">
+                            <div class="info-panel-link" title="BOJ Link">🔗</div>
+                            <div class="info-panel-link" title="Codeforces Link">🔗</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Record 2 -->
+            <div class="timeline-record">
+                <div class="timeline-dot"></div>
+                <div class="date-label">Dec 15<br>2025</div>
+
+                <div class="record-card">
+                    <div class="record-header">
+                        <div>
+                            <div class="record-title">BAPC 2023</div>
+                            <div class="record-meta">13 problems • Practiced 6 days ago</div>
+                        </div>
+                        <button class="btn-delete" onclick="deleteRecord(this)" title="Delete record">&times;</button>
+                    </div>
+
+                    <table class="mini-contest-table">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>E</th>
+                                <th>F</th>
+                                <th>G</th>
+                                <th>H</th>
+                                <th>I</th>
+                                <th>J</th>
+                                <th>K</th>
+                                <th>L</th>
+                                <th>M</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-contest-id="bapc-2023" onclick="showContestInfo('BAPC 2023')">2023</td>
+                                <td data-problem-id="A" data-contest-id="bapc-2023" data-problem-idx="0" data-status="2" onclick="showProblemInfo('A', 'Alphabet Animals')">
+                                    <div class="difficulty-icon difficulty-7"></div>A. Alphabet Animals
+                                </td>
+                                <td data-problem-id="B" data-contest-id="bapc-2023" data-problem-idx="1" data-status="2" onclick="showProblemInfo('B', 'Bread Sorting')">
+                                    <div class="difficulty-icon difficulty-12"></div>B. Bread Sorting
+                                </td>
+                                <td data-problem-id="C" data-contest-id="bapc-2023" data-problem-idx="2" data-status="2" onclick="showProblemInfo('C', 'Circular Reasoning')">
+                                    <div class="difficulty-icon difficulty-14"></div>C. Circular Reasoning
+                                </td>
+                                <td data-problem-id="D" data-contest-id="bapc-2023" data-problem-idx="3" data-status="1" onclick="showProblemInfo('D', 'Disastrous Dice')">
+                                    <div class="difficulty-icon difficulty-19"></div>D. Disastrous Dice
+                                </td>
+                                <td data-problem-id="E" data-contest-id="bapc-2023" data-problem-idx="4" data-status="2" onclick="showProblemInfo('E', 'Expeditious Expense')">
+                                    <div class="difficulty-icon difficulty-10"></div>E. Expeditious Expense
+                                </td>
+                                <td data-problem-id="F" data-contest-id="bapc-2023" data-problem-idx="5" data-status="2" onclick="showProblemInfo('F', 'Free Fries')">
+                                    <div class="difficulty-icon difficulty-8"></div>F. Free Fries
+                                </td>
+                                <td data-problem-id="G" data-contest-id="bapc-2023" data-problem-idx="6" data-status="1" onclick="showProblemInfo('G', 'Groovy Garage')">
+                                    <div class="difficulty-icon difficulty-16"></div>G. Groovy Garage
+                                </td>
+                                <td data-problem-id="H" data-contest-id="bapc-2023" data-problem-idx="7" data-status="2" onclick="showProblemInfo('H', 'Hacking Hexagons')">
+                                    <div class="difficulty-icon difficulty-11"></div>H. Hacking Hexagons
+                                </td>
+                                <td data-problem-id="I" data-contest-id="bapc-2023" data-problem-idx="8" data-status="0" onclick="showProblemInfo('I', 'Impressive Ingredients')">
+                                    <div class="difficulty-icon difficulty-0"></div>I. Impressive Ingredients
+                                </td>
+                                <td data-problem-id="J" data-contest-id="bapc-2023" data-problem-idx="9" data-status="2" onclick="showProblemInfo('J', 'Juggling Jokers')">
+                                    <div class="difficulty-icon difficulty-13"></div>J. Juggling Jokers
+                                </td>
+                                <td data-problem-id="K" data-contest-id="bapc-2023" data-problem-idx="10" data-status="1" onclick="showProblemInfo('K', 'Knapsack Kapers')">
+                                    <div class="difficulty-icon difficulty-21"></div>K. Knapsack Kapers
+                                </td>
+                                <td data-problem-id="L" data-contest-id="bapc-2023" data-problem-idx="11" data-status="0" onclick="showProblemInfo('L', 'Luminous Labyrinth')">
+                                    <div class="difficulty-icon difficulty-0"></div>L. Luminous Labyrinth
+                                </td>
+                                <td data-problem-id="M" data-contest-id="bapc-2023" data-problem-idx="12" data-status="0" onclick="showProblemInfo('M', 'Marvelous Matrices')">
+                                    <div class="difficulty-icon difficulty-0"></div>M. Marvelous Matrices
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="contest-info-2" class="info-panel contest-info">
+                        <div class="info-panel-header">
+                            <div class="info-panel-title-container">
+                                <div class="info-panel-subtitle contest-info-year">2023</div>
+                                <h3 class="info-panel-title contest-info-title">BAPC 2023</h3>
+                            </div>
+                            <button class="info-panel-close" onclick="closeInfo('contest', 2)">&times;</button>
+                        </div>
+                        <div class="info-panel-stats">
+                            <div class="stats-badge">Problems: 13</div>
+                            <button class="contest-difficulty-fetch-btn">Fetch Difficulty</button>
+                        </div>
+                        <div class="info-panel-links">
+                            <div class="info-panel-link" title="Problem Statements">📄</div>
+                            <div class="info-panel-link" title="Official Site">🌐</div>
+                            <div class="info-panel-link" title="BOJ Link">🔗</div>
+                        </div>
+                    </div>
+                    <div id="problem-info-2" class="info-panel problem-info">
+                        <div class="info-panel-header">
+                            <div class="info-panel-title-container">
+                                <div class="info-panel-subtitle problem-info-id"></div>
+                                <h3 class="info-panel-title problem-info-name"></h3>
+                            </div>
+                            <button class="info-panel-close" onclick="closeInfo('problem', 2)">&times;</button>
+                        </div>
+                        <div class="problem-info-difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-selector">
+                                <button class="difficulty-btn">-</button>
+                                <div class="difficulty-icon difficulty-0"></div>
+                                <button class="difficulty-btn">+</button>
+                                <button class="difficulty-btn">Fetch</button>
+                                <button class="difficulty-btn">Reset</button>
+                            </div>
+                        </div>
+                        <div class="problem-info-status">
+                            <span>Status:</span>
+                            <button class="status-btn status-0" onclick="cycleStatus(event, 2)">Not Attempted</button>
+                        </div>
+                        <div class="info-panel-links">
+                            <div class="info-panel-link" title="BOJ Link">🔗</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Record 3 (Oldest) -->
+            <div class="timeline-record">
+                <div class="timeline-dot"></div>
+                <div class="date-label">Dec 10<br>2025</div>
+
+                <div class="record-card">
+                    <div class="record-header">
+                        <div>
+                            <div class="record-title">IOI 2023 Day 1</div>
+                            <div class="record-meta">4 problems • Practiced 11 days ago</div>
+                        </div>
+                        <button class="btn-delete" onclick="deleteRecord(this)" title="Delete record">&times;</button>
+                    </div>
+
+                    <table class="mini-contest-table">
+                        <thead>
+                            <tr>
+                                <th>Year</th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td data-contest-id="ioi-2023-day1" onclick="showContestInfo('IOI 2023 Day 1')">2023</td>
+                                <td data-problem-id="A" data-contest-id="ioi-2023-day1" data-problem-idx="0" data-status="3" onclick="showProblemInfo('A', 'Longest Trip')">
+                                    <div class="difficulty-icon difficulty-20"></div>A. Longest Trip
+                                </td>
+                                <td data-problem-id="B" data-contest-id="ioi-2023-day1" data-problem-idx="1" data-status="2" onclick="showProblemInfo('B', 'Closing Time')">
+                                    <div class="difficulty-icon difficulty-17"></div>B. Closing Time
+                                </td>
+                                <td data-problem-id="C" data-contest-id="ioi-2023-day1" data-problem-idx="2" data-status="1" onclick="showProblemInfo('C', 'Soccer Stadium')">
+                                    <div class="difficulty-icon difficulty-24"></div>C. Soccer Stadium
+                                </td>
+                                <td data-problem-id="D" data-contest-id="ioi-2023-day1" data-problem-idx="3" data-status="1" onclick="showProblemInfo('D', 'Tiles')">
+                                    <div class="difficulty-icon difficulty-26"></div>D. Tiles
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="contest-info-3" class="info-panel contest-info">
+                        <div class="info-panel-header">
+                            <div class="info-panel-title-container">
+                                <div class="info-panel-subtitle contest-info-year">2023</div>
+                                <h3 class="info-panel-title contest-info-title">IOI 2023 Day 1</h3>
+                            </div>
+                            <button class="info-panel-close" onclick="closeInfo('contest', 3)">&times;</button>
+                        </div>
+                        <div class="info-panel-stats">
+                            <div class="stats-badge">Problems: 4</div>
+                            <button class="contest-difficulty-fetch-btn">Fetch Difficulty</button>
+                        </div>
+                        <div class="info-panel-links">
+                            <div class="info-panel-link" title="Official Site">🌐</div>
+                            <div class="info-panel-link" title="OJ.UZ Link">🔗</div>
+                        </div>
+                    </div>
+                    <div id="problem-info-3" class="info-panel problem-info">
+                        <div class="info-panel-header">
+                            <div class="info-panel-title-container">
+                                <div class="info-panel-subtitle problem-info-id"></div>
+                                <h3 class="info-panel-title problem-info-name"></h3>
+                            </div>
+                            <button class="info-panel-close" onclick="closeInfo('problem', 3)">&times;</button>
+                        </div>
+                        <div class="problem-info-difficulty">
+                            <span>Difficulty:</span>
+                            <div class="difficulty-selector">
+                                <button class="difficulty-btn">-</button>
+                                <div class="difficulty-icon difficulty-0"></div>
+                                <button class="difficulty-btn">+</button>
+                                <button class="difficulty-btn">Fetch</button>
+                                <button class="difficulty-btn">Reset</button>
+                            </div>
+                        </div>
+                        <div class="problem-info-status">
+                            <span>Status:</span>
+                            <button class="status-btn status-0" onclick="cycleStatus(event, 3)">Not Attempted</button>
+                        </div>
+                        <div class="info-panel-links">
+                            <div class="info-panel-link" title="OJ.UZ Link">🔗</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive functionality for the prototype
+        let currentOpenPanel = null;
+
+        function showContestInfo(contestName) {
+            const recordCard = event.target.closest('.record-card');
+            const contestPanel = recordCard.querySelector('.contest-info');
+            const problemPanel = recordCard.querySelector('.problem-info');
+
+            // Close problem panel if open
+            if (problemPanel.classList.contains('active')) {
+                problemPanel.classList.remove('active');
+            }
+
+            // Close other panels
+            if (currentOpenPanel && currentOpenPanel !== contestPanel) {
+                currentOpenPanel.classList.remove('active');
+            }
+
+            // Toggle contest panel
+            if (contestPanel.classList.contains('active')) {
+                contestPanel.classList.remove('active');
+                currentOpenPanel = null;
+            } else {
+                contestPanel.classList.add('active');
+                currentOpenPanel = contestPanel;
+            }
+        }
+
+        function showProblemInfo(problemId, problemName) {
+            const cell = event.target;
+            const recordCard = cell.closest('.record-card');
+            const contestPanel = recordCard.querySelector('.contest-info');
+            const problemPanel = recordCard.querySelector('.problem-info');
+
+            // Close contest panel if open
+            if (contestPanel.classList.contains('active')) {
+                contestPanel.classList.remove('active');
+            }
+
+            // Close other panels
+            if (currentOpenPanel && currentOpenPanel !== problemPanel) {
+                currentOpenPanel.classList.remove('active');
+            }
+
+            // Update problem panel content
+            const idElement = problemPanel.querySelector('.problem-info-id');
+            const nameElement = problemPanel.querySelector('.problem-info-name');
+            const statusBtn = problemPanel.querySelector('.status-btn');
+
+            const statusNames = ['Not Attempted', 'Attempted', 'Solved', 'Reviewed'];
+            const currentStatus = cell.dataset.status || '0';
+
+            idElement.textContent = problemId;
+            nameElement.textContent = problemName;
+            statusBtn.textContent = statusNames[currentStatus];
+            statusBtn.className = `status-btn status-${currentStatus}`;
+
+            // Show problem panel
+            problemPanel.classList.add('active');
+            currentOpenPanel = problemPanel;
+        }
+
+        function cycleStatus(event, panelId) {
+            const statusBtn = event.target;
+            const statusNames = ['Not Attempted', 'Attempted', 'Solved', 'Reviewed'];
+
+            // Get current status from button class
+            let currentStatus = 0;
+            for (let i = 0; i <= 3; i++) {
+                if (statusBtn.classList.contains(`status-${i}`)) {
+                    currentStatus = i;
+                    break;
+                }
+            }
+
+            // Cycle to next status
+            const newStatus = (currentStatus + 1) % 4;
+            statusBtn.className = `status-btn status-${newStatus}`;
+            statusBtn.textContent = statusNames[newStatus];
+
+            alert(`Status changed to: ${statusNames[newStatus]}\n\nIn the full implementation, this would:\n1. Update the problem cell color\n2. Sync with the main checklist\n3. Save to Firebase`);
+        }
+
+        function closeInfo(type, panelId) {
+            const panel = document.getElementById(`${type}-info-${panelId}`);
+            panel.classList.remove('active');
+            currentOpenPanel = null;
+        }
+
+        function deleteRecord(button) {
+            if (confirm('Are you sure you want to delete this practice record?')) {
+                const record = button.closest('.timeline-record');
+                record.style.animation = 'fadeOut 0.3s ease-out';
+                setTimeout(() => {
+                    record.remove();
+                }, 300);
+            }
+        }
+
+        function addRecord() {
+            const contestSelect = document.getElementById('contest-select');
+            const dateSelect = document.getElementById('date-select');
+
+            if (!contestSelect.value) {
+                alert('Please select a contest');
+                return;
+            }
+
+            if (!dateSelect.value) {
+                alert('Please select a date');
+                return;
+            }
+
+            alert(`Adding practice record:\n\nContest: ${contestSelect.options[contestSelect.selectedIndex].text}\nDate: ${dateSelect.value}\n\nIn the full implementation, this would:\n1. Create a new timeline record\n2. Load the contest data from the database\n3. Display the mini checklist with current problem statuses\n4. Save to Firebase`);
+        }
+
+        // Add fadeOut animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

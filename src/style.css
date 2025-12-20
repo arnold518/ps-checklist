@@ -505,6 +505,10 @@ body {
     border: 2px solid var(--primary-color);
 }
 
+.contest-info-progress {
+    margin-bottom: 16px;
+}
+
 .problem-info {
     border: 2px solid var(--success-color);
 }
