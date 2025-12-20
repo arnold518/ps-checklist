@@ -1,3 +1,8 @@
+/* ========================================
+   PS-Checklist Stylesheet
+   ======================================== */
+
+/* ========== CSS Variables ========== */
 :root {
     /* Color Scheme */
     --primary-color: #4285f4;
@@ -5,15 +10,19 @@
     --success-color: #34a853;
     --danger-color: #ea4335;
     --warning-color: #fbbc05;
+
+    /* Grayscale */
     --gray-light: #f5f5f5;
     --gray-medium: #e0e0e0;
     --gray-dark: #757575;
     --gray-darker: #424242;
+
+    /* Text Colors */
     --text-color: #212121;
     --text-light: #ffffff;
 }
 
-/* Base Styles */
+/* ========== Base Styles ========== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -29,11 +38,11 @@ body {
     overflow: hidden;
 }
 
-/* ========== Navigation Styles ========== */
+/* ========== Navigation ========== */
 .nav-header {
     background-color: var(--primary-color);
     color: var(--text-light);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -98,14 +107,67 @@ body {
     background-color: var(--warning-color);
 }
 
-/* ========== Layout Styles ========== */
+.nav-actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--primary-dark);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.nav-btn .btn-icon {
+    font-size: 16px;
+}
+
+.nav-btn .btn-text {
+    display: none;
+}
+
+/* ========== Layout ========== */
 .main-app-container {
     display: flex;
     flex: 1;
     overflow: hidden;
 }
 
-/* ========== Sidebar Styles ========== */
+#main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.content-header {
+    padding: 16px 24px;
+    background-color: white;
+    border-bottom: 1px solid var(--gray-medium);
+}
+
+.empty-state {
+    padding: 40px;
+    text-align: center;
+    color: var(--gray-dark);
+}
+
+/* ========== Sidebar ========== */
 #sidebar {
     width: 300px;
     background-color: white;
@@ -146,7 +208,6 @@ body {
     background: white;
     border-top: 1px solid var(--gray-medium);
     font-size: 14px;
-    /* display: flex; */
     justify-content: space-between;
 }
 
@@ -164,14 +225,13 @@ body {
     transition: width 0.3s;
 }
 
-/* ========== Tree View Styles ========== */
+/* ========== Tree View ========== */
 .tree-container {
     flex: 1;
     overflow-y: auto;
     padding: 8px 0;
 }
 
-/* Tree Node Structure */
 .tree-node {
     margin-left: 20px;
     font-family: 'Roboto', Arial, sans-serif;
@@ -193,7 +253,6 @@ body {
     z-index: 1;
 }
 
-/* Header Styles */
 .tree-node-header {
     display: flex;
     align-items: center;
@@ -204,9 +263,7 @@ body {
     z-index: 2;
 }
 
-/* Toggle Button */
 .toggle-btn {
-    /* font: "Segoe UI Symbol", sans-serif; */
     background: none;
     border: none;
     border-radius: 3px;
@@ -226,7 +283,6 @@ body {
     background: #e0e0e0;
 }
 
-/* Directory Name Button */
 .dir-name-btn {
     background: none;
     border: none;
@@ -242,14 +298,12 @@ body {
     background-color: #f0f0f0;
 }
 
-/* Badge */
 .badge {
     font-size: 12px;
     color: #888;
     margin-left: 4px;
 }
 
-/* Contest Leaf */
 .contest-leaf {
     display: flex;
     align-items: center;
@@ -278,36 +332,17 @@ body {
     color: var(--danger-color);
 }
 
-/* ========== Main Content Styles ========== */
-#main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.content-header {
-    padding: 16px 24px;
-    background-color: white;
-    border-bottom: 1px solid var(--gray-medium);
-}
-
+/* ========== Contest Container ========== */
 .contest-container {
     flex: 1;
     overflow-y: auto;
     padding: 16px;
 }
 
-.empty-state {
-    padding: 40px;
-    text-align: center;
-    color: var(--gray-dark);
-}
-
 .contest-item {
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     margin-bottom: 16px;
     overflow: hidden;
     animation: fadeIn 0.25s ease-out;
@@ -350,7 +385,7 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-/* ========== Table Styles ========== */
+/* ========== Contest Table ========== */
 .contest-table {
     border-collapse: collapse;
     width: auto;
@@ -361,7 +396,6 @@ body {
     min-width: 100%;
 }
 
-/* Table headers */
 .contest-table thead th {
     background-color: #2c3e50;
     color: white;
@@ -372,24 +406,24 @@ body {
     top: 0;
 }
 
-/* Contest year header */
 .contest-table thead th:first-child {
     width: 80px;
     min-width: 80px;
     position: relative;
 }
 
-/* Problem cells header */
 .contest-table thead th:nth-child(2) {
     text-align: center;
 }
 
-/* Table body */
 .contest-table tbody tr {
     transition: background-color 0.2s ease;
 }
 
-/* Table cells */
+.contest-table tbody tr:hover {
+    background-color: #f1f8fe;
+}
+
 .contest-table td {
     padding: 10px 12px;
     border: 1px solid #dee2e6;
@@ -403,7 +437,6 @@ body {
     display: table-cell;
 }
 
-/* Contest year cell */
 .contest-table td:first-child {
     font-weight: bold;
     color: #2980b9;
@@ -414,11 +447,9 @@ body {
     text-align: center;
 }
 
-/* Problem cells */
 .contest-table td[data-problem-id] {
     color: #34495e;
     transition: all 0.2s ease;
-    /* display: flex; */
     align-items: center;
     gap: 8px;
     display: table-cell;
@@ -426,15 +457,20 @@ body {
     vertical-align: middle;
 }
 
-/* Status-based cell coloring */
-.contest-table td[data-status="0"] { background-color: #f0f0f0; } /* Not attempted */
-.contest-table td[data-status="1"] { background-color: #ffe0b2; } /* Attempted - deeper orange */
-.contest-table td[data-status="2"] { background-color: #c8e6c9; } /* Solved - brighter green */
-.contest-table td[data-status="3"] { background-color: #b2ffb2; } /* Reviewed - bright green */
+.contest-table td[data-status="0"] {
+    background-color: #f0f0f0;
+}
 
-/* Hover effects */
-.contest-table tr:hover {
-    background-color: #f1f8fe;
+.contest-table td[data-status="1"] {
+    background-color: #ffe0b2;
+}
+
+.contest-table td[data-status="2"] {
+    background-color: #c8e6c9;
+}
+
+.contest-table td[data-status="3"] {
+    background-color: #b2ffb2;
 }
 
 .contest-table td[data-contest-id]:hover,
@@ -443,57 +479,12 @@ body {
     transform: scale(1.02);
 }
 
-/* Active cell effect */
 .contest-table td:active {
     transform: scale(0.98);
     background-color: #aed6f1;
 }
 
-/* Difficulty Selector Styles */
-.difficulty-selector {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.difficulty-btn {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 1px solid var(--gray-medium);
-    background-color: white;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.difficulty-btn:hover {
-    background-color: var(--gray-light);
-}
-
-.difficulty-value {
-    width: 40px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.difficulty-icon {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: background-image 0.15s ease-in-out;
-    vertical-align: middle;
-    margin-right: 4px;
-    margin-left: 4px;
-}
-
-/* ========== Info Panel Styles ========== */
+/* ========== Info Panel ========== */
 .info-panel {
     display: none;
     background-color: white;
@@ -586,8 +577,6 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    /* padding-top: 12px; */
-    /* border-top: 1px solid var(--gray-medium); */
 }
 
 .info-panel-link {
@@ -604,7 +593,7 @@ body {
 
 .info-panel-link:hover {
     transform: translateY(-2px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .info-panel-link img {
@@ -613,7 +602,6 @@ body {
     object-fit: contain;
 }
 
-/* ========== Contest Specific Styles ========== */
 .contest-info-title {
     color: var(--primary-dark);
     font-size: 1.5rem;
@@ -629,7 +617,6 @@ body {
     background-color: var(--primary-color);
 }
 
-/* ========== Problem Specific Styles ========== */
 .problem-info-difficulty {
     display: flex;
     align-items: center;
@@ -648,6 +635,13 @@ body {
     background-color: var(--success-color);
 }
 
+/* ========== Difficulty Controls ========== */
+.difficulty-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .difficulty-btn {
     width: 25px;
     height: 28px;
@@ -664,10 +658,29 @@ body {
 
 .difficulty-btn:hover {
     transform: scale(1.1);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Difficulty level images */
+.difficulty-value {
+    width: 40px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.difficulty-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: background-image 0.15s ease-in-out;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+
+/* Difficulty Levels */
 .difficulty-0 { background-image: url('../assets/difficulty/difficulty-0.svg'); }
 .difficulty-1 { background-image: url('../assets/difficulty/difficulty-1.svg'); }
 .difficulty-2 { background-image: url('../assets/difficulty/difficulty-2.svg'); }
@@ -700,7 +713,8 @@ body {
 .difficulty-29 { background-image: url('../assets/difficulty/difficulty-29.svg'); }
 .difficulty-30 { background-image: url('../assets/difficulty/difficulty-30.svg'); }
 
-.difficulty-fetch-btn {
+.difficulty-fetch-btn,
+.contest-difficulty-fetch-btn {
     padding: 6px 12px;
     border-radius: 6px;
     border: none;
@@ -713,27 +727,17 @@ body {
 
 .difficulty-fetch-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: var(--success-color);
-}
-
-.contest-difficulty-fetch-btn {
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: none;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-    min-width: 120px;
-    text-align: center;
 }
 
 .contest-difficulty-fetch-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: var(--primary-color);
 }
 
+/* ========== Status Controls ========== */
 .status-btn {
     padding: 6px 12px;
     border-radius: 6px;
@@ -748,21 +752,127 @@ body {
 
 .status-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Status states */
-.status-0 { background-color: #f5f5f5; color: var(--gray-dark); } /* Not attempted */
-.status-1 { background-color: #fff3e0; color: #e65100; } /* Attempted */
-.status-2 { background-color: #e8f5e9; color: #2e7d32; } /* Solved */
-.status-3 { background-color: #d0ffd0; color: #008000; } /* Reviewed */
+.status-0 {
+    background-color: #f5f5f5;
+    color: var(--gray-dark);
+}
 
-.progress-status-0 { background-color: #f0f0f0; color: var(--gray-dark); } /* Not attempted - lighter gray */
-.progress-status-1 { background-color: #ffe0b2; color: #e65100; } /* Attempted - deeper orange */
-.progress-status-2 { background-color: #c8e6c9; color: #2e7d32; } /* Solved - brighter green */
-.progress-status-3 { background-color: #b2ffb2; color: #008000; } /* Reviewed - bright green */
+.status-1 {
+    background-color: #fff3e0;
+    color: #e65100;
+}
 
-/* ========== Stats Bar Styles ========== */
+.status-2 {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-3 {
+    background-color: #d0ffd0;
+    color: #008000;
+}
+
+/* ========== Progress Bar ========== */
+.progress-container {
+    width: 100%;
+    height: 20px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    display: flex;
+    width: 100%;
+    min-width: 100%;
+}
+
+.progress-segment {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 12px;
+    position: relative;
+    cursor: default;
+    width: 0%;
+    min-width: 0;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.progress-segment.wide-enough {
+    min-width: 30px;
+}
+
+.progress-segment:hover {
+    transform: scaleY(1.1);
+    z-index: 2;
+    min-width: auto;
+}
+
+.progress-status-0 {
+    background-color: #f0f0f0;
+    color: var(--gray-dark);
+}
+
+.progress-status-1 {
+    background-color: #ffe0b2;
+    color: #e65100;
+}
+
+.progress-status-2 {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+}
+
+.progress-status-3 {
+    background-color: #b2ffb2;
+    color: #008000;
+}
+
+.hover-box {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 13px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0;
+    transform: translate(-50%, -120%);
+    transition: opacity 0.2s ease;
+    min-width: 160px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    display: none;
+}
+
+.hover-box.show {
+    opacity: 1;
+    display: block;
+}
+
+.hover-box::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+}
+
+/* ========== Stats Bar ========== */
 .stats-bar {
     display: flex;
     justify-content: space-between;
@@ -788,198 +898,7 @@ body {
     font-weight: 600;
 }
 
-/* ========== Animations ========== */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ========== Responsive Styles ========== */
-@media (max-width: 768px) {
-    .contest-table {
-        font-size: 0.9rem;
-    }
-    
-    .contest-table td {
-        padding: 8px 10px;
-        width: 120px;
-        min-width: 120px;
-    }
-    
-    .contest-table td:first-child {
-        width: 60px;
-        min-width: 60px;
-        max-width: 60px;
-    }
-}
-
-/* Navigation Actions Styles */
-.nav-actions {
-    margin-left: auto;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.nav-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background-color: var(--primary-dark);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 6px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.nav-btn:hover {
-    background-color: var(--primary-color);
-    transform: translateY(-1px);
-}
-
-.nav-btn .btn-icon {
-    font-size: 16px;
-}
-
-.nav-btn .btn-text {
-    display: none;
-}
-
-@media (min-width: 768px) {
-    .nav-btn .btn-text {
-        display: inline;
-    }
-    .nav-btn {
-        padding: 8px 16px;
-    }
-}
-
-/* Status Notification */
-.save-status {
-    position: fixed;
-    top: 70px;
-    right: 20px;
-    padding: 10px 15px;
-    background-color: var(--success-color);
-    color: white;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    opacity: 0;
-    transition: opacity 0.3s;
-    z-index: 1000;
-}
-
-.save-status.show {
-    opacity: 1;
-}
-
-.save-status.error {
-    background-color: var(--danger-color);
-}
-
-.progress-container {
-    width: 100%;
-    height: 20px;
-    background-color: #f5f5f5;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    overflow: hidden;
-}
-  
-.progress-bar {
-    height: 100%;
-    display: flex;
-    width: 100%;
-    min-width: 100%; /* Ensure full width behavior */
-}
-  
-.progress-segment {
-    height: 100%;
-    /* overflow: hidden; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 500;
-    font-size: 12px;
-    position: relative;
-    cursor: default;
-    width: 0%;
-    min-width: 0;
-    transition: width 0.3s ease-in-out;
-    overflow: hidden; /* Hide text when too narrow */
-    white-space: nowrap;
-}
-
-/* Minimum width to show text (adjust as needed) */
-.progress-segment.wide-enough {
-    min-width: 30px; /* Only show text when at least 30px wide */
-}
-  
-.progress-segment:hover {
-    transform: scaleY(1.1);
-    z-index: 2;
-    min-width: auto; /* Always show text on hover */
-}
-
-.hover-box {
-    position: fixed; /* Changed from absolute to fixed */
-    background: rgba(0,0,0,0.85);
-    color: white;
-    padding: 10px 15px;
-    border-radius: 4px;
-    font-size: 13px;
-    pointer-events: none;
-    z-index: 100;
-    opacity: 0;
-    transform: translate(-50%, -120%);
-    transition: opacity 0.2s ease;
-    min-width: 160px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16);
-    display: none; /* Start hidden */
-}
-  
-.hover-box.show {
-    opacity: 1;
-    display: block; /* Show when active */
-}
-  
-.hover-box::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: rgba(0,0,0,0.85) transparent transparent transparent;
-}
-
-.btn {
-    padding: 0.8rem 1.2rem;
-    border-radius: 6px;
-    cursor: pointer;
-    border: none;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background: var(--primary-color);
-    color: white;
-    width: 100%;
-}
-
-.btn-primary:hover {
-    background: #3367d6;
-}
-
-/* Add the CSS from the previous answer here */
-/* ========== Auth Page Styles ========== */
+/* ========== Authentication Page ========== */
 .auth-container {
     max-width: 500px;
     width: 100%;
@@ -1028,6 +947,26 @@ body {
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
 }
 
+.btn {
+    padding: 0.8rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #3367d6;
+}
+
 .btn-google {
     background: #4285F4;
     color: white;
@@ -1052,7 +991,8 @@ body {
     color: var(--gray-medium);
 }
 
-.divider::before, .divider::after {
+.divider::before,
+.divider::after {
     content: "";
     flex: 1;
     border-bottom: 1px solid var(--gray-medium);
@@ -1109,6 +1049,7 @@ body {
     font-weight: 500;
 }
 
+/* ========== Status Notifications ========== */
 .status-panel {
     position: fixed;
     bottom: 20px;
@@ -1123,36 +1064,58 @@ body {
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     max-width: 300px;
-    pointer-events: none; /* Prevents interaction with the panel */
-  }
-  
-  .status-panel.success {
-    background-color: rgba(40, 167, 69, 0.9); /* Green with transparency */
-  }
-  
-  .status-panel.error {
-    background-color: rgba(220, 53, 69, 0.9); /* Red with transparency */
-  }
-  
-  .status-panel.show {
+    pointer-events: none;
+}
+
+.status-panel.success {
+    background-color: rgba(40, 167, 69, 0.9);
+}
+
+.status-panel.error {
+    background-color: rgba(220, 53, 69, 0.9);
+}
+
+.status-panel.show {
     opacity: 1;
-  }
-  
-  /* Animation for showing/hiding */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  @keyframes fadeOut {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(10px); }
-  }
-  
-  .status-panel.show {
-    animation: fadeIn 0.3s forwards;
-  }
-  
-  .status-panel.hide {
-    animation: fadeOut 0.3s forwards;
-  }
+}
+
+/* ========== Animations ========== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========== Responsive Design ========== */
+@media (min-width: 768px) {
+    .nav-btn .btn-text {
+        display: inline;
+    }
+
+    .nav-btn {
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contest-table {
+        font-size: 0.9rem;
+    }
+
+    .contest-table td {
+        padding: 8px 10px;
+        width: 120px;
+        min-width: 120px;
+    }
+
+    .contest-table td:first-child {
+        width: 60px;
+        min-width: 60px;
+        max-width: 60px;
+    }
+}

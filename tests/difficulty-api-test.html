@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difficulty API Tester</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 4px solid #4285f4;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #4285f4;
+        }
+        input {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        button:hover {
+            background: #3367d6;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .error {
+            color: #d32f2f;
+            background: #ffebee;
+            border-color: #d32f2f;
+        }
+        .success {
+            color: #388e3c;
+            background: #e8f5e9;
+            border-color: #388e3c;
+        }
+        .info {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            color: #1976d2;
+        }
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .status-pass {
+            background: #4caf50;
+            color: white;
+        }
+        .status-fail {
+            background: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Difficulty API Tester</h1>
+        <p>This tool tests the solved.ac API proxy for CORS and functionality issues.</p>
+
+        <!-- Test 1: Direct API Test -->
+        <div class="test-section">
+            <h3>Test 1: Fetch Problem Difficulty</h3>
+            <p>Enter a BOJ problem ID to test:</p>
+            <input type="number" id="problemId" value="1000" placeholder="Problem ID">
+            <button onclick="testFetchDifficulty()">Test Fetch</button>
+            <div id="fetchResult" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- Test 2: CORS Headers Check -->
+        <div class="test-section">
+            <h3>Test 2: CORS Headers Check</h3>
+            <p>Check if the proxy returns proper CORS headers:</p>
+            <button onclick="testCORSHeaders()">Check CORS Headers</button>
+            <div id="corsResult" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- Test 3: Direct solved.ac API -->
+        <div class="test-section">
+            <h3>Test 3: Direct solved.ac API (without proxy)</h3>
+            <p>This will fail with CORS error but confirms solved.ac API is working:</p>
+            <button onclick="testDirectAPI()">Test Direct API</button>
+            <div id="directResult" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- Test 4: Multiple Problems -->
+        <div class="test-section">
+            <h3>Test 4: Batch Test (Multiple Problems)</h3>
+            <p>Test with multiple problem IDs:</p>
+            <button onclick="testBatchFetch()">Test Batch (1000, 2000, 3000)</button>
+            <div id="batchResult" class="result" style="display: none;"></div>
+        </div>
+
+        <!-- Fix Instructions -->
+        <div class="test-section" style="border-left-color: #ff9800;">
+            <h3 style="color: #ff9800;">🔧 How to Fix CORS Issue</h3>
+            <p>If you see CORS errors, your Cloudflare Worker needs to be updated with proper headers. Here's the fix:</p>
+            <pre>
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+async function handleRequest(request) {
+  // Get problemId from URL query parameter
+  const url = new URL(request.url)
+  const problemId = url.searchParams.get('problemId')
+
+  if (!problemId) {
+    return new Response('Missing problemId parameter', {
+      status: 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'text/plain'
+      }
+    })
+  }
+
+  // Fetch from solved.ac API
+  const apiUrl = `https://solved.ac/api/v3/problem/show?problemId=${problemId}`
+
+  try {
+    const response = await fetch(apiUrl, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+
+    const data = await response.json()
+
+    // Return with CORS headers
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type': 'application/json'
+      }
+    })
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+}</pre>
+        </div>
+    </div>
+
+    <script>
+        const PROXY_URL = 'https://solved-ac-proxy.arnoldpark03.workers.dev';
+        const DIRECT_API_URL = 'https://solved.ac/api/v3/problem/show';
+
+        /**
+         * Test 1: Fetch problem difficulty through proxy
+         */
+        async function testFetchDifficulty() {
+            const resultDiv = document.getElementById('fetchResult');
+            const problemId = document.getElementById('problemId').value;
+
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result info';
+            resultDiv.innerHTML = '⏳ Testing...';
+
+            try {
+                const response = await fetch(`${PROXY_URL}?problemId=${problemId}`);
+
+                console.log('Response status:', response.status);
+                console.log('Response headers:', [...response.headers.entries()]);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `
+                    <strong>✅ Success!</strong> <span class="status-badge status-pass">PASS</span>
+                    <p><strong>Problem ID:</strong> ${data.problemId}</p>
+                    <p><strong>Title:</strong> ${data.titleKo || data.title}</p>
+                    <p><strong>Difficulty Level:</strong> ${data.level}</p>
+                    <p><strong>Tags:</strong> ${data.tags?.map(t => t.displayNames?.[0]?.name).join(', ') || 'None'}</p>
+                    <details>
+                        <summary>View Full Response</summary>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </details>
+                `;
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <strong>❌ Failed!</strong> <span class="status-badge status-fail">FAIL</span>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p><strong>Error Type:</strong> ${error.name}</p>
+                    <details>
+                        <summary>Full Error Details</summary>
+                        <pre>${error.stack}</pre>
+                    </details>
+                    <p style="margin-top: 15px;">
+                        <strong>Common Causes:</strong><br>
+                        1. Missing CORS headers on Cloudflare Worker<br>
+                        2. Worker not deployed or URL incorrect<br>
+                        3. Network connectivity issues
+                    </p>
+                `;
+            }
+        }
+
+        /**
+         * Test 2: Check CORS headers
+         */
+        async function testCORSHeaders() {
+            const resultDiv = document.getElementById('corsResult');
+
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result info';
+            resultDiv.innerHTML = '⏳ Checking CORS headers...';
+
+            try {
+                const response = await fetch(`${PROXY_URL}?problemId=1000`, {
+                    method: 'GET'
+                });
+
+                const headers = {};
+                response.headers.forEach((value, key) => {
+                    headers[key] = value;
+                });
+
+                const corsHeaders = {
+                    'access-control-allow-origin': headers['access-control-allow-origin'],
+                    'access-control-allow-methods': headers['access-control-allow-methods'],
+                    'access-control-allow-headers': headers['access-control-allow-headers']
+                };
+
+                const hasCORS = corsHeaders['access-control-allow-origin'] !== undefined;
+
+                if (hasCORS) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <strong>✅ CORS Headers Present!</strong> <span class="status-badge status-pass">PASS</span>
+                        <p><strong>Access-Control-Allow-Origin:</strong> ${corsHeaders['access-control-allow-origin']}</p>
+                        <p><strong>Access-Control-Allow-Methods:</strong> ${corsHeaders['access-control-allow-methods'] || 'Not set'}</p>
+                        <p><strong>Access-Control-Allow-Headers:</strong> ${corsHeaders['access-control-allow-headers'] || 'Not set'}</p>
+                        <details>
+                            <summary>All Response Headers</summary>
+                            <pre>${JSON.stringify(headers, null, 2)}</pre>
+                        </details>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <strong>❌ Missing CORS Headers!</strong> <span class="status-badge status-fail">FAIL</span>
+                        <p>The proxy is not returning required CORS headers.</p>
+                        <p><strong>Required:</strong> Access-Control-Allow-Origin</p>
+                        <p><strong>Found:</strong> None</p>
+                        <p style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 4px;">
+                            <strong>⚠️ Action Required:</strong> Update your Cloudflare Worker with the code shown in the "How to Fix" section above.
+                        </p>
+                        <details>
+                            <summary>All Response Headers</summary>
+                            <pre>${JSON.stringify(headers, null, 2)}</pre>
+                        </details>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <strong>❌ Request Failed!</strong> <span class="status-badge status-fail">FAIL</span>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p>This likely means CORS is blocking the request before headers can be checked.</p>
+                `;
+            }
+        }
+
+        /**
+         * Test 3: Direct API call (will fail with CORS but confirms API works)
+         */
+        async function testDirectAPI() {
+            const resultDiv = document.getElementById('directResult');
+
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result info';
+            resultDiv.innerHTML = '⏳ Testing direct API (expect CORS error)...';
+
+            try {
+                const response = await fetch(`${DIRECT_API_URL}?problemId=1000`);
+                const data = await response.json();
+
+                resultDiv.className = 'result success';
+                resultDiv.innerHTML = `
+                    <strong>✅ Unexpected Success!</strong>
+                    <p>Direct API call worked (this usually fails due to CORS).</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                if (error.message.includes('CORS')) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <strong>✅ Expected CORS Error</strong> <span class="status-badge status-pass">PASS</span>
+                        <p>This confirms solved.ac API is working, but CORS prevents direct access.</p>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p style="margin-top: 10px; color: #666;">
+                            This is why we need the Cloudflare Worker proxy - to add CORS headers.
+                        </p>
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <strong>❌ Unexpected Error</strong> <span class="status-badge status-fail">FAIL</span>
+                        <p>${error.message}</p>
+                    `;
+                }
+            }
+        }
+
+        /**
+         * Test 4: Batch test multiple problems
+         */
+        async function testBatchFetch() {
+            const resultDiv = document.getElementById('batchResult');
+            const problemIds = [1000, 2000, 3000];
+
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result info';
+            resultDiv.innerHTML = '⏳ Testing batch fetch...';
+
+            const results = [];
+
+            for (const problemId of problemIds) {
+                try {
+                    const response = await fetch(`${PROXY_URL}?problemId=${problemId}`);
+                    const data = await response.json();
+                    results.push({ problemId, success: true, level: data.level });
+                } catch (error) {
+                    results.push({ problemId, success: false, error: error.message });
+                }
+                // Small delay to avoid rate limiting
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+
+            const successCount = results.filter(r => r.success).length;
+            const failCount = results.filter(r => !r.success).length;
+
+            resultDiv.className = successCount === problemIds.length ? 'result success' : 'result error';
+            resultDiv.innerHTML = `
+                <strong>${successCount === problemIds.length ? '✅' : '⚠️'} Batch Test Complete</strong>
+                <p><strong>Success:</strong> ${successCount}/${problemIds.length}</p>
+                <p><strong>Failed:</strong> ${failCount}/${problemIds.length}</p>
+                <table style="width: 100%; margin-top: 15px; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f5f5f5;">
+                            <th style="padding: 8px; text-align: left;">Problem ID</th>
+                            <th style="padding: 8px; text-align: left;">Status</th>
+                            <th style="padding: 8px; text-align: left;">Level/Error</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${results.map(r => `
+                            <tr>
+                                <td style="padding: 8px; border-top: 1px solid #ddd;">${r.problemId}</td>
+                                <td style="padding: 8px; border-top: 1px solid #ddd;">
+                                    ${r.success ? '✅ Success' : '❌ Failed'}
+                                </td>
+                                <td style="padding: 8px; border-top: 1px solid #ddd;">
+                                    ${r.success ? `Level ${r.level}` : r.error}
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Auto-run CORS check on load
+        window.addEventListener('load', () => {
+            console.log('Difficulty API Tester loaded');
+            console.log('Proxy URL:', PROXY_URL);
+        });
+    </script>
+</body>
+</html>
