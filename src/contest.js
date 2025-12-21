@@ -55,13 +55,15 @@ export function handleContestClick(contestCell) {
     contestInfo.className = 'contest-info info-panel';
     contestContent.insertBefore(contestInfo, contestContent.firstChild.nextSibling);
 
-    // Create and add progress bar at the top
-    const progressBar = _progressBar.createProgressBar();
-    progressBar.className = 'progress-container contest-info-progress';
-    progressBar.dataset.contestId = contest.id; // Store contest ID for updates
-    const contestStats = calculateContestStats(contest);
-    _progressBar.updateProgressBar(progressBar, contestStats);
-    contestInfo.appendChild(progressBar);
+    // Create and add progress bar at the top (except in practice records tab)
+    if (_state.state.currentCategory !== 'practice-records') {
+        const progressBar = _progressBar.createProgressBar();
+        progressBar.className = 'progress-container contest-info-progress';
+        progressBar.dataset.contestId = contest.id; // Store contest ID for updates
+        const contestStats = calculateContestStats(contest);
+        _progressBar.updateProgressBar(progressBar, contestStats);
+        contestInfo.appendChild(progressBar);
+    }
 
     // Create header section
     const header = document.createElement('div');
@@ -116,6 +118,34 @@ export function handleContestClick(contestCell) {
         });
     });
     statsContainer.appendChild(difficultyFetchButton);
+
+    // Only show Save Practice Record button if not on practice records page
+    if (_state.state.currentCategory !== 'practice-records') {
+        const savePracticeRecordButton = document.createElement('button');
+        savePracticeRecordButton.className = 'contest-save-practice-record-btn';
+        savePracticeRecordButton.textContent = 'Save Practice Record';
+        savePracticeRecordButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Button clicked! Contest ID:', contest.id);
+
+            // Set pending contest
+            _state.practiceRecordsState.pendingContestId = contest.id;
+            console.log('Pending contest ID set:', _state.practiceRecordsState.pendingContestId);
+
+            // Navigate to practice records tab by clicking the nav item
+            const practiceRecordsNavItem = document.querySelector('.nav-item[data-category="practice-records"]');
+            if (practiceRecordsNavItem) {
+                console.log('Found practice-records nav item, clicking...');
+                practiceRecordsNavItem.click();
+            } else {
+                console.error('Could not find practice-records nav item!');
+                // Fallback to direct call
+                _ui.loadCategory('practice-records');
+            }
+        });
+        statsContainer.appendChild(savePracticeRecordButton);
+    }
 
     contestInfo.appendChild(statsContainer);
 

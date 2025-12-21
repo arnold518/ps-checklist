@@ -111,16 +111,23 @@ export function updateProgressBar(progressContainer, problemStats) {
  */
 export function updateProgressBars() {
     const progressBars = document.querySelectorAll('.progress-container');
+    console.log('updateProgressBars: Found', progressBars.length, 'progress bars');
     progressBars.forEach(progressBar => {
         // Check if it's a contest-specific progress bar
         if (progressBar.dataset.contestId) {
-            const contest = _state.state.allContests.get(progressBar.dataset.contestId);
+            const contestId = progressBar.dataset.contestId;
+            console.log('Updating contest progress bar for:', contestId);
+            const contest = _state.state.allContests.get(contestId);
             if (contest) {
+                console.log('Contest found in allContests:', contestId);
                 // Import calculateContestStats dynamically to avoid circular dependency
                 import('./contest.js').then(module => {
                     const contestStats = module.calculateContestStats(contest);
+                    console.log('Recalculated stats for', contestId, ':', contestStats);
                     updateProgressBar(progressBar, contestStats);
                 });
+            } else {
+                console.warn('Contest not found in allContests:', contestId);
             }
         }
         // Otherwise it's a node-based progress bar

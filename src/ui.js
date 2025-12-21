@@ -4,6 +4,7 @@ import * as _contest from './contest.js';
 import * as _problem from './problem.js';
 import * as _progressBar from './progressBar.js';
 import * as _auth from './auth.js';
+import * as _practiceRecords from './practiceRecords.js';
 import { NAV_ITEMS } from './constants.js';
 
 export function initNavigation() {
@@ -58,12 +59,19 @@ export function adjustTableColumns() {
             yearHeader.style.width = `${yearColumnWidth}px`;
             yearHeader.style.minWidth = `${yearColumnWidth}px`;
         }
-        
+
+        // Set width on individual problem headers (for practice records)
+        table.querySelectorAll('th[data-problem-id]').forEach(header => {
+            header.style.width = `${cellWidth}px`;
+            header.style.minWidth = `${cellWidth}px`;
+            header.style.maxWidth = `${cellWidth}px`;
+        });
+
         table.querySelectorAll('td[data-problem-id]').forEach(cell => {
             cell.style.width = `${cellWidth}px`;
             cell.style.minWidth = `${cellWidth}px`;
             cell.style.maxWidth = `${cellWidth}px`;
-            
+
             const problemId = cell.dataset.problemId;
             const problemFullName = cell.dataset.fullname;
             if (cellWidth <= minWidth2) {
@@ -79,16 +87,20 @@ export function adjustTableColumns() {
             }
             _problem.updateProblemCell(cell.dataset.contestId, cell.dataset.problemIdx);
         });
-        
+
+        // Set colspan only if single "Problems" header exists (not for practice records)
         const problemsHeader = table.querySelector('th:nth-child(2)');
-        if (problemsHeader) {
+        if (problemsHeader && !problemsHeader.dataset.problemId) {
             problemsHeader.colSpan = maxProblems;
         }
     });
 }
 
 export function updateProblemStats() {
-    _tree.calculateProblemStats(_state.contestTrees[_state.state.currentCategory]);
+    // Only calculate tree stats if we're on a category with a tree (not practice-records)
+    if (_state.state.currentCategory !== 'practice-records' && _state.contestTrees[_state.state.currentCategory]) {
+        _tree.calculateProblemStats(_state.contestTrees[_state.state.currentCategory]);
+    }
     _progressBar.updateProgressBars();
 }
 
@@ -186,11 +198,17 @@ export function initSaveButtons() {
 
 export async function loadCategory(category) {
     const mainContent = document.getElementById('main-content');
-    
+
     if (category === 'home') {
         mainContent.innerHTML = '';
         _auth.createAuthPage();
         document.getElementById('sidebar').innerHTML = '';
+        return;
+    }
+
+    if (category === 'practice-records') {
+        _state.state.currentCategory = 'practice-records';
+        _practiceRecords.createPracticeRecordsPage();
         return;
     }
 

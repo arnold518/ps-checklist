@@ -38,6 +38,13 @@ export let userContestTree = {};
  */
 export let userProblemData = {};
 
+/**
+ * User's practice records
+ * Maps record IDs to practice session metadata
+ * @type {Object<string, {contestId: string, date: string, timestamp: number}>}
+ */
+export let userPracticeRecords = {};
+
 // ========== Application State ==========
 
 /**
@@ -51,6 +58,15 @@ export const state = {
     allContests: new Map(),
     directoryStats: new Map(),
     problemStats: new Map()
+};
+
+/**
+ * Current practice records tab state
+ * @type {Object}
+ */
+export const practiceRecordsState = {
+    sortedRecords: [],  // Array of record IDs sorted by timestamp (newest first)
+    pendingContestId: null  // Contest ID to add when navigating from main checklist
 };
 
 // ========== Contest ID Management ==========
@@ -177,12 +193,31 @@ export async function fetchUserContestTree() {
 }
 
 /**
- * Fetches all user data (both problem data and contest tree)
+ * Fetches user practice records from Firebase
+ * Updates contest IDs to handle any changes
+ * @returns {Promise<void>}
+ */
+export async function fetchUserPracticeRecords() {
+    userPracticeRecords = await _auth.loadData('userPracticeRecords') || {};
+    console.log('User practice records loaded:', userPracticeRecords);
+
+    // Sort records by timestamp (newest first)
+    practiceRecordsState.sortedRecords = Object.keys(userPracticeRecords)
+        .sort((a, b) => {
+            const tsA = userPracticeRecords[a].timestamp;
+            const tsB = userPracticeRecords[b].timestamp;
+            return tsB - tsA; // Descending order
+        });
+}
+
+/**
+ * Fetches all user data (problem data, contest tree, and practice records)
  * @returns {Promise<void>}
  */
 export async function fetchUserData() {
     await fetchUserProblemData();
     await fetchUserContestTree();
+    await fetchUserPracticeRecords();
 }
 
 // ========== Data Persistence ==========
@@ -237,11 +272,63 @@ export function saveUserData() {
 }
 
 /**
+ * Saves user practice records to Firebase
+ */
+export function saveUserPracticeRecords() {
+    console.log('Saving user practice records:', userPracticeRecords);
+    _auth.saveData('userPracticeRecords', userPracticeRecords).then(success => {
+        if (success) {
+            console.log('User practice records saved successfully', 'success');
+        } else {
+            console.error('Failed to save user practice records', 'error');
+        }
+    });
+}
+
+/**
+ * Add practice record
+ * @param {string} contestId - Contest ID to add
+ * @param {string} date - Date string (YYYY-MM-DD), defaults to today
+ * @returns {string} Record ID
+ */
+export function addPracticeRecord(contestId, date = new Date().toISOString().split('T')[0]) {
+    const timestamp = new Date(date).getTime();
+    // Use current time to ensure unique IDs even for same date
+    const recordId = `record-${Date.now()}-${contestId.replace(/[^a-zA-Z0-9]/g, '-')}`;
+
+    userPracticeRecords[recordId] = {
+        contestId,
+        date,
+        timestamp
+    };
+
+    // Update sorted list
+    practiceRecordsState.sortedRecords = Object.keys(userPracticeRecords)
+        .sort((a, b) => userPracticeRecords[b].timestamp - userPracticeRecords[a].timestamp);
+
+    saveUserPracticeRecords();
+    return recordId;
+}
+
+/**
+ * Delete practice record
+ * @param {string} recordId - Record ID to delete
+ */
+export function deletePracticeRecord(recordId) {
+    delete userPracticeRecords[recordId];
+    practiceRecordsState.sortedRecords = practiceRecordsState.sortedRecords
+        .filter(id => id !== recordId);
+    saveUserPracticeRecords();
+}
+
+/**
  * Clears all user data from memory
  */
 export function clearUserData() {
     userProblemData = {};
     userContestTree = {};
+    userPracticeRecords = {};
+    practiceRecordsState.sortedRecords = [];
 }
 
 // ========== UI Feedback ==========

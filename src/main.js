@@ -8,6 +8,29 @@ import * as _state from './state.js';
 import * as _ui from './ui.js';
 
 /**
+ * Fix mobile viewport height issues
+ * Sets CSS custom property for actual viewport height
+ */
+function setViewportHeight() {
+    // Get the actual viewport height
+    const vh = window.innerHeight * 0.01;
+    // Set CSS custom property
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+// Set viewport height on load
+setViewportHeight();
+
+// Update on resize (for mobile browser toolbar show/hide)
+window.addEventListener('resize', setViewportHeight);
+
+// Update on orientation change
+window.addEventListener('orientationchange', () => {
+    // Delay to allow browser UI to settle
+    setTimeout(setViewportHeight, 100);
+});
+
+/**
  * Application initialization
  * Executes when DOM is fully loaded
  */
@@ -21,6 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Load user progress data from Firebase
     await _state.fetchUserProblemData();
     await _state.fetchUserContestTree();
+    await _state.fetchUserPracticeRecords();
 
     // Initialize save buttons
     _ui.initSaveButtons();

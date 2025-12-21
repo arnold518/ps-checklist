@@ -32,10 +32,13 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
     color: var(--text-color);
+    /* Use CSS custom property for mobile compatibility, fallback to 100vh */
     height: 100vh;
-    display: flex;
-    flex-direction: column;
+    height: calc(var(--vh, 1vh) * 100);
     overflow: hidden;
+    margin: 0;
+    padding: 0;
+    position: relative;
 }
 
 /* ========== Navigation ========== */
@@ -43,10 +46,12 @@ body {
     background-color: var(--primary-color);
     color: var(--text-light);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
     z-index: 1000;
     height: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 }
 
 .nav-container {
@@ -143,8 +148,12 @@ body {
 
 /* ========== Layout ========== */
 .main-app-container {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
-    flex: 1;
     overflow: hidden;
 }
 
@@ -153,12 +162,14 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    min-height: 0;
 }
 
 .content-header {
     padding: 16px 24px;
     background-color: white;
     border-bottom: 1px solid var(--gray-medium);
+    flex-shrink: 0;
 }
 
 .empty-state {
@@ -179,6 +190,7 @@ body {
     position: relative;
     min-width: 200px;
     max-width: 50vw;
+    min-height: 0;
 }
 
 .resize-handle {
@@ -337,6 +349,7 @@ body {
     flex: 1;
     overflow-y: auto;
     padding: 16px;
+    min-height: 0;
 }
 
 .contest-item {
@@ -1093,6 +1106,233 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* ========== Practice Records ========== */
+.practice-records-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    min-height: 0;
+}
+
+/* Add Record Form */
+.add-record-form {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.add-record-form h2 {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 2px solid var(--gray-medium);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="date"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-group input[readonly] {
+    background-color: var(--gray-light);
+    cursor: not-allowed;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.95rem;
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.secondary-btn {
+    background-color: white;
+    color: var(--gray-darker);
+    border: 2px solid var(--gray-medium);
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.95rem;
+}
+
+.secondary-btn:hover {
+    background-color: var(--gray-light);
+}
+
+/* Timeline Container */
+.timeline-container {
+    position: relative;
+    padding-left: 80px;
+}
+
+/* Timeline Line */
+.timeline-line {
+    position: absolute;
+    left: 40px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--primary-color) 0%, var(--primary-color) 100%);
+}
+
+/* Timeline Record */
+.timeline-record {
+    position: relative;
+    margin-bottom: 40px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Timeline Dot */
+.timeline-dot {
+    position: absolute;
+    left: -46px;
+    top: 12px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--primary-color);
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+/* Date Label */
+.date-label {
+    position: absolute;
+    left: -130px;
+    top: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--gray-dark);
+    text-align: right;
+    width: 80px;
+}
+
+/* Record Card */
+.record-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.record-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Record Header */
+.record-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--gray-light);
+}
+
+.record-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+.record-meta {
+    font-size: 0.85rem;
+    color: var(--gray-dark);
+}
+
+.btn-delete {
+    background: none;
+    border: none;
+    color: var(--danger-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.btn-delete:hover {
+    background-color: #ffebee;
+}
+
+/* Save Practice Record Button in Contest Info */
+.contest-save-practice-record-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: var(--success-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.contest-save-practice-record-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #2d8e47;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--gray-dark);
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+.empty-state-text {
+    font-size: 1.1rem;
 }
 
 /* ========== Responsive Design ========== */
