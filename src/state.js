@@ -45,6 +45,14 @@ export let userProblemData = {};
  */
 export let userPracticeRecords = {};
 
+/**
+ * User's Codeforces contests data
+ * Stores full contest data for Codeforces contests added to practice records
+ * Maps contest IDs to complete contest objects
+ * @type {Object<string, Object>}
+ */
+export let userCodeforcesContests = {};
+
 // ========== Application State ==========
 
 /**
@@ -79,6 +87,12 @@ export const practiceRecordsState = {
  * @returns {string} Updated contest ID or original if not found
  */
 function getUpdatedContestId(contestId) {
+    // Skip migration for Codeforces contests - they don't have timestamps
+    // and should always match exactly
+    if (contestId.startsWith('Codeforces > ')) {
+        return contestDatabase[contestId] ? contestId : contestId;
+    }
+
     let bestMatch = null;
     let bestTimestamp = null;
 
@@ -199,7 +213,9 @@ export async function fetchUserContestTree() {
  */
 export async function fetchUserPracticeRecords() {
     userPracticeRecords = await _auth.loadData('userPracticeRecords') || {};
-    console.log('User practice records loaded:', userPracticeRecords);
+    console.log('📥 User practice records loaded from Firestore');
+    console.log('📊 Record IDs:', Object.keys(userPracticeRecords));
+    console.log('📊 Full data:', userPracticeRecords);
 
     // Sort records by timestamp (newest first)
     practiceRecordsState.sortedRecords = Object.keys(userPracticeRecords)
@@ -211,12 +227,47 @@ export async function fetchUserPracticeRecords() {
 }
 
 /**
+ * Fetches user Codeforces contests from Firebase
+ * Populates contestDatabase with saved Codeforces contest data
+ * @returns {Promise<void>}
+ */
+export async function fetchUserCodeforcesContests() {
+    console.log('📥 Loading Codeforces contests from Firestore...');
+    userCodeforcesContests = await _auth.loadData('userCodeforcesContests') || {};
+    console.log('Loaded Codeforces contests:', Object.keys(userCodeforcesContests));
+
+    // Populate contestDatabase with Codeforces contests
+    Object.entries(userCodeforcesContests).forEach(([contestId, contestData]) => {
+        console.log('  → Adding to contestDatabase:', contestId);
+        console.log('  → Contest data:', {
+            name: contestData.name,
+            problemCount: contestData.problems?.length,
+            firstProblem: contestData.problems?.[0]
+        });
+
+        // Clean the problems array to ensure no status/difficulty fields from old data
+        if (contestData.problems) {
+            contestData.problems = contestData.problems.map(p => ({
+                id: p.id,
+                title: p.title,
+                CF: p.CF
+                // Exclude status and difficulty - these come from userProblemData
+            }));
+        }
+
+        contestDatabase[contestId] = contestData;
+    });
+    console.log('✅ Codeforces contests loaded');
+}
+
+/**
  * Fetches all user data (problem data, contest tree, and practice records)
  * @returns {Promise<void>}
  */
 export async function fetchUserData() {
     await fetchUserProblemData();
     await fetchUserContestTree();
+    await fetchUserCodeforcesContests(); // Load Codeforces contests BEFORE practice records
     await fetchUserPracticeRecords();
 }
 
@@ -226,13 +277,13 @@ export async function fetchUserData() {
  * Saves user problem data to Firebase
  */
 export function saveUserProblemData() {
-    console.log('Saving user problem data:', userProblemData);
+    console.log('💾 Auto-saving problem data...');
     _auth.saveData('userProblemData', userProblemData).then(success => {
         if (success) {
-            console.log('User problem data saved successfully', 'success');
+            console.log('✅ Problem data saved');
             showStatus('User problem data saved successfully', 'success');
         } else {
-            console.error('Failed to save user problem data', 'error');
+            console.error('❌ Failed to save problem data');
             showStatus('Failed to save user problem data', 'error');
         }
     });
@@ -251,13 +302,13 @@ export function saveUserContestTree() {
         };
     });
 
-    console.log('Saving user contest tree:', savedata);
+    console.log('💾 Auto-saving contest tree...');
     _auth.saveData('userContestTree', savedata).then(success => {
         if (success) {
-            console.log('User contest tree saved successfully', 'success');
+            console.log('✅ Contest tree saved');
             showStatus('User contest tree saved successfully', 'success');
         } else {
-            console.error('Failed to save user contest tree', 'error');
+            console.error('❌ Failed to save contest tree');
             showStatus('Failed to save user contest tree', 'error');
         }
     });
@@ -275,12 +326,33 @@ export function saveUserData() {
  * Saves user practice records to Firebase
  */
 export function saveUserPracticeRecords() {
-    console.log('Saving user practice records:', userPracticeRecords);
+    console.log('💾 Saving practice records...');
+    console.log('📊 Records to save:', Object.keys(userPracticeRecords));
+    console.log('📊 Full data:', userPracticeRecords);
     _auth.saveData('userPracticeRecords', userPracticeRecords).then(success => {
         if (success) {
-            console.log('User practice records saved successfully', 'success');
+            console.log('✅ Practice records saved');
+            showStatus('Practice record saved successfully', 'success');
         } else {
-            console.error('Failed to save user practice records', 'error');
+            console.error('❌ Failed to save practice records');
+            showStatus('Failed to save practice record', 'error');
+        }
+    });
+}
+
+/**
+ * Saves user Codeforces contests to Firebase
+ */
+export function saveUserCodeforcesContests() {
+    console.log('💾 Saving Codeforces contest data...');
+    console.log('Data to save:', Object.keys(userCodeforcesContests));
+    _auth.saveData('userCodeforcesContests', userCodeforcesContests).then(success => {
+        if (success) {
+            console.log('✅ Codeforces contest saved to Firestore');
+            showStatus('Codeforces contest added to practice records', 'success');
+        } else {
+            console.error('❌ FAILED to save Codeforces contest');
+            showStatus('Failed to save Codeforces contest', 'error');
         }
     });
 }
@@ -315,9 +387,33 @@ export function addPracticeRecord(contestId, date = new Date().toISOString().spl
  * @param {string} recordId - Record ID to delete
  */
 export function deletePracticeRecord(recordId) {
+    console.log('🗑️ Deleting practice record:', recordId);
+    console.log('📊 Records before delete:', Object.keys(userPracticeRecords));
+
+    const contestId = userPracticeRecords[recordId]?.contestId;
     delete userPracticeRecords[recordId];
     practiceRecordsState.sortedRecords = practiceRecordsState.sortedRecords
         .filter(id => id !== recordId);
+
+    console.log('📊 Records after delete:', Object.keys(userPracticeRecords));
+
+    // If this was a Codeforces contest, check if we should remove it
+    if (contestId && contestId.startsWith('Codeforces > ')) {
+        // Check if any other practice records use this contest
+        const stillInUse = Object.values(userPracticeRecords).some(
+            record => record.contestId === contestId
+        );
+
+        if (!stillInUse) {
+            console.log('🗑️ Contest no longer in use, removing from userCodeforcesContests:', contestId);
+            delete userCodeforcesContests[contestId];
+            delete contestDatabase[contestId];
+            saveUserCodeforcesContests();
+        } else {
+            console.log('ℹ️ Contest still in use by other records:', contestId);
+        }
+    }
+
     saveUserPracticeRecords();
 }
 
@@ -328,6 +424,7 @@ export function clearUserData() {
     userProblemData = {};
     userContestTree = {};
     userPracticeRecords = {};
+    userCodeforcesContests = {};
     practiceRecordsState.sortedRecords = [];
 }
 

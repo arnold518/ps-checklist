@@ -191,26 +191,27 @@ export function setupResizableSidebar() {
     });
 }
 
-export function initSaveButtons() {
-    document.getElementById('save-userdata').addEventListener('click', _state.saveUserProblemData);
-    document.getElementById('save-contesttree').addEventListener('click', _state.saveUserContestTree);
-}
-
 export async function loadCategory(category) {
     const mainContent = document.getElementById('main-content');
+    const sidebar = document.getElementById('sidebar');
 
     if (category === 'home') {
         mainContent.innerHTML = '';
         _auth.createAuthPage();
-        document.getElementById('sidebar').innerHTML = '';
+        sidebar.innerHTML = '';
+        sidebar.classList.add('hidden');
         return;
     }
 
     if (category === 'practice-records') {
         _state.state.currentCategory = 'practice-records';
         _practiceRecords.createPracticeRecordsPage();
+        sidebar.classList.add('hidden');
         return;
     }
+
+    // Show sidebar for other categories
+    sidebar.classList.remove('hidden');
 
     if (!_state.userContestTree[category]) {
         _state.userContestTree[category] = {};
@@ -224,7 +225,7 @@ export async function loadCategory(category) {
             category_name = item.name;
         }
     });
-    
+
     _state.state.currentCategory = category;
     _state.state.expandedNodes = _state.userContestTree[category].expandedNodes || new Set();
     _state.state.visibleContests = _state.userContestTree[category].visibleContests || new Set();
@@ -238,8 +239,6 @@ export async function loadCategory(category) {
         </div>
         <div id="contest-container" class="contest-container"></div>
     `;
-
-    const sidebar = document.getElementById('sidebar');
     sidebar.innerHTML = `
         <div class="sidebar-header">
             <h3>${category_name} Contests</h3>

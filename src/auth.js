@@ -279,34 +279,40 @@ firebase.auth().onAuthStateChanged(user => {
  */
 export function saveData(key, value) {
     const user = auth.currentUser;
-    if (user) {
-        return db.collection('users').doc(user.uid).get()
-            .then(doc => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    data[key] = value;
-                    return db.collection('users').doc(user.uid).set(data)
-                        .then(() => {
-                            console.log('Data updated!');
-                            return true;
-                        });
-                } else {
-                    const newData = { [key]: value };
-                    return db.collection('users').doc(user.uid).set(newData)
-                        .then(() => {
-                            console.log('New document created and data saved!');
-                            return true;
-                        });
-                }
-            })
-            .catch(error => {
-                console.error('Error updating data:', error);
-                return false;
-            });
-    } else {
-        console.error('No authenticated user found');
+    if (!user) {
+        console.error('❌ SAVE FAILED: No authenticated user found');
         return Promise.resolve(false);
     }
+
+    console.log(`💾 Saving to Firestore: ${key}`);
+    console.log(`   User: ${user.email}`);
+    console.log(`   Data size: ${JSON.stringify(value).length} bytes`);
+
+    // Use update to replace specific fields (handles deletions properly)
+    return db.collection('users').doc(user.uid).update({
+        [key]: value
+    })
+        .then(() => {
+            console.log(`✅ Firestore saved: ${key}`);
+            console.log(`   Saved data:`, value);
+            return true;
+        })
+        .catch(error => {
+            // If document doesn't exist, create it with set
+            if (error.code === 'not-found') {
+                console.log(`   Document not found, creating new document`);
+                return db.collection('users').doc(user.uid).set({
+                    [key]: value
+                })
+                    .then(() => {
+                        console.log(`✅ Firestore document created: ${key}`);
+                        return true;
+                    });
+            }
+            console.error(`❌ Firestore error saving ${key}:`, error);
+            console.error(`   Error details:`, error.message);
+            return false;
+        });
 }
 
 /**
@@ -316,20 +322,30 @@ export function saveData(key, value) {
  */
 export async function loadData(key) {
     const user = auth.currentUser;
-    if (user) {
-        return db.collection('users').doc(user.uid).get()
-            .then(doc => {
-                if (doc.exists) {
-                    const data = doc.data();
-                    return data[key] || null;
-                }
-            })
-            .catch(error => {
-                console.error('Error loading data:', error);
-                return null;
-            });
-    } else {
-        console.error('No authenticated user found');
+    if (!user) {
+        console.error(`❌ LOAD FAILED: No authenticated user (key: ${key})`);
         return null;
     }
+
+    console.log(`📥 Loading from Firestore: ${key}`);
+    return db.collection('users').doc(user.uid).get()
+        .then(doc => {
+            if (doc.exists) {
+                const data = doc.data();
+                const value = data[key] || null;
+                if (value) {
+                    console.log(`✅ Loaded ${key}: ${JSON.stringify(value).length} bytes`);
+                } else {
+                    console.log(`⚠️  ${key} not found in Firestore (will use default)`);
+                }
+                return value;
+            } else {
+                console.log(`⚠️  No Firestore document exists yet`);
+                return null;
+            }
+        })
+        .catch(error => {
+            console.error(`❌ Firestore error loading ${key}:`, error);
+            return null;
+        });
 }

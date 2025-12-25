@@ -193,6 +193,10 @@ body {
     min-height: 0;
 }
 
+#sidebar.hidden {
+    display: none;
+}
+
 .resize-handle {
     position: absolute;
     top: 0;
@@ -1116,6 +1120,36 @@ body {
     min-height: 0;
 }
 
+/* Add Codeforces Button */
+.add-codeforces-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.95rem;
+    margin-left: 20px;
+}
+
+.add-codeforces-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.content-header h1 {
+    margin: 0;
+}
+
 /* Add Record Form */
 .add-record-form {
     background: white;
@@ -1163,6 +1197,12 @@ body {
     cursor: not-allowed;
 }
 
+.input-hint {
+    font-size: 0.85rem;
+    color: var(--gray-dark);
+    margin-top: 5px;
+}
+
 .form-buttons {
     display: flex;
     gap: 10px;
@@ -1199,6 +1239,34 @@ body {
 
 .secondary-btn:hover {
     background-color: var(--gray-light);
+}
+
+.primary-btn:disabled {
+    background-color: var(--gray-medium);
+    cursor: not-allowed;
+}
+
+/* Status Messages */
+.status {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 6px;
+    display: none;
+    font-size: 0.9rem;
+}
+
+.status.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status.error {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.status.show {
+    display: block;
 }
 
 /* Timeline Container */

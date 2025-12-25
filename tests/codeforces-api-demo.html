@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codeforces API Demo - Interactive Table</title>
+    <style>
+        /* ========== CSS Variables ========== */
+        :root {
+            --primary-color: #4285f4;
+            --primary-dark: #3367d6;
+            --success-color: #34a853;
+            --danger-color: #ea4335;
+            --warning-color: #fbbc05;
+            --gray-light: #f5f5f5;
+            --gray-medium: #e0e0e0;
+            --gray-dark: #757575;
+            --gray-darker: #424242;
+            --text-color: #212121;
+            --text-light: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            color: var(--text-color);
+            padding: 40px;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-medium);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-primary:disabled {
+            background-color: var(--gray-medium);
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .status.success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status.error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .examples {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 6px;
+        }
+
+        .examples h4 {
+            margin-bottom: 10px;
+            color: var(--gray-darker);
+        }
+
+        .examples ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .examples li {
+            margin: 5px 0;
+            color: var(--gray-dark);
+        }
+
+        .examples a {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .examples a:hover {
+            text-decoration: underline;
+        }
+
+        /* Contest Item Styles (copied from main stylesheet) */
+        .contest-item {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+            overflow: hidden;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .contest-header {
+            padding: 12px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contest-title {
+            font-weight: 500;
+            font-size: 18px;
+        }
+
+        .contest-content {
+            padding: 16px;
+            width: 100%;
+        }
+
+        .contest-table-container {
+            overflow-x: auto;
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .contest-table {
+            border-collapse: collapse;
+            width: auto;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            table-layout: fixed;
+            min-width: 100%;
+        }
+
+        .contest-table thead th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .contest-table thead th:first-child {
+            width: 80px;
+            min-width: 80px;
+        }
+
+        .contest-table tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        .contest-table tbody tr:hover {
+            background-color: #f1f8fe;
+        }
+
+        .contest-table td {
+            padding: 10px 12px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+            vertical-align: middle;
+            width: 150px;
+            min-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .contest-table td:first-child {
+            font-weight: bold;
+            color: #2980b9;
+            background-color: #f8f9fa;
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .contest-table td[data-problem-id] {
+            color: #34495e;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .contest-table td[data-status="0"] {
+            background-color: #f0f0f0;
+        }
+
+        .contest-table td[data-status="1"] {
+            background-color: #ffe0b2;
+        }
+
+        .contest-table td[data-status="2"] {
+            background-color: #c8e6c9;
+        }
+
+        .contest-table td[data-status="3"] {
+            background-color: #b2ffb2;
+        }
+
+        .contest-table td[data-problem-id]:hover {
+            background-color: #d6eaf8;
+            transform: scale(1.02);
+        }
+
+        /* Info Panel Styles */
+        .info-panel {
+            display: none;
+            background-color: white;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .info-panel.active {
+            display: block;
+        }
+
+        .contest-info {
+            border: 2px solid var(--primary-color);
+        }
+
+        .problem-info {
+            border: 2px solid var(--success-color);
+        }
+
+        .info-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+        }
+
+        .info-panel-title-container {
+            flex: 1;
+        }
+
+        .info-panel-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .info-panel-subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-darker);
+            margin-bottom: 4px;
+        }
+
+        .info-panel-close {
+            background: none;
+            border: none;
+            color: var(--gray-dark);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 4px;
+            margin-left: 12px;
+        }
+
+        .info-panel-close:hover {
+            color: var(--danger-color);
+        }
+
+        .info-panel-stats {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .stats-badge {
+            background-color: var(--gray-light);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .info-panel-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .info-panel-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            border-radius: 6px;
+            background-color: var(--gray-light);
+            transition: all 0.15s;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .info-panel-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .problem-link:hover {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        /* Difficulty Controls */
+        .problem-info-difficulty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .difficulty-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .difficulty-btn {
+            width: 28px;
+            height: 28px;
+            font-size: 150%;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--gray-light);
+            cursor: pointer;
+            transition: transform 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .difficulty-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .difficulty-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            vertical-align: middle;
+            margin-right: 4px;
+            margin-left: 4px;
+        }
+
+        /* Default difficulty icons (simple colored circles) */
+        .difficulty-0 { background-color: #bbb; border-radius: 50%; width: 12px; height: 12px; }
+        .difficulty-1 { background: linear-gradient(135deg, #d4d4d4, #999); border-radius: 50%; }
+        .difficulty-2 { background: linear-gradient(135deg, #b8e6b8, #66bb6a); border-radius: 50%; }
+        .difficulty-3 { background: linear-gradient(135deg, #90caf9, #42a5f5); border-radius: 50%; }
+        .difficulty-4 { background: linear-gradient(135deg, #ffcc80, #ffa726); border-radius: 50%; }
+        .difficulty-5 { background: linear-gradient(135deg, #ffab91, #ff7043); border-radius: 50%; }
+
+        /* Status Controls */
+        .problem-info-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .status-btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .status-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-0 {
+            background-color: #f5f5f5;
+            color: var(--gray-dark);
+        }
+
+        .status-1 {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+
+        .status-2 {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-3 {
+            background-color: #d0ffd0;
+            color: #008000;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏆 Codeforces Contest Table Demo (Interactive)</h1>
+
+        <div class="input-section">
+            <div class="form-group">
+                <label for="contest-url">Codeforces Contest URL:</label>
+                <input
+                    type="text"
+                    id="contest-url"
+                    placeholder="e.g., https://codeforces.com/contest/1891"
+                    value="https://codeforces.com/contest/1891"
+                >
+            </div>
+
+            <button class="btn-primary" id="fetch-btn">Fetch Contest Data</button>
+
+            <div id="status" class="status"></div>
+
+            <div class="examples">
+                <h4>Example URLs (Click to try):</h4>
+                <ul>
+                    <li><a onclick="loadExample('https://codeforces.com/contest/1891')">Codeforces Round 909 (Div. 3)</a></li>
+                    <li><a onclick="loadExample('https://codeforces.com/contest/1900')">Codeforces Round 913 (Div. 3)</a></li>
+                    <li><a onclick="loadExample('https://codeforces.com/gym/104869')">2023 ICPC Asia Pacific</a></li>
+                </ul>
+                <p style="margin-top: 10px; font-size: 14px; color: var(--gray-dark);">
+                    💡 <strong>Try it:</strong> Click contest ID or problem cells to see interactive info panels!
+                </p>
+                <p style="margin-top: 8px; font-size: 13px; color: var(--warning-color); background: #fffbf0; padding: 8px; border-radius: 4px;">
+                    ⚠️ <strong>Note:</strong> Announcement/Editorial links require fetching HTML (blocked by CORS in browsers).
+                    For full functionality, use a CORS proxy or run from a local server with proxy.
+                </p>
+            </div>
+        </div>
+
+        <div id="result-container"></div>
+    </div>
+
+    <script>
+        // ⚙️ CONFIGURATION - Set your Cloudflare Worker URL here
+        // After deploying the worker, replace this with your actual URL
+        // Example: 'https://cf-contest-proxy.YOUR-SUBDOMAIN.workers.dev'
+        const WORKER_URL = 'https://cf-contest-proxy.arnoldpark03.workers.dev'; // Set to null to disable, or your worker URL as a string
+
+        // Constants
+        const PROBLEM_STATES = ["Not Attempted", "Attempted", "Solved", "Reviewed"];
+
+        // State management using localStorage
+        let contestData = null;
+        let userProblemData = {};
+
+        // Load user data from localStorage
+        function loadUserData() {
+            const saved = localStorage.getItem('cf-demo-userdata');
+            if (saved) {
+                try {
+                    userProblemData = JSON.parse(saved);
+                } catch (e) {
+                    userProblemData = {};
+                }
+            }
+        }
+
+        // Save user data to localStorage
+        function saveUserData() {
+            localStorage.setItem('cf-demo-userdata', JSON.stringify(userProblemData));
+        }
+
+        // Parse Codeforces URL
+        function parseCodeforcesUrl(url) {
+            const contestMatch = url.match(/codeforces\.com\/contest\/(\d+)/);
+            const gymMatch = url.match(/codeforces\.com\/gym\/(\d+)/);
+            if (contestMatch) return { id: contestMatch[1], isGym: false };
+            if (gymMatch) return { id: gymMatch[1], isGym: true };
+            return null;
+        }
+
+        // Fetch contest data from Codeforces API
+        async function fetchContestData(contestId, isGym = false) {
+            const gymParam = isGym ? '&gym=true' : '';
+            const apiUrl = `https://codeforces.com/api/contest.standings?contestId=${contestId}&from=1&count=1&locale=en${gymParam}`;
+
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.status !== 'OK') {
+                throw new Error(data.comment || 'Failed to fetch');
+            }
+
+            return data.result;
+        }
+
+        // Fetch announcement and editorial links
+        async function fetchContestMaterials(contestId, isGym = false) {
+            const contestType = isGym ? 'gym' : 'contest';
+
+            // If worker URL is configured, use it (bypasses CORS)
+            if (WORKER_URL) {
+                try {
+                    const response = await fetch(`${WORKER_URL}?contestId=${contestId}&type=${contestType}`);
+                    const materials = await response.json();
+                    console.log('Fetched materials via worker:', materials);
+                    return materials;
+                } catch (error) {
+                    console.warn('Worker fetch failed:', error);
+                    return { announcement: null, editorial: null };
+                }
+            }
+
+            // Fallback: Try direct fetch (will fail due to CORS, but included for reference)
+            const contestUrl = `https://codeforces.com/${contestType}/${contestId}`;
+
+            try {
+                const response = await fetch(contestUrl);
+                const html = await response.text();
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                const materials = {
+                    announcement: null,
+                    editorial: null
+                };
+
+                const links = doc.querySelectorAll('a[href*="/blog/entry/"]');
+                links.forEach(link => {
+                    const text = link.textContent.toLowerCase();
+                    const href = link.getAttribute('href');
+
+                    if (text.includes('announcement') || text.includes('анонс')) {
+                        materials.announcement = href.startsWith('http') ? href : `https://codeforces.com${href}`;
+                    } else if (text.includes('tutorial') || text.includes('разбор')) {
+                        materials.editorial = href.startsWith('http') ? href : `https://codeforces.com${href}`;
+                    }
+                });
+
+                return materials;
+            } catch (error) {
+                console.warn('Direct fetch failed (CORS blocked). Deploy a Cloudflare Worker and set WORKER_URL.', error);
+                return { announcement: null, editorial: null };
+            }
+        }
+
+        // Handle contest cell click - show contest info
+        async function handleContestClick(contestCell) {
+            const contestId = contestCell.dataset.contestId;
+            if (!contestData) return;
+
+            const contestContent = contestCell.closest('.contest-content');
+
+            // Remove existing panels
+            let existingContestInfo = contestContent.querySelector('.contest-info');
+            if (existingContestInfo) existingContestInfo.remove();
+            let existingProblemInfo = contestContent.querySelector('.problem-info');
+            if (existingProblemInfo) existingProblemInfo.remove();
+
+            // Create contest info panel
+            const contestInfo = document.createElement('div');
+            contestInfo.className = 'contest-info info-panel';
+            contestContent.insertBefore(contestInfo, contestContent.firstChild);
+
+            // Header
+            const header = document.createElement('div');
+            header.className = 'info-panel-header';
+
+            const titleContainer = document.createElement('div');
+            titleContainer.className = 'info-panel-title-container';
+
+            const subtitle = document.createElement('div');
+            subtitle.className = 'info-panel-subtitle';
+            subtitle.textContent = `Contest ${contestData.contest.id}`;
+            titleContainer.appendChild(subtitle);
+
+            const title = document.createElement('h3');
+            title.className = 'info-panel-title';
+            title.textContent = contestData.contest.name;
+            titleContainer.appendChild(title);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'info-panel-close';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.onclick = (e) => {
+                e.stopPropagation();
+                contestInfo.remove();
+            };
+
+            header.appendChild(titleContainer);
+            header.appendChild(closeBtn);
+            contestInfo.appendChild(header);
+
+            // Stats
+            const statsContainer = document.createElement('div');
+            statsContainer.className = 'info-panel-stats';
+
+            const problemsCount = document.createElement('div');
+            problemsCount.className = 'stats-badge';
+            problemsCount.textContent = `Problems: ${contestData.problems.length}`;
+            statsContainer.appendChild(problemsCount);
+
+            contestInfo.appendChild(statsContainer);
+
+            // Links
+            const linksContainer = document.createElement('div');
+            linksContainer.className = 'info-panel-links';
+
+            const contestType = contestData.contest.type === 'ICPC' ? 'gym' : 'contest';
+
+            // Easy links (URL suffixes)
+            const links = [
+                { title: '📄 Statements', url: `https://codeforces.com/${contestType}/${contestData.contest.id}/problems` },
+                { title: '📊 Standings', url: `https://codeforces.com/${contestType}/${contestData.contest.id}/standings` },
+                { title: '🔗 Codeforces', url: `https://codeforces.com/${contestType}/${contestData.contest.id}` }
+            ];
+
+            // Try to fetch announcement and editorial (will fail due to CORS, but shows the attempt)
+            const materials = await fetchContestMaterials(contestData.contest.id, contestData.contest.type === 'ICPC');
+
+            if (materials.announcement) {
+                links.push({ title: '📢 Announcement', url: materials.announcement });
+            }
+            if (materials.editorial) {
+                links.push({ title: '📚 Editorial', url: materials.editorial });
+            }
+
+            links.forEach(linkInfo => {
+                const link = document.createElement('a');
+                link.className = 'info-panel-link';
+                link.textContent = linkInfo.title;
+                link.href = linkInfo.url;
+                link.target = '_blank';
+                link.onclick = (e) => e.stopPropagation();
+                linksContainer.appendChild(link);
+            });
+
+            contestInfo.appendChild(linksContainer);
+            contestInfo.classList.add('active');
+        }
+
+        // Handle problem cell click - show problem info
+        function handleProblemClick(problemCell) {
+            const contestId = problemCell.dataset.contestId;
+            const problemIdx = parseInt(problemCell.dataset.problemIdx);
+            const problemId = problemCell.dataset.problemId;
+
+            if (!contestData) return;
+
+            // First show contest info
+            const contestCell = document.querySelector(`td[data-contest-id="${contestId}"]`);
+            if (contestCell) handleContestClick(contestCell);
+
+            const problem = contestData.problems[problemIdx];
+            const problemKey = `${contestId} >> ${problemIdx}`;
+
+            // Get contest content
+            const contestContent = problemCell.closest('.contest-content');
+
+            // Remove existing problem info
+            let existingProblemInfo = contestContent.querySelector('.problem-info');
+            if (existingProblemInfo) existingProblemInfo.remove();
+
+            // Create problem info panel
+            const problemInfo = document.createElement('div');
+            problemInfo.className = 'problem-info info-panel';
+            const contestInfo = contestContent.querySelector('.contest-info');
+            if (contestInfo && contestInfo.nextSibling) {
+                contestContent.insertBefore(problemInfo, contestInfo.nextSibling);
+            } else {
+                contestContent.insertBefore(problemInfo, contestContent.firstChild);
+            }
+
+            // Header
+            const header = document.createElement('div');
+            header.className = 'info-panel-header';
+
+            const titleContainer = document.createElement('div');
+            titleContainer.className = 'info-panel-title-container';
+
+            const subtitle = document.createElement('div');
+            subtitle.className = 'info-panel-subtitle';
+            subtitle.textContent = `Problem ${problemId}`;
+            titleContainer.appendChild(subtitle);
+
+            const title = document.createElement('h3');
+            title.className = 'info-panel-title';
+            title.textContent = problem.name;
+            titleContainer.appendChild(title);
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'info-panel-close';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.onclick = (e) => {
+                e.stopPropagation();
+                problemInfo.remove();
+            };
+
+            header.appendChild(titleContainer);
+            header.appendChild(closeBtn);
+            problemInfo.appendChild(header);
+
+            // Get current status and difficulty
+            if (!userProblemData[problemKey]) {
+                userProblemData[problemKey] = { status: 0, difficulty: 0 };
+            }
+            let currentStatus = userProblemData[problemKey].status || 0;
+            let currentDifficulty = userProblemData[problemKey].difficulty || 0;
+
+            // Difficulty selector
+            const difficultyContainer = document.createElement('div');
+            difficultyContainer.className = 'problem-info-difficulty';
+
+            const diffLabel = document.createElement('span');
+            diffLabel.textContent = 'Difficulty:';
+            difficultyContainer.appendChild(diffLabel);
+
+            const selector = document.createElement('div');
+            selector.className = 'difficulty-selector';
+
+            const minusBtn = document.createElement('button');
+            minusBtn.className = 'difficulty-btn';
+            minusBtn.textContent = '-';
+
+            const icon = document.createElement('div');
+            icon.className = `difficulty-icon difficulty-${currentDifficulty}`;
+
+            const plusBtn = document.createElement('button');
+            plusBtn.className = 'difficulty-btn';
+            plusBtn.textContent = '+';
+
+            minusBtn.onclick = () => {
+                currentDifficulty = (currentDifficulty + 5) % 6; // Cycle 0-5
+                icon.className = `difficulty-icon difficulty-${currentDifficulty}`;
+                userProblemData[problemKey].difficulty = currentDifficulty;
+                updateProblemCell(contestId, problemIdx);
+                saveUserData();
+            };
+
+            plusBtn.onclick = () => {
+                currentDifficulty = (currentDifficulty + 1) % 6;
+                icon.className = `difficulty-icon difficulty-${currentDifficulty}`;
+                userProblemData[problemKey].difficulty = currentDifficulty;
+                updateProblemCell(contestId, problemIdx);
+                saveUserData();
+            };
+
+            selector.appendChild(minusBtn);
+            selector.appendChild(icon);
+            selector.appendChild(plusBtn);
+            difficultyContainer.appendChild(selector);
+            problemInfo.appendChild(difficultyContainer);
+
+            // Status selector
+            const statusContainer = document.createElement('div');
+            statusContainer.className = 'problem-info-status';
+
+            const statusLabel = document.createElement('span');
+            statusLabel.textContent = 'Status:';
+            statusContainer.appendChild(statusLabel);
+
+            const statusBtn = document.createElement('button');
+            statusBtn.className = `status-btn status-${currentStatus}`;
+            statusBtn.textContent = PROBLEM_STATES[currentStatus];
+            statusBtn.onclick = () => {
+                currentStatus = (currentStatus + 1) % 4;
+                statusBtn.className = `status-btn status-${currentStatus}`;
+                statusBtn.textContent = PROBLEM_STATES[currentStatus];
+                userProblemData[problemKey].status = currentStatus;
+                updateProblemCell(contestId, problemIdx);
+                saveUserData();
+            };
+
+            statusContainer.appendChild(statusBtn);
+            problemInfo.appendChild(statusContainer);
+
+            // Links
+            const linksContainer = document.createElement('div');
+            linksContainer.className = 'info-panel-links';
+
+            const contestType = contestData.contest.type === 'ICPC' ? 'gym' : 'contest';
+            const problemLink = document.createElement('a');
+            problemLink.className = 'info-panel-link problem-link';
+            problemLink.textContent = '🔗 View on Codeforces';
+            problemLink.href = `https://codeforces.com/${contestType}/${contestData.contest.id}/problem/${problemId}`;
+            problemLink.target = '_blank';
+            problemLink.onclick = (e) => e.stopPropagation();
+
+            linksContainer.appendChild(problemLink);
+            problemInfo.appendChild(linksContainer);
+            problemInfo.classList.add('active');
+        }
+
+        // Update problem cell appearance
+        function updateProblemCell(contestId, problemIdx) {
+            const problemKey = `${contestId} >> ${problemIdx}`;
+            const problemCell = document.querySelector(`td[data-contest-id="${contestId}"][data-problem-idx="${problemIdx}"]`);
+            if (!problemCell) return;
+
+            const problemData = userProblemData[problemKey] || { status: 0, difficulty: 0 };
+            problemCell.dataset.status = problemData.status;
+
+            const icon = problemCell.querySelector('.difficulty-icon');
+            if (icon) {
+                icon.className = `difficulty-icon difficulty-${problemData.difficulty}`;
+            }
+        }
+
+        // Create contest table
+        function createContestTable(data) {
+            contestData = data;
+            const contest = data.contest;
+            const problems = data.problems;
+
+            const contestItem = document.createElement('div');
+            contestItem.className = 'contest-item';
+
+            // Header
+            const header = document.createElement('div');
+            header.className = 'contest-header';
+
+            const title = document.createElement('div');
+            title.className = 'contest-title';
+            title.textContent = contest.name;
+            header.appendChild(title);
+
+            contestItem.appendChild(header);
+
+            // Content
+            const content = document.createElement('div');
+            content.className = 'contest-content';
+
+            const tableContainer = document.createElement('div');
+            tableContainer.className = 'contest-table-container';
+
+            const table = document.createElement('table');
+            table.className = 'contest-table';
+
+            // Table header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+
+            const contestHeader = document.createElement('th');
+            contestHeader.textContent = 'Contest';
+            headerRow.appendChild(contestHeader);
+
+            const problemsHeader = document.createElement('th');
+            problemsHeader.textContent = 'Problems';
+            problemsHeader.colSpan = problems.length;
+            headerRow.appendChild(problemsHeader);
+
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            // Table body
+            const tbody = document.createElement('tbody');
+            const row = document.createElement('tr');
+
+            // Contest cell
+            const contestCell = document.createElement('td');
+            contestCell.textContent = contest.id;
+            contestCell.dataset.contestId = contest.id;
+            contestCell.addEventListener('click', () => handleContestClick(contestCell));
+            row.appendChild(contestCell);
+
+            // Problem cells
+            problems.forEach((problem, idx) => {
+                const problemKey = `${contest.id} >> ${idx}`;
+                const problemData = userProblemData[problemKey] || { status: 0, difficulty: 0 };
+
+                const problemCell = document.createElement('td');
+                problemCell.dataset.problemId = problem.index;
+                problemCell.dataset.contestId = contest.id;
+                problemCell.dataset.problemIdx = idx;
+                problemCell.dataset.status = problemData.status;
+
+                const icon = document.createElement('div');
+                icon.className = `difficulty-icon difficulty-${problemData.difficulty}`;
+                problemCell.appendChild(icon);
+
+                const text = document.createTextNode(`${problem.index}. ${problem.name}`);
+                problemCell.appendChild(text);
+
+                problemCell.addEventListener('click', () => handleProblemClick(problemCell));
+
+                row.appendChild(problemCell);
+            });
+
+            tbody.appendChild(row);
+            table.appendChild(tbody);
+            tableContainer.appendChild(table);
+            content.appendChild(tableContainer);
+            contestItem.appendChild(content);
+
+            return contestItem;
+        }
+
+        // Show status message
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = `status ${type} show`;
+        }
+
+        // Main fetch function
+        async function handleFetchContest() {
+            const urlInput = document.getElementById('contest-url');
+            const fetchBtn = document.getElementById('fetch-btn');
+            const resultContainer = document.getElementById('result-container');
+
+            const url = urlInput.value.trim();
+            if (!url) {
+                showStatus('Please enter a Codeforces contest URL', 'error');
+                return;
+            }
+
+            const parsed = parseCodeforcesUrl(url);
+            if (!parsed) {
+                showStatus('Invalid URL', 'error');
+                return;
+            }
+
+            fetchBtn.disabled = true;
+            fetchBtn.textContent = 'Fetching...';
+
+            try {
+                loadUserData();
+                const data = await fetchContestData(parsed.id, parsed.isGym);
+                const table = createContestTable(data);
+
+                resultContainer.innerHTML = '';
+                resultContainer.appendChild(table);
+
+                showStatus(`✓ Loaded: ${data.contest.name}`, 'success');
+            } catch (error) {
+                showStatus(`Error: ${error.message}`, 'error');
+            } finally {
+                fetchBtn.disabled = false;
+                fetchBtn.textContent = 'Fetch Contest Data';
+            }
+        }
+
+        // Load example
+        function loadExample(url) {
+            document.getElementById('contest-url').value = url;
+            handleFetchContest();
+        }
+
+        // Event listeners
+        document.getElementById('fetch-btn').addEventListener('click', handleFetchContest);
+        document.getElementById('contest-url').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleFetchContest();
+        });
+
+        // Auto-load on page load
+        window.addEventListener('load', () => {
+            setTimeout(handleFetchContest, 500);
+        });
+    </script>
+</body>
+</html>

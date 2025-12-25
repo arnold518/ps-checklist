@@ -41,13 +41,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Load contest data from JSON files
     await _ui.fetchContestListData();
 
-    // Load user progress data from Firebase
-    await _state.fetchUserProblemData();
-    await _state.fetchUserContestTree();
-    await _state.fetchUserPracticeRecords();
-
-    // Initialize save buttons
-    _ui.initSaveButtons();
+    // Load all user data from Firebase
+    await _state.fetchUserData();
 
     // Set home as active and load home category
     document.querySelector('.nav-item').classList.add('active');

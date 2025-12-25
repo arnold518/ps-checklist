@@ -34,6 +34,7 @@ export function updateProblemSolvedacDifficulty(contestId, problemIdx) {
             _state.userProblemData[name].difficulty = problem.difficulty;
             console.log(`Fetched difficulty for problem ${bojnum}:`, problem.difficulty);
             updateProblemCell(contest.id, problemIdx);
+            _state.saveUserProblemData(); // Auto-save
         }
     }).catch(error => {
         console.error(`Error fetching difficulty for problem ${bojnum}:`, error);
@@ -124,6 +125,7 @@ export function handleProblemClick(problemCell) {
         _state.userProblemData[name].difficulty = problem.difficulty;
         updateDifficultyDisplay();
         updateProblemCell(contestId, problemIdx);
+        _state.saveUserProblemData(); // Auto-save
     });
 
     const icon = document.createElement('div');
@@ -165,6 +167,7 @@ export function handleProblemClick(problemCell) {
         _state.userProblemData[name].status = problem.status;
         updateProblemCell(contestId, problemIdx);
         _ui.updateProblemStats();
+        _state.saveUserProblemData(); // Auto-save
     });
     statusContainer.appendChild(statusBtn);
 
@@ -180,6 +183,7 @@ export function handleProblemClick(problemCell) {
         _state.userProblemData[name].difficulty = problem.difficulty;
         updateDifficultyDisplay();
         updateProblemCell(contestId, problemIdx);
+        _state.saveUserProblemData(); // Auto-save
     });
 
     function updateDifficultyDisplay() {
@@ -206,6 +210,7 @@ export function handleProblemClick(problemCell) {
         _state.userProblemData[name].difficulty = problem.difficulty;
         updateDifficultyDisplay();
         updateProblemCell(contestId, problemIdx);
+        _state.saveUserProblemData(); // Auto-save
     });
     selector.appendChild(difficultyResetButton);
 

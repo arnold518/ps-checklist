@@ -28,12 +28,16 @@ export function createPracticeRecordsPage() {
     mainContent.innerHTML = `
         <div class="content-header">
             <h1>Practice Records</h1>
+            <button id="add-codeforces-btn" class="add-codeforces-btn">+ Add Codeforces Contest</button>
         </div>
         <div id="practice-records-container" class="practice-records-container">
             <div id="add-record-form-container"></div>
             <div id="timeline-container" class="timeline-container"></div>
         </div>
     `;
+
+    // Add event listener for Add Codeforces button
+    document.getElementById('add-codeforces-btn').addEventListener('click', showAddCodeforcesForm);
 
     // Render add record form if pending contest
     if (_state.practiceRecordsState.pendingContestId) {
@@ -184,10 +188,15 @@ export function renderTimeline() {
  * @returns {HTMLElement} Record element
  */
 export function renderPracticeRecord(recordId, record) {
+    console.log('🔍 Looking for contest:', record.contestId);
+    console.log('📊 contestDatabase keys:', Object.keys(_state.contestDatabase));
+    console.log('📊 userCodeforcesContests keys:', Object.keys(_state.userCodeforcesContests));
+
     const contest = _state.contestDatabase[record.contestId];
 
     if (!contest) {
-        console.error('Contest not found:', record.contestId);
+        console.error('❌ Contest not found:', record.contestId);
+        console.error('Available contests:', Object.keys(_state.contestDatabase));
         return document.createElement('div');
     }
 
@@ -282,7 +291,8 @@ export function renderPracticeRecord(recordId, record) {
     const headerRow = document.createElement('tr');
 
     const contestHeader = document.createElement('th');
-    contestHeader.textContent = 'Year';
+    // Show "Contest" for Codeforces, "Year" for others
+    contestHeader.textContent = contest.source === 'codeforces' ? 'Contest' : 'Year';
     headerRow.appendChild(contestHeader);
 
     // Add individual problem ID headers
@@ -363,4 +373,213 @@ function handleDeleteRecord(recordId) {
 
     _state.deletePracticeRecord(recordId);
     renderTimeline();
+}
+
+// ========== Codeforces Integration ==========
+
+/**
+ * Cloudflare Worker URL for fetching contest materials
+ * Set to null to disable announcement/editorial fetching
+ */
+const WORKER_URL = 'https://cf-crawler.arnoldpark03.workers.dev';
+
+/**
+ * Parse Codeforces URL or contest ID
+ * @param {string} input - Contest ID or URL
+ * @returns {{id: string, isGym: boolean}|null}
+ */
+function parseCodeforcesInput(input) {
+    input = input.trim();
+
+    // Try to match URL format
+    const contestMatch = input.match(/codeforces\.com\/contest\/(\d+)/);
+    const gymMatch = input.match(/codeforces\.com\/gym\/(\d+)/);
+
+    if (contestMatch) return { id: contestMatch[1], isGym: false };
+    if (gymMatch) return { id: gymMatch[1], isGym: true };
+
+    // Try to parse as just a number
+    if (/^\d+$/.test(input)) {
+        return { id: input, isGym: false };
+    }
+
+    return null;
+}
+
+/**
+ * Fetch complete contest data from Cloudflare Worker
+ * The worker fetches from both Codeforces API and HTML to get:
+ * - Contest name and problems (from API)
+ * - Announcement, editorial, and all contest materials (from HTML)
+ *
+ * @param {string} contestId - Contest ID
+ * @param {boolean} isGym - Whether it's a gym contest
+ * @returns {Promise<Object>} Complete contest object ready to use
+ */
+async function fetchCodeforcesContestData(contestId, isGym = false) {
+    if (!WORKER_URL) {
+        throw new Error('Cloudflare Worker URL not configured');
+    }
+
+    const contestType = isGym ? 'gym' : 'contest';
+
+    try {
+        const response = await fetch(`${WORKER_URL}?contestId=${contestId}&type=${contestType}`);
+
+        if (!response.ok) {
+            throw new Error(`Worker returned ${response.status}: ${response.statusText}`);
+        }
+
+        const contestData = await response.json();
+
+        if (contestData.error) {
+            throw new Error(contestData.error);
+        }
+
+        console.log('✅ Fetched contest data from worker:', {
+            id: contestData.id,
+            name: contestData.name,
+            problems: contestData.problems?.length || 0,
+            materials: contestData.materials?.length || 0,
+            hasAnnouncement: !!contestData.link?.official,
+            hasEditorial: !!contestData.link?.editorials
+        });
+
+        return contestData;
+    } catch (error) {
+        console.error('❌ Worker fetch failed:', error);
+        throw error;
+    }
+}
+
+/**
+ * Add Codeforces contest to database and practice records
+ * @param {string} contestId - Contest ID
+ * @param {boolean} isGym - Whether it's a gym contest
+ * @param {string} date - Date string (YYYY-MM-DD)
+ */
+export async function addCodeforcesContest(contestId, isGym, date) {
+    try {
+        // Fetch complete contest data from worker
+        // Worker returns a fully-formed contest object
+        const contest = await fetchCodeforcesContestData(contestId, isGym);
+
+        const internalContestId = contest.id;
+
+        // Add to contest database (in-memory)
+        _state.contestDatabase[internalContestId] = contest;
+        console.log('✅ Added to contestDatabase:', internalContestId);
+
+        // Save to user's Codeforces contests (persisted to Firestore)
+        // Create a clean copy without status/difficulty fields that might be added later
+        const cleanContest = {
+            ...contest,
+            problems: contest.problems.map(p => ({
+                id: p.id,
+                title: p.title,
+                CF: p.CF
+                // Explicitly exclude status and difficulty fields
+            }))
+        };
+        _state.userCodeforcesContests[internalContestId] = cleanContest;
+        console.log('✅ Added to userCodeforcesContests:', internalContestId);
+        console.log('📊 Contest being saved:', {
+            name: cleanContest.name,
+            contestNum: cleanContest.contestNum,
+            problemCount: cleanContest.problems.length,
+            firstProblem: cleanContest.problems[0],
+            materials: cleanContest.materials?.length || 0
+        });
+        console.log('📊 Current userCodeforcesContests:', Object.keys(_state.userCodeforcesContests));
+
+        // This will trigger Firestore save
+        _state.saveUserCodeforcesContests();
+
+        // Add to practice records
+        _state.addPracticeRecord(internalContestId, date);
+
+        console.log('✅ Codeforces contest fully added:', internalContestId);
+        return internalContestId;
+
+    } catch (error) {
+        console.error('❌ Error adding Codeforces contest:', error);
+        throw error;
+    }
+}
+
+/**
+ * Show form to add Codeforces contest
+ */
+export function showAddCodeforcesForm() {
+    const container = document.getElementById('add-record-form-container');
+
+    container.innerHTML = `
+        <div class="add-record-form">
+            <h2>Add Codeforces Contest</h2>
+            <div class="form-group">
+                <label for="cf-contest-input">Contest ID or URL:</label>
+                <input type="text" id="cf-contest-input" placeholder="e.g., 1891 or https://codeforces.com/contest/1891" />
+                <div class="input-hint">Enter a Codeforces contest ID (e.g., 1891) or full URL</div>
+            </div>
+            <div class="form-group">
+                <label for="cf-record-date">Date:</label>
+                <input type="date" id="cf-record-date" value="${new Date().toISOString().split('T')[0]}" />
+            </div>
+            <div class="form-buttons">
+                <button id="cf-add-btn" class="primary-btn">Add Contest</button>
+                <button id="cf-cancel-btn" class="secondary-btn">Cancel</button>
+            </div>
+            <div id="cf-status" class="status"></div>
+        </div>
+    `;
+
+    // Add event listeners
+    document.getElementById('cf-add-btn').addEventListener('click', handleAddCodeforcesContest);
+    document.getElementById('cf-cancel-btn').addEventListener('click', () => {
+        container.innerHTML = '';
+    });
+}
+
+/**
+ * Handle adding Codeforces contest
+ */
+async function handleAddCodeforcesContest() {
+    const input = document.getElementById('cf-contest-input').value;
+    const date = document.getElementById('cf-record-date').value;
+    const statusEl = document.getElementById('cf-status');
+    const addBtn = document.getElementById('cf-add-btn');
+
+    // Parse input
+    const parsed = parseCodeforcesInput(input);
+    if (!parsed) {
+        statusEl.textContent = 'Invalid contest ID or URL';
+        statusEl.className = 'status error show';
+        return;
+    }
+
+    // Show loading state
+    addBtn.disabled = true;
+    addBtn.textContent = 'Adding...';
+    statusEl.textContent = 'Fetching contest data...';
+    statusEl.className = 'status show';
+
+    try {
+        await addCodeforcesContest(parsed.id, parsed.isGym, date);
+
+        // Success - re-render page
+        statusEl.textContent = 'Contest added successfully!';
+        statusEl.className = 'status success show';
+
+        // Clear form and re-render timeline
+        setTimeout(() => {
+            document.getElementById('add-record-form-container').innerHTML = '';
+            createPracticeRecordsPage();
+        }, 1000);
+
+    } catch (error) {
+        statusEl.textContent = `Error: ${error.message}`;
+        statusEl.className = 'status error show';
+        addBtn.disabled = false;
+        addBtn.textContent = 'Add Contest';
+    }
 }

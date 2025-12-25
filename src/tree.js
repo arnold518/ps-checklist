@@ -308,6 +308,7 @@ export function toggleNodeExpansion(node) {
         _state.userContestTree[_state.state.currentCategory].expandedNodes.add(node.id);
     }
     _ui.renderFullTree();
+    _state.saveUserContestTree(); // Auto-save
 }
 
 /**
@@ -336,6 +337,7 @@ export function setDirectoryVisibility(node, makeVisible) {
     }
 
     _ui.updateUI();
+    _state.saveUserContestTree(); // Auto-save
 }
 
 /**
@@ -348,8 +350,11 @@ export function toggleContestVisibility(contestId, node) {
 
     if (_state.state.visibleContests.has(contestId)) {
         _state.state.visibleContests.delete(contestId);
+        _state.userContestTree[_state.state.currentCategory].visibleContests.delete(contestId);
     } else {
         _state.state.visibleContests.add(contestId);
+        _state.userContestTree[_state.state.currentCategory].visibleContests.add(contestId);
     }
     _ui.updateUI();
+    _state.saveUserContestTree(); // Auto-save
 }
