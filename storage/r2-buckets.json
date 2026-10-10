@@ -1,0 +1,14 @@
+{
+    "provider": "cloudflare-r2",
+    "buckets": {
+        "public_assets": {
+            "nameEnvironmentVariable": "R2_PUBLIC_BUCKET",
+            "purpose": "Assets explicitly approved for public delivery"
+        },
+        "private_archive": {
+            "nameEnvironmentVariable": "R2_PRIVATE_BUCKET",
+            "purpose": "Historical snapshots and owner-restricted files",
+            "publicAccess": false
+        }
+    }
+}

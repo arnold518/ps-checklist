@@ -1,0 +1,75 @@
+[
+    {
+        "id": "a5f49e87-8b37-4cc8-aa16-565878777419",
+        "title": "The 2023 ICPC World Finals Luxor",
+        "year": "2023",
+        "category": ["ICPC", "World Finals"],
+        "link": {
+            "cf": "https://codeforces.com/gym/105255",
+            "qoj": "https://qoj.ac/contest/1662",
+            "atcoder": null,
+            "official": "https://icpc.global/community/results-2023",
+            "standings": "https://clist.by/standings/47th-annual-icpc-world-finals-luxor-egypt-50284536/?timeline="
+        },
+        "problems": [
+            {"problemId": "b17ce625-7395-4d12-b0f8-350f0a1c8e9d", "index": "A"},
+            {"problemId": "bd005d88-f6e6-4ec0-8ba6-7cb15f217529", "index": "B"}
+        ],
+        "materials": [
+            {
+                "role": "statement",
+                "title": "Problem statements",
+                "language": "en",
+                "url": "https://codeforces.com/gym/105255/attachments/download/26135/icpc2023.pdf"
+            },
+            {
+                "role": "editorial",
+                "title": "Solutions",
+                "language": "en",
+                "url": "https://codeforces.com/gym/105255/attachments/download/26136/finals2023solutions.pdf"
+            }
+        ]
+    },
+    {
+        "id": "7cc4d8e3-ad58-4bdf-91d6-f046101c7a76",
+        "title": "The 2022 ICPC World Finals Luxor",
+        "year": "2022",
+        "category": ["ICPC", "World Finals"],
+        "link": {
+            "cf": "https://codeforces.com/gym/105254",
+            "qoj": "https://qoj.ac/contest/1661",
+            "atcoder": null,
+            "official": "https://icpc.global/community/results-2022",
+            "standings": "https://clist.by/standings/46th-annual-icpc-world-finals-luxor-egypt-51207620/?timeline="
+        },
+        "problems": [
+            {"problemId": "b17ce625-7395-4d12-b0f8-350f0a1c8e9d", "index": "W"}
+        ],
+        "materials": []
+    },
+    {
+        "id": "9c1a63d1-cd4a-49f1-ae9a-776d81548903",
+        "title": "JOI 2025/2026 Final Stage",
+        "year": "2026",
+        "category": ["Olympiad", "Japan", "JOI Final"],
+        "link": {
+            "cf": null,
+            "qoj": null,
+            "atcoder": "https://atcoder.jp/contests/joi2026final",
+            "official": "https://www2.ioi-jp.org/joi/2025/2026-final/",
+            "standings": "https://atcoder.jp/contests/joi2026final/standings"
+        },
+        "problems": [
+            {"problemId": "3d954e91-9cb9-4c44-b823-fa94350b7204", "index": "A"},
+            {"problemId": "6f2ec3d7-d978-4a13-9d50-6d09564d981e", "index": "D"}
+        ],
+        "materials": [
+            {
+                "role": "editorial",
+                "title": "Editorials",
+                "language": null,
+                "url": "https://atcoder.jp/contests/joi2026final/editorial"
+            }
+        ]
+    }
+]

@@ -1,0 +1,9 @@
+/crawler/credential.json
+/crawler/output/
+__pycache__/
+*.pyc
+.venv/
+/.env.storage
+/supabase/.temp/
+/supabase/.branches/
+/storage/output/

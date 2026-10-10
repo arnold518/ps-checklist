@@ -1,0 +1,38 @@
+[
+    {
+        "id": "b17ce625-7395-4d12-b0f8-350f0a1c8e9d",
+        "title": "Riddle of the Sphinx",
+        "link": {
+            "cf": "https://codeforces.com/gym/105255/problem/A",
+            "qoj": "https://qoj.ac/problem/8674",
+            "atcoder": null
+        }
+    },
+    {
+        "id": "bd005d88-f6e6-4ec0-8ba6-7cb15f217529",
+        "title": "Schedule",
+        "link": {
+            "cf": "https://codeforces.com/gym/105255/problem/B",
+            "qoj": "https://qoj.ac/problem/8675",
+            "atcoder": null
+        }
+    },
+    {
+        "id": "3d954e91-9cb9-4c44-b823-fa94350b7204",
+        "title": "伝説の団子食通 (Legendary Dango Eater)",
+        "link": {
+            "cf": null,
+            "qoj": null,
+            "atcoder": "https://atcoder.jp/contests/joi2026final/tasks/joi2026final_a"
+        }
+    },
+    {
+        "id": "6f2ec3d7-d978-4a13-9d50-6d09564d981e",
+        "title": "カジノ (Casino)",
+        "link": {
+            "cf": null,
+            "qoj": null,
+            "atcoder": "https://atcoder.jp/contests/joi2026final/tasks/joi2026final_d"
+        }
+    }
+]

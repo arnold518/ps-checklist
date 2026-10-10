@@ -1,0 +1,1 @@
+"""Judge-specific fetch adapters."""
