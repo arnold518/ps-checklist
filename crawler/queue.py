@@ -79,7 +79,7 @@ class JobQueue:
             # The owner lock proves the previous workers cannot still be running.
             db.execute("UPDATE jobs SET status='QUEUED', next_run=?, updated_at=? WHERE status='RUNNING'",
                        (time.time(), time.time()))
-        for source in ("cf", "atcoder", "qoj"):
+        for source in getattr(self.service, 'queue_sources', ("cf", "atcoder", "qoj")):
             worker = threading.Thread(target=self._worker, args=(source,), daemon=True,
                                       name=f"fetch-{source}")
             self._threads.append(worker)
@@ -200,9 +200,11 @@ class JobQueue:
                     raise FetchError("JOB_INTERRUPTED", "The job exhausted its attempts after a worker interruption.", 503, True)
                 if time.time() >= row["created_at"] + self.job_lifetime:
                     raise FetchError("QUEUE_TIMEOUT", "The job exceeded its queue lifetime.", 504)
-                request = FetchRequest(**json.loads(row["request_json"]))
+                payload = json.loads(row["request_json"])
+                request = self.service.decode_request(payload) if hasattr(self.service, 'decode_request') else FetchRequest(**payload)
                 result = self.service.fetch(request)
-                validate_response(result)
+                validator = getattr(self.service, 'validate_result', validate_response)
+                validator(result)
                 self._finish(row, result, 200)
             except FetchError as error:
                 self._finish(row, error.response(), error.status, error)

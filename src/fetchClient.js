@@ -1,16 +1,20 @@
 export function parseRoundInput(source, input) {
     const value = input.trim();
-    const host = source === 'cf' ? 'codeforces.com' : 'atcoder.jp';
+    const platforms = {
+        cf: {host: 'codeforces.com', path: 'contest', id: /^[1-9]\d*$/, pattern: /^\/(contest|gym)\/[1-9]\d*\/?$/},
+        atcoder: {host: 'atcoder.jp', path: 'contests', id: /^[A-Za-z0-9][A-Za-z0-9_-]*$/, pattern: /^\/contests\/[A-Za-z0-9][A-Za-z0-9_-]*\/?$/}
+    };
+    const platform = platforms[source];
+    if (!platform) throw new Error('Use a contest from a supported platform.');
+    const {host, path, id, pattern} = platform;
     let url;
     try {
-        if (source === 'cf' && /^[1-9]\d*$/.test(value)) url = new URL(`https://${host}/contest/${value}`);
-        else if (source === 'atcoder' && /^[A-Za-z0-9_-]+$/.test(value)) url = new URL(`https://${host}/contests/${value}`);
+        if (id.test(value) && value.length <= 100) url = new URL(`https://${host}/${path}/${value}`);
         else url = new URL(value);
     } catch {
         throw new Error('Enter a valid contest ID or URL.');
     }
-    const pattern = source === 'cf' ? /^\/(contest|gym)\/[1-9]\d*\/?$/ : /^\/contests\/[A-Za-z0-9_-]+\/?$/;
-    if (!['cf', 'atcoder'].includes(source) || url.hostname !== host || url.protocol !== 'https:'
+    if (url.hostname !== host || url.protocol !== 'https:'
             || url.username || url.password || url.port || url.hash
             || [...url.searchParams.keys()].some(key => !['lang', 'locale'].includes(key))
             || !pattern.test(url.pathname)) throw new Error('Use a contest URL from the selected platform.');

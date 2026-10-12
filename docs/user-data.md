@@ -30,7 +30,8 @@ count the displayed contest memberships. No status is added to shared problem JS
 Personal difficulty, profile handles, session-specific results, and archive
 snapshots remain later features. Their scaffold tables are retained.
 
-Platforms are `cf` and `atcoder`; one contest may be selected in both collections.
+Platforms are `cf` and `atcoder`; one contest may be selected in multiple
+collections without duplicating the shared contest or problems.
 Practice dates are validated calendar dates, stored as `YYYY-MM-DD`, and sorted
 by that date. Database creation/update timestamps are server managed. Expanded
 paths are arrays of directory names, matching the current tree's path identity.
@@ -51,10 +52,17 @@ reuse UUIDs. Titles and array positions never merge problems. Cross-judge
 equivalence remains an explicit catalog decision. Existing curated entries are
 preserved when attached to a personal list.
 
-Public CF/AtCoder metadata is published for reuse. Newly imported rounds have
+Public CF/AtCoder/oj.uz metadata is published for reuse. Newly imported rounds have
 `category: null`, so they do not appear automatically in ICPC/Olympiad. Personal
 list selections, dates, statuses, and preferences remain owner-only. Only
 contest-scoped material descriptors enter the basic contest model.
+
+oj.uz is a judge/source for the shared catalog, maintained through admin
+discovery, review, and publication. It has no Platforms folder or personal import
+entry. Legacy selections from the earlier experiment are ignored by the Platforms
+tree; their existing progress, practice records, and shared metadata remain valid.
+The historical migration `20261012030000_ojuz_platform.sql` remains for database
+compatibility; the application accepts new personal imports only for CF/AtCoder.
 
 Removing a platform selection keeps existing practice records and shared
 metadata. Deleting a practice record keeps platform selections and overall

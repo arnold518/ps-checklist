@@ -1,7 +1,7 @@
 // Reuse the prototype's import form and dropdown with the new queued APIs.
 import * as _state from './state.js';
 import * as _ui from './ui.js';
-import {PLATFORMS} from './constants.js';
+import {JUDGE_LINKS,PLATFORMS} from './constants.js';
 import {parseRoundInput, fetchRound} from './fetchClient.js';
 import * as store from './userStore.js';
 
@@ -41,9 +41,10 @@ export function addImportMenu(header) {
         const item = document.createElement('button');
         item.className = 'menu-item';
         item.dataset.judge = platform.id;
-        const icon = document.createElement('span');
-        icon.className = `judge-icon ${platform.id}`;
-        icon.textContent = platform.id === 'cf' ? 'CF' : 'AC';
+        const icon = document.createElement('img');
+        icon.className = 'platform-menu-icon';
+        icon.src = JUDGE_LINKS.find(link => link.id === platform.id).img;
+        icon.alt = '';
         const name = document.createElement('span');
         name.textContent = platform.name;
         item.append(icon, name);
@@ -76,10 +77,8 @@ function showAddRoundForm(platform) {
         </form>
     `;
     const input = document.getElementById('round-input');
-    input.placeholder = platform.id === 'cf' ? 'e.g., 2268 or https://codeforces.com/gym/106225' : 'e.g., agc078 or https://atcoder.jp/contests/agc078';
-    container.querySelector('.input-hint').textContent = platform.id === 'cf'
-        ? 'Enter a Codeforces contest ID or a full contest/Gym URL.'
-        : 'Enter an AtCoder contest ID or full contest URL.';
+    input.placeholder = `e.g., ${platform.example}`;
+    container.querySelector('.input-hint').textContent = `Enter a ${platform.name} contest ID or full contest${platform.id === 'cf' ? '/Gym' : ''} URL.`;
     const form = container.querySelector('form');
     const addButton = document.getElementById('round-add-btn');
     const status = document.getElementById('round-status');

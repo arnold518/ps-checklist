@@ -8,12 +8,13 @@ export const NAV_ITEMS = [
 ];
 
 export const PLATFORMS = [
-    {id: 'cf', name: 'Codeforces'},
-    {id: 'atcoder', name: 'AtCoder'}
+    {id: 'cf', name: 'Codeforces', badge: 'CF', example: '2268 or https://codeforces.com/gym/106225'},
+    {id: 'atcoder', name: 'AtCoder', badge: 'AC', example: 'agc078 or https://atcoder.jp/contests/agc078'}
 ];
 
 export const JUDGE_LINKS = [
     {id: 'cf', title: 'Codeforces', img: 'assets/icon/cf-icon.png'},
     {id: 'qoj', title: 'QOJ', img: 'assets/icon/qoj-icon.png'},
-    {id: 'atcoder', title: 'AtCoder', img: 'assets/icon/atcoder-icon.png'}
+    {id: 'atcoder', title: 'AtCoder', img: 'assets/icon/atcoder-icon.png'},
+    {id: 'ojuz', title: 'oj.uz', img: 'assets/icon/ojuz-icon.svg'}
 ];

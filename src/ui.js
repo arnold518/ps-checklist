@@ -6,22 +6,37 @@ import * as _practiceRecords from './practiceRecords.js';
 import * as _progressBar from './progressBar.js';
 import {NAV_ITEMS} from './constants.js';
 
-export function initNavigation() {
+function addNavigationItem(item) {
     const navMenu = document.getElementById('nav-menu');
-    NAV_ITEMS.forEach(item => {
-        const navItem = document.createElement('li');
-        navItem.className = 'nav-item';
-        navItem.dataset.category = item.id;
-        const link = document.createElement('a');
-        link.href = `#${item.id}`;
-        link.textContent = item.name;
-        navItem.appendChild(link);
-        navItem.addEventListener('click', event => {
-            event.preventDefault();
-            window.location.hash = item.id;
-        });
-        navMenu.appendChild(navItem);
+    const navItem = document.createElement('li');
+    navItem.className = 'nav-item';
+    navItem.dataset.category = item.id;
+    const link = document.createElement('a');
+    link.href = `#${item.id}`;
+    link.textContent = item.name;
+    navItem.appendChild(link);
+    navItem.addEventListener('click', event => {
+        event.preventDefault();
+        window.location.hash = item.id;
     });
+    navMenu.appendChild(navItem);
+}
+
+export function updateNavigation(category, isAdmin) {
+    const adminItem = document.querySelector('.nav-item[data-category="admin"]');
+    if (isAdmin && !adminItem) addNavigationItem({id:'admin',name:'Admin'});
+    else if (!isAdmin) adminItem?.remove();
+    document.querySelectorAll('.nav-item').forEach(navItem => {
+        const active = navItem.dataset.category === category;
+        navItem.classList.toggle('active', active);
+        const link = navItem.querySelector('a');
+        if (active) link.setAttribute('aria-current', 'page');
+        else link.removeAttribute('aria-current');
+    });
+}
+
+export function initNavigation() {
+    NAV_ITEMS.forEach(addNavigationItem);
     // A single observer covers viewport and sidebar width changes.
     const resizeObserver = new ResizeObserver(adjustTableColumns);
     resizeObserver.observe(document.getElementById('main-content'));

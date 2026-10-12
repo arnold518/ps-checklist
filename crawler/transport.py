@@ -15,7 +15,7 @@ from .contracts import FetchError, utc_now
 from .qoj import QojAccessError, QojClient
 
 
-ALLOWED_HOSTS = {"codeforces.com", "atcoder.jp", "qoj.ac", "www2.ioi-jp.org"}
+ALLOWED_HOSTS = {"codeforces.com", "atcoder.jp", "qoj.ac", "www2.ioi-jp.org", "oj.uz", "static.oj.uz"}
 MAX_PAGE_BYTES = 32 * 1024 * 1024
 REDIRECT_STATUSES = {301, 302, 303, 307, 308}
 

@@ -4,7 +4,7 @@ import * as _tree from './tree.js';
 import * as _problem from './problem.js';
 import * as _ui from './ui.js';
 import {createProgressBar} from './progressBar.js';
-import {JUDGE_LINKS} from './constants.js';
+import {JUDGE_LINKS, PLATFORMS} from './constants.js';
 import * as store from './userStore.js';
 
 export function createLinkElement(link, className) {
@@ -20,6 +20,10 @@ export function createLinkElement(link, className) {
     img.alt = link.title;
     element.appendChild(img);
     return element;
+}
+
+export function materialUrl(material) {
+    return material.archiveId ? `api/archive/${material.archiveId}` : material.url;
 }
 
 function enableKeyboardClick(cell, label) {
@@ -72,7 +76,7 @@ export function handleContestClick(contestCell) {
     // Add year
     const yearElement = document.createElement('div');
     yearElement.className = 'info-panel-subtitle contest-info-year';
-    yearElement.textContent = contest.data.year;
+    yearElement.textContent = _state.contestLabel(contest.data);
     titleContainer.appendChild(yearElement);
 
     // Add title
@@ -126,10 +130,10 @@ export function handleContestClick(contestCell) {
     contestInfo.appendChild(statsContainer);
 
     if (_state.state.currentCategory === 'platforms') {
-        for (const source of ['cf','atcoder'].filter(source => _state.platformLists[source].has(contest.id))) {
+        for (const {id:source, name} of PLATFORMS.filter(platform => _state.platformLists[platform.id].has(contest.id))) {
             const remove = document.createElement('button');
             remove.className = 'secondary-btn remove-round';
-            remove.textContent = `Remove from ${source === 'cf' ? 'Codeforces' : 'AtCoder'}`;
+            remove.textContent = `Remove from ${name}`;
             remove.addEventListener('click',async () => {
                 remove.disabled = true;
                 try { await store.removeSaved(contest.id,source); _ui.navigate('platforms'); }
@@ -150,7 +154,7 @@ export function handleContestClick(contestCell) {
             img: material.role === 'editorial'
                 ? 'assets/icon/editorials-icon.png' : material.role === 'statement'
                     ? 'assets/icon/statements-icon.png' : 'assets/icon/official-icon.png',
-            url: material.url
+            url: materialUrl(material)
         })),
         {title: 'Official Site', img: 'assets/icon/official-icon.png', url: contest.data.link.official},
         {title: 'Standings', img: 'assets/icon/standings-icon.png', url: contest.data.link.standings},
@@ -161,6 +165,17 @@ export function handleContestClick(contestCell) {
     });
 
     contestInfo.appendChild(linksContainer);
+    for (const group of contest.data.groups || []) {
+        const section=document.createElement('section');section.className='contest-group-info';
+        const heading=document.createElement('h4');heading.textContent=group.title;section.appendChild(heading);
+        const links=document.createElement('div');links.className='info-panel-links';
+        const data=[...JUDGE_LINKS.map(link => ({...link,url:group.link[link.id]})),
+            {title:'Standings',img:'assets/icon/standings-icon.png',url:group.link.standings},
+            ...(group.materials || []).map(material => ({title:material.title,url:materialUrl(material),
+                img:material.role==='editorial' ? 'assets/icon/editorials-icon.png':'assets/icon/statements-icon.png'}))];
+        for (const link of data)if(link.url)links.appendChild(createLinkElement(link,'contest-info-link'));
+        section.appendChild(links);contestInfo.appendChild(section);
+    }
     contestInfo.classList.add('active');
     contestInfo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -182,10 +197,11 @@ export function createContestTable(contests, {individualHeaders = false, source 
     headerRow.appendChild(contestHeader);
 
     if (individualHeaders) {
-        (contests[0]?.data.problems || []).forEach(entry => {
+        (contests[0]?.data.problems || []).forEach((entry,index,list) => {
             const problemHeader = document.createElement('th');
             problemHeader.textContent = entry.index;
             problemHeader.dataset.problemId = entry.problemId;
+            if(entry.groupId && entry.groupId!==list[index-1]?.groupId)problemHeader.classList.add('problem-group-start');
             headerRow.appendChild(problemHeader);
         });
     } else {
@@ -220,15 +236,20 @@ export function createContestTable(contests, {individualHeaders = false, source 
             const problemCell = document.createElement('td');
             problemCell.dataset.problemId = problem.id;
             problemCell.className = `status-${_state.problemProgress.get(problem.id) || 0}`;
+            const group=contest.data.groups?.find(group => group.id===entry.groupId);
+            if(group) {
+                problemCell.dataset.groupId=group.id;
+                if(entry.groupId!==contest.data.problems[problemIdx-1]?.groupId)problemCell.classList.add('problem-group-start');
+            }
             problemCell.dataset.contestId = contest.id;
             problemCell.dataset.problemIdx = problemIdx;
             problemCell.dataset.index = entry.index || '';
             problemCell.dataset.fullname = !individualHeaders && entry.index ? `${entry.index}. ${problem.title}` : problem.title;
             problemCell.textContent = problemCell.dataset.fullname;
-            problemCell.title = problemCell.dataset.fullname;
+            problemCell.title = (group ? group.title+' · ':'')+problemCell.dataset.fullname;
             problemCell.addEventListener('click', () => _problem.handleProblemClick(problemCell));
             problemCell.style.cursor = 'pointer';
-            enableKeyboardClick(problemCell, problemCell.dataset.fullname);
+            enableKeyboardClick(problemCell, problemCell.title);
             row.appendChild(problemCell);
         });
 

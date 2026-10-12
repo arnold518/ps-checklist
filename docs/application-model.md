@@ -33,7 +33,7 @@ tab. Signed-in choices are persisted; guest choices reset on reload.
 
 The latest frontend pass adds **Platforms** and **Practice Records**:
 
-- Platforms groups the two personal collections into Codeforces and AtCoder
+- Platforms groups the personal collections into Codeforces and AtCoder
   folders, retaining the prototype's tree, grouped grid, import form, and
   dropdown components. Imports use the existing queue through the preview's
   same-origin `api/enqueue/fetch/{cf|atcoder}/contest` and `api/job/result` routes.
@@ -42,11 +42,11 @@ The latest frontend pass adds **Platforms** and **Practice Records**:
   that contest's statements; individual judge links open one problem. The
   minimal frontend does not embed fetched statement HTML. Announcements use a
   general site icon, separate from the statement and editorial icons.
-- Only fetch materials with `scope: "contest"` enter the basic contest's
-  material list. AtCoder details expose an "Editorial index" link to the
-  contest's editorial listing. Individual A/B/C articles keep their problem
-  scope and `problemKey` in the rich fetch responses; they are not flattened
-  into contest resources. Actual overall-editorial articles keep contest scope.
+- Fetch materials with `scope: "contest"` enter the contest's material list.
+  AtCoder details expose an "Editorial index" link to the contest's editorial
+  listing. Admin discovery attaches individual A/B/C statement and editorial
+  links to `problemMaterials` after matching their `problemKey` to a shared
+  problem. Overall-editorial articles keep contest scope.
 - Imported responses are mapped to the basic contest/problem model. Platform
   membership is separate from `contest.category`; newly imported rounds have
   `category: null`. Matching known judge URLs reuses shared identities and
@@ -54,7 +54,7 @@ The latest frontend pass adds **Platforms** and **Practice Records**:
   small when a known contest is attached to a platform list.
 - Adding a platform round does not create a practice record. **Save Practice
   Record** opens the original date form with that contest selected. The practice
-  page also provides a selector across all four collections.
+  page also provides a selector across the global and personal collections.
 - Records use the prototype's timeline, dated cards, individual problem-label
   headers, and contest/problem details. Dates are plain calendar dates, sorted
   newest first, without converting their display through a timezone.
@@ -85,7 +85,7 @@ signed-in user state is restored from Supabase.
 | Olympiad | Global catalog management | Predetermined contests and their problems |
 | Platforms → Codeforces | Each user manages their list | Contests the user chooses to add |
 | Platforms → AtCoder | Each user manages their list | Contests the user chooses to add |
-| Practice Records | Each user | A contest chosen from any of the four collections, with a practice date |
+| Practice Records | Each user | A contest chosen from any collection, with a practice date |
 
 ICPC and Olympiad share curated entity data across users. Personal preferences
 and progress are separate from that globally managed content. A curated ICPC
@@ -113,11 +113,19 @@ Global management prepares the contest, its ordered problem entries, shared
 problem records, categories, and materials. Users browse the predetermined ICPC
 or Olympiad collections and can select a contest for a practice record.
 
-#### Proposed management workflow
+#### Management workflow
 
-Start with an administrative script and locally prepared JSON input. An admin
-panel can be considered later. The management tool and ingestion/publishing
-operations still need implementation.
+The [admin page](admin.md) implements link-based queued discovery, review,
+publication, shared problem editing, and removal/restoration of global placement.
+An admin can begin with statement, editorial, standings, or judge links; the
+system derives available metadata and asks for missing information in review.
+Existing catalog rows have a grouped editable grid and per-admin drafts saved
+on the server. Selected rows can be fetched, reviewed, and published together.
+The detailed problem/material editor opens beside the grid. New additions still
+use the individual link form; spreadsheet import is not implemented.
+Details saves private drafts; a single review-and-publish flow handles batches.
+Published refresh choices and manual overrides persist alongside catalog rows,
+with the same public problem/contest JSON shape.
 
 1. A maintainer chooses the event, edition, category placement, judge URLs, and
    known official/resource links. This defines which contests enter the catalog.
@@ -126,9 +134,10 @@ operations still need implementation.
 3. Prepare the basic contest, shared problems, ordered memberships, categories,
    and material descriptors. Correct labels or titles as needed. Keep existing
    IDs when editing known records.
-4. A trusted server operation writes and publishes the related database records
-   together in a transaction. For a new unpublished entry, the foundation's
-   `is_public: false` default keeps it outside normal user reads while prepared.
+4. After explicit review, a trusted server operation writes and publishes the
+   related records in a transaction. Each row in a batch publishes independently;
+   stale or invalid rows remain available for correction. Unpublished drafts are
+   stored privately and have not changed the published catalog.
 5. Users read the published catalog in ICPC/Olympiad and reference its contest
    IDs from their own practice records.
 
@@ -224,7 +233,7 @@ has been created for the current frontend; this importer has not been implemente
 
 ### User-added contests
 
-1. The user chooses a contest in the Codeforces or AtCoder collection under Platforms.
+1. The user chooses a contest in a Codeforces or AtCoder collection under Platforms.
 2. The existing fetch service obtains its source information.
 3. The authenticated ingestion step turns that information into the basic contest and
    problem records and attaches the contest to this user's list.
@@ -237,7 +246,7 @@ practice.
 ### Practice records
 
 A practice record associates the current user with an existing contest and the
-date the user selects. Its contest may come from either global tab or either
+date the user selects. Its contest may come from either global tab or any
 personal collection under Platforms. The practice date describes the user's activity, independently
 of the original contest's year or scheduled start time.
 
@@ -259,7 +268,7 @@ These findings come from reading the prototype branch, not running its frontend.
 | Codeforces collection | Import form inside Practice Records | Personal Codeforces collection under Platforms |
 | AtCoder collection | No AtCoder tab or import flow | Personal AtCoder collection under Platforms |
 | Adding an imported contest | CF/QOJ/BOJ import also creates a dated practice record | Add to a judge list, then select it for practice |
-| Practice from a catalog contest | Save Practice Record opens a date form for that contest | Any of the four contest collections can supply the contest |
+| Practice from a catalog contest | Save Practice Record opens a date form for that contest | Any global or personal contest collection can supply the contest |
 | Practice persistence | Per-user contest reference, date, and sorting timestamp | Owner/contest reference and validated date, one record per user/contest |
 | Imported contest persistence | Full contest copies in per-user `userCodeforcesContests`, also used for QOJ/BOJ | Shared basic metadata plus private list membership in Supabase |
 

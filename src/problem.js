@@ -103,6 +103,11 @@ export function handleProblemClick(problemCell) {
         const url = problem.link[link.id];
         if (url) linksContainer.appendChild(_contest.createLinkElement({...link, url}, `problem-link ${link.id}`));
     });
+    for(const material of (contest.data.problemMaterials || []).filter(item=>item.problemId===problem.id)) {
+        const img=material.role==='editorial' ? 'assets/icon/editorials-icon.png'
+            : material.role==='statement' ? 'assets/icon/statements-icon.png':'assets/icon/official-icon.png';
+        linksContainer.appendChild(_contest.createLinkElement({title:material.title,url:_contest.materialUrl(material),img},'problem-material-link'));
+    }
     problemInfo.appendChild(linksContainer);
     problemInfo.classList.add('active');
     problemInfo.scrollIntoView({behavior: 'smooth', block: 'nearest'});

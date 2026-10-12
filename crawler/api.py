@@ -1,4 +1,4 @@
-"""Run the seven queued fetch APIs: python3 -m crawler.api."""
+"""Run the queued fetch APIs: python3 -m crawler.api."""
 
 import argparse
 from datetime import datetime, timezone

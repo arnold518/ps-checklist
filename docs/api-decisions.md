@@ -1,6 +1,7 @@
 # Fetch API decisions
 
-Last reviewed: 2026-10-08 (Asia/Seoul)  
+Last reviewed: 2026-10-12 (Asia/Seoul)
+
 Status: version 1 fetch contracts implemented on `beta`; local HTTP service with a durable queue.
 
 These decisions follow reviews of Codeforces, AtCoder, the prototype,
@@ -12,12 +13,12 @@ these documents. See [running the APIs](fetch-api.md) and the
 
 ## 1. Decisions and revisions
 
-- Keep contest metadata and full problem content separate for all three judges.
+- Keep contest metadata and full problem content separate for all four judges.
 - Keep QOJ category browsing as the seventh fetch API.
 - Contest responses contain ordered lightweight summaries; they do not visit
   every task page to fill missing summary fields.
 - Fetch APIs discover materials. A separate endpoint delivers existing files.
-- Per the user's implementation instruction, all seven APIs use a durable fetch
+- Per the user's implementation instruction, all fetch APIs use a durable fetch
   queue. GET waits briefly for the planned response; pending work returns 202
   with job links. Explicit enqueue and polling routes support background work.
 - The first category implementation reads exactly one page and returns direct
@@ -64,7 +65,7 @@ problem records for read-only display, per the user's latest scope instruction.
 The proposed importer and database publication are future steps;
 see [running the display](../README.md).
 
-## 2. Seven endpoints and inputs
+## 2. Endpoints and inputs
 
 | Method | Path | Result | Default collection scope |
 |---|---|---|---|
@@ -75,16 +76,21 @@ see [running the display](../README.md).
 | GET | `/fetch/qoj/category` | One category's ordered child references | One page; no recursive expansion |
 | GET | `/fetch/qoj/contest` | QOJ contest, ordered memberships, materials | Dashboard + necessary published metadata |
 | GET | `/fetch/qoj/problem` | Global QOJ problem, optionally in a contest | Problem + selected version + necessary membership metadata |
+| GET | `/fetch/ojuz/category` | Direct child sources and published previews | One page; no recursive expansion |
+| GET | `/fetch/ojuz/contest` | Leaf source and ordered native tasks | One source page; no task-page traversal |
+| GET | `/fetch/ojuz/problem` | Global alias, optional verified source context, statement/materials | Problem page + requested source membership |
 
 | Parameter | Applies to | Default | Meaning |
 |---|---|---|---|
 | `url` | All fetch endpoints | Required | Source entity URL; percent-encode as a query value |
-| `lang` | All fetch endpoints | `en` | Requested content language; never generate a translation |
+| `lang` | All fetch endpoints | `en`; oj.uz `default` | Requested content language; never generate a translation |
 | `contestId` | QOJ problem | Absent | Optional contest context for a global problem URL |
+| `sourceId` | oj.uz problem | Absent | Optional native leaf source slug, verified against its task list |
 | `includeExternalMaterials` | AtCoder contest/problem | `false` | Follow a supported official index to discover matching file links |
 
 Initial languages: CF `en`; AtCoder `en`/`ja`; QOJ
 `en`/`ja`/`zh-CN`, plus QOJ `default` for its default/original version.
+oj.uz supports only `default` initially; its UI locale is not a statement version.
 Additional CF locales can be added after verification. Normalize QOJ source
 `zh_cn` to `zh-CN` and attachment label `(jp)` to `ja`.
 Preserve source titles even when their spelling differs from the UI language.
@@ -399,7 +405,7 @@ reads supported official indexes, matches verified task associations, and leaves
 unmatched material at contest scope. Do not equate A–L across different layouts
 or import unrequested practice resources. Do not download all PDF/ZIP bytes.
 
-### Download endpoint: separate from the seven JSON APIs
+### Download endpoint: separate from the fetch JSON APIs
 
 `GET /download/material?url={encoded-supported-file-url}` returns existing
 binary bytes with verified Content-Type and an attachment filename; include
@@ -661,7 +667,7 @@ See [fetch-api.md](fetch-api.md) for commands, polling, configuration, and examp
 ## 12. Remaining steps
 
 1. Continue only the next user-directed migration step, using cloudflare as
-   prototype reference. Seven fetch routes and their queue are implemented.
+   prototype reference. Ten fetch routes and their queue are implemented.
 2. Live QOJ login/reuse is verified; session-expiry recovery has offline tests.
    Source access/permissions may change and are checked on every source read.
 3. Implement and verify protected binary GET separately when directed. HEAD 403 does not
@@ -695,3 +701,24 @@ See [fetch-api.md](fetch-api.md) for commands, polling, configuration, and examp
   the database structure. Prepared local migration/configuration, ownership and
   publication policies, relationship constraints, and real PostgreSQL tests.
   Exact business payloads are deferred; the fetch routes still return data only.
+
+## 14. oj.uz extension (2026-10-12)
+
+Three additional queued routes are implemented: `/fetch/ojuz/category`,
+`/fetch/ojuz/contest`, and `/fetch/ojuz/problem`. Their exact inputs, native
+source distinctions, JSON fields, languages, and limitations are recorded in
+[oj.uz design](ojuz.md). The original seven response examples remain applicable.
+
+Source categories return direct references, with task previews only when those
+previews occur on the same page. Plain source links keep an unknown child type.
+Leaf contests preserve native numeric indices; parent archives are rejected as
+contests. Full problems preserve alias identity, verified optional `sourceId`
+context, HTML/document statements, subtask descriptions, and attachment links.
+UI locale is not treated as a statement translation. Document bytes remain a
+separate concern. No oj.uz credentials are required for the tested pages.
+
+The basic application model gains optional `link.ojuz`; older three-judge JSON
+remains valid. Admin discovery and group matching can merge its problem links
+into existing shared UUIDs. The native fetch responses remain source-specific.
+JOI was verified through all three mirrors (QOJ, AtCoder, oj.uz), retaining four
+groups and labels 1A–4C across repeated fetch, publication, and practice.

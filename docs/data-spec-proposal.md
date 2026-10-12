@@ -196,3 +196,54 @@ This is the agreed initial entity data. Schedule, scoring, limits,
 statements, tags, ratings, and additional judge metadata can remain available
 through the fetch APIs and future archive snapshots without being selected as
 fields of these initial shared records.
+
+## Implemented extension: groups within a contest (2026-10-12)
+
+A contest can deliberately represent a whole Olympiad edition. Optional `groups`
+represent days, rounds, or divisions within that contest; they do not create
+separate contest IDs or a recursive contest hierarchy. Category folders remain
+separate. The CSV import path instead keeps separately fetched days/tests as
+separate contests, with optional `contestLabel` metadata for their display.
+Sharing a category and year does not merge their IDs or practice records.
+
+```json
+{
+  "groups": [
+    {
+      "id": "day1",
+      "title": "Day 1",
+      "prefix": "1",
+      "link": {"cf": null, "qoj": "https://qoj.ac/contest/3571", "atcoder": null, "official": null, "standings": null},
+      "materials": []
+    }
+  ],
+  "problems": [{"problemId": "shared-problem-uuid", "index": "1A", "groupId": "day1"}]
+}
+```
+
+This snippet extends the existing full contest record. Groups have stable IDs,
+ordered positions in the array, their own contest links and material descriptors.
+A membership stores its **complete display label** and optional `groupId`.
+The problem still contains only `id`, `title`, and judge `link` fields.
+`link.ojuz` is an optional fourth judge URL; older three-judge records remain valid.
+Ungrouped contests omit these fields and retain their previous JSON shape.
+
+Group sources supply order and prefixed native labels within their own group.
+Judge mirrors match by known URL or unique meaningful title within that scope.
+A whole-edition source may enrich established grouped memberships by a unique
+match across the edition, but does not assign unmatched tasks to a day or
+replace grouped labels with its flat A–L labels. Explicit bilingual names such
+as `カジノ (Casino)` contribute the English suffix as a matching alias;
+translations without an explicit alias require review. Ambiguous titles,
+conflicting links, and two distinct published IDs retain the existing review
+flow. Failed sources retain previous memberships and resources.
+
+The initial implementation supports up to twenty groups. QOJ category discovery
+selects **direct child contests only**; it never traverses subcategories.
+Practice records continue to reference the whole edition by contest ID. Problem
+status remains shared by problem UUID, independent of the group or label.
+
+Live verification used QOJ category 701 (contests 3571–3574) and AtCoder
+`joi2026final`: four days × three problems, labels 1A–4C, with QOJ and AtCoder
+links for all twelve problems. Native response regression data is stored in
+`tests/fixtures/joi_2026_contests.json`.

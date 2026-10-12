@@ -34,6 +34,8 @@ Identity is stored once in its SQL column. Problem payloads contain exactly
 `title` and `link`; contest payloads contain exactly `title`, `year`, `category`,
 and `link`. The contest payload never contains a second membership or material
 array. A material payload contains exactly `role`, `title`, `language`, and `url`.
+The later selected-attachment migration permits an optional `archiveId` on
+published materials; the original source `url` remains in the payload.
 
 The same problem UUID may be referenced by several contests with different
 labels. Labels remain on memberships, and user progress can reference the shared
@@ -43,8 +45,9 @@ records based on titles or infer associations between judges.
 The primary category path remains a JSON array in contest metadata. The existing
 `categories` and `category_entries` tables remain reserved for the later category
 management model; there is no duplicate category placement created by this step.
-`statement_variants` and problem-scoped materials also remain outside this basic
-mapping. This step stores source URLs, not statement/PDF bytes.
+`statement_variants` remain outside this basic mapping. The later problem
+materials migration stores problem-scoped URLs; statement/PDF bytes are not
+stored by this step.
 
 ## Unknown versus empty collections
 
@@ -95,8 +98,10 @@ are available in the shared library without automatically appearing in the
 curated tabs. Top-level lists follow creation order, with UUIDs breaking ties;
 the explicit positions preserve each contest's problem and material array order.
 
-These functions are database operations ready for a later Supabase RPC or server
-adapter. The current frontend still reads the minimal static JSON files.
+The application gateway exposes these database readers as native catalog JSON.
+Static JSON files remain the minimal local seed and the storage-disabled fallback.
+The [admin page](admin.md) adds protected link discovery and transactional catalog
+maintenance using the same canonical model.
 
 ## Atomic write operation
 
@@ -158,3 +163,49 @@ independently, including private ownership and archive boundaries.
 
 No hosted migration, persistent catalog import, Supabase Auth login test, HTTP RPC
 test, or R2 provisioning is part of this validation.
+
+### Optional contest groups
+
+Migration `20261012010000_contest_groups.sql` stores ordered group definitions
+and group resources in the contest metadata's optional `groups` array. Existing
+`catalog.contest_problems` rows gain nullable `group_id`; `problem_index` remains
+the full display label (for example 1A). The JSON writer validates group IDs
+against the owning contest and retains membership UUIDs when labels/groups
+change. The reader returns optional `groupId` only for assigned memberships.
+No extra tables or changes to user progress/practice storage are needed.
+
+### Optional oj.uz links
+
+Migration `20261012020000_ojuz_links.sql` accepts optional `link.ojuz` in the
+existing contest/problem/group metadata and enforces unique native contest and
+problem URLs. The original three-judge payloads round-trip unchanged. Admin
+publication locks oj.uz identity URLs alongside the other sources; no tables or
+user-specific collections are added.
+
+Historical migration `20261012030000_ojuz_platform.sql` enabled an earlier
+personal import experiment. oj.uz is now treated as a judge/source, and the
+application's personal import interface accepts only CF/AtCoder. Legacy data
+remains compatible; the Platforms tree ignores retired source selections and
+preserves existing progress/practice records. Global oj.uz contest placement
+uses admin discovery, review, and publication.
+
+### Contest-specific problem documents
+
+Migration `20261012040000_problem_materials.sql` adds an optional
+`problemMaterials` array to contest JSON. Each entry has `problemId`, `role`,
+`title`, `language`, and `url`. Rows use the existing `catalog.materials` table
+with both `contest_id` and `problem_id`; a separate count prevents public reads
+from returning a shortened list under RLS. Contest-wide `materials` retain their
+four-field shape. Admin publication validates each problem reference and writes
+both lists in one transaction. Ordered CSV links are attached only after an
+explicit problem-order check in the review editor.
+Admin discovery selects one statement and one editorial link per problem in
+raw CSV, QOJ, Codeforces, AtCoder order. Selected links use the existing
+`problemMaterials` records, so they remain scoped to the contest and shared
+problem ID. The contest refresh policy tracks which links came from fetching;
+raw and manually edited links remain preferred on later fetches.
+
+Migration `20261012050000_contest_label.sql` accepts optional `contestLabel`
+metadata on a contest. It comes from CSV `contest_label`, remains separate from
+the fetched title and edition year, and survives catalog publication and reads.
+Older contest JSON without a label stays valid.

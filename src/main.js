@@ -3,6 +3,7 @@ import * as _ui from './ui.js';
 import {NAV_ITEMS} from './constants.js';
 import * as store from './userStore.js';
 import * as auth from './auth.js';
+import * as admin from './admin.js';
 
 let loaded = false;
 
@@ -16,7 +17,7 @@ window.addEventListener('orientationchange', () => setTimeout(setViewportHeight,
 
 function currentCategory() {
     const category = window.location.hash.slice(1);
-    if (category === 'account') return category;
+    if (category === 'account' || category === 'admin') return category;
     return NAV_ITEMS.some(item => item.id === category) ? category : 'icpc';
 }
 
@@ -38,10 +39,18 @@ window.addEventListener('hashchange', () => {
 });
 
 function render() {
+    if (state.currentCategory === 'admin' && currentCategory() !== 'admin' && !admin.leave()) {
+        window.location.hash = 'admin';
+        return;
+    }
     auth.updateAccountButton();
+    _ui.updateNavigation(currentCategory(),Boolean(store.user?.isAdmin));
     if (currentCategory() === 'account') {
         state.currentCategory = 'account';
         auth.showAccount();
+    } else if (currentCategory() === 'admin') {
+        state.currentCategory = 'admin';
+        admin.show();
     } else _ui.loadCategory(currentCategory());
 }
 

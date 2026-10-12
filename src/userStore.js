@@ -29,7 +29,11 @@ export async function request(route, payload) {
     });
     const result = await response.json();
     if (started !== generation) throw new DOMException('Account changed', 'AbortError');
-    if (!response.ok || !result.ok) throw new Error(result.error?.message || 'The operation failed. Please try again.');
+    if (!response.ok || !result.ok) {
+        const error=new Error(result.error?.message || 'The operation failed. Please try again.');
+        error.code=result.error?.code;
+        throw error;
+    }
     return result.data;
 }
 
@@ -47,6 +51,14 @@ export async function initialize(catalog, callback) {
     user = session.user;
     if (user) await restore();
     onChange();
+}
+
+export async function refreshCatalog(notify=false) {
+    const catalog = await request('/catalog');
+    baseCatalog = catalog;
+    model.loadCatalog(catalog.contests,catalog.problems);
+    if (user) await restore();
+    if (notify) onChange();
 }
 
 export async function signIn(email, password, signup = false) {

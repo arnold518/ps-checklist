@@ -34,6 +34,7 @@ def read_environment(path=ROOT / '.env.storage'):
 
 class StorageApp:
     def __init__(self, config=None):
+        self.config_path = config is None
         self.config = read_environment() if config is None else config
         self.url = self.config.get('SUPABASE_URL', '').rstrip('/')
         self.key = self.config.get('SUPABASE_ANON_KEY', '')
@@ -63,7 +64,13 @@ class StorageApp:
                 if response.status_code in (400,401,403):
                     raise StorageError('Invalid login details or an expired session.', 401, 'AUTH_REQUIRED')
             if code == '23505':
+                if schema == 'catalog':
+                    raise StorageError('A judge link already belongs to another catalog record. Select that existing record or correct the link.',409,'IDENTITY_CONFLICT')
                 raise StorageError('This contest already has a practice record.', 409, 'ALREADY_EXISTS')
+            if code == '40001':
+                if '/admin_workspace_' in path:
+                    raise StorageError('The workspace changed in another request. Reload it before continuing.',409,'WORKSPACE_CHANGED')
+                raise StorageError('The catalog changed while you were editing. Reload the editor and review the latest data.',409,'STALE_CATALOG')
             if code in ('42501','PGRST301','PGRST302') or response.status_code in (401,403):
                 raise StorageError('This operation is unavailable for your account.', 403, 'FORBIDDEN')
             if code in ('23514','23502','22P02','22023','22007','22008','23503'):
@@ -123,14 +130,29 @@ class StorageApp:
                 return session['access_token'],session['user']
         raise StorageError('Sign in to save your data.',401,'AUTH_REQUIRED')
 
-    @staticmethod
-    def user_json(user):
-        return {'id':user['id'],'email':user.get('email')}
+    def is_admin(self, user):
+        # Read the local allowlist on every request so granting/revoking access
+        # does not rely on a browser flag or a stale session claim.
+        config = read_environment() if self.config_path else self.config
+        return user['id'] in {value.strip() for value in config.get('ADMIN_USER_IDS','').split(',') if value.strip()}
+
+    def user_json(self, user):
+        return {'id':user['id'],'email':user.get('email'),'isAdmin':self.is_admin(user)}
 
     def dispatch(self, handler, method, route, queue):
+        if route.startswith('/archive/') and method in ('GET','HEAD'):
+            try:
+                from .archive import serve
+                serve(self,handler,route.removeprefix('/archive/'),method)
+            except StorageError as error:
+                handler.send_json(error.status,{'ok':False,'error':{'code':error.code,'message':str(error)}})
+            return True
         if route not in {'/catalog','/auth/session','/auth/login','/auth/signup','/auth/logout',
                          '/user/state','/user/progress','/user/view','/user/practice','/user/practice/delete',
-                         '/user/import','/user/saved/remove'}:
+                         '/user/import','/user/saved/remove','/admin/catalog','/admin/derive',
+                         '/admin/category','/admin/category/result',
+                         '/admin/derive/result','/admin/resolve','/admin/publish','/admin/remove','/admin/workspace',
+                         '/admin/workspace/save','/admin/workspace/fetch','/admin/workspace/review','/admin/workspace/publish'}:
             return False
         handler._storage_cookies = []
         try:
@@ -139,7 +161,7 @@ class StorageApp:
                 if handler.headers.get('X-PS-Checklist') != '1' or handler.headers.get('Content-Type','').split(';')[0] != 'application/json':
                     raise StorageError('Use the application JSON interface.',403,'FORBIDDEN')
                 size = int(handler.headers.get('Content-Length','0'))
-                if not 0 < size <= 65536:
+                if not 0 < size <= (1048576 if route.startswith('/admin/') else 65536):
                     raise StorageError('Invalid request size.')
                 body = json.loads(handler.rfile.read(size))
                 if not isinstance(body,dict):
@@ -182,7 +204,10 @@ class StorageApp:
                 result = {'user':None}
             else:
                 token, user = self.session(handler)
-                if route == '/user/state' and method == 'GET':
+                if route.startswith('/admin/'):
+                    from .admin import dispatch
+                    result = dispatch(self,handler,method,route,body,queue,user)
+                elif route == '/user/state' and method == 'GET':
                     result = self.rpc('user_data','read_state',{},token)
                 elif route == '/user/progress' and method == 'POST' and set(body)=={'problemId','status'}:
                     result = self.rpc('user_data','set_progress',{'p_problem_id':body['problemId'],'p_status':body['status']},token)
@@ -197,7 +222,8 @@ class StorageApp:
                 elif route == '/user/import' and method == 'POST' and set(body)=={'jobId','source'}:
                     job = queue.get(body['jobId'])
                     native = (job.get('result') or {}).get('data',{})
-                    if job['status'] != 'DONE' or body['source'] not in ('cf','atcoder') or native.get('source') != body['source']:
+                    if (job['status'] != 'DONE' or body['source'] not in ('cf','atcoder')
+                            or job['request'].get('entity') != 'contest' or native.get('source') != body['source']):
                         raise StorageError('The contest fetch has not completed successfully.')
                     if not isinstance(native.get('problems'),list) or not native['problems'] or native.get('problemCount') != len(native['problems']):
                         raise StorageError('The round has no complete problem list.')

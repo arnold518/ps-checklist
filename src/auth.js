@@ -19,6 +19,10 @@ export function showAccount() {
             <button id="signout-button" class="primary-btn">Sign out</button>
             <div id="auth-status" class="status" role="status"></div></div>`;
         document.getElementById('account-email').textContent = store.user.email;
+        const identity = document.createElement('p');
+        identity.className = 'account-id';
+        identity.textContent = `Account UUID: ${store.user.id}`;
+        main.querySelector('.auth-container').appendChild(identity);
         document.getElementById('signout-button').addEventListener('click',async () => {
             try { await store.signOut(); } catch (error) { showError(error); }
         });

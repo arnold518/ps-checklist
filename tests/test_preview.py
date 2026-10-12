@@ -2,15 +2,19 @@
 
 from http.server import ThreadingHTTPServer
 from pathlib import Path
+import hashlib
 import tempfile
 import threading
 import unittest
+import uuid
+from unittest.mock import patch
 
 import requests
 
 from crawler.contracts import FetchContext, contest, summary
 from crawler.queue import JobQueue
 from preview import make_preview_handler
+from storage.app import StorageApp
 
 
 class SourceFixture:
@@ -29,7 +33,8 @@ class PreviewTests(unittest.TestCase):
         self.directory = tempfile.TemporaryDirectory()
         self.queue = JobQueue(Path(self.directory.name) / "jobs.sqlite3", SourceFixture())
         self.queue.start()
-        self.server = ThreadingHTTPServer(("127.0.0.1", 0), make_preview_handler(self.queue))
+        self.storage = StorageApp({'SUPABASE_URL': 'http://127.0.0.1:54321'})
+        self.server = ThreadingHTTPServer(("127.0.0.1", 0), make_preview_handler(self.queue, self.storage))
         self.thread = threading.Thread(target=self.server.serve_forever, daemon=True)
         self.thread.start()
         self.base = f"http://127.0.0.1:{self.server.server_port}"
@@ -72,6 +77,33 @@ class PreviewTests(unittest.TestCase):
         self.assertEqual(requests.post(api + "/enqueue/fetch/qoj/contest",
                                        json={"url": "https://qoj.ac/contest/2522"}, timeout=5).status_code, 404)
         self.assertEqual(requests.head(api + "/job", timeout=5).status_code, 405)
+
+    def test_published_archive_get_and_head_use_the_staged_file(self):
+        archive_id = str(uuid.uuid4())
+        body = b'%PDF-1.7\nselected statement'
+        digest = hashlib.sha256(body).hexdigest()
+        Path(self.directory.name, digest).write_bytes(body)
+        metadata = {'backend': 'local', 'key': digest, 'sha256': digest,
+                    'contentType': 'application/pdf'}
+        def archive_row(path, **options):
+            self.assertIn(archive_id, path)
+            self.assertEqual(options['schema'], 'archive')
+            return [{'is_public': True, 'payload': metadata}]
+        self.storage.request = archive_row
+        with patch('storage.archive.LOCAL_ROOT', Path(self.directory.name)):
+            for prefix in ['', self.prefix]:
+                url = self.base + prefix + '/api/archive/' + archive_id
+                response = requests.get(url, timeout=5)
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.content, body)
+                self.assertEqual(response.headers['Content-Type'], 'application/pdf')
+                self.assertIn('.pdf', response.headers['Content-Disposition'])
+                head = requests.head(url, timeout=5)
+                self.assertEqual(head.status_code, 200)
+                self.assertEqual(head.headers['Content-Length'], str(len(body)))
+                self.assertEqual(head.content, b'')
+            self.storage.request = lambda path, **options: [{'is_public': False, 'payload': metadata}]
+            self.assertEqual(requests.get(self.base + '/api/archive/' + archive_id, timeout=5).status_code, 404)
 
 
 if __name__ == "__main__":

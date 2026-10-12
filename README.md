@@ -1,8 +1,24 @@
 # PS Checklist — beta
 
+Global catalog maintenance is available through **Account → Manage global
+contests**. Set your account UUID in `ADMIN_USER_IDS` in the ignored `.env.storage`
+file and reload. Edit the existing catalog in a grouped grid, fetch selected
+rows, review, and publish batches. Drafts and fetch results survive reloads.
+Details saves a draft; **Review & publish** applies it to the shared catalog.
+Publication archives selected downloadable material links before saving their
+public archive references; local files live under ignored `storage/output/archive/`.
+Source settings stay inside Details. Fetched fields can refresh automatically,
+and manual edits remain protected across publication.
+Overview keeps status/actions visible; judge links and resources have their own
+column views. Phones use contest cards. The detailed editor opens beside the
+grid with tabs and collapsible problem/material rows. Individual additions can
+paste one `raw/contests.csv` row, including ordered problem documents, or start
+from statement, editorial, standings, or judge links. See [admin setup and
+workflow](docs/admin.md).
+
 The current frontend migrates the `cloudflare` prototype's layout, trees,
 problem grids, detail panels, import forms, and practice timeline. ICPC/Olympiad
-read the minimal shared catalog. Platforms holds added Codeforces/AtCoder rounds,
+read the minimal shared catalog. Platforms holds added Codeforces and AtCoder contests,
 and Practice Records references chosen contests and dates.
 
 ## Run the frontend
@@ -49,7 +65,8 @@ systemctl --user restart ps-checklist-preview.service
 - ICPC and Olympiad tabs.
 - Platforms with separate Codeforces and AtCoder folders and queued contest
   imports. Accept a regular CF contest ID, a contest/Gym URL, or an AtCoder
-  contest ID/URL. Adding a round does not create a practice record.
+  contest ID/URL. Adding a round does not create a practice record. oj.uz is a
+  judge/source for shared contests managed through the admin page.
 - The prototype's collapsible tree, folder/contest visibility toggles, visible
   contest counts, and resizable sidebar.
 - The original Year/Problems matrix, ordered contest labels, and horizontal
@@ -93,8 +110,9 @@ The platform forms use the [existing fetch APIs](docs/fetch-api.md). The
 [local storage foundation](docs/storage.md) and
 [catalog JSON mapping](docs/catalog-storage.md) provide native database read/write
 operations, tested against the agreed JSON model. Account persistence and public
-round ingestion are integrated. Curated publication workflows and file archiving
-remain later steps.
+round ingestion, reviewed admin publication, and selected-file archiving are
+integrated. Bulk spreadsheet import remains a later step; the CSV can be pasted
+one row at a time for review but has not been batch imported.
 
 ## Checks
 

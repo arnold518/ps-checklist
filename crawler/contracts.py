@@ -1,4 +1,4 @@
-"""Fetch inputs, response shapes, and safe errors shared by all seven adapters."""
+"""Fetch inputs, response shapes, and safe errors shared by all source adapters."""
 
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -17,10 +17,13 @@ ROUTES = {
     "/fetch/qoj/category": ("qoj", "category"),
     "/fetch/qoj/contest": ("qoj", "contest"),
     "/fetch/qoj/problem": ("qoj", "problem"),
+    "/fetch/ojuz/category": ("ojuz", "category"),
+    "/fetch/ojuz/contest": ("ojuz", "contest"),
+    "/fetch/ojuz/problem": ("ojuz", "problem"),
 }
-HOSTS = {"cf": "codeforces.com", "atcoder": "atcoder.jp", "qoj": "qoj.ac"}
+HOSTS = {"cf": "codeforces.com", "atcoder": "atcoder.jp", "qoj": "qoj.ac", "ojuz": "oj.uz"}
 LANGUAGES = {"cf": {"en"}, "atcoder": {"en", "ja"},
-             "qoj": {"en", "ja", "zh-CN", "default"}}
+             "qoj": {"en", "ja", "zh-CN", "default"}, "ojuz": {"default"}}
 
 
 def utc_now():
@@ -61,7 +64,7 @@ class FetchRequest:
     native_id: int | str
     category: str = "contest"
     index: str | None = None
-    contest_id: int | None = None
+    contest_id: int | str | None = None
     lang: str = "en"
     external: bool = False
 
@@ -75,6 +78,8 @@ class FetchRequest:
             allowed.add("includeExternalMaterials")
         if (source, entity) == ("qoj", "problem"):
             allowed.add("contestId")
+        if (source, entity) == ("ojuz", "problem"):
+            allowed.add("sourceId")
         if not isinstance(parameters, dict) or set(parameters) - allowed:
             raise invalid()
         value = parameters.get("url")
@@ -91,7 +96,7 @@ class FetchRequest:
         if not valid:
             raise FetchError("INVALID_URL", "Use a supported judge URL without credentials or fragments.", 400)
         path = unquote(parts.path).rstrip("/")
-        lang = parameters.get("lang", "en")
+        lang = parameters.get("lang", "default" if source == "ojuz" else "en")
         if not isinstance(lang, str) or lang not in LANGUAGES[source]:
             raise invalid("Unsupported content language for this source.")
         external = parse_bool(parameters.get("includeExternalMaterials", False))
@@ -118,6 +123,20 @@ class FetchRequest:
                 native_id = match[1]
                 index = match[2] if entity == "problem" else None
             normalized = path if match else None
+        elif source == "ojuz":
+            slug = r"[A-Za-z0-9][A-Za-z0-9_-]*"
+            pattern = rf"/problem/view/({slug})" if entity == "problem" else rf"/problems/source/({slug})"
+            match = re.fullmatch(pattern, path)
+            if entity == "category" and path == "/problems/source":
+                native_id, normalized = "root", path
+            else:
+                native_id, normalized = (match[1], path) if match else (None, None)
+            category = "source"
+            if entity == "problem" and parameters.get("sourceId") is not None:
+                supplied = parameters["sourceId"]
+                if not isinstance(supplied, str) or not re.fullmatch(slug, supplied) or len(supplied) > 100:
+                    raise invalid("sourceId must be an oj.uz source slug.")
+                contest_id = supplied
         else:
             if entity == "category" and path == "/category":
                 path = "/category/1"

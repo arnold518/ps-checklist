@@ -102,7 +102,7 @@ export function renderTimeline() {
     if (!records.length) {
         const empty = document.createElement('div');
         empty.className = 'empty-state';
-        empty.textContent = 'No practice records yet. Add your first record by clicking "Save Practice Record" in a contest info box.';
+        empty.textContent = 'No practice records yet. Use "Add Record" to choose a contest and date.';
         container.appendChild(empty);
         return;
     }
@@ -141,7 +141,8 @@ function renderPracticeRecord(record, contest) {
     title.textContent = contest.title;
     const meta = document.createElement('div');
     meta.className = 'record-meta';
-    meta.textContent = contest.problems === null ? 'Problem list unavailable' : `${contest.problems.length} problems`;
+    const count = contest.problems === null ? 'Problem list unavailable' : `${contest.problems.length} problems`;
+    meta.textContent = contest.contestLabel ? `${_state.contestLabel(contest)} · ${count}` : count;
     headerContent.append(title, meta);
     const deleteButton = document.createElement('button');
     deleteButton.className = 'btn-delete';

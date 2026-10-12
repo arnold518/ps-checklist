@@ -1,6 +1,6 @@
 # Running the fetch APIs
 
-The `beta` backend implements the seven version 1 routes in
+The `beta` backend implements ten version 1 routes in
 [API decisions](api-decisions.md). Every fetch runs through the SQLite job queue.
 The first QOJ category API fetches one page and returns its direct children;
 it never traverses them.
@@ -14,7 +14,8 @@ python3 -m pip install -r requirements.txt
 python3 -m crawler.api
 ```
 
-Default address: **http://127.0.0.1:8080**.
+Default address: **http://127.0.0.1:8080**. If that port is occupied, use
+`.venv/bin/python -m crawler.api --port 8002` or another free port.
 
 The integrated frontend preview (`python3 preview.py`, port 8001) mounts the
 existing queue handlers on the same origin. Its browser-facing subset is
@@ -22,7 +23,7 @@ existing queue handlers on the same origin. Its browser-facing subset is
 `POST /api/enqueue/fetch/atcoder/contest`, and
 `GET /api/job`, `/api/job/result`, `/api/health`. Absolute proxy prefixes are
 handled for these routes as well as static files. This preview owns its separate
-ignored `crawler/output/preview-jobs.sqlite3` queue; the standalone seven-route
+ignored `crawler/output/preview-jobs.sqlite3` queue; the standalone ten-route
 API below retains its original interface and database. Platform lists and
 practice records are not stored by the queue.
 
@@ -55,7 +56,7 @@ CAPTCHAs. If it remains blocked, the API still reports unavailable fields or an
 fallback attempts. The official mirror timed out in the local test and is not
 used as a fallback destination.
 
-## Seven fetch routes
+## Fetch routes (ten)
 
 | GET route | Example source URL |
 |---|---|
@@ -66,10 +67,13 @@ used as a fallback destination.
 | `/fetch/qoj/category` | `https://qoj.ac/category/756` |
 | `/fetch/qoj/contest` | `https://qoj.ac/contest/2522` |
 | `/fetch/qoj/problem` | `https://qoj.ac/problem/14601` |
+| `/fetch/ojuz/category` | `https://oj.uz/problems/source/joisc2026` |
+| `/fetch/ojuz/contest` | `https://oj.uz/problems/source/joisc2026day1` |
+| `/fetch/ojuz/problem` | `https://oj.uz/problem/view/JOI26_casino` |
 
 Inputs are `url`, optional `lang`, optional QOJ problem `contestId`, and optional
-AtCoder `includeExternalMaterials=true/false`. Supported languages: CF `en`;
-AtCoder `en`/`ja`; QOJ `en`/`ja`/`zh-CN`/`default`. Default is `en`.
+AtCoder `includeExternalMaterials=true/false`, and optional oj.uz problem `sourceId`. Supported languages: CF `en`;
+AtCoder `en`/`ja`; QOJ `en`/`ja`/`zh-CN`/`default`; oj.uz `default`. Default is `en` except oj.uz, which uses `default`.
 Contest-scoped QOJ problem URLs select context automatically. Unsupported inputs,
 including category recursion parameters, are rejected.
 
@@ -170,3 +174,23 @@ For a run without cached source pages or results, start the server with
 
 Materials are descriptors in these APIs. The planned `/download/material`
 endpoint and PDF extraction are separate from this implementation.
+
+## oj.uz and contest groups
+
+See [oj.uz design](ojuz.md) for source/category distinctions, anonymous access,
+HTML/PDF statements, language behavior, and supported context inputs. It uses the
+same queue and error envelope. Parent source archives are categories; leaf day or
+round sources are contests. No recursive source traversal or PDF delivery is added.
+
+The preview exposes category discovery through protected
+`POST /api/admin/category` and `GET /api/admin/category/result?id=…`. It accepts
+QOJ or oj.uz category URLs and uses the existing native fetch queue. Admin
+contest discovery can read group-specific judge sources. See [admin workflow](admin.md).
+
+Verification for this extension:
+
+```bash
+PYTHONPATH=.:tests .venv/bin/python -m unittest test_ojuz test_contest_groups -q
+PYTHONPATH=. .venv/bin/python tests/live_ojuz.py
+PYTHONPATH=. .venv/bin/python tests/live_contest_groups.py
+```

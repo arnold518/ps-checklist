@@ -2,15 +2,24 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import * as model from '../src/state.js';
+import {materialUrl} from '../src/contest.js';
 import {parseRoundInput} from '../src/fetchClient.js';
 
 const contests = JSON.parse(readFileSync(new URL('../problemlists/contestlist.json', import.meta.url)));
 const problems = JSON.parse(readFileSync(new URL('../problemlists/problems.json', import.meta.url)));
 model.loadCatalog(contests, problems);
+assert.equal(materialUrl({url:'https://example.org/statement.pdf',archiveId:'archive-id'}),'api/archive/archive-id');
+assert.equal(materialUrl({url:'https://example.org/editorial'}),'https://example.org/editorial');
 
 assert.equal(parseRoundInput('cf', '2268'), 'https://codeforces.com/contest/2268');
 assert.equal(parseRoundInput('cf', 'https://codeforces.com/gym/106225/?locale=en'), 'https://codeforces.com/gym/106225');
 assert.equal(parseRoundInput('atcoder', 'agc078'), 'https://atcoder.jp/contests/agc078');
+assert.throws(() => parseRoundInput('ojuz', 'ioi2024day1'));
+assert.throws(() => parseRoundInput('ojuz', 'https://oj.uz/problems/source/ioi2024day1'));
+for (const input of ['https://oj.uz/problem/view/IOI24_tree', 'https://oj.uz/problems/source',
+        'https://oj.uz.evil/problems/source/ioi2024day1', 'https://atcoder.jp/contests/agc078']) {
+    assert.throws(() => parseRoundInput('ojuz', input));
+}
 for (const input of ['https://example.org/contest/2268', 'https://codeforces.com/contest/2268/problem/A',
         'https://name:password@codeforces.com/contest/2268', 'https://codeforces.com/contest/2268#fragment']) {
     assert.throws(() => parseRoundInput('cf', input));
@@ -71,8 +80,33 @@ const known = model.addPlatformRound('cf', {...raw, source: 'cf', url: contests[
     problems: [{name: problems[0].title, index: 'A', url: problems[0].link.cf}]});
 assert.equal(known.contest, contests[0]);
 assert(model.state.catalogIds.has(known.contest.id));
+
+// A removed source cannot be imported as a platform. Legacy records still load.
+const ojuzRaw = {source:'ojuz',name:'IOI 2024 Day 1',url:'https://oj.uz/problems/source/ioi2024day1',
+    startTime:null,problemCount:1,materials:[],problems:[{name:'Tree',index:'3',url:'https://oj.uz/problem/view/IOI24_tree'}]};
+assert.throws(() => model.addPlatformRound('ojuz', ojuzRaw));
+const ojuzProblem = {id:'legacy-ojuz-problem',title:'Tree',link:{cf:null,qoj:null,atcoder:null,ojuz:ojuzRaw.problems[0].url}};
+const ojuzContest = {id:'legacy-ojuz-contest',title:ojuzRaw.name,year:null,category:null,
+    link:{cf:null,qoj:null,atcoder:null,ojuz:ojuzRaw.url,official:null,standings:null},materials:[],
+    problems:[{problemId:ojuzProblem.id,index:'3'}]};
+model.loadUserState({catalog:{contests:[...contests,ojuzContest],problems:[...problems,ojuzProblem]},
+    savedContests:[{contestId:ojuzContest.id,platforms:['ojuz']},{contestId:contests[0].id,platforms:['cf']}],
+    practiceRecords:[{id:'legacy-practice',contestId:ojuzContest.id,date:'2026-10-12'}],
+    progress:[{problemId:ojuzProblem.id,status:2}],preferences:{views:{platforms:{
+        expandedPaths:[['Platforms'],['Platforms','oj.uz']],visibleContestIds:[ojuzContest.id,contests[0].id]}}}});
+assert.deepEqual(Object.keys(model.platformLists), ['cf','atcoder']);
+assert(!model.selectableContests().includes(model.getContest(ojuzContest.id)));
+assert.deepEqual([...model.categoryViews.platforms.visibleContests], [contests[0].id]);
+assert.equal(model.practiceRecords.get('legacy-practice').contestId, ojuzContest.id);
+assert.deepEqual(model.progressFor(model.getContest(ojuzContest.id)), {total:1,solved:1});
+assert.equal(model.state.problems.get(ojuzProblem.id).link.ojuz, ojuzRaw.problems[0].url);
 model.loadCatalog(contests, problems);
 assert.equal(model.practiceRecords.size, 0);
 assert.equal(model.platformLists.cf.size, 0);
 assert.equal(model.platformLists.atcoder.size, 0);
+const labeledContest={...contests[0],id:'labeled-contest',year:'2026',contestLabel:'Day 1'};
+model.loadCatalog([...contests,labeledContest],problems);
+assert.equal(model.contestLabel(labeledContest),'2026 · Day 1');
+assert.throws(() => model.loadCatalog([...contests,{...labeledContest,contestLabel:''}],problems),/Invalid contest/);
+model.loadCatalog(contests,problems);
 console.log('Frontend model: source parsing, shared identities, atomic imports, dates, duplicates and record deletion passed.');

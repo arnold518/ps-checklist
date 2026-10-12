@@ -1,8 +1,10 @@
+import {PLATFORMS} from './constants.js';
+
 export const categories = ['ICPC', 'Olympiad'];
 export const contestTrees = {};
 // View choices last only while the page is open; no user storage is involved.
 export const categoryViews = {};
-export const platformLists = {cf: new Set(), atcoder: new Set()};
+export const platformLists = Object.fromEntries(PLATFORMS.map(platform => [platform.id, new Set()]));
 export const practiceRecords = new Map();
 export const problemProgress = new Map();
 export const practiceRecordsState = {pendingContestId: null};
@@ -22,7 +24,8 @@ export function pathKey(path) {
 }
 
 function validLinks(link, keys) {
-    return link && typeof link === 'object' && keys.every(key => {
+    const fields=Object.hasOwn(link || {},'ojuz') && keys.includes('cf') ? [...keys,'ojuz']:keys;
+    return link && typeof link === 'object' && fields.every(key => {
         if (link[key] === null) return true;
         try {
             const url = new URL(link[key]);
@@ -48,21 +51,42 @@ function validateCatalog(contests, problems, curated = true) {
         if (!contest || typeof contest.id !== 'string' || !contest.id || ids.has(contest.id)
                 || typeof contest.title !== 'string' || !contest.title.trim()
                 || !(contest.year === null || typeof contest.year === 'string')
+                || (contest.contestLabel !== undefined && (typeof contest.contestLabel !== 'string'
+                    || !contest.contestLabel.trim() || contest.contestLabel.length > 100))
                 || !(contest.category === null && !curated || Array.isArray(contest.category)
                     && categories.includes(contest.category[0])
                     && contest.category.every(part => typeof part === 'string' && part.trim()))
                 || !validLinks(contest.link, ['cf', 'qoj', 'atcoder', 'official', 'standings'])
                 || !(contest.problems === null || Array.isArray(contest.problems))
                 || !(contest.materials === null || Array.isArray(contest.materials))) throw new Error('Invalid contest');
+        if (contest.groups !== undefined && (!Array.isArray(contest.groups) || contest.groups.length > 20)) throw new Error('Invalid contest groups');
+        const groupIds=new Set();
+        for (const group of contest.groups || []) {
+            if (!group || typeof group.id !== 'string' || !group.id.trim() || groupIds.has(group.id)
+                    || typeof group.title !== 'string' || !group.title.trim() || typeof group.prefix !== 'string'
+                    || !validLinks(group.link,['cf','qoj','atcoder','official','standings'])
+                    || !Array.isArray(group.materials)) throw new Error('Invalid contest group');
+            groupIds.add(group.id);
+        }
         for (const entry of contest.problems || []) {
             if (!entry || !problemMap.has(entry.problemId)
+                    || (entry.groupId !== undefined && !groupIds.has(entry.groupId))
                     || !(entry.index === null || typeof entry.index === 'string')) throw new Error('Invalid problem reference');
         }
-        for (const material of contest.materials || []) {
+        for (const material of [...(contest.materials || []),...(contest.groups || []).flatMap(group => group.materials)]) {
             if (!material || typeof material.title !== 'string' || !material.title.trim()
                     || typeof material.role !== 'string'
                     || !(material.language === null || typeof material.language === 'string')
                     || !validLinks({url: material.url}, ['url']) || material.url === null) throw new Error('Invalid material');
+        }
+        if (contest.problemMaterials !== undefined && !Array.isArray(contest.problemMaterials)) throw new Error('Invalid problem materials');
+        const members=new Set((contest.problems || []).map(entry=>entry.problemId));
+        for(const material of contest.problemMaterials || []) {
+            if(!material || !members.has(material.problemId) || typeof material.role!=='string' || !material.role.trim()
+                    || typeof material.title!=='string' || !material.title.trim()
+                    || !(material.language===null || typeof material.language==='string')
+                    || !validLinks({url:material.url},['url']) || material.url===null)
+                throw new Error('Invalid problem material');
         }
         ids.add(contest.id);
     }
@@ -74,8 +98,7 @@ export function loadCatalog(contests, problems) {
     state.contests = [...contests];
     state.problems = problemMap;
     state.catalogIds = new Set(contests.map(contest => contest.id));
-    platformLists.cf.clear();
-    platformLists.atcoder.clear();
+    for (const list of Object.values(platformLists)) list.clear();
     practiceRecords.clear();
     problemProgress.clear();
     practiceRecordsState.pendingContestId = null;
@@ -98,13 +121,18 @@ export function loadUserState(data) {
     loadCatalog(curated, data.catalog.problems);
     state.contests = [...data.catalog.contests];
     for (const saved of data.savedContests) {
-        for (const source of saved.platforms) platformLists[source].add(saved.contestId);
+        for (const source of saved.platforms) platformLists[source]?.add(saved.contestId);
     }
     for (const record of data.practiceRecords) practiceRecords.set(record.id, record);
     for (const progress of data.progress) problemProgress.set(progress.problemId, progress.status);
     for (const [tab, view] of Object.entries(data.preferences.views)) {
         categoryViews[tab] = {expandedNodes:new Set(view.expandedPaths.map(pathKey)),
             visibleContests:new Set(view.visibleContestIds)};
+    }
+    if (categoryViews.platforms) {
+        const selected = new Set(Object.values(platformLists).flatMap(list => [...list]));
+        categoryViews.platforms.visibleContests = new Set([...categoryViews.platforms.visibleContests]
+            .filter(id => selected.has(id)));
     }
 }
 
@@ -114,11 +142,13 @@ export function applyImportedRound(data) {
     const position = state.contests.findIndex(contest => contest.id === data.contest.id);
     if (position < 0) state.contests.push(data.contest);
     else state.contests[position] = data.contest;
-    for (const source of data.saved.platforms) platformLists[source].add(data.contest.id);
+    for (const source of data.saved.platforms) platformLists[source]?.add(data.contest.id);
     delete contestTrees.platforms;
     const view = categoryViews.platforms ||= {expandedNodes:new Set([pathKey(['Platforms'])]),visibleContests:new Set()};
     view.visibleContests.add(data.contest.id);
-    for (const source of data.saved.platforms) view.expandedNodes.add(pathKey(['Platforms',source === 'cf' ? 'Codeforces' : 'AtCoder']));
+    for (const platform of PLATFORMS.filter(platform => data.saved.platforms.includes(platform.id))) {
+        view.expandedNodes.add(pathKey(['Platforms',platform.name]));
+    }
 }
 
 export function progressFor(contest) {
@@ -128,7 +158,7 @@ export function progressFor(contest) {
 
 export function contestLabel(contest, source = null) {
     if (source && contest.link[source]) return new URL(contest.link[source]).pathname.split('/').filter(Boolean).pop();
-    return contest.year ?? '';
+    return [contest.year,contest.contestLabel].filter(Boolean).join(' · ');
 }
 
 export function addPlatformRound(source, data) {
@@ -156,7 +186,7 @@ export function addPlatformRound(source, data) {
             year: typeof data.startTime === 'string' && /^\d{4}-/.test(data.startTime) ? data.startTime.slice(0, 4) : null,
             category: null,
             link: {cf: null, qoj: null, atcoder: null, official: null,
-                standings: `${data.url}/standings`, [source]: data.url},
+                standings: source === 'ojuz' ? null : `${data.url}/standings`, [source]: data.url},
             problems: memberships,
             materials: data.materials === null ? null : (data.materials || [])
                 .filter(material => material.scope === 'contest').map(material => ({
@@ -172,13 +202,13 @@ export function addPlatformRound(source, data) {
     delete contestTrees.platforms;
     const view = categoryViews.platforms ||= {expandedNodes: new Set([pathKey(['Platforms'])]), visibleContests: new Set()};
     view.visibleContests.add(contest.id);
-    view.expandedNodes.add(pathKey(['Platforms', source === 'cf' ? 'Codeforces' : 'AtCoder']));
+    view.expandedNodes.add(pathKey(['Platforms', PLATFORMS.find(platform => platform.id === source).name]));
     return {contest, alreadyAdded};
 }
 
 export function selectableContests() {
     return state.contests.filter(contest => state.catalogIds.has(contest.id)
-        || platformLists.cf.has(contest.id) || platformLists.atcoder.has(contest.id));
+        || Object.values(platformLists).some(list => list.has(contest.id)));
 }
 
 export function today() {
