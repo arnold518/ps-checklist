@@ -1,0 +1,20 @@
+[Unit]
+Description=Fetch all unpublished PS Checklist raw contest rows
+After=network.target
+OnSuccess=ps-checklist-raw-publish.service
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+WorkingDirectory=/home/arnold/arnold/github/ps-checklist
+ExecStart=/home/arnold/arnold/github/ps-checklist/.venv/bin/python /home/arnold/arnold/github/ps-checklist/scripts/fetch_raw_contests.py --workers 3 --base-pass
+Restart=on-failure
+RestartSec=900
+UMask=0077
+NoNewPrivileges=yes
+StandardOutput=append:/home/arnold/arnold/github/ps-checklist/storage/output/raw-fetch-run.log
+StandardError=append:/home/arnold/arnold/github/ps-checklist/storage/output/raw-fetch-run.log
+
+[Install]
+WantedBy=default.target

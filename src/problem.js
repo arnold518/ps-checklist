@@ -1,114 +1,134 @@
-// Problem detail panel migrated from the cloudflare prototype.
+// Problem details use the same panel layout as contest details.
 import * as _state from './state.js';
 import * as _contest from './contest.js';
 import {JUDGE_LINKS, PROBLEM_STATES} from './constants.js';
 import * as store from './userStore.js';
 import * as ui from './ui.js';
+import {addDifficultyControls} from './problemExtras.js';
+
+function addProblemLinks(panel, problem, materials) {
+    const links = document.createElement('div');
+    links.className = 'info-panel-links problem-info-links';
+    const sources = [
+        ...JUDGE_LINKS.flatMap(judge => {
+            const main = {...judge, url: problem.link[judge.id]};
+            if (judge.id !== 'boj') return [main];
+
+            const parts = [...(problem.bojParts || [])].sort((a, b) => a.order - b.order);
+            return [
+                {...main, title: 'Open in BOJ'},
+                ...parts.map(part => ({
+                    ...judge,
+                    title: `Open BOJ part ${part.order} (#${part.url.split('/').pop()})`,
+                    url: part.url
+                }))
+            ];
+        }),
+        ...materials.map(material => ({
+            title: material.title,
+            img: material.role === 'editorial' ? 'assets/icon/editorials-icon.png' : 'assets/icon/statements-icon.png',
+            url: _contest.materialUrl(material)
+        }))
+    ];
+    const used = new Set();
+    for (const source of sources) {
+        if (!source.url || used.has(source.url)) continue;
+        links.appendChild(_contest.createLinkElement(source, 'problem-link'));
+        used.add(source.url);
+    }
+    if (links.childElementCount) panel.appendChild(links);
+}
+
+function createStatusControl(problemId) {
+    const row = document.createElement('div');
+    row.className = 'problem-info-status';
+    const label = document.createElement('span');
+    label.textContent = 'Status:';
+    const button = document.createElement('button');
+    const update = () => {
+        const status = _state.problemProgress.get(problemId) || 0;
+        button.className = 'status-btn status-' + status;
+        button.textContent = PROBLEM_STATES[status];
+    };
+    update();
+    button.addEventListener('click', async () => {
+        button.disabled = true;
+        try {
+            await store.setStatus(problemId, ((_state.problemProgress.get(problemId) || 0) + 1) % PROBLEM_STATES.length);
+            update();
+            ui.refreshProgress();
+        } catch (error) {
+            store.showSaveError(error);
+        } finally {
+            button.disabled = false;
+        }
+    });
+    row.append(label, button);
+    return row;
+}
 
 export function handleProblemClick(problemCell) {
-    const contestId = problemCell.dataset.contestId;
-    const problemId = problemCell.dataset.index;
-    const problemIdx = problemCell.dataset.problemIdx;
-
+    const {contestId, index, problemIdx} = problemCell.dataset;
     const contest = _state.state.allContests.get(contestId);
-    if (!contest) return;
-
-    // First show the contest info
-    _contest.handleContestClick(problemCell);
-
-    // Get the problem data
-    const entry = contest.data.problems?.[problemIdx];
+    const entry = contest?.data.problems?.[problemIdx];
     const problem = _state.state.problems.get(entry?.problemId);
     if (!problem) return;
 
-    // Get or create problem info element
-    const contestContent = problemCell.closest('.contest-content');
-    let problemInfo = contestContent.querySelector('.problem-info');
-    if (problemInfo) {
-        problemInfo.classList.remove('active');
-        problemInfo.remove();
-    }
-    problemInfo = document.createElement('div');
+    // The selected problem and contest share a table, including in practice records.
+    const contestInfo = _contest.handleContestClick(problemCell, {scroll: false});
+    const problemInfo = document.createElement('section');
     problemInfo.className = 'problem-info info-panel';
-    contestContent.insertBefore(problemInfo, contestContent.querySelector('.contest-table-container'));
+    problemInfo.setAttribute('aria-label', 'Problem details');
+    contestInfo.after(problemInfo);
 
-    // Create header section
     const header = document.createElement('div');
     header.className = 'info-panel-header';
-
-    // Create title container
     const titleContainer = document.createElement('div');
     titleContainer.className = 'info-panel-title-container';
+    if (index) {
+        const subtitle = document.createElement('div');
+        subtitle.className = 'info-panel-subtitle problem-info-id';
+        subtitle.textContent = index;
+        titleContainer.appendChild(subtitle);
+    }
+    const name = document.createElement('h3');
+    name.className = 'info-panel-title problem-info-name';
+    name.textContent = problem.title || 'Problem';
+    name.tabIndex = -1;
+    titleContainer.appendChild(name);
 
-    // Add problem ID
-    const idElement = document.createElement('div');
-    idElement.className = 'info-panel-subtitle problem-info-id';
-    idElement.textContent = problemId;
-    titleContainer.appendChild(idElement);
-
-    // Add problem name
-    const nameElement = document.createElement('h3');
-    nameElement.className = 'info-panel-title problem-info-name';
-    nameElement.textContent = problem.title || 'Problem';
-    titleContainer.appendChild(nameElement);
-
-    // Add close button
     const closeButton = document.createElement('button');
     closeButton.className = 'info-panel-close problem-info-close';
-    closeButton.innerHTML = '&times;';
+    closeButton.textContent = '×';
     closeButton.setAttribute('aria-label', 'Close problem details');
-    closeButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        problemInfo.classList.remove('active');
+    const close = () => {
         problemInfo.remove();
-    });
-
-    // Assemble header
-    header.appendChild(titleContainer);
-    header.appendChild(closeButton);
-    problemInfo.appendChild(header);
-
-    const statusContainer = document.createElement('div');
-    statusContainer.className = 'problem-info-status';
-    const label = document.createElement('span');
-    label.textContent = 'Status:';
-    const statusButton = document.createElement('button');
-    const updateStatus = () => {
-        const status = _state.problemProgress.get(problem.id) || 0;
-        statusButton.className = `status-btn status-${status}`;
-        statusButton.textContent = PROBLEM_STATES[status];
+        problemCell.focus();
     };
-    updateStatus();
-    statusButton.addEventListener('click',async () => {
-        statusButton.disabled = true;
-        try {
-            await store.setStatus(problem.id, ((_state.problemProgress.get(problem.id) || 0) + 1) % 4);
-            updateStatus();
-            ui.refreshProgress();
-        } catch (error) { store.showSaveError(error); }
-        finally { if (statusButton.isConnected) statusButton.disabled = false; }
+    closeButton.addEventListener('click', close);
+    problemInfo.addEventListener('keydown', event => {
+        if (event.key !== 'Escape') return;
+        event.stopPropagation();
+        close();
     });
-    statusContainer.append(label,statusButton);
-    problemInfo.appendChild(statusContainer);
-    if (!store.user) {
-        const note = document.createElement('p');
-        note.className = 'guest-save-note';
-        note.textContent = 'Sign in to save your progress.';
-        problemInfo.appendChild(note);
-    }
+    header.append(titleContainer, closeButton);
+    problemInfo.append(header, createStatusControl(problem.id));
 
-    const linksContainer = document.createElement('div');
-    linksContainer.className = 'info-panel-links problem-info-links';
-    JUDGE_LINKS.forEach(link => {
-        const url = problem.link[link.id];
-        if (url) linksContainer.appendChild(_contest.createLinkElement({...link, url}, `problem-link ${link.id}`));
-    });
-    for(const material of (contest.data.problemMaterials || []).filter(item=>item.problemId===problem.id)) {
-        const img=material.role==='editorial' ? 'assets/icon/editorials-icon.png'
-            : material.role==='statement' ? 'assets/icon/statements-icon.png':'assets/icon/official-icon.png';
-        linksContainer.appendChild(_contest.createLinkElement({title:material.title,url:_contest.materialUrl(material),img},'problem-material-link'));
-    }
-    problemInfo.appendChild(linksContainer);
+    const difficulty = document.createElement('div');
+    difficulty.className = 'problem-info-difficulty';
+    problemInfo.appendChild(difficulty);
+
+    const materials = (contest.data.problemMaterials || []).filter(item => item.problemId === problem.id);
+    addProblemLinks(problemInfo, problem, materials);
+    addDifficultyControls(difficulty, problem.id);
+
     problemInfo.classList.add('active');
-    problemInfo.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    name.focus({preventScroll: true});
+    const scroller = problemInfo.closest('.contest-container, .practice-records-container');
+    const panelHeight = problemInfo.getBoundingClientRect().bottom - contestInfo.getBoundingClientRect().top;
+    if (panelHeight <= (scroller?.clientHeight || window.innerHeight)) {
+        contestInfo.scrollIntoView({behavior: 'smooth', block: 'start'});
+    } else {
+        problemInfo.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    }
 }

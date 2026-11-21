@@ -20,10 +20,20 @@ ROUTES = {
     "/fetch/ojuz/category": ("ojuz", "category"),
     "/fetch/ojuz/contest": ("ojuz", "contest"),
     "/fetch/ojuz/problem": ("ojuz", "problem"),
+    "/fetch/boj/category": ("boj", "category"),
+    "/fetch/boj/contest": ("boj", "contest"),
+    "/fetch/boj/problem": ("boj", "problem"),
+    "/fetch/solvedac/difficulty": ("solvedac", "difficulty"),
 }
-HOSTS = {"cf": "codeforces.com", "atcoder": "atcoder.jp", "qoj": "qoj.ac", "ojuz": "oj.uz"}
+HOSTS = {"cf": "codeforces.com", "atcoder": "atcoder.jp", "qoj": "qoj.ac", "ojuz": "oj.uz",
+         "boj": "acmicpc.net", "solvedac": "solved.ac"}
 LANGUAGES = {"cf": {"en"}, "atcoder": {"en", "ja"},
-             "qoj": {"en", "ja", "zh-CN", "default"}, "ojuz": {"default"}}
+             "qoj": {"en", "ja", "zh-CN", "default"}, "ojuz": {"default"}, "boj": {"default"}}
+BOJ_HOSTS = {"acmicpc.net", "www.acmicpc.net"}
+NATIVE_ID = r"[1-9][0-9]{0,14}"
+BOJ_PATHS = {"category": rf"/category(?:/({NATIVE_ID}))?",
+             "contest": rf"/category/detail/({NATIVE_ID})", "problem": rf"/problem/({NATIVE_ID})"}
+OPERATOR_ROUTES = frozenset(route for route, (source, _) in ROUTES.items() if source in ("boj", "solvedac"))
 
 
 def utc_now():
@@ -73,6 +83,8 @@ class FetchRequest:
         if route not in ROUTES:
             raise FetchError("NOT_FOUND", "Unknown API route.", 404)
         source, entity = ROUTES[route]
+        if route in OPERATOR_ROUTES:
+            return cls.parse_boj_or_solvedac(source, entity, parameters)
         allowed = {"url", "lang"}
         if source == "atcoder":
             allowed.add("includeExternalMaterials")
@@ -169,6 +181,55 @@ class FetchRequest:
         return cls(source, entity, f"https://{HOSTS[source]}{normalized}", native_id,
                    category, index, contest_id, lang, external)
 
+    @classmethod
+    def parse_boj_or_solvedac(cls, source, entity, parameters):
+        allowed = {"url"}
+        if (source, entity) == ("boj", "problem"):
+            allowed |= {"sourceId", "lang"}
+        if source == "solvedac":
+            allowed.add("sub")
+        if not isinstance(parameters, dict) or set(parameters) - allowed:
+            raise invalid()
+        value = parameters.get("url")
+        if not isinstance(value, str) or not value.strip() or len(value) > 2048:
+            raise FetchError("INVALID_URL", "Provide a supported source resource URL.", 400)
+        try:
+            parts = urlsplit(value.strip())
+            valid = (parts.scheme == "https" and parts.port in (None, 443)
+                     and parts.username is None and parts.password is None
+                     and not parts.query and not parts.fragment)
+        except ValueError:
+            valid = False
+        if not valid:
+            raise FetchError("INVALID_URL", "Use a supported HTTPS source URL.", 400)
+        path = parts.path.rstrip("/")
+        if parts.hostname in BOJ_HOSTS:
+            match = re.fullmatch(BOJ_PATHS[entity if source == "boj" else "problem"], path)
+            if match:
+                if parameters.get("lang", "default") != "default":
+                    raise invalid("BOJ supports the default statement version.")
+                supplied = parameters.get("sourceId")
+                if "sourceId" in parameters and (type(supplied) not in (str, int)
+                                                or not re.fullmatch(NATIVE_ID, str(supplied))):
+                    raise invalid("sourceId must be a positive BOJ source detail ID.")
+                if "sub" in parameters:
+                    raise invalid("Use sub only with a solved.ac problem URL.")
+                return cls(source, entity, "https://acmicpc.net" + path,
+                           int(match[1]) if match[1] else "root",
+                           category="boj" if source == "solvedac" else "source",
+                           contest_id=int(supplied) if supplied is not None else None, lang="default")
+        if source == "solvedac" and parts.hostname == "solved.ac":
+            match = re.fullmatch(rf"/(?:(?:ko|en|ja)/)?p/({NATIVE_ID})([a-z]{{1,16}})?", path)
+            if match:
+                suffix = match[2] or ""
+                sub = parameters.get("sub", suffix)
+                if (not isinstance(sub, str) or not re.fullmatch(r"[a-z]{0,16}", sub)
+                        or suffix and suffix != sub):
+                    raise invalid("Use a consistent solved.ac subproblem selector.")
+                return cls(source, entity, f"https://solved.ac/p/{match[1]}{sub}",
+                           int(match[1]), category="problem", index=sub or None, lang="default")
+        raise FetchError("INVALID_URL", "The URL does not identify the requested resource type.", 400)
+
     def payload(self):
         return dict(self.__dict__)
 
@@ -237,6 +298,10 @@ def full_problem(item, source):
 
 
 def validate_data(data):
+    if isinstance(data, dict) and data.get("source") == "solvedac":
+        from .sources.solvedac import validate_difficulty
+        validate_difficulty(data)
+        return
     if (not isinstance(data, dict) or not data.get("key") or not data.get("name")
             or not data.get("url") or data.get("source") not in HOSTS):
         raise FetchError("UPSTREAM_PARSE_ERROR", "The source did not produce a valid entity.")

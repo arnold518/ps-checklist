@@ -1,5 +1,6 @@
 import * as store from './userStore.js';
 import {clone,statusLabels,existingDraft,cellValue,editCell,describeChanges,followField,refreshFields,ensureRefresh} from './adminWorkspaceModel.js';
+import {AdminImports} from './adminImports.js';
 
 const columns=[['title','Title'],['year','Year'],['contestLabel','Contest label'],['category','Category path'],['link.cf','CF'],['link.qoj','QOJ'],
     ['link.atcoder','AtCoder'],['link.ojuz','oj.uz'],['link.official','Official site'],['link.standings','Standings'],
@@ -43,6 +44,7 @@ export class AdminGrid {
         const saved=await store.request('/admin/workspace');
         if(this.closed || !this.root.isConnected)return;
         this.accept(saved);this.render();
+        this.imports.start();
         this.poll=setInterval(() => {
             if(this.closed || this.active || !Object.values(this.rows).some(row => pendingStatus(row.status)))return;
             this.run(async () => {
@@ -52,7 +54,7 @@ export class AdminGrid {
         },2000);
     }
 
-    stop() {this.closed=true;clearInterval(this.poll);clearTimeout(this.debounce);}
+    stop() {this.closed=true;this.imports?.stop();clearInterval(this.poll);clearTimeout(this.debounce);}
     get unsaved() {return this.pending.size>0 || this.saving;}
 
     row(id) {
@@ -134,16 +136,22 @@ export class AdminGrid {
     render() {
         this.root.replaceChildren();
         const header=node('div','content-header');
-        const heading=node('div');heading.append(node('h1',null,'Global contests'),node('p','admin-help','Edit or fetch, then review & publish. Changes stay private until published.'));
+        const heading=node('div');heading.append(node('h1',null,'Contest administration'),node('p','admin-help','Review raw imports, then edit contests already in the catalog.'));
         header.append(heading,this.action('+ Add contest',async () => {await this.flush();this.callbacks.add();},'add-contest-btn'));
         this.root.append(header);
         this.notice=node('div','status');this.notice.id='admin-grid-status';this.notice.setAttribute('role','status');this.root.appendChild(this.notice);
+        const importRoot=node('section','admin-imports');this.root.appendChild(importRoot);
+        this.imports=new AdminImports(importRoot,{review:this.callbacks.reviewImport,open:this.callbacks.openImport});
+        const catalogHeading=node('div','admin-catalog-heading');
+        catalogHeading.append(node('h2',null,'Catalog editor'),node('p','admin-help',
+            'These contests are already in the database. The state tags below track private edits and fetches for these catalog rows.'));
+        this.root.appendChild(catalogHeading);
         const filters=node('div','admin-filters');
         const scope=node('select','form-input');scope.setAttribute('aria-label','Catalog view');
-        for(const [title,value] of [['Global contests','global'],['Shared library','library'],['All known contests','all']])scope.add(new Option(title,value));
+        for(const [title,value] of [['Global catalog','global'],['Shared library','library'],['Entire catalog','all']])scope.add(new Option(title,value));
         scope.value=this.scope;scope.addEventListener('change',() => {this.scope=scope.value;this.drawTable();});
-        const status=node('select','form-input');status.setAttribute('aria-label','Workspace status filter');
-        status.add(new Option('All states','all'));
+        const status=node('select','form-input');status.setAttribute('aria-label','Catalog edit state filter');
+        status.add(new Option('All edit states','all'));
         for(const [value,title] of Object.entries(statusLabels))status.add(new Option(title,value));
         status.value=this.filter;status.addEventListener('change',() => {this.filter=status.value;this.drawTable();});
         const search=node('input','form-input');search.type='search';search.placeholder='Search title, year, category, or link';search.setAttribute('aria-label','Search contests');search.value=this.query;
@@ -260,7 +268,7 @@ export class AdminGrid {
             all.dataset.groupIds=JSON.stringify(contests.map(contest => contest.id));
             all.setAttribute('aria-label',`Select contests in ${path}`);
             all.addEventListener('change',() => {for(const contest of contests)if(all.checked)this.selected.add(contest.id);else this.selected.delete(contest.id);this.updateIndicators();});checkHead.appendChild(all);headings.appendChild(checkHead);
-            for(const title of [...views[this.view].map(([,title]) => title),'Problems','Status','Actions'])headings.appendChild(node('th',null,title));
+            for(const title of [...views[this.view].map(([,title]) => title),'Problems','Edit state','Actions'])headings.appendChild(node('th',null,title));
             head.appendChild(headings);table.appendChild(head);const body=node('tbody');
             for(const contest of contests) {
                 const row=this.row(contest.id),tr=node('tr');tr.dataset.contestId=contest.id;
@@ -299,7 +307,7 @@ export class AdminGrid {
                     tr.appendChild(td);
                 }
                 const count=node('td','admin-grid-problem-count',String(contest.problems?.length ?? '?'));count.dataset.label='Problems';tr.appendChild(count);
-                const stateCell=node('td','admin-grid-status-cell');stateCell.dataset.label='Status';
+                const stateCell=node('td','admin-grid-status-cell');stateCell.dataset.label='Edit state';
                 const state=node('span','admin-grid-state');state.dataset.rowStatus=contest.id;stateCell.append(state,node('small','admin-row-message'));tr.appendChild(stateCell);
                 const actions=node('td','admin-grid-actions');const open=this.action('Details',async () => {await this.flush();this.callbacks.edit(clone(this.row(contest.id).draft),contest.id);});
                 open.disabled=pendingStatus(row.status) || this.active;actions.appendChild(open);tr.appendChild(actions);body.appendChild(tr);
@@ -315,7 +323,7 @@ export class AdminGrid {
         const selection=JSON.stringify([...this.selected]);
         if(this.reviewSelection!==selection)this.reviewRoot?.replaceChildren();this.reviewSelection=selection;
         const hidden=[...this.selected].filter(id => !ids.has(id)).length;
-        this.summary.textContent=`${visible.length} contests · ${this.saving ? 'Saving drafts…':this.pending.size ? 'Unsaved changes':'Drafts saved'}`;
+        this.summary.textContent=`${visible.length} catalog contests · ${this.saving ? 'Saving drafts…':this.pending.size ? 'Unsaved changes':'Drafts saved'}`;
         this.selectionLabel.textContent=`${this.selected.size} selected${hidden ? ` (${hidden} outside this view)`:''}`;
         this.toolbar.hidden=!this.selected.size;
         if(!this.selected.size){this.fill.hidden=true;this.bulkButton.setAttribute('aria-expanded','false');}

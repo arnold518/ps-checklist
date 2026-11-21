@@ -1,6 +1,7 @@
 # Olympiad sources and coverage
 
-Sources checked on **2026-10-12**. [contests.csv](../contests.csv) contains **688 rows**
+Sources checked on **2026-10-12**; the 2007–2011 JOISC days were checked again
+on **2026-10-21**. [contests.csv](../contests.csv) contains **703 rows**
 for the nine original series and USACO after the 342 ICPC rows. KOI uses three division
 subcategories and USACO uses four difficulty divisions plus its 2026 championship,
 giving the Olympiad portion sixteen category paths. The exact paths
@@ -20,16 +21,16 @@ CSV's `contest_label` distinguishes day/test/round rows sharing a category and y
 | KOI / High School Division | 13 | 2013, 2015–2026 | 8 | 0 | 0 | 5 |
 | KTST | 16 | 2019–2026 | 16 | 0 | 0 | 0 |
 | JOI | 21 | 2006–2026 | 13 | 0 | 21 | 11 |
-| JOISC | 65 | 2007–2026 | 60 | 0 | 5 | 56 |
+| JOISC | 80 | 2007–2026 | 60 | 0 | 20 | 56 |
 | JOIOC | 15 | 2012–2025 | 14 | 0 | 7 | 14 |
-| CEOI | 44 | 2004–2026, except 2007 | 40 | 4 | 0 | 40 |
+| CEOI | 44 | 2004–2026, except 2007 | 40 | 4 | 0 | 38 |
 | BOI | 50 | 2000, 2003–2026 | 48 | 1 | 0 | 30 |
 | USACO / Bronze Division | 107 | 2005–2026 seasons | 107 | 0 | 0 | 0 |
 | USACO / Silver Division | 109 | 2005–2026 seasons | 109 | 0 | 0 | 0 |
 | USACO / Gold Division | 116 | 2005–2026 seasons | 116 | 0 | 0 | 0 |
 | USACO / Platinum Division | 38 | 2016–2026 seasons | 38 | 0 | 0 | 0 |
 | USACO / US Open Championship | 1 | 2026 | 1 | 0 | 0 | 0 |
-| **Total** | **688** | | **656** | **6** | **33** | **218** |
+| **Total** | **703** | | **656** | **6** | **48** | **216** |
 
 QOJ roots: [IOI](https://qoj.ac/category/10),
 [APIO](https://qoj.ac/category/34), [KOI](https://qoj.ac/category/644),
@@ -48,14 +49,16 @@ subcategories with empty contest labels. KTST includes both selection exams
 each year as `Test 1` and `Test 2`. The curated row key is category, year, and
 contest label; source URLs retain the native edition identity.
 
-IOI, CEOI, and BOI use separate day rows. JOISC 2012–2026 uses four day rows;
-2007–2011 uses annual AtCoder contests. Those older compilations include native
-task variants, such as several versions of UFO or Packing. Review their problem
-list before combining sources. The 2011 Japanese spring event was replaced by
+IOI, CEOI, and BOI use separate day rows. JOISC 2007–2026 uses four day rows.
+For 2007–2011, the official day PDFs and AtCoder's year-wide task list define
+the task boundaries; the year-wide AtCoder URL is a fetch source for each day,
+but is not assigned as a published contest link. The task links remain on the
+individual problems. Repeated native
+task variants, such as UFO or Packing, have one representative task link and
+the complete official day PDF. The 2011 Japanese spring event was replaced by
 a team-selection contest, which remains under the requested JOISC series.
 JOIOC 2014 has two different day task sets and therefore two rows. The day rows
-use `Day 1`–`Day 4` as appropriate. The single annual AtCoder editions and other
-single-contest years keep an empty label.
+use `Day 1`–`Day 4` as appropriate. Other single-contest years keep an empty label.
 
 Japanese season labels use the ending year: JOI 2024/2025 becomes `year = 2025`.
 The 2026 JOI series includes the [Semi-Final Stage](https://atcoder.jp/contests/joi2026sf),
@@ -106,36 +109,35 @@ USACO Guide; that explanation is excluded by the organizer-publication rule.
 The other two explanations remain partial references, rather than an incomplete
 array. Older editions without surviving official explanations retain empty cells.
 
-USACO has **180 official static division scoreboards**, including eight published
-USA pre-college promotion/certified-score subsets marked `original_top_scorers`.
-The original sections and scores are preserved. External-source discovery did
-not verify a better missing original ranking. Among the 191 remaining native
-contests, 15 QOJ standings pages had nonempty score data with the matching task
-count and are selected as the last fallback. The other 176 remain empty.
-The 2026 championship uses a QOJ fallback; its official final-results page
-provides tasks and explanations but no public contestant score table.
+USACO has **172 selected official static division scoreboards**. Eight other
+organizer publications show only limited USA pre-college promotion or certified
+score subsets, so they remain references rather than selected full rankings.
+The other 199 USACO standings cells remain empty after official and external
+source discovery; QOJ practice rankings are not used as fallbacks. The 2026
+championship's official final-results page provides tasks and explanations but
+no public full contestant score table.
 
 ## Resource coverage and preferences
 
 | Series | Official site | Unified statement | Per-problem statements | Unified editorial | Per-problem editorials | Standings |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | IOI | 50 | 0 | 50 | 34 | 0 | 50 |
-| APIO | 7 | 1 | 5 | 2 | 1 | 20 |
+| APIO | 7 | 1 | 5 | 2 | 1 | 8 |
 | KOI / Elementary School Division | 8 | 0 | 8 | 0 | 7 | 8 |
 | KOI / Middle School Division | 8 | 0 | 8 | 0 | 7 | 8 |
 | KOI / High School Division | 8 | 0 | 8 | 0 | 7 | 8 |
-| KTST | 16 | 0 | 14 | 0 | 6 | 16 |
-| JOI | 21 | 21 | 10 | 3 | 15 | 13 |
-| JOISC | 65 | 24 | 36 | 0 | 52 | 55 |
-| JOIOC | 14 | 0 | 14 | 0 | 11 | 14 |
-| CEOI | 42 | 4 | 8 | 8 | 6 | 35 |
+| KTST | 16 | 0 | 14 | 0 | 8 | 16 |
+| JOI | 21 | 21 | 10 | 3 | 16 | 0 |
+| JOISC | 80 | 44 | 36 | 0 | 54 | 0 |
+| JOIOC | 14 | 0 | 14 | 0 | 11 | 13 |
+| CEOI | 42 | 4 | 8 | 8 | 6 | 28 |
 | BOI | 50 | 50 | 0 | 15 | 0 | 50 |
-| USACO / Bronze Division | 107 | 0 | 0 | 0 | 64 | 47 |
-| USACO / Silver Division | 109 | 0 | 0 | 0 | 65 | 45 |
-| USACO / Gold Division | 116 | 0 | 0 | 0 | 65 | 65 |
-| USACO / Platinum Division | 38 | 0 | 0 | 0 | 38 | 37 |
+| USACO / Bronze Division | 107 | 0 | 0 | 0 | 64 | 41 |
+| USACO / Silver Division | 109 | 0 | 0 | 0 | 65 | 41 |
+| USACO / Gold Division | 116 | 0 | 0 | 0 | 65 | 58 |
+| USACO / Platinum Division | 38 | 0 | 0 | 0 | 38 | 32 |
 | USACO / US Open Championship | 1 | 0 | 0 | 0 | 1 | 1 |
-| **Total** | **660** | **100** | **161** | **62** | **345** | 472 |
+| **Total** | **660** | **100** | **161** | **62** | **350** | 472 |
 
 Counts are rows with a nonempty cell. Unified statements and per-problem
 statements are separate columns and can overlap. Statement inputs contain
@@ -169,13 +171,19 @@ partial materials and alternative sources remain in the audit.
   Task files named `score.txt` or `score.pdf` describe subtask point allocations,
   not contestant standings. All 43 such earlier standings cells were corrected;
   nonempty QOJ rankings are used only as the last fallback when original results
-  are not verified.
+  are not verified. The [JOI 2006 task page](https://www2.ioi-jp.org/joi/2005/2006-ho-prob_and_sol/index.html)
+  links five written explanations in task-number order. The
+  [JOISC 2018 page](https://www2.ioi-jp.org/camp/2018/2018-sp-tasks/index.html)
+  links distinct explanation PDFs for all three tasks on each day; the missing
+  day 1 and day 3 lists are now selected in their own rows.
 - **Korea:** use [KOI](https://koi.or.kr/) task archives and the original national
   and team-selection scoreboards. KOI 2019's original workbook publishes separate
   elementary, middle, and high school sheets; each row uses its matching sheet.
   Later national contests have division-specific tables. Their archived CMS
   task, user, and score files were checked. Both KTST exams share
-  the organizer's annual combined results.
+  the organizer's annual combined results. The [2026 selection page](https://www.ioikorea.or.kr/archives/ioitst/2026/)
+  publishes four individual solution PDFs for each exam. Their day and task
+  order match the separate native contests; all eight are selected in the CSV.
 - **CEOI:** use the current [central task archive](https://ceoi.elte.hu/tasks-archive.html)
   and matching annual organizer pages. Some archives contain large ZIP bundles;
   annual archive sections remain discovery references in the audit. Written
@@ -219,9 +227,9 @@ maximum variants and is excluded. The six selected Codeforces mirrors have
 the same complete task sets as their corresponding QOJ contests.
 
 Annual AtCoder spring compilations must not be pasted into a three-task day row:
-they include multiple days and sometimes additional task variants. Use the
-references below when intentionally building an annual contest group. The
-2007–2011 annual rows already use the matching AtCoder source.
+they include multiple days and sometimes additional task variants. The
+2007–2011 day rows select official PDFs and slice the matching AtCoder problem
+links by the organizer's day order. The annual AtCoder pages remain fetch sources.
 
 Empty resource cells mean no complete suitable link was confirmed in this pass.
 Statement gaps stay empty. Judge statements, HTML print views, community copies,
@@ -237,7 +245,9 @@ plain-text score sheets, large PDFs such as the CEOI 2004 booklet, and HTML
 collection pages that link separate documents may require manual review.
 Consult the audit note and omit unsupported resources from the initial fetch.
 
-The review checked native problem counts and order for all **1,030 catalog rows**.
+The original review checked native problem counts and order for all **1,030 rows**;
+the 15 added JOISC day rows were checked against organizer PDFs and the annual
+AtCoder task order.
 Every list length equals its row's native count; every list position has a source
 audit record naming its problem. Every selected statement URL was retrieved and
 verified as actual PDF content from an official source. Earlier native task-page

@@ -1,0 +1,15 @@
+[Unit]
+Description=PS Checklist beta application
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/arnold/arnold/github/ps-checklist
+ExecStart=/home/arnold/arnold/github/ps-checklist/.venv/bin/python /home/arnold/arnold/github/ps-checklist/preview.py --port 8001
+Restart=always
+RestartSec=5
+UMask=0077
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=default.target

@@ -6,6 +6,8 @@ import * as _ui from './ui.js';
 import {createProgressBar} from './progressBar.js';
 import {JUDGE_LINKS, PLATFORMS} from './constants.js';
 import * as store from './userStore.js';
+import {apiUrl} from './api.js';
+import {addCellDifficulty, refreshDifficulties} from './difficulty.js';
 
 export function createLinkElement(link, className) {
     const element = document.createElement('a');
@@ -17,13 +19,15 @@ export function createLinkElement(link, className) {
     element.rel = 'noopener noreferrer';
     const img = document.createElement('img');
     img.src = link.img;
-    img.alt = link.title;
+    img.alt = '';
     element.appendChild(img);
     return element;
 }
 
 export function materialUrl(material) {
-    return material.archiveId ? `api/archive/${material.archiveId}` : material.url;
+    return material.archiveId
+        ? `${apiUrl(`/archive/${material.archiveId}`)}${new URL(material.url).hash}`
+        : material.url;
 }
 
 function enableKeyboardClick(cell, label) {
@@ -37,7 +41,7 @@ function enableKeyboardClick(cell, label) {
     });
 }
 
-export function handleContestClick(contestCell) {
+export function handleContestClick(contestCell, {scroll = true} = {}) {
     const contestId = contestCell.dataset.contestId;
     const contest = _state.state.allContests.get(contestId);
 
@@ -109,12 +113,45 @@ export function handleContestClick(contestCell) {
     problemsElement.className = 'stats-badge contest-info-problems';
     problemsElement.textContent = `Problems: ${(contest.data.problems || []).length}`;
     statsContainer.appendChild(problemsElement);
+    const fetchDifficulty = document.createElement('button');
+    fetchDifficulty.className = 'contest-difficulty-fetch-btn';
+    fetchDifficulty.textContent = 'Fetch Difficulty';
+    const feedback = document.createElement('p');
+    feedback.className = 'difficulty-feedback';
+    feedback.setAttribute('role', 'status');
+    fetchDifficulty.addEventListener('click', async () => {
+        fetchDifficulty.disabled = true;
+        feedback.textContent = 'Fetching from solved.ac…';
+        try {
+            const ids = (contest.data.problems || []).map(entry => _state.state.problems.get(entry.problemId))
+                .filter(problem => problem?.link.boj && !problem.bojParts?.length)
+                .map(problem => problem.id);
+            const {ratings, failed, message} = await refreshDifficulties(ids);
+            if (!contestInfo.isConnected) return;
+            const row = contestContent.querySelector('.problem-info-difficulty');
+            if (row && Object.hasOwn(ratings, row.dataset.problemId)) {
+                row.dispatchEvent(new CustomEvent('difficultyrefreshed', {detail: ratings[row.dataset.problemId]}));
+            }
+            if (failed) {
+                feedback.textContent = `Could not refresh ${failed} BOJ ${failed === 1 ? 'entry' : 'entries'}. ${message || ''}`;
+            } else if (!Object.values(ratings).some(Boolean)) {
+                feedback.textContent = ids.length ? 'solved.ac returned no whole-problem tiers for this contest.'
+                    : 'No problems in this contest have a single whole-problem BOJ link.';
+            } else {
+                feedback.textContent = '';
+            }
+        } catch (error) {
+            if (error.name !== 'AbortError') feedback.textContent = error.message;
+        } finally {
+            fetchDifficulty.disabled = false;
+        }
+    });
+    statsContainer.appendChild(fetchDifficulty);
     const solved = document.createElement('div');
     solved.className = 'stats-badge contest-solved';
     solved.dataset.contestId = contest.id;
     const progress = _state.progressFor(contest.data);
     solved.textContent = `Solved: ${progress.solved}/${progress.total}`;
-    statsContainer.appendChild(solved);
 
     if (_state.state.currentCategory !== 'practice-records') {
         const saveButton = document.createElement('button');
@@ -127,7 +164,8 @@ export function handleContestClick(contestCell) {
         statsContainer.appendChild(saveButton);
     }
 
-    contestInfo.appendChild(statsContainer);
+    statsContainer.appendChild(solved);
+    contestInfo.append(statsContainer, feedback);
 
     if (_state.state.currentCategory === 'platforms') {
         for (const {id:source, name} of PLATFORMS.filter(platform => _state.platformLists[platform.id].has(contest.id))) {
@@ -177,7 +215,8 @@ export function handleContestClick(contestCell) {
         section.appendChild(links);contestInfo.appendChild(section);
     }
     contestInfo.classList.add('active');
-    contestInfo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (scroll) contestInfo.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+    return contestInfo;
 }
 
 // Shared original table DOM; practice uses individual problem headers.
@@ -245,12 +284,16 @@ export function createContestTable(contests, {individualHeaders = false, source 
             problemCell.dataset.problemIdx = problemIdx;
             problemCell.dataset.index = entry.index || '';
             problemCell.dataset.fullname = !individualHeaders && entry.index ? `${entry.index}. ${problem.title}` : problem.title;
-            problemCell.textContent = problemCell.dataset.fullname;
+            const label = document.createElement('span');
+            label.className = 'problem-cell-label';
+            label.textContent = problemCell.dataset.fullname;
+            problemCell.appendChild(label);
             problemCell.title = (group ? group.title+' · ':'')+problemCell.dataset.fullname;
             problemCell.addEventListener('click', () => _problem.handleProblemClick(problemCell));
             problemCell.style.cursor = 'pointer';
             enableKeyboardClick(problemCell, problemCell.title);
             row.appendChild(problemCell);
+            addCellDifficulty(problemCell, problem);
         });
 
         tbody.appendChild(row);

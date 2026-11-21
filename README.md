@@ -1,5 +1,8 @@
 # PS Checklist — beta
 
+For the GitHub Pages + Supabase + R2 deployment and the crawler that runs on
+your machine, follow the [online setup guide](docs/setup.md).
+
 Global catalog maintenance is available through **Account → Manage global
 contests**. Set your account UUID in `ADMIN_USER_IDS` in the ignored `.env.storage`
 file and reload. Edit the existing catalog in a grouped grid, fetch selected
@@ -59,6 +62,9 @@ XDG_RUNTIME_DIR="/run/user/$(id -u)" \
 DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/$(id -u)/bus" \
 systemctl --user restart ps-checklist-preview.service
 ```
+
+Machine-specific service and backup setup is documented in
+[`deploy/README.md`](deploy/README.md).
 
 ## Included features
 

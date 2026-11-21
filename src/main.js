@@ -26,7 +26,7 @@ async function load() {
     document.getElementById('main-content').setAttribute('aria-busy', 'true');
     try {
         const catalog = await store.request('/catalog');
-        loadCatalog(catalog.contests, catalog.problems);
+        loadCatalog(catalog.contests, catalog.problems, catalog.rawOrder);
         loaded = true;
         await store.initialize(catalog,render);
     } catch {

@@ -3,6 +3,7 @@
 from collections import OrderedDict
 from dataclasses import dataclass, field
 import json
+import re
 import threading
 import time
 from urllib.parse import urljoin, urlsplit
@@ -11,11 +12,12 @@ from bs4 import BeautifulSoup
 from curl_cffi import requests as curl_requests
 import requests
 
-from .contracts import FetchError, utc_now
+from .contracts import BOJ_HOSTS, BOJ_PATHS, FetchError, utc_now
 from .qoj import QojAccessError, QojClient
 
 
 ALLOWED_HOSTS = {"codeforces.com", "atcoder.jp", "qoj.ac", "www2.ioi-jp.org", "oj.uz", "static.oj.uz"}
+ALLOWED_HOSTS.update(BOJ_HOSTS)
 MAX_PAGE_BYTES = 32 * 1024 * 1024
 REDIRECT_STATUSES = {301, 302, 303, 307, 308}
 
@@ -36,6 +38,14 @@ def validate_source_url(url):
         raise FetchError("UPSTREAM_PARSE_ERROR", "The source supplied an unsupported destination URL.")
 
 
+def validate_boj_url(url):
+    validate_source_url(url)
+    parts = urlsplit(url)
+    if (parts.hostname not in BOJ_HOSTS or parts.query or parts.fragment
+            or not any(re.fullmatch(pattern, parts.path.rstrip("/")) for pattern in BOJ_PATHS.values())):
+        raise FetchError("UPSTREAM_PARSE_ERROR", "BOJ redirected outside its supported public sources.")
+
+
 @dataclass(frozen=True)
 class Page:
     url: str
@@ -54,10 +64,13 @@ class Page:
 
 
 class SourceTransport:
-    def __init__(self, credentials_path=None, cache_ttl=300, min_interval=0.3):
+    def __init__(self, credentials_path=None, cache_ttl=300, min_interval=0.3,
+                 qoj_retry_429=True, boj_cache_ttl=3600):
         self.credentials_path = credentials_path
         self.cache_ttl = cache_ttl
         self.min_interval = min_interval
+        self.qoj_retry_429 = qoj_retry_429
+        self.boj_cache_ttl = boj_cache_ttl
         self._cache = OrderedDict()
         self._cache_bytes = 0
         self._last_request = {}
@@ -68,9 +81,10 @@ class SourceTransport:
         self._cf_browser_enabled = False
 
     def _cached(self, url):
+        ttl = self.boj_cache_ttl if urlsplit(url).hostname in BOJ_HOSTS and self.cache_ttl else self.cache_ttl
         with self._lock:
             item = self._cache.get(url)
-            if item and time.monotonic() - item[0] < self.cache_ttl:
+            if item and time.monotonic() - item[0] < ttl:
                 self._cache.move_to_end(url)
                 return item[1]
         return None
@@ -90,7 +104,12 @@ class SourceTransport:
 
     def _pace(self, url, context):
         host = urlsplit(url).hostname
-        interval = 2.1 if host == "codeforces.com" and "/api/" in url else self.min_interval
+        if host in BOJ_HOSTS:
+            host = "acmicpc.net"
+        interval = (2.1 if host == "codeforces.com" and "/api/" in url
+                    else max(self.min_interval, 3.0) if host == "qoj.ac"
+                    else max(self.min_interval, 1.0) if host == "acmicpc.net"
+                    else self.min_interval)
         with self._lock:
             now = time.monotonic()
             slot = max(now, self._last_request.get(host, 0) + interval)
@@ -133,7 +152,19 @@ class SourceTransport:
                 if self.credentials_path is not None:
                     args["path"] = self.credentials_path
                 self._qoj = QojClient.from_credentials_file(**args)
-            result = self._qoj.fetch_page(url, deadline=context.deadline)
+            for attempt in range(3):
+                try:
+                    result = self._qoj.fetch_page(url, deadline=context.deadline)
+                    break
+                except QojAccessError as error:
+                    if (error.code != "UPSTREAM_HTTP_ERROR" or error.http_status != 429
+                            or attempt == 2 or not self.qoj_retry_429):
+                        raise
+                    delay = min(2 ** (attempt + 1), context.remaining() - 0.1)
+                    if delay <= 0:
+                        raise
+                    time.sleep(delay)
+                    self._pace(url, context)
             return Page(result.url, result.html, utc_now())
         except QojAccessError as error:
             mapping = {
@@ -160,10 +191,18 @@ class SourceTransport:
 
     def _get_public(self, url, context):
         current = url
+        boj = urlsplit(url).hostname in BOJ_HOSTS
         headers = {"User-Agent": "ps-checklist-fetch/1.0", "Accept-Language": "en-US,en;q=0.9",
                    "Accept": "text/html,application/json;q=0.9"}
-        for _ in range(6):
-            validate_source_url(current)
+        for step in range(6):
+            if boj:
+                validate_boj_url(current)
+                if step:
+                    self._pace(current, context)
+            else:
+                validate_source_url(current)
+                if urlsplit(current).hostname in BOJ_HOSTS:
+                    raise FetchError("UPSTREAM_PARSE_ERROR", "The source redirected to a different judge.")
             try:
                 timeout = min(15, context.remaining())
                 with requests.get(current, headers=headers, allow_redirects=False,

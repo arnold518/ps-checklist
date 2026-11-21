@@ -15,7 +15,7 @@ STATUSES={'editing','queued','running','needs_review','ready','failed','conflict
 
 
 def namespace(queue):
-    return hashlib.sha256(str(queue.path.resolve()).encode()).hexdigest()
+    return getattr(queue,'workspace_namespace',None) or hashlib.sha256(str(queue.path.resolve()).encode()).hexdigest()
 
 
 def attach(queue,app):

@@ -1,0 +1,16 @@
+[Unit]
+Description=Publish reviewed PS Checklist raw contest rows after fetch completion
+After=network.target
+ConditionPathExists=/home/arnold/arnold/github/ps-checklist/storage/output/raw-fetch/base_complete.json
+
+[Service]
+Type=oneshot
+TimeoutStartSec=infinity
+WorkingDirectory=/home/arnold/arnold/github/ps-checklist
+ExecStart=/home/arnold/arnold/github/ps-checklist/.venv/bin/python /home/arnold/arnold/github/ps-checklist/scripts/publish_raw_contests.py --publish
+Restart=on-failure
+RestartSec=900
+UMask=0077
+NoNewPrivileges=yes
+StandardOutput=append:/home/arnold/arnold/github/ps-checklist/storage/output/raw-publish-run.log
+StandardError=append:/home/arnold/arnold/github/ps-checklist/storage/output/raw-publish-run.log

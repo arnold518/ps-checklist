@@ -1,0 +1,5 @@
+# Copy to .dev.vars for local Wrangler development. Configure deployed secrets
+# with npm exec -- wrangler secret put NAME --config deploy/worker/wrangler.jsonc.
+SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+CRAWLER_TOKEN=

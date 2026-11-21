@@ -1,0 +1,16 @@
+[Unit]
+Description=Resume QOJ problem-material discovery for PS Checklist raw contests
+After=network.target
+ConditionPathExists=/home/arnold/arnold/github/ps-checklist/storage/output/raw-fetch/base_complete.json
+ConditionPathExists=!/home/arnold/arnold/github/ps-checklist/storage/output/raw-fetch/qoj-problems-complete.json
+OnSuccess=ps-checklist-raw-publish.service
+
+[Service]
+Type=oneshot
+TimeoutStartSec=90min
+WorkingDirectory=/home/arnold/arnold/github/ps-checklist
+ExecStart=/home/arnold/arnold/github/ps-checklist/.venv/bin/python /home/arnold/arnold/github/ps-checklist/scripts/enrich_qoj_problems.py --max-pages 300
+UMask=0077
+NoNewPrivileges=yes
+StandardOutput=append:/home/arnold/arnold/github/ps-checklist/storage/output/qoj-enrich-run.log
+StandardError=append:/home/arnold/arnold/github/ps-checklist/storage/output/qoj-enrich-run.log

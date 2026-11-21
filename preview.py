@@ -8,13 +8,15 @@ from urllib.parse import unquote, urlsplit, parse_qs
 
 ROOT = Path(__file__).resolve().parent
 PUBLIC_FILES = frozenset({
-    "index.html", "src/main.js", "src/state.js", "src/ui.js", "src/tree.js",
+    "index.html", "config.js", "src/api.js", "src/cloudAuth.js", "src/problemExtras.js", "src/difficulty.js",
+    "src/main.js", "src/state.js", "src/ui.js", "src/tree.js",
     "src/contest.js", "src/problem.js", "src/constants.js", "src/style.css",
-    "src/practiceRecords.js", "src/platforms.js", "src/fetchClient.js",
+    "src/practiceRecords.js", "src/platforms.js", "src/platformCategories.js", "src/fetchClient.js",
     "src/userStore.js", "src/auth.js", "src/progressBar.js", "src/admin.js",
-    "src/adminGrid.js", "src/adminWorkspaceModel.js", "src/adminCsv.js",
+    "src/adminGrid.js", "src/adminWorkspaceModel.js", "src/adminCsv.js", "src/adminImports.js",
     "problemlists/contestlist.json", "problemlists/problems.json",
-    "assets/icon/cf-icon.png", "assets/icon/qoj-icon.png",
+    "assets/icon/boj-icon.png", "assets/icon/cf-icon.png", "assets/icon/qoj-icon.png",
+    *(f"assets/difficulty/difficulty-{level}.svg" for level in range(31)),
     "assets/icon/atcoder-icon.png", "assets/icon/official-icon.png",
     "assets/icon/ojuz-icon.svg",
     "assets/icon/standings-icon.png", "assets/icon/statements-icon.png",
@@ -58,17 +60,19 @@ class PreviewHandler(SimpleHTTPRequestHandler):
 def make_preview_handler(queue, storage=None):
     # Mount the existing handlers under the preview's origin and proxy prefix.
     from crawler.api import make_handler
-    from crawler.contracts import FetchError
-    from storage.app import StorageApp
+    from crawler.contracts import FetchError, OPERATOR_ROUTES
+    from storage.app import StorageApp, StorageError
 
     storage = storage or StorageApp()
+    queue.service.difficulty_app = storage
     from storage.workspace import attach
     attach(queue,storage)
 
     FetchHandler = make_handler(queue, wait_seconds=0)
     allowed = {
-        "GET": {"/health", "/job", "/job/result"},
-        "POST": {"/enqueue/fetch/cf/contest", "/enqueue/fetch/atcoder/contest"},
+        "GET": {"/health", "/job", "/job/result", *OPERATOR_ROUTES},
+        "POST": {"/enqueue/fetch/cf/contest", "/enqueue/fetch/atcoder/contest",
+                 *("/enqueue" + route for route in OPERATOR_ROUTES)},
     }
 
     class Handler(PreviewHandler, FetchHandler):
@@ -95,15 +99,26 @@ def make_preview_handler(queue, storage=None):
             if route not in allowed.get(method, set()):
                 self.send_json(404, FetchError("NOT_FOUND", "Unknown API route.", 404).response())
                 return True
+            operator = route.removeprefix('/enqueue') in OPERATOR_ROUTES
             if method == 'GET' and route in ('/job','/job/result'):
                 ids = parse_qs(parts.query).get('id',[])
                 if len(ids) == 1:
                     try:
-                        if queue.get(ids[0])['request'].get('source') == 'admin':
+                        source = queue.get(ids[0])['request'].get('source')
+                        if source == 'admin':
                             self.send_json(404, FetchError('NOT_FOUND','Use the protected admin result interface.',404).response())
                             return True
+                        operator = source in ('boj', 'solvedac')
                     except FetchError:
                         pass
+            if operator:
+                try:
+                    _, user = storage.session(self)
+                    if not storage.is_admin(user):
+                        raise StorageError('Admin access is required.', 403, 'ADMIN_REQUIRED')
+                except StorageError as error:
+                    self.send_json(error.status, FetchError(error.code, str(error), error.status).response())
+                    return True
             self.path = route + ("?" + parts.query if parts.query else "")
             FetchHandler.dispatch(self, method)
             return True
@@ -132,7 +147,7 @@ def main():
     args = parser.parse_args()
     if not 0 <= args.port <= 65535:
         parser.error("Use a port between 0 and 65535.")
-    queue = JobQueue(ROOT / "crawler/output/preview-jobs.sqlite3", AdminFetchService())
+    queue = JobQueue(ROOT / "crawler/output/preview-jobs.sqlite3", AdminFetchService(boj_content=False))
     server = None
     try:
         queue.start()

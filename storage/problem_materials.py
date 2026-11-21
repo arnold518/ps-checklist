@@ -1,6 +1,6 @@
 """Choose one statement and editorial link per contest problem."""
 
-PRIORITY = ('qoj', 'cf', 'atcoder')
+PRIORITY = ('qoj', 'cf', 'atcoder', 'ojuz')
 ROLES = ('statement', 'editorial')
 
 
@@ -60,14 +60,19 @@ def fill_problem_materials(draft, report=None):
                 for role in ROLES:
                     item = preferred_material(candidate, role)
                     if item:
-                        chosen.setdefault((pid, role), (source, {'problemId': pid, **item}))
-    for (pid, role), (source, item) in chosen.items():
+                        fallback = (role == 'statement' and item['url'] == candidate.get('url')
+                                    and not any(material['role'] == 'statement'
+                                                for material in candidate.get('materials', [])))
+                        chosen.setdefault((pid, role), (source, {'problemId': pid, **item}, fallback))
+    for (pid, role), (source, item, fallback) in chosen.items():
         key = field(pid, role)
         if key in manual:
             continue
         existing = next((old for old in materials if old['problemId'] == pid and old['role'] == role), None)
         managed = provenance.get(key)
         if existing and (not managed or existing['url'] != managed['url']):
+            continue
+        if managed and managed.get('source') == 'official' and fallback:
             continue
         if managed and managed.get('source') in PRIORITY and PRIORITY.index(managed['source']) < PRIORITY.index(source):
             continue

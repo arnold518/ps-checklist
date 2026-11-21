@@ -1,0 +1,218 @@
+{
+  "89": {
+    "attachment": "https://codeforces.com/gym/101194/attachments/download/5009/20162017-acmicpc-china-final-en.pdf",
+    "attachmentSha256": "136a1746500aa425204117b277b6b221069774f3d196d0c511165186c5693e09",
+    "bytes": 546816,
+    "count": 12,
+    "problemsSha256": "5394859af30147397d8889561fd395f2f43157f88bcec1542f01f7248c1d955a",
+    "qojProblemsSha256": "9dc56d2a0631bfcbc374a40018d455bd3d6fa71a23515d72b9ea8d7662a03eb1"
+  },
+  "130": {
+    "attachment": "https://codeforces.com/gym/101481/attachments/download/5851/20112012-acmicpc-central-europe-regional-contest-cerc-11-en.pdf",
+    "attachmentSha256": "f49d05274d10795c2dbf7884665a5ce68dfe45c80914a0987b0c428de60df75c",
+    "bytes": 741980,
+    "count": 10,
+    "problemsSha256": "9db22ce40c801cdd202e7dda4ddb3accb8543e3f2063164576dd919cd6bf1e5a",
+    "qojProblemsSha256": "814f212512280cce16a0855a214657b970efda4d8e48f53cfce072c7b9b1957d"
+  },
+  "191": {
+    "attachment": "https://codeforces.com/gym/100783/attachments/download/3773/20142015-acmicpc-southwestern-europe-regional-contest-swerc-14-en.pdf",
+    "attachmentSha256": "e815532211869364fb7d377342566a0a3671fa4fc355d76155cad1afe679643f",
+    "bytes": 2751320,
+    "count": 10,
+    "problemsSha256": "3c8caeb43728bb70e2e4fe70d7f53aa04f75244b91eea9bed31223090cb402e9",
+    "qojProblemsSha256": "9baa4f4070987fbc758017d20d2a568da7558c4fea18a09f7e0e373b37366c0b"
+  },
+  "224": {
+    "attachment": "https://codeforces.com/gym/101472/attachments/download/5791/20122013-acmicpc-southeastern-european-regional-programming-contest-seerc-2012-en.pdf",
+    "attachmentSha256": "ddebedc13aaab285e3e591929d67705fba518dfd34d5202c1ed5e630f91c597f",
+    "bytes": 1210891,
+    "count": 10,
+    "problemsSha256": "f53e7f53aeeab560fa1faa354059baa56b2495ebe1179ff43b8cf9d9bbd32755",
+    "qojProblemsSha256": "9a077d16b5cc0a13e2260b18ad5fb588c2cbbb4fe509fd05e408c15981ebc638"
+  },
+  "226": {
+    "attachment": "https://codeforces.com/gym/101464/attachments/download/5778/20102011-acmicpc-southeastern-european-regional-programming-contest-seerc-2010-en.pdf",
+    "attachmentSha256": "e3c53d76b20f72a15e7110f5d3d7fcb4bda2492c3cb2bbea69df062a7e6f0338",
+    "bytes": 963500,
+    "count": 10,
+    "problemsSha256": "c58adae75be8950ad01ab355028a3ac20b8d0d5810c24a25cba3367e69371015"
+  },
+  "227": {
+    "attachment": "https://codeforces.com/gym/101463/attachments/download/5777/20092010-acmicpc-southeastern-european-regional-programming-contest-seerc-2009-en.pdf",
+    "attachmentSha256": "70b32fa7b97fa24983e79572a432e2a815bc97fdd12cca0dea21619afde0b321",
+    "bytes": 78131,
+    "count": 11,
+    "problemsSha256": "00aae64e316b508ae82261f1fe0565e92e531c8be845b049d9e1e9c16569c7aa"
+  },
+  "228": {
+    "attachment": "https://codeforces.com/gym/101462/attachments/download/5776/20082009-acmicpc-southeastern-european-regional-programming-contest-seerc-2008-en.pdf",
+    "attachmentSha256": "7708daa438a7980700dfa1bb140c30a00502d3f39f90af85ff3796964af8a7f0",
+    "bytes": 187689,
+    "count": 9,
+    "problemsSha256": "7faeb48675c3e597feb1d7192f531f974eba33e3fa0c001bb63a107bc88a7a1d"
+  },
+  "229": {
+    "attachment": "https://codeforces.com/gym/101468/attachments/download/5781/20062007-acmicpc-southeastern-european-regional-programming-contest-seerc-2006-en.pdf",
+    "attachmentSha256": "da157e96b30289131d26eddd9e190b0792afc0a4c37e7d38b80f29015c77eac1",
+    "bytes": 172874,
+    "count": 9,
+    "problemsSha256": "cbb540fb56e49ed3a967cb2ea64a751e6ab6b8678e784a8090b47c9a1ae84e94"
+  },
+  "230": {
+    "attachment": "https://codeforces.com/gym/101467/attachments/download/5780/20052006-acmicpc-southeastern-european-regional-programming-contest-seerc-2005-en.pdf",
+    "attachmentSha256": "d9f3b6ca87adedbff5d9e414719de93e6490ee62c9f1a1c56d14c736ef2d3c09",
+    "bytes": 190147,
+    "count": 9,
+    "problemsSha256": "d49ff6a3b119532889c47a03aada99bbbaa43692f51e0905cbc5a854f452f276"
+  },
+  "231": {
+    "attachment": "https://codeforces.com/gym/101461/attachments/download/5775/20042005-acmicpc-southeastern-european-regional-programming-contest-seerc-2004-en.pdf",
+    "attachmentSha256": "ddb274e8cce8f13e51fac04e8ae61dc9579282f2a68694c50ddb8e878837e617",
+    "bytes": 107193,
+    "count": 9,
+    "problemsSha256": "308027409c177610e336c5df8be09aa2f3b872c0480983cb7c779a40dd591a02"
+  },
+  "269": {
+    "attachment": "https://codeforces.com/gym/100002/attachments/download/12/2001-2002-acm-icpc-northeastern-european-regional-contest-en.doc",
+    "attachmentSha256": "455cc1dbfddf36e0424367dfc39baa9ea1310eeb1d38c410373c2d1fc8072ba4",
+    "bytes": 150528,
+    "count": 9,
+    "problemsSha256": "422fa4746c99d02eea2635ffbc475e5e39e450f4d20a2db82a1ccbc8d72f3868"
+  },
+  "284": {
+    "attachment": "https://codeforces.com/gym/100714/attachments/download/3991/20102011-acmicpc-neerc-moscow-subregional-contest-en.pdf",
+    "attachmentSha256": "a3086e48cf0c0dc497ea9bc7937294388543953169591f285b115a3529ba5bf0",
+    "bytes": 167994,
+    "count": 12,
+    "problemsSha256": "9f8cabc0e6e2b1e4f5619741045b6058e0cd2bd486b9197a7050f4f008ad213e"
+  },
+  "285": {
+    "attachment": "https://codeforces.com/gym/100864/attachments/download/3993/20092010-acmicpc-neerc-moscow-subregional-contest-en.pdf",
+    "attachmentSha256": "2caa2338d71bf476e9edf43ae1dbb408a1ee6146b0999c17030546d1bad49329",
+    "bytes": 109337,
+    "count": 12,
+    "problemsSha256": "2cd498e084a63758dc7fb2cb3a160fcf55c82a7a4a39585ee99005d295e08d00"
+  },
+  "286": {
+    "attachment": "https://codeforces.com/gym/100861/attachments/download/3976/20082009-acmicpc-neerc-moscow-subregional-contest-en.pdf",
+    "attachmentSha256": "db1c54e3eb5ba49870731af19f21fa12ff6f082116dd14d4580881e3b2b56380",
+    "bytes": 105654,
+    "count": 12,
+    "problemsSha256": "4b4e87faa7c380c67cb9a8e7922e84d5de385433862681f70b93ff4aeb697795"
+  },
+  "287": {
+    "attachment": "https://codeforces.com/gym/100860/attachments/download/3975/20072008-acmicpc-neerc-moscow-subregional-contest-en.pdf",
+    "attachmentSha256": "51a38bc8102f61a3fbe878a5824b241011aceacb893e9d94d3c77671375c4343",
+    "bytes": 91063,
+    "count": 11,
+    "problemsSha256": "51a8db54b73b4064001938e9d06645b9172bd0575f3ad55dc3717ee219d597af"
+  },
+  "288": {
+    "attachment": "https://codeforces.com/gym/100866/attachments/download/3994/20052006-acmicpc-neerc-moscow-subregional-contest-en.pdf",
+    "attachmentSha256": "f374e2d50423c134a04f2b0e0b95b1122e0ee01428ac249ed64ad63964314722",
+    "bytes": 92757,
+    "count": 10,
+    "problemsSha256": "743ad14d29d8c292a670c316c77aec9ecdc9d24598dd0eeb5f9cf101b1bde874"
+  },
+  "289": {
+    "attachment": "https://codeforces.com/gym/100867/attachments/download/3998/20042005-acmicpc-neerc-moscow-subregional-contest-en.pdf",
+    "attachmentSha256": "4553e6501cdb75c6c29d5f70696215f40cf60455365f469b5cd4d2524299d161",
+    "bytes": 141354,
+    "count": 10,
+    "problemsSha256": "da965bbf3b5072fbc901ea81ef80636dbf9f09863b1efd784450e65e6afbd3f6"
+  },
+  "307": {
+    "attachment": "https://codeforces.com/gym/100623/attachments/download/3210/20082009-acmicpc-neerc-northern-subregional-contest-en.pdf",
+    "attachmentSha256": "334e562215100b8ad43a43f76fa9e576177a15f1829c60f25487dded31ec649e",
+    "bytes": 137622,
+    "count": 11,
+    "problemsSha256": "45cc0d99487098d35e88e46781423430a47c388ba0c73010d45cff931e5aee47"
+  },
+  "310": {
+    "attachment": "https://codeforces.com/gym/101649/attachments/download/6467/20052006-acmicpc-neerc-northern-subregional-contest-en.pdf",
+    "attachmentSha256": "a9666e3ea5d4c5c7b40347ef96d2ddafaa97dce7f16a0abde6d13fda33af566c",
+    "bytes": 68821,
+    "count": 9,
+    "problemsSha256": "39473fd978e12af993e174bb322817a8f895245f91c02bfef7d26aabaed56779"
+  },
+  "311": {
+    "attachment": "https://codeforces.com/gym/101648/attachments/download/6466/20042005-acmicpc-neerc-northern-subregional-contest-en.pdf",
+    "attachmentSha256": "8b24b6a1ef281aea425bbb6a1baf8c30942f530b102bdc7154ef569671f30f28",
+    "bytes": 78347,
+    "count": 11,
+    "problemsSha256": "3bd6de1202caa2189af80d669cca4d1f28e8743085f4b330f0c0b44de58f96ff"
+  },
+  "312": {
+    "attachment": "https://codeforces.com/gym/100725/attachments/download/3469/20032004-acmicpc-neerc-northern-subregional-contest-en.pdf",
+    "attachmentSha256": "3cc87546051e564dab03e3feb1d2cb67f5cc97758ad754491dee86ef05c342b1",
+    "bytes": 81457,
+    "count": 11,
+    "problemsSha256": "f4ab555b54d5dfe864e7baaa304b165f3cd77f21a6317d234ddf5867cb731ebd"
+  },
+  "323": {
+    "attachment": "https://codeforces.com/gym/100513/attachments/download/2774/statements.pdf",
+    "attachmentSha256": "68a7367757e8dc0170add739c68cb0db88b056fcac98d15967b969a12218fc9a",
+    "bytes": 353742,
+    "count": 13,
+    "problemsSha256": "7a08a842481d171f28526cb800678d064e84ed1c5e4bbb2dcc88fa106000de76"
+  },
+  "324": {
+    "attachment": "https://codeforces.com/gym/100253/attachments/download/1971/20132014-acmicpc-neerc-southern-subregional-contest-en.pdf",
+    "attachmentSha256": "2f91dd14fcd6bd0ede71a68fb4bd8ab77411e5cb6403a34e9c8446de99e3f93a",
+    "bytes": 166073,
+    "count": 13,
+    "problemsSha256": "7cb37acfb4b00faa6510461551fd583f3c0e3a481dc8355cc71464393edbbde8"
+  },
+  "325": {
+    "attachment": "https://codeforces.com/gym/100109/attachments/download/1283/20122013-acmicpc-neerc-southern-subregional-contest-en.pdf",
+    "attachmentSha256": "0897d0e24e9a8cc73849487ce739df1712e5c66e62800c35958288d3b4230633",
+    "bytes": 169085,
+    "count": 12,
+    "problemsSha256": "c28788e37da6ccf0f9f0b5b9805221f5ad92802f6720cef2752c6cf8b72d5c62"
+  },
+  "328": {
+    "attachment": "https://codeforces.com/gym/101252/attachments/download/5130/statements.pdf",
+    "attachmentSha256": "b33212a3c1737a5ad1ed8fd5dcb2a2472100bef2a04bc2e4f15f7f7a842ee887",
+    "bytes": 268600,
+    "count": 11,
+    "problemsSha256": "eedb0fd6fcf3904479a564051ac76d56c8b270ea19301267237091a0dd26eecb"
+  },
+  "329": {
+    "attachment": "https://codeforces.com/gym/101504/attachments/download/5892/20082009-acmicpc-neerc-southern-subregional-contest-en.pdf",
+    "attachmentSha256": "33662bd7339992dfc38ae87ff35df1b48d85a934d06c7b8508ae94e51ad71c9e",
+    "bytes": 180722,
+    "count": 11,
+    "problemsSha256": "0f969c9d9934b6d9a5a902513df7b01bba19183d342e72ab30f14c4d6769d24a"
+  },
+  "330": {
+    "attachment": "https://codeforces.com/gym/101503/attachments/download/5891/20072008-acmicpc-neerc-southern-subregional-contest-en.pdf",
+    "attachmentSha256": "8aec89399b65a44c080a490c3d71de02dc7e7fdde316becafb18732c9e084ec2",
+    "bytes": 169013,
+    "count": 12,
+    "problemsSha256": "9077007edffdcfc94b3a206d05c7ee67eb56153ed7f354293e1739120eb5ce48"
+  },
+  "331": {
+    "attachment": "https://codeforces.com/gym/100765/attachments/download/3544/20052006-acmicpc-neerc-southern-subregional-contest-en.pdf",
+    "attachmentSha256": "20c8906f5468877f379d824c2548234cf5e5efff6c441034c17f0068020d5598",
+    "bytes": 47936,
+    "count": 10,
+    "problemsSha256": "43d06f1b9f44992639f3b3ca8c6370d23b646ece87498484b9c56edeff489e46"
+  },
+  "342": {
+    "attachment": "https://codeforces.com/gym/101889/attachments/download/7471/statements-2017-latam-regional.pdf",
+    "attachmentSha256": "b256e21d893d539615b2eee454e9789a6ad39c50288d7d451ad0eeaccb9cb2c3",
+    "bytes": 781052,
+    "count": 13,
+    "problemsSha256": "3d246b9a155e879494bad87933f86a5cb69ba03e6d7f703816d8094554b1f44d"
+  },
+  "87": {
+    "attachment": "https://codeforces.com/gym/102056/attachments/download/8173/20182019-acmicpc-asia-east-continent-finals-en.pdf",
+    "attachmentSha256": "d61281638153611e8c7bd0baf0a4bf2fdcee280c6fd55038a5dcf908a2bcdd17",
+    "bytes": 1606777,
+    "count": 12,
+    "problemsSha256": "69bf4862ad97784ddea8f1c0727df1bda6249498de2a129c03b67f2c7c9a6545",
+    "qojProblemsSha256": "adde98a1a10762afeebcf67e6926bb1f13483c22c6d183302d804251f7bc2ca0",
+    "qojContestOnly": true
+  }
+}

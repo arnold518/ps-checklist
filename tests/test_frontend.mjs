@@ -7,6 +7,16 @@ import {parseRoundInput} from '../src/fetchClient.js';
 
 const contests = JSON.parse(readFileSync(new URL('../problemlists/contestlist.json', import.meta.url)));
 const problems = JSON.parse(readFileSync(new URL('../problemlists/problems.json', import.meta.url)));
+const bojContest = {...contests[0], link:{...contests[0].link, boj:'https://acmicpc.net/category/detail/2629'}};
+const editionPage = {...bojContest, link:{...bojContest.link, boj:'https://acmicpc.net/category/588'}};
+model.loadCatalog([editionPage,...contests.slice(1)],problems);
+assert.throws(() => model.loadCatalog([{...editionPage, link:{...editionPage.link, boj:'https://acmicpc.net/category/'}},
+    ...contests.slice(1)],problems));
+const bojProblem = {...problems[0], bojParts:[{order:1,url:'https://acmicpc.net/problem/10072'}]};
+model.loadCatalog([bojContest,...contests.slice(1)],[bojProblem,...problems.slice(1)]);
+assert.deepEqual(model.state.problems.get(bojProblem.id).bojParts, bojProblem.bojParts);
+assert.throws(() => model.loadCatalog([bojContest,...contests.slice(1)],
+    [{...bojProblem, bojParts:[{order:1,url:'https://example.org/problem/10072'}]},...problems.slice(1)]));
 model.loadCatalog(contests, problems);
 assert.equal(materialUrl({url:'https://example.org/statement.pdf',archiveId:'archive-id'}),'api/archive/archive-id');
 assert.equal(materialUrl({url:'https://example.org/editorial'}),'https://example.org/editorial');

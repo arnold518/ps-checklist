@@ -1,6 +1,7 @@
 # ICPC sources and coverage
 
-Sources checked on 2026-10-12. [contests.csv](../contests.csv) contains 342 ICPC
+Base sources checked on 2026-10-12, with World Finals sites checked on
+2026-10-17. [contests.csv](../contests.csv) contains 342 ICPC
 editions with their category paths, reference years, and selected judge links.
 The [CSV format and source policy](format.md) defines resource roles and list
 requirements; [resource checks](../audit/resource-checks.csv) record counts and
@@ -11,25 +12,25 @@ and [the source audit](../audit/link-sources.csv) retains corrections and altern
 
 | Series | Editions | Official | Unified statement | Per-problem statements | Unified editorial | Per-problem editorials | Standings |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| World Finals | 17 | 0 | 15 | 0 | 6 | 0 | 17 |
+| World Finals | 17 | 17 | 17 | 0 | 6 | 0 | 17 |
 | Asia Pacific Championship | 3 | 3 | 3 | 0 | 3 | 0 | 3 |
 | Korea | 9 | 8 | 3 | 0 | 0 | 0 | 9 |
 | Japan | 28 | 28 | 26 | 0 | 21 | 0 | 27 |
-| Indonesia (Jakarta) | 9 | 7 | 0 | 0 | 6 | 0 | 9 |
-| Vietnam | 5 | 0 | 0 | 0 | 0 | 0 | 5 |
-| Taiwan | 8 | 4 | 0 | 0 | 0 | 0 | 8 |
+| Indonesia (Jakarta) | 9 | 8 | 0 | 1 | 6 | 0 | 9 |
+| Vietnam | 5 | 3 | 0 | 0 | 0 | 0 | 5 |
+| Taiwan | 8 | 4 | 2 | 0 | 0 | 0 | 8 |
 | Asia East Continent Final Contest | 11 | 1 | 0 | 0 | 0 | 0 | 11 |
 | Nanjing | 8 | 5 | 0 | 0 | 0 | 0 | 8 |
 | Shenyang | 9 | 5 | 0 | 0 | 0 | 0 | 9 |
 | Hong Kong | 5 | 3 | 0 | 0 | 0 | 0 | 5 |
-| European Championship | 3 | 3 | 2 | 0 | 2 | 0 | 3 |
+| European Championship | 3 | 3 | 2 | 0 | 3 | 0 | 3 |
 | Central European Regional Contest (CERC) | 19 | 7 | 7 | 1 | 7 | 0 | 19 |
 | Poland Collegiate Programming Contest (AMPPZ) | 14 | 3 | 3 | 0 | 0 | 0 | 14 |
 | Northwestern European Regional Contest (NWERC) | 31 | 10 | 10 | 0 | 6 | 0 | 27 |
-| Southwestern European Regional Contest (SWERC) | 31 | 31 | 5 | 2 | 3 | 0 | 21 |
+| Southwestern European Regional Contest (SWERC) | 31 | 31 | 9 | 2 | 5 | 0 | 30 |
 | Southeastern Europe Regional Contest (SEERC) | 21 | 1 | 1 | 0 | 1 | 0 | 19 |
 | North America Championship (NAC NAIPC) | 13 | 7 | 3 | 1 | 2 | 0 | 13 |
-| Northern Eurasia Finals (NERC NEERC) | 25 | 25 | 24 | 0 | 14 | 0 | 25 |
+| Northern Eurasia Finals (NERC NEERC) | 25 | 25 | 24 | 0 | 15 | 0 | 25 |
 | Moscow | 20 | 20 | 0 | 0 | 0 | 0 | 20 |
 | Northwestern Russia Regional Contest (NWRRC) | 23 | 23 | 19 | 0 | 13 | 0 | 23 |
 | Southern Russia | 19 | 4 | 0 | 0 | 0 | 0 | 19 |
@@ -38,16 +39,27 @@ and [the source audit](../audit/link-sources.csv) retains corrections and altern
 
 ## Archive corrections and limits
 
+- All 17 World Finals rows now link an [ICPC World Finals edition page](https://news.icpc.global/wf2023/).
+  The dedicated [2025 Baku](https://worldfinals.icpc.global/2025/) and
+  [2024 Astana](https://worldfinals.icpc.global/2024/) event sites are selected;
+  2009–2023 use the official ICPC News edition pages, which include result and
+  problem links. The 2022 and 2023 editions were both held in Luxor in April
+  2024; the URLs follow their distinct ICPC edition years.
+- The [2009](https://news.icpc.global/wf2009/) and [2010](https://news.icpc.global/wf2010/) ICPC News pages link complete official problem-set PDFs. Their eleven titles and order were checked against the native lists, filling the last two World Finals unified-statement gaps. The community [ICPC Archives index](https://icpcarchive.github.io/ICPC-World-Finals/index.html) helped locate these editions; the selected PDFs come directly from ICPC.
+- The all-ICPC [archive coverage audit](../audit/icpcarchive-coverage.csv) compares all 342 raw ICPC rows with 19 relevant community archive series. It matched 130 edition years; 123 years are absent from the indexed series, 87 rows belong to unindexed series, and NERC 2020's two divisions remain ambiguous under the archive's single-year entry. The index still points to 60 statement and 65 editorial leads missing in raw. These are discovery leads, not selected sources, unless an organizer original is verified.
+- Organizer originals found during that review fill [Taiwan 2021](https://www.icpc.tw/en/events/2021/problem-statement/) and [Taiwan 2023](https://www.icpc.tw/en/events/2023/problem-statement-2/) unified statements, plus all 13 [Jakarta 2023](https://competition.binus.ac.id/icpc2023/) per-problem statement PDFs. The original Kattis contest pages now provide official links for Vietnam 2018–2020. Jakarta 2023's organizer analysis was already selected; its site link was the missing field. Those six regional rows remain unpublished in the saved batch.
+- The organizer's [SWERC 2023 results](https://swerc.eu/2023/results/), [2020 problems](https://swerc.eu/2020/problems/), [2019 problems](https://swerc.eu/2019/problems/), and [2018 problems](https://swerc.eu/2018/problems/) pages provide four more complete contest problem-set PDFs. They exclude the separate practice sets and match the native problem lists. Their analysis slides were not selected because the reviewed publication does not establish complete explanations for every problem. These four rows remain unpublished.
 - Japan and the Asia Pacific Championship use the organizer's [file archive](https://fileserv.icpc.jp/) and [history table](https://icpc.jp/about/history/). Its linked Google Cloud Storage objects are organizer files. Domestic qualifiers and rehearsals are excluded from regional materials.
+- Japan 2025 selects the organizer's complete English problem analysis in place of its commentary slides; the Japanese analysis and commentary remain audit alternatives. The same written-analysis preference selects NEERC 2018's prose document over its slide review. SWERC 2024–2025, EUC 2026, and NEERC 2023 gained verified complete organizer analysis PDFs on 2026-10-17.
 - Northern Eurasia and Northwestern Russia use the working [ITMO archive](https://nerc.itmo.ru/archive/index.html). NERC 2020 online and onsite rows retain separate statements, tutorials, and standings. The archive index mislabels the 2025 tutorial as “Problems”; the year page supplies the correct statement packet.
-- NWERC 2022–2024 final standings use `main/scoreboard.html`. The old `main/scoreboard/` directory returns 403. Old Bath-hosted URLs now redirect to the university home page and are excluded. Older standings also use surviving organizer scoreboards and verified original-results archives.
-- [SWERC past editions](https://swerc.eu/2025/past-editions/) links the original scoreboards and organizer-cached historical sites. The edition year follows the first year in a season such as 2023–2024.
+- NWERC 2022–2024 final standings use `main/scoreboard.html`. The old `main/scoreboard/` directory returns 403. Old Bath-hosted URLs are unavailable and are excluded. NWERC 2016 uses ICPC@TUM's complete copy of the original 114-team problem-level table; the Codeforces Gym ranking includes teams absent from the original field even when its unofficial toggle is off. Other older standings use surviving organizer scoreboards and verified original-results archives.
+- [SWERC past editions](https://swerc.eu/2025/past-editions/) links the original scoreboards and organizer-cached historical sites. The cached pages for 1996–2016 display rankings directly; 2004 and 2013 are frozen, while 1999 and 2000 publish only ranked top teams. The edition year follows the first year in a season such as 2023–2024.
 - [Southern Russia's archive](https://contest.sgu.ru/?id=24) provides the collegiate quarterfinal results. Qualification rounds and school competitions are excluded.
 - The old World Finals 2014 editorial covered only problem A, so it is excluded. The legacy `2020-I` World Finals Invitational is a separate side event and is not merged into World Finals 2020 or added to the selected championship series.
 - Some Korean static resource URLs time out over HTTPS. Statement and editorial cells remain empty when a suitable organizer resource cannot be verified. Earlier judge copies and author explanations remain only in the source audit. Organizer discovery URLs remain evidence when linked on a readable page.
 - NAC 2026 supplies both the official complete booklet and an ordered array of 13 individual official statement PDFs. Its former HTML discovery page is retained only as source evidence.
-- World Finals now use direct official scoreboards when verified, with populated ICPC Global results as the fallback. Global results pages are checked against their published score data; empty shells do not qualify.
-- Japan 2025's static publication covers top teams and is marked as partial. Original contest-server scoreboards, including organizer-run Kattis events, are distinct from later practice mirrors.
+- World Finals use original full per-problem scoreboards when verified, with checked CLIST full tables for some editions lacking a usable original. ICPC Global aggregate standings are retained as references, not selected scoreboards.
+- Japan 2025's static publication covers only top teams, so its standings cell is empty. Original contest-server scoreboards, including organizer-run Kattis events, are distinct from later practice mirrors.
 - The oj.uz ICPC search found [four CERC 2012 tasks](https://oj.uz/problems?search=CERC): B, D, F, and K. This is a partial collection, not a complete twelve-task mirror. The filtered search URL is unsupported by the current fetch input and is recorded only as `ojuz_reference` in the source audit. No ICPC oj.uz fetch links were confirmed. Other checked ICPC name searches produced no matching edition collection.
 
 The source audit retains excluded judge/HTML statement resources and editorial

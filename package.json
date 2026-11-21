@@ -1,0 +1,19 @@
+{
+    "name": "ps-checklist",
+    "private": true,
+    "type": "module",
+    "engines": {"node": ">=22"},
+    "scripts": {
+        "test": "node tests/test_worker.mjs && node tests/test_frontend.mjs",
+        "build": "python3 scripts/build_pages.py",
+        "worker:dev": "wrangler dev --config deploy/worker/wrangler.jsonc",
+        "worker:deploy": "wrangler deploy --config deploy/worker/wrangler.jsonc"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "2.118.0"
+    },
+    "devDependencies": {
+        "esbuild": "0.28.2",
+        "wrangler": "4.152.0"
+    }
+}

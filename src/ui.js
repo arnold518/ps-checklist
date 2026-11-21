@@ -50,12 +50,22 @@ export function adjustTableColumns() {
         table.querySelectorAll('tbody tr').forEach(row => {
             maxProblems = Math.max(maxProblems, row.querySelectorAll('td[data-problem-id]').length);
         });
+        const yearCells = table.querySelectorAll('tr > :first-child');
+        const yearColumnWidth = Math.max(80, ...[...yearCells].map(cell => {
+            const range = document.createRange();
+            range.selectNodeContents(cell);
+            const style = getComputedStyle(cell);
+            return Math.ceil(range.getBoundingClientRect().width
+                + parseFloat(style.paddingLeft) + parseFloat(style.paddingRight)
+                + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth) + 2);
+        }));
+        yearCells.forEach(cell => {
+            cell.style.width = `${yearColumnWidth}px`;
+            cell.style.minWidth = `${yearColumnWidth}px`;
+            cell.style.maxWidth = `${yearColumnWidth}px`;
+        });
         if (maxProblems === 0) return;
-        const yearColumnWidth = 80;
         const cellWidth = Math.max(70, Math.floor((availableWidth - yearColumnWidth) / maxProblems));
-        const yearHeader = table.querySelector('th:first-child');
-        yearHeader.style.width = `${yearColumnWidth}px`;
-        yearHeader.style.minWidth = `${yearColumnWidth}px`;
         table.querySelectorAll('th[data-problem-id]').forEach(header => {
             header.style.width = `${cellWidth}px`;
             header.style.minWidth = `${cellWidth}px`;
@@ -65,7 +75,8 @@ export function adjustTableColumns() {
             cell.style.width = `${cellWidth}px`;
             cell.style.minWidth = `${cellWidth}px`;
             cell.style.maxWidth = `${cellWidth}px`;
-            cell.textContent = cellWidth <= 90 && cell.dataset.index ? cell.dataset.index : cell.dataset.fullname;
+            const label = cell.querySelector('.problem-cell-label');
+            label.textContent = cellWidth <= 90 && cell.dataset.index ? cell.dataset.index : cell.dataset.fullname;
         });
         const problemsHeader = table.querySelector('th:nth-child(2)');
         if (problemsHeader && !problemsHeader.dataset.problemId) problemsHeader.colSpan = maxProblems;
@@ -209,7 +220,9 @@ export function loadCategory(category) {
 }
 
 export function navigate(category) {
-    if (_state.state.currentCategory === category) loadCategory(category);
+    if (_state.state.currentCategory === category) {
+        loadCategory(category);
+    }
     else window.location.hash = category;
 }
 

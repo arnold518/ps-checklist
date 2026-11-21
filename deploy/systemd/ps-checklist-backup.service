@@ -1,0 +1,12 @@
+[Unit]
+Description=Back up local PS Checklist beta data
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/arnold/arnold/github/ps-checklist
+ExecStart=/usr/bin/python3 /home/arnold/arnold/github/ps-checklist/scripts/backup_local.py
+UMask=0077
+NoNewPrivileges=yes
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=20min

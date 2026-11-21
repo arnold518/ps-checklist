@@ -1,0 +1,17 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "ps-checklist-api",
+    "main": "src/index.js",
+    "compatibility_date": "2026-10-23",
+    "workers_dev": true,
+    "vars": {
+        "SUPABASE_URL": "https://YOUR_PROJECT.supabase.co",
+        "APP_ORIGINS": "https://YOUR_GITHUB_USER.github.io",
+        "ADMIN_USER_IDS": ""
+    },
+    "r2_buckets": [
+        {"binding": "ARCHIVES", "bucket_name": "ps-checklist-archives"},
+        {"binding": "NOTES", "bucket_name": "ps-checklist-notes"}
+    ],
+    "observability": {"enabled": false}
+}

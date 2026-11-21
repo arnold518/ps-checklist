@@ -3,6 +3,7 @@ import * as store from './userStore.js';
 import {AdminGrid,bindTabs,showRefreshReport} from './adminGrid.js';
 import {ensureRefresh,keepField,followField,refreshFields} from './adminWorkspaceModel.js';
 import {parseContestCsvRow,parseUrlList,mapOrderedMaterials,attachOrderedMaterials} from './adminCsv.js';
+import {fetchRound} from './fetchClient.js';
 
 let catalog, draft, root, dirty = false, busy = false, visit = 0;
 let consoleRoot, grid, editorRowId = null, backdrop;
@@ -113,6 +114,129 @@ function message(text, error = false) {
     node.className = `status ${error ? 'error' : 'success'} show`;
 }
 
+function bojReview(parent, saved, reload) {
+    const panel = element('details','admin-refresh-options');
+    panel.appendChild(element('summary',null,'Review BOJ source'));
+    const scope = element('select','form-input');
+    scope.setAttribute('aria-label','BOJ contest or group');
+    scope.add(new Option('Entire contest',''));
+    for (const group of saved.groups || []) scope.add(new Option(group.title,group.id));
+    if (scope.options.length > 1) panel.appendChild(scope);
+    const input = field(panel,'BOJ contest detail URL',saved.link.boj,() => review.replaceChildren(),{type:'url'});
+    const status = element('p','admin-help');
+    status.setAttribute('role','status');
+    const review = element('div');
+    const fetch = button('Fetch BOJ slots',async () => {
+        const groupId = scope.value || null;
+        const url = input.value.trim().replace(/^https:\/\/www\.acmicpc\.net\//,'https://acmicpc.net/').replace(/\/$/,'');
+        if (!/^https:\/\/acmicpc\.net\/category\/detail\/[1-9]\d{0,14}$/.test(url)) {
+            status.textContent = 'Enter a BOJ category detail URL.'; return;
+        }
+        fetch.disabled = true; scope.disabled = true; input.disabled = true;
+        review.replaceChildren();
+        const versions = catalog.versions;
+        try {
+            const {data, meta, jobId} = await fetchRound('boj',url,value => {status.textContent=value;});
+            if (!panel.isConnected) return;
+            status.textContent = 'Checking approved matches…';
+            const approved = await store.request('/admin/boj/review', {jobId,contestId:saved.id,groupId});
+            if (!panel.isConnected) return;
+            const candidates = new Map(data.problems.map(problem => [problem.key,problem]));
+            const tasks = new Map(catalog.problems.map(problem => [problem.id,problem.title]));
+            const members = new Map((saved.problems || []).filter(row => (row.groupId || null) === groupId)
+                .map(row => [row.problemId,`${row.index || ''} ${tasks.get(row.problemId)}`.trim()]));
+            const linked = data.details.problemSlots.filter(slot => candidates.has(slot.problemKey));
+            const matched = linked.filter(slot => approved[slot.problemId]?.some(item => item.inScope)).length;
+            const missing = data.details.problemSlots.length - linked.length;
+            status.textContent = `${data.name} · ${matched} approved · ${linked.length - matched} awaiting match · ${missing} missing links`;
+            for (const warning of meta.warnings) review.appendChild(element('p','admin-help',warning.message));
+            const rows = [];
+            for (const slot of data.details.problemSlots) {
+                const row = element('fieldset','boj-review-slot');
+                const candidate = candidates.get(slot.problemKey);
+                const known = approved[slot.problemId] || [];
+                const state = candidate
+                    ? known.some(item => item.inScope) ? 'Approved' : known.length ? 'Approved in another scope' : 'Awaiting match'
+                    : 'Missing BOJ link';
+                row.appendChild(element('legend',null,`${slot.index || 'Problem'} · ${candidate?.name || '#' + slot.problemId}`));
+                const heading = element('div','boj-review-slot-heading');
+                if (candidate) {
+                    const link = element('a',null,'BOJ #' + slot.problemId);
+                    link.href = candidate.url; link.target = '_blank'; link.rel = 'noopener noreferrer';
+                    heading.appendChild(link);
+                }
+                const badge = element('span','boj-review-status',state);
+                badge.dataset.state = candidate ? known.some(item => item.inScope) ? 'approved' : 'pending' : 'missing';
+                heading.appendChild(badge);
+                row.appendChild(heading);
+                for (const item of known) {
+                    const match = element('p','boj-review-match');
+                    const placement = item.inScope ? members.get(item.problemId) : item.title;
+                    const relation = item.partOrder === null ? 'Whole task' : 'Part ' + item.partOrder;
+                    match.append(element('strong',null,placement || item.title),
+                        document.createTextNode(' · ' + relation),
+                        element('span','admin-help',item.evidence));
+                    row.appendChild(match);
+                }
+                if (candidate) {
+                    const editor = element('details','boj-review-fields');
+                    editor.appendChild(element('summary',null,'Review catalog match'));
+                    const fields = element('div','admin-fields');
+                    const choice = element('label','form-group','Catalog task');
+                    const target = element('select','form-input');
+                    target.setAttribute('aria-label',`Catalog task for BOJ ${slot.problemId}`);
+                    target.add(new Option(known.some(item => item.inScope) ? 'Keep approved match' : 'Leave unmatched',''));
+                    for (const [id,label] of members) target.add(new Option(label,id));
+                    choice.appendChild(target);
+                    fields.appendChild(choice);
+                    const part = field(fields,'Part order, if split','',() => {},{type:'number'});
+                    part.min = 1;
+                    const evidence = field(fields,'Matching evidence','',() => {});
+                    evidence.maxLength = 2000;
+                    editor.appendChild(fields);
+                    row.appendChild(editor);
+                    rows.push({slot,target,part,evidence});
+                }
+                review.appendChild(row);
+            }
+            const publish = button('Publish reviewed BOJ links',async () => {
+                if (dirty || grid?.unsaved) {status.textContent='Save or discard catalog edits first.'; return;}
+                const selected = rows.filter(row => row.target.value);
+                if (selected.some(row => !row.evidence.value.trim() || !row.part.checkValidity())) {
+                    status.textContent='Provide evidence and a valid part order for each selected match.'; return;
+                }
+                const matches = selected.map(({slot,target,part,evidence}) => ({
+                    bojId:slot.problemId, problemId:target.value, version:versions.problems[target.value],
+                    partOrder:part.value ? Number(part.value) : null, evidence:evidence.value
+                }));
+                publish.disabled = true;
+                try {
+                    await store.request('/admin/boj/publish',{jobId,contestId:saved.id,
+                        version:versions.contests[saved.id],groupId,matches});
+                    if (!panel.isConnected) return;
+                    status.textContent='BOJ links published.';
+                    await store.refreshCatalog(true);
+                    if (panel.isConnected) reload.click();
+                } catch (error) {
+                    if (panel.isConnected) status.textContent=error.message;
+                    publish.disabled=false;
+                }
+            },'primary-btn');
+            review.appendChild(publish);
+        } catch (error) {
+            if (panel.isConnected) status.textContent=error.message;
+        } finally {
+            fetch.disabled = false; scope.disabled = false; input.disabled = false;
+        }
+    });
+    scope.addEventListener('change',() => {
+        input.value = (scope.value ? saved.groups.find(group => group.id === scope.value)?.link.boj : saved.link.boj) || '';
+        review.replaceChildren();
+    });
+    panel.append(fetch,status,review);
+    parent.appendChild(panel);
+}
+
 export function leave() {
     if ((dirty || busy || grid?.unsaved) && !confirm(busy ? 'Leave while fetching? You can fetch again later.' : 'Discard unsaved local changes? Saved workspace drafts will remain.')) return false;
     grid?.stop();grid=null;removeDrawer();editorRowId=null;
@@ -160,11 +284,29 @@ function renderList(notice='') {
     removeDrawer();editorRowId=null;
     root=consoleRoot;draft=null;dirty=false;
     grid?.stop();
-    grid=new AdminGrid(root,catalog,{add:() => {grid.stop();linksForm();},edit:openDetails});
+    grid=new AdminGrid(root,catalog,{add:() => {grid.stop();linksForm();},edit:openDetails,
+        reviewImport:reviewRawImport,openImport:openRawCatalog});
     root.replaceChildren(element('p','empty-state','Loading saved workspace…'));
     const current=grid;
     current.start().then(() => {if(grid===current && notice)current.report(notice);})
         .catch(error => {if(grid===current)message(error.message,true);});
+}
+
+async function reviewRawImport(result) {
+    await grid.flush();
+    if(result.existingContestId)return openRawCatalog(result.existingContestId);
+    grid.stop();
+    if(!result.draft)return linksForm(null,result.raw);
+    editorRowId=null;draft=result.draft;dirty=true;
+    renderEditor();
+    if(result.qojMaterialsPending)message('QOJ problem materials are still queued. Review the saved data before publishing.');
+}
+
+async function openRawCatalog(id) {
+    await grid.flush();
+    const contest=catalog.contests.find(item => item.id===id);
+    if(!contest)throw new Error('This published contest is no longer in the catalog. Reload the import queue.');
+    openDetails(structuredClone(grid.row(id).draft),id);
 }
 
 function openDetails(value,id,section='summary') {
@@ -216,7 +358,7 @@ function editContest(contest) {
     renderEditor();
 }
 
-function linksForm(current = null) {
+function linksForm(current = null,prefill = null) {
     if (dirty && !confirm('Discard unpublished changes before fetching again?')) return;
     const previousDirty = dirty;
     dirty = false;
@@ -242,19 +384,19 @@ function linksForm(current = null) {
     form.appendChild(csv);
     const columns=element('div','admin-links-columns');
     const curated=element('section','admin-links-group');curated.appendChild(element('h2',null,'Curated placement'));
-    const categoryInput=field(curated,'Category path (use > between folders)',current?.category?.join(' > ') || '',markDirty,{id:'admin-input-category'});
+    const categoryInput=field(curated,'Category path (use > between folders)',current?.category?.join(' > ') || prefill?.category || '',markDirty,{id:'admin-input-category'});
     categoryInput.placeholder='ICPC > World Finals';
-    const yearInput=field(curated,'Year or edition label',current?.year,markDirty,{id:'admin-input-year'});
-    const labelInput=field(curated,'Contest label (Day 1, Test 2, etc.)',current?.contestLabel,markDirty,{id:'admin-input-contest-label'});
-    const officialInput=field(curated,'Official site',current?.link.official,markDirty,{type:'url',id:'admin-input-official'});
+    const yearInput=field(curated,'Year or edition label',current?.year || prefill?.year,markDirty,{id:'admin-input-year'});
+    const labelInput=field(curated,'Contest label (Day 1, Test 2, etc.)',current?.contestLabel || prefill?.contest_label,markDirty,{id:'admin-input-contest-label'});
+    const officialInput=field(curated,'Official site',current?.link.official || prefill?.['link.official'],markDirty,{type:'url',id:'admin-input-official'});
     const resources=element('section','admin-links-group');resources.appendChild(element('h2',null,'Documents and results'));
     const platforms=element('section','admin-links-group');platforms.appendChild(element('h2',null,'Judge contests'));
     const inputs = {};
     let fetchButton;
     const updateFetch=() => {if(fetchButton && !busy)fetchButton.disabled=!Object.values(inputs).some(input => input.value.trim());};
     for (const [name,label] of Object.entries(labels)) {
-        const value = judges.includes(name) || name === 'standings' ? current?.link[name]
-            : current?.materials?.find(material => material.role === name)?.url;
+        const value = (judges.includes(name) || name === 'standings' ? current?.link[name]
+            : current?.materials?.find(material => material.role === name)?.url) || prefill?.[`link.${name}`];
         inputs[name] = field(judges.includes(name) ? platforms:resources,label,value,() => {markDirty();updateFetch();},{type:'url',id:`admin-link-${name}`});
         inputs[name].placeholder=judges.includes(name) ? 'Paste a contest URL':'Paste an HTML or PDF URL';
     }
@@ -267,6 +409,8 @@ function linksForm(current = null) {
     const editorialList=listField(resources,'Ordered editorial URLs (JSON array)','admin-editorial-list');
     if(previous?.orderedMaterials?.statement)statementList.value=JSON.stringify(previous.orderedMaterials.statement);
     if(previous?.orderedMaterials?.editorial)editorialList.value=JSON.stringify(previous.orderedMaterials.editorial);
+    if(prefill?.['link.statement_per_problem'])statementList.value=prefill['link.statement_per_problem'];
+    if(prefill?.['link.editorial_per_problem'])editorialList.value=prefill['link.editorial_per_problem'];
     columns.append(curated,resources,platforms);form.appendChild(columns);
     const actions = element('div','form-buttons admin-add-actions');
     fetchButton = element('button','primary-btn','Fetch information');
@@ -400,6 +544,8 @@ function renderEditor() {
         manualEdit('link.'+name,() => {contest.link[name]=value.trim() || null;});
     },{type:'url',id:`admin-contest-${name}`});
     links.appendChild(linkFields);
+    const savedContest = catalog.contests.find(item => item.id === contest.id);
+    if (savedContest && catalog.versions.contests[contest.id]) bojReview(links,savedContest,reload);
     form.appendChild(links);
     renderProblems(form);
     renderMaterials(form);
@@ -618,7 +764,8 @@ function renderProblems(form) {
         for (const source of judges) field(fields,labels[source],problem.link[source],value => manualEdit('link.'+source,() => {problem.link[source]=value.trim() || null;},problem.id),{type:'url'});
         const rules=ensureRefresh(draft).problems[problem.id];
         if(rules?.manual.includes('title'))fields.appendChild(button('Follow source for title',() => {
-            rules.manual=rules.manual.filter(key => key!=='title');rules.source ||= ['qoj','cf','atcoder','ojuz'].find(source => problem.link[source]) || null;
+            rules.manual=rules.manual.filter(key => key!=='title');
+            rules.source ||= ['boj','qoj','cf','atcoder','ojuz'].find(source => problem.link[source]) || null;
             markDirty();renderEditor();
         }));
         const uses=draft.usages[problem.id] || [];

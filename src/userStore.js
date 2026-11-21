@@ -1,5 +1,7 @@
-// Same-origin account operations; Supabase session tokens stay in HttpOnly cookies.
+// Local preview uses cookies; hosted requests use Supabase's browser session.
 import * as model from './state.js';
+import {apiFetch, hosted, pause} from './api.js';
+import * as cloud from './cloudAuth.js';
 
 export let user = null;
 export let enabled = false;
@@ -16,18 +18,29 @@ function transition() {
     viewWrites.clear();
     clearSaveError();
     user = null;
-    if (baseCatalog) model.loadCatalog(baseCatalog.contests, baseCatalog.problems);
+    if (baseCatalog) model.loadCatalog(baseCatalog.contests, baseCatalog.problems, baseCatalog.rawOrder);
 }
 
 export async function request(route, payload) {
     const started = generation;
-    const response = await fetch(`api${route}`, {
+    let response = await apiFetch(route, {
         method: payload === undefined ? 'GET' : 'POST', cache: 'no-store',
-        credentials: 'same-origin', signal: controller.signal,
+        signal: controller.signal,
         headers: payload === undefined ? {} : {'Content-Type':'application/json','X-PS-Checklist':'1'},
         body: payload === undefined ? undefined : JSON.stringify(payload)
     });
-    const result = await response.json();
+    let result = await response.json();
+    if (response.status === 202 && result.operation?.jobId) {
+        const jobId = result.operation.jobId;
+        const deadline = Date.now() + 3600000;
+        let attempts = 0;
+        do {
+            await pause(Math.min(15000, 1500 + attempts++ * 500), controller.signal);
+            response = await apiFetch(`/operation/result?id=${jobId}`, {signal:controller.signal});
+            result = await response.json();
+        } while (response.status === 202 && Date.now() < deadline);
+        if (response.status === 202) throw new Error('The operation is still queued. Reopen the admin workspace to check its progress.');
+    }
     if (started !== generation) throw new DOMException('Account changed', 'AbortError');
     if (!response.ok || !result.ok) {
         const error=new Error(result.error?.message || 'The operation failed. Please try again.');
@@ -46,24 +59,41 @@ async function restore() {
 export async function initialize(catalog, callback) {
     baseCatalog = catalog;
     onChange = callback;
+    if (hosted) await cloud.initialize(async event => {
+        try {
+            const session = await request('/auth/session');
+            if (session.user?.id === user?.id && event !== 'PASSWORD_RECOVERY') return;
+            transition();
+            user = session.user;
+            if (user) await restore();
+            if (event === 'PASSWORD_RECOVERY') window.location.hash = 'account';
+            onChange();
+        } catch (error) { showSaveError(error); }
+    });
     const session = await request('/auth/session');
     enabled = session.enabled;
     user = session.user;
     if (user) await restore();
+    if (hosted) {
+        cloud.listen();
+        if (cloud.recovering) window.location.hash = 'account';
+    }
     onChange();
 }
 
 export async function refreshCatalog(notify=false) {
     const catalog = await request('/catalog');
     baseCatalog = catalog;
-    model.loadCatalog(catalog.contests,catalog.problems);
+    model.loadCatalog(catalog.contests,catalog.problems,catalog.rawOrder);
     if (user) await restore();
     if (notify) onChange();
 }
 
 export async function signIn(email, password, signup = false) {
     transition();
-    const result = await request(signup ? '/auth/signup' : '/auth/login', {email,password});
+    const result = hosted ? await cloud.signIn(email,password,signup)
+        : await request(signup ? '/auth/signup' : '/auth/login', {email,password});
+    if (hosted) result.user = (await request('/auth/session')).user;
     user = result.user;
     if (user) await restore();
     onChange();
@@ -74,7 +104,8 @@ export async function signOut() {
     transition();
     onChange();
     try {
-        await request('/auth/logout', {});
+        if (hosted) await cloud.signOut();
+        else await request('/auth/logout', {});
     } catch (error) {
         const session = await request('/auth/session');
         user = session.user;
@@ -83,6 +114,11 @@ export async function signOut() {
         throw error;
     }
 }
+
+export {hosted};
+export const signInProvider = provider => cloud.signInProvider(provider);
+export const resetPassword = email => cloud.resetPassword(email);
+export const updatePassword = password => cloud.updatePassword(password);
 
 export async function importRound(source, response) {
     if (!user) return model.addPlatformRound(source, response.data);

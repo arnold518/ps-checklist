@@ -1,7 +1,8 @@
 // Tree rendering and visibility controls migrated from the cloudflare prototype.
 import * as _state from './state.js';
 import * as _ui from './ui.js';
-import {PLATFORMS} from './constants.js';
+import {PLATFORMS, PLATFORM_GROUPS} from './constants.js';
+import {platformGroup} from './platformCategories.js';
 import * as store from './userStore.js';
 
 // Adapt the agreed catalog to the prototype's tree node structure.
@@ -32,38 +33,37 @@ export function initializeDataStructures(node) {
 export function buildPlatformTree() {
     return {
         id: _state.pathKey(['Platforms']), name: 'Platforms', contests: [],
-        children: PLATFORMS.map(platform => ({
-            id: _state.pathKey(['Platforms', platform.name]), name: platform.name, source: platform.id,
-            children: [], contests: [..._state.platformLists[platform.id]].map(id => ({id, data: _state.getContest(id)}))
-        }))
+        children: PLATFORMS.map(platform => {
+            const buckets = new Map(PLATFORM_GROUPS[platform.id].map(group => [group.id, []]));
+            for (const id of _state.platformLists[platform.id]) {
+                const data = _state.getContest(id);
+                if (data) buckets.get(platformGroup(platform.id, data).id).push({id, data});
+            }
+            return {
+                id: _state.pathKey(['Platforms', platform.name]), name: platform.name, source: platform.id,
+                contests: [], children: PLATFORM_GROUPS[platform.id]
+                    .filter(group => buckets.get(group.id).length)
+                    .map(group => ({
+                        id: _state.pathKey(['Platforms', platform.name, group.name]),
+                        name: group.name, source: platform.id, children: [], contests: buckets.get(group.id)
+                    }))
+            };
+        })
     };
 }
 
 export function calculateDirectoryStats(node) {
-    if (!_state.state.directoryStats.has(node.id)) {
-        _state.state.directoryStats.set(node.id, { total: 0, visible: 0 });
-    }
-
-    const stats = _state.state.directoryStats.get(node.id);
-    stats.total = 0;
-    stats.visible = 0;
-
-    if (node.contests) {
-        stats.total += node.contests.length;
-        node.contests.forEach(contest => {
-            if (_state.state.visibleContests.has(contest.id)) stats.visible++;
+    function visit(directory) {
+        const ids = new Set((directory.contests || []).map(contest => contest.id));
+        (directory.children || []).forEach(child => {
+            for (const id of visit(child)) ids.add(id);
         });
+        const visible = [...ids].filter(id => _state.state.visibleContests.has(id)).length;
+        _state.state.directoryStats.set(directory.id, {total: ids.size, visible});
+        return ids;
     }
-
-    if (node.children) {
-        node.children.forEach(child => {
-            const childStats = calculateDirectoryStats(child);
-            stats.total += childStats.total;
-            stats.visible += childStats.visible;
-        });
-    }
-
-    return stats;
+    visit(node);
+    return _state.state.directoryStats.get(node.id);
 }
 
 export function getVisibilityColor(visible, total) {

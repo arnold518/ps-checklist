@@ -117,7 +117,7 @@ class JobQueue:
                     fetched_at = datetime.fromisoformat(job["result"]["meta"]["fetchedAt"].replace("Z", "+00:00")).timestamp()
                 except (KeyError, TypeError, ValueError):
                     fetched_at = 0
-                if now - fetched_at < self.cache_ttl:
+                if getattr(request, 'reuse_completed', True) and now - fetched_at < self.cache_ttl:
                     return job
             pending = db.execute("SELECT COUNT(*) FROM jobs WHERE status IN ('QUEUED','RUNNING')").fetchone()[0]
             if pending >= self.max_pending:

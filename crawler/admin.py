@@ -1,12 +1,14 @@
 """Queued link discovery and bounded HTML/PDF metadata extraction for admins."""
 
 from dataclasses import dataclass
+from collections import Counter
 import hashlib
 import ipaddress
 import json
 import re
 import socket
 import threading
+import time
 from urllib.parse import unquote, urljoin, urlsplit
 
 from bs4 import BeautifulSoup
@@ -14,7 +16,7 @@ import pymupdf
 import requests
 import urllib3
 
-from .contracts import FetchContext, FetchError, FetchRequest, utc_now, validate_response
+from .contracts import OPERATOR_ROUTES, ROUTES, FetchContext, FetchError, FetchRequest, utc_now, validate_response
 from .fetch import FetchService
 
 LINK_FIELDS = ('statement', 'editorial', 'standings', 'cf', 'qoj', 'atcoder', 'ojuz')
@@ -143,34 +145,44 @@ def read_resource(url, context, *, max_bytes=8 * 1024 * 1024, include_headers=Fa
             addresses = {item[4][0] for item in socket.getaddrinfo(parts.hostname, 443, type=socket.SOCK_STREAM)}
             if not addresses or any(not ipaddress.ip_address(ip).is_global for ip in addresses):
                 raise FetchError('UNSAFE_RESOURCE', 'Resource links must resolve to public internet addresses.', 400)
-            address = sorted(addresses)[0]
-            pool = urllib3.HTTPSConnectionPool(address, port=443, server_hostname=parts.hostname,
-                assert_hostname=parts.hostname, cert_reqs='CERT_REQUIRED', ca_certs=requests.certs.where(),
-                timeout=urllib3.Timeout(connect=min(5, context.remaining()), read=min(10, context.remaining())))
-            response = None
-            try:
-                response = pool.urlopen('GET', (parts.path or '/') + ('?' + parts.query if parts.query else ''),
-                    headers={'Host': parts.hostname, 'User-Agent': 'ps-checklist-admin/1', 'Accept-Encoding': 'identity'},
-                    redirect=False, retries=False, preload_content=False)
-                if response.status in (301, 302, 303, 307, 308):
-                    current = urljoin(current, response.headers.get('Location', ''))
+            redirect_url = None
+            # Some hosts publish both families while this machine has no IPv6
+            # route. Try every validated address, preferring IPv4 here.
+            ordered = sorted(addresses, key=lambda ip: (ipaddress.ip_address(ip).version != 4, ip))
+            for address in ordered:
+                pool = urllib3.HTTPSConnectionPool(address, port=443, server_hostname=parts.hostname,
+                    assert_hostname=parts.hostname, cert_reqs='CERT_REQUIRED', ca_certs=requests.certs.where(),
+                    timeout=urllib3.Timeout(connect=min(5, context.remaining()), read=min(10, context.remaining())))
+                response = None
+                try:
+                    response = pool.urlopen('GET', (parts.path or '/') + ('?' + parts.query if parts.query else ''),
+                        headers={'Host': parts.hostname, 'User-Agent': 'ps-checklist-admin/1', 'Accept-Encoding': 'identity'},
+                        redirect=False, retries=False, preload_content=False)
+                    if response.status in (301, 302, 303, 307, 308):
+                        redirect_url = urljoin(current, response.headers.get('Location', ''))
+                        break
+                    if response.status != 200:
+                        raise FetchError('RESOURCE_UNAVAILABLE', f'Resource returned HTTP {response.status}.', 502)
+                    chunks, size = [], 0
+                    for chunk in response.stream(65536):
+                        context.remaining()
+                        size += len(chunk)
+                        if size > max_bytes:
+                            raise FetchError('RESOURCE_TOO_LARGE', 'The selected resource exceeds the download size limit.', 400)
+                        chunks.append(chunk)
+                    context.source(current)
+                    result = (b''.join(chunks), response.headers.get('Content-Type', ''), current)
+                    return (*result, dict(response.headers)) if include_headers else result
+                except (OSError, urllib3.exceptions.HTTPError):
                     continue
-                if response.status != 200:
-                    raise FetchError('RESOURCE_UNAVAILABLE', f'Resource returned HTTP {response.status}.', 502)
-                chunks, size = [], 0
-                for chunk in response.stream(65536):
-                    context.remaining()
-                    size += len(chunk)
-                    if size > max_bytes:
-                        raise FetchError('RESOURCE_TOO_LARGE', 'The selected resource exceeds the download size limit.', 400)
-                    chunks.append(chunk)
-                context.source(current)
-                result = (b''.join(chunks), response.headers.get('Content-Type', ''), current)
-                return (*result, dict(response.headers)) if include_headers else result
-            finally:
-                if response is not None:
-                    response.close()
-                pool.close()
+                finally:
+                    if response is not None:
+                        response.close()
+                    pool.close()
+            if redirect_url:
+                current = redirect_url
+                continue
+            raise FetchError('RESOURCE_UNAVAILABLE', 'Could not read this resource for metadata extraction.', 502)
         except (OSError, urllib3.exceptions.HTTPError):
             raise FetchError('RESOURCE_UNAVAILABLE', 'Could not read this resource for metadata extraction.', 502) from None
     raise FetchError('RESOURCE_UNAVAILABLE', 'Too many resource redirects.', 502)
@@ -201,7 +213,9 @@ def resource_hints(body, content_type, url):
             node.decompose()
         text = soup.get_text('\n', strip=True)[:100000]
     else:
-        raise FetchError('UNSUPPORTED_RESOURCE', 'Use an HTML page or a PDF with selectable text.', 400)
+        raise FetchError('UNSUPPORTED_RESOURCE',
+                         'Metadata extraction supports HTML or a PDF with selectable text. '
+                         'A selected downloadable attachment can still be archived at publication.', 400)
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     if not title or title.lower() in ('untitled', 'document', 'problem statements'):
         title = next((line for line in lines[:30] if re.search(r'(?i)ICPC|World Finals|Olympiad|\bJOI\b|\bIOI\b', line)), None)
@@ -232,24 +246,45 @@ def source_metadata(native):
         'year': edition[1] if edition else (native.get('startTime') or '')[:4] or None,
         'category': suggested_category(title, native),
         'link.official': details.get('websiteUrl'),
-        'link.standings': native['url'] + '/standings' if native.get('url') and native.get('source') != 'ojuz' else None}
+        'link.standings': None}
 
 
 class AdminFetchService(FetchService):
-    queue_sources = ('cf', 'atcoder', 'qoj', 'ojuz', 'admin')
+    queue_sources = (*FetchService.queue_sources, 'admin')
 
-    def __init__(self, *args, resource_reader=read_resource, **kwargs):
+    def __init__(self, *args, resource_reader=read_resource, skip_qoj_problem_materials=False, **kwargs):
         super().__init__(*args, **kwargs)
         self.resource_reader = resource_reader
-        self._source_locks = {source: threading.Lock() for source in JUDGES}
+        self.skip_qoj_problem_materials = skip_qoj_problem_materials
+        self._source_locks = {source: threading.Lock() for source in self.adapters}
 
     @staticmethod
     def decode_request(payload):
-        return AdminRequest.parse(payload['links'], payload.get('groups', ()), payload.get('curation')) if payload['source'] == 'admin' else FetchRequest(**payload)
+        if (payload['source'], payload.get('entity')) == ('solvedac', 'refresh'):
+            from storage.difficulty_refresh import DifficultyRefresh
+            return DifficultyRefresh.parse({'problemIds': payload['problemIds']})
+        if payload['source'] == 'admin':
+            return AdminRequest.parse(payload['links'], payload.get('groups', ()), payload.get('curation'))
+        if payload['source'] in ('boj', 'solvedac'):
+            route = payload.get('route') or f"/fetch/{payload['source']}/{payload.get('entity')}"
+            if route not in OPERATOR_ROUTES or ROUTES[route][0] != payload['source']:
+                raise FetchError('INVALID_PARAMETER', 'Unsupported operator fetch route.', 400)
+            if 'route' in payload:
+                return FetchRequest.parse(route, payload.get('parameters'))
+            parameters = {'url': payload.get('url')}
+            if route == '/fetch/boj/problem' and payload.get('contest_id') is not None:
+                parameters['sourceId'] = payload['contest_id']
+            if route == '/fetch/solvedac/difficulty' and payload.get('index') is not None:
+                parameters['sub'] = payload['index']
+            return FetchRequest.parse(route, parameters)
+        return FetchRequest(**payload)
 
     @staticmethod
     def validate_result(result):
-        if result.get('data', {}).get('source') == 'admin':
+        if result.get('data', {}).get('source') == 'solvedac-refresh':
+            if result.get('schemaVersion') != 1 or result.get('ok') is not True or not isinstance(result['data'].get('ratings'), dict):
+                raise FetchError('UPSTREAM_PARSE_ERROR', 'Invalid difficulty refresh result.')
+        elif result.get('data', {}).get('source') == 'admin':
             if result.get('schemaVersion') != 1 or result.get('ok') is not True or not isinstance(result['data'].get('sources'), list):
                 raise FetchError('UPSTREAM_PARSE_ERROR', 'Invalid admin discovery result.')
         else:
@@ -257,39 +292,67 @@ class AdminFetchService(FetchService):
 
     def native(self, request, timeout=None):
         with self._source_locks[request.source]:
-            return FetchService(self.transport, timeout or self.timeout).fetch(request)
+            return super().fetch(request, timeout=timeout)
 
     def problem_materials(self, native, context):
         """Add problem page materials to a contest discovery without losing its list."""
         data = native['data']
-        if data['source'] not in ('qoj', 'cf', 'atcoder') or not data.get('problems'):
+        if data['source'] not in ('qoj', 'cf', 'atcoder', 'ojuz') or not data.get('problems'):
             return
         materials = list(data.get('materials') or [])
-        failures = 0
-        for problem in data['problems']:
+        failures = Counter()
+        rate_limited = False
+        for position, problem in enumerate(data['problems']):
             # Leave enough time to return the contest discovery if a judge stalls.
             if context.remaining() <= 20:
                 context.warn('PROBLEM_MATERIALS_INCOMPLETE', data['source'],
                              'The discovery time limit left some problem pages unchecked.')
                 break
-            try:
-                request = FetchRequest.parse(f'/fetch/{data["source"]}/problem', {'url': problem['url']})
-                detail = self.native(request, min(15, context.remaining() - 15))
-                context.sources.extend(url for url in detail['meta']['sources'] if url not in context.sources)
-                materials.extend(item for item in detail['data'].get('materials') or []
-                                 if item.get('scope') == 'problem' and item.get('problemKey') == problem['key'])
-            except FetchError:
-                failures += 1
+            request = FetchRequest.parse(f'/fetch/{data["source"]}/problem', {'url': problem['url']})
+            for attempt in range(2):
+                try:
+                    detail = self.native(request, min(30, context.remaining() - 15))
+                    context.sources.extend(url for url in detail['meta']['sources'] if url not in context.sources)
+                    materials.extend(item for item in detail['data'].get('materials') or []
+                                     if item.get('scope') == 'problem' and item.get('problemKey') == problem['key'])
+                    break
+                except FetchError as error:
+                    if error.code == 'RATE_LIMITED':
+                        failures[error.code] += 1
+                        context.warn('RATE_LIMITED', data['source'],
+                                     'The source rate limited problem pages; retry this contest after a pause.')
+                        rate_limited = True
+                        break
+                    if attempt == 1 or not error.retryable or context.deadline - time.monotonic() <= 45:
+                        failures[error.code] += 1
+                        break
+                    time.sleep(5 if error.code == 'RATE_LIMITED' else 2)
+            if rate_limited:
+                if position + 1 < len(data['problems']):
+                    context.warn('PROBLEM_MATERIALS_INCOMPLETE', data['source'],
+                                 'The rate limit left the remaining problem pages unchecked.')
+                break
         if failures:
             context.warn('PROBLEM_MATERIALS_UNAVAILABLE', data['source'],
-                         f'{failures} problem page(s) could not be examined for statement and editorial links.')
+                         f'{sum(failures.values())} problem page(s) could not be examined for statement and editorial links '
+                         f'({", ".join(f"{code}: {count}" for code, count in sorted(failures.items()))}).')
         data['materials'] = materials if materials or data.get('materials') is not None else None
 
     def fetch(self, request):
+        if (request.source, request.entity) == ('solvedac', 'refresh'):
+            from storage.app import StorageError
+            from storage.difficulty_refresh import refresh
+            try:
+                data = refresh(self.difficulty_app, self, request)
+            except StorageError as error:
+                raise FetchError(error.code, str(error), error.status) from None
+            return {'schemaVersion': 1, 'ok': True, 'data': {**data, 'source': 'solvedac-refresh'}}
         if request.source != 'admin':
             return self.native(request)
-        context = FetchContext(300)
+        context = FetchContext(max(300, self.timeout))
         links = dict(request.links)
+        from scripts.official_joisc_legacy import source_scope, scope_atcoder_source
+        legacy_joisc_day = source_scope(request)
         for value in list(links.values()):
             found = contest_link(value)
             if found:
@@ -315,7 +378,10 @@ class AdminFetchService(FetchService):
                 continue
             try:
                 native = self.native(FetchRequest.parse(f'/fetch/{source}/contest', {'url': links[source]}), min(90, context.remaining()))
-                self.problem_materials(native, context)
+                if source == 'atcoder' and legacy_joisc_day and not scope_atcoder_source(native, *legacy_joisc_day):
+                    raise FetchError('SOURCE_LIST_MISMATCH', 'The annual AtCoder task list no longer matches the reviewed JOISC day.', 422)
+                if source != 'qoj' or not self.skip_qoj_problem_materials:
+                    self.problem_materials(native, context)
                 sources.append(native)
                 context.sources.extend(url for url in native['meta']['sources'] if url not in context.sources)
                 for warning in native['meta']['warnings']:
@@ -335,7 +401,8 @@ class AdminFetchService(FetchService):
                 try:
                     native = self.native(FetchRequest.parse(f'/fetch/{source}/contest',
                         {'url': group['link'][source]}), min(90, context.remaining()))
-                    self.problem_materials(native, context)
+                    if source != 'qoj' or not self.skip_qoj_problem_materials:
+                        self.problem_materials(native, context)
                     sources.append({**native, 'groupId': group['id']})
                     context.sources.extend(url for url in native['meta']['sources'] if url not in context.sources)
                     if native['data'].get('problemCount') is not None:
@@ -348,6 +415,10 @@ class AdminFetchService(FetchService):
                 context.warn('SOURCE_LIST_MISMATCH', 'groups.' + group['id'],
                     group['title'] + ': judges report different problem counts.')
         title = primary.get('name') or next((hint['title'] for hint in hints if hint['title']), None)
+        if legacy_joisc_day:
+            # The judge URL is a year-wide source, not this day's contest URL.
+            links.pop('atcoder', None)
+            title = f'JOISC {legacy_joisc_day[0]} Day {legacy_joisc_day[1]}'
         if title:
             title = re.sub(r'\s*[-|]\s*(?:AtCoder|Codeforces)\s*$', '', title).strip()
         year_match = re.search(r'\b((?:19|20)\d{2}(?:-[IVX]+)?)\b', title or '')
@@ -357,7 +428,7 @@ class AdminFetchService(FetchService):
             context.warn('DOCUMENT_PROBLEM_SUGGESTIONS','problems','PDF headings are suggested problems; check their titles, labels, order, and completeness.')
         if not title:
             context.warn('TITLE_UNKNOWN', 'title', 'A title could not be derived; enter it in the review form.')
-        if not category:
+        if not category and not (request.curation or {}).get('category'):
             context.warn('CATEGORY_UNKNOWN', 'category', 'Choose the global category in the review form.')
         data = {'source': 'admin', 'links': links, 'title': title, 'year': year, 'category': category,
                 'sources': sources, 'documents': hints}

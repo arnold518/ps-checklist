@@ -20,6 +20,26 @@ The allowlist is checked on every server request. Editing it does not require a
 preview restart. Service keys remain on the server. Database admin RPCs also
 reject anonymous and ordinary authenticated roles.
 
+## Raw import queue and catalog editor
+
+The admin page has two distinct sections. **Raw import queue** reads the local
+`raw/contests.csv` batch, saved fetch checkpoints, and publication receipts. It
+shows every CSV row, including rows blocked before publication, with the original
+judge links and the blocking reason. **Review saved fetch** opens the saved
+discovery in the normal editor; it does not publish by itself. If no usable fetch
+exists, the action pre-fills the individual fetch form from that CSV row.
+
+**Catalog editor** shows contests already in the database. Its **Edit state**
+tags describe private catalog drafts and refresh jobs. They do not describe the
+raw import queue. A row whose receipt is blocked but whose judge link now matches
+a catalog contest is labeled **Catalog match; receipt blocked**, so manual
+publication does not appear to have updated the batch receipt.
+Edits to a new raw row remain in the browser until they are published; leaving
+the editor discards those unpublished edits.
+In the public contest tree, published contests with a unique judge-link match
+to `raw/contests.csv` follow CSV row order. Contests without a unique match
+follow afterward in their existing catalog order.
+
 For a fresh local checkout:
 
 ```bash
@@ -196,14 +216,49 @@ removed memberships are remembered. Ordered CSV documents attach to the reviewed
 problem order; individual problem materials can then be edited in Materials.
 The fetch job also examines judge problem pages for problem scoped statements and
 editorials. Each matched problem gets one selected link for each role. The
-selection order is raw CSV, QOJ, Codeforces, then AtCoder; a discovered problem
+selection order is raw CSV, QOJ, Codeforces, AtCoder, then oj.uz; a discovered problem
 page URL supplies a statement link when there is no separate document. Raw
 ordered links replace fetched links after the order check. A manually edited or
 removed link stays under admin control on later fetches. Unmatched judge entries
 receive their links only after a problem correspondence is resolved.
+An explicitly supplied contest scoreboard link stays selected after fetching;
+the judge's default standings page does not replace it.
 Source lists remain collapsed as read-only evidence. Choose another order source
 in the source settings and fetch again; **Follow source** resumes automatic order
 after a manual membership edit.
+
+For previously published KOI contests whose only judge link is oj.uz,
+`python scripts/backfill_ojuz_statements.py` checks their problem pages and
+reports newly found PDF statements. Add `--publish` to archive those selected
+PDFs and attach them without changing contest or problem IDs.
+
+`python scripts/repair_raw_standings.py` reports published rows whose curated
+CSV scoreboard was replaced by a judge default. Add `--publish` to restore the
+CSV URL only when the existing link is still source managed; manually edited
+standings are left alone. `--rows` limits the check to selected CSV row numbers.
+
+For the saved raw USACO import, `python scripts/usaco_official.py` checks each
+eligible division against the official archive. It requires the full problem
+title order, the official contest URL when present, and every CSV editorial URL
+to agree before adding official statement links. The CSV editorials stay curated;
+the official statement links remain source managed, so a later verified QOJ
+statement can replace them. Rows with any mismatch still need manual review.
+Official coverage completes those rows without marking their QOJ problem pages
+as fetched for other contests. Run the publication dry run with
+`python scripts/publish_raw_contests.py`, then use `--publish` for the verified
+rows. The official USACO HTML links stay at their source during attachment
+archiving.
+
+`python scripts/repair_usaco_editorials.py` applies the reviewed Silver URL
+corrections for raw rows 808 and 831. It records the new CSV checksum while
+retaining the original batch ID seed, so already published contest IDs remain
+stable.
+
+The raw batch publisher can also attach ordered per-problem PDFs when every
+selected filename uniquely spells out its matching QOJ problem title. It checks
+the entire list, the saved CSV curation, and the final contest member order
+before assigning any URL. Numbered files, translated or abbreviated names, and
+ambiguous matches stay in document-order review.
 
 One primary link per judge is retained, as in the basic model. Conflicts involving
 two published problem IDs are reported for a separate merge that preserves both
@@ -233,9 +288,12 @@ remain in the browser until publication.
 ## Archive selected attachments before publication
 
 Publication checks only the links retained in the reviewed contest, group, and
-problem material lists. It downloads those HTTPS links through the public-IP
-checked resource reader. Recognized PDF, ZIP, image, gzip, and HTTP attachment
-responses are copied before the catalog transaction. Ordinary HTML pages stay
+problem material lists. It downloads ordinary HTTPS links through the public-IP
+checked resource reader; selected QOJ `download.php` files use the configured
+QOJ account session. Recognized PDF, ZIP, PPTX, image, gzip, and HTTP attachment
+responses are copied before the catalog transaction. PPTX files are identified
+from their ZIP contents and served with the presentation MIME type and extension.
+Ordinary HTML pages stay
 at their source. Discovered alternatives that were not selected are not copied.
 Each file is limited to 64 MB, each publication to 256 MB and 200 distinct
 material URLs. An unreadable selected link stops publication so the admin can
@@ -243,7 +301,15 @@ correct the selection; metadata is not partially published.
 
 The material keeps its original `url` and receives an `archiveId` after a copy
 succeeds. The public frontend opens `/api/archive/<archiveId>` for that material;
-the archive endpoint checks the public database reference and file checksum.
+the archive endpoint checks the current public database reference and file checksum.
+An archive object without a current published material reference is not publicly
+readable, including through the database API. Its stored bytes remain available
+for retention review. The raw CSV publisher accepts a metadata extraction warning
+for a selected ZIP/PPTX editorial only when no other warning is present and that
+same URL is successfully archived. For raw CSV batches, an older
+`CATEGORY_UNKNOWN` warning is also resolved when
+the validated category in the saved fetch request, fetch result, and CSV row
+matches exactly. Other source warnings remain review blocks.
 The local preview writes bytes to ignored `storage/output/archive/`. A hosted
 server needs `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, and
 `R2_PRIVATE_BUCKET` in its server environment file, plus the `boto3` dependency

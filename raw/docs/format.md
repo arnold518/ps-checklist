@@ -36,6 +36,11 @@ label. KOI's `Elementary School Division`, `Middle School Division`, and
 `High School Division` folders distinguish difficulty, so their labels are empty.
 The companion resource checks and source audit carry the same category and label.
 
+JOISC 2007–2011 repeats a year-wide `link.atcoder` in each day row as a fetch
+source. The matching `contest_label`, organizer URL, and day statement PDF
+activate a guarded task slice. That annual URL is omitted from the published
+day contest link; the individual problem links retain their AtCoder URLs.
+
 The ICPC reference year follows the verified contest edition, including the
 [season exceptions](icpc-sources.md#icpc-edition-and-coverage-notes).
 Olympiad seasons use their ending year: JOI 2024/2025
@@ -118,6 +123,11 @@ organizer source remain references.
 
 Leave either editorial form empty when no suitable organizer-published resource
 or complete ordered set is verified. Do not fill gaps with code or partial lists.
+When several complete organizer editorials exist, prefer a readable written
+problem analysis in English over a slide commentary or general contest report;
+check its native task coverage first and keep useful alternatives in the source
+audit. A document for a different regional round does not qualify merely
+because an organizer archive links it.
 
 The CSV writer quotes JSON cells using standard CSV escaping; parse the CSV
 first, then apply `JSON.parse`/`json.loads` to cells that begin with `[`.
@@ -126,7 +136,8 @@ An organizer landing page belongs in `link.official`, a results page in
 `link.standings`, and a document or ordered document list in its material role.
 Mixed materials pages remain discovery references in the audit. A shared index
 URL is not repeated under several roles, and adding an anchor does not make it
-a separate document.
+a separate document. An edition page that itself displays the verified score
+table can be both `link.official` and `link.standings`.
 
 ## Enter a row in the admin page
 
@@ -178,11 +189,11 @@ is retained unchanged and supplies the initial edition/resource relationships.
 Its organizer packets and original scoreboards are strong references; links are
 refreshed when an organizer moves its archive or replaces an obsolete URL.
 
-For standings, prioritize official static scoreboards, then external
-original-results providers such as ICPC Global or CLIST, then Codeforces Gym
-or QOJ as the last fallback. Verify actual score data, preserve day/division
-scope, and label judge mirrors separately. Empty scoreboards and subtask point
-allocations are excluded. The [standings rules](standings-rules.md)
+For standings, prioritize original full per-problem scoreboards, then faithful
+archives or complete external providers such as CLIST. ICPC Global aggregate
+rankings and Codeforces Gym or QOJ practice standings remain references, not
+selected links. Verify actual score data and preserve day/division scope.
+Empty scoreboards and subtask point allocations are excluded. The [standings rules](standings-rules.md)
 define the priority, verification, and review columns.
 
 ## Source audit

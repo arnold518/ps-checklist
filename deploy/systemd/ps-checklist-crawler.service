@@ -1,0 +1,18 @@
+[Unit]
+Description=PS Checklist hosted crawler
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Replace these two paths with your checkout and virtual environment paths.
+WorkingDirectory=%h/arnold/github/ps-checklist
+ExecStart=%h/arnold/github/ps-checklist/.venv/bin/python -m crawler.remote
+Restart=on-failure
+RestartSec=30
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target

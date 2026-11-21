@@ -4,6 +4,16 @@ __pycache__/
 *.pyc
 .venv/
 /.env.storage
+/.env.deployment
+/.env.pages
+!/.env.deployment.example
+!/.env.pages.example
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
 /supabase/.temp/
 /supabase/.branches/
 /storage/output/

@@ -3,7 +3,8 @@
 The app now uses Supabase Auth and PostgreSQL for account persistence. The
 frontend keeps a working copy in memory; the database is authoritative for
 signed-in users. Guests can use the current temporary browsing/import flows.
-Google sign-in is deferred, as instructed. Email/password signup and login work.
+Email/password signup and login work. Hosted deployments also support configured
+Google/GitHub providers; see [online setup](setup.md) and [hosted behavior](deployment.md).
 
 ## Data formats
 
@@ -27,7 +28,14 @@ An absent progress row displays as status 0. Status belongs to the shared proble
 UUID, so the same problem carries the same user's status under different contest
 labels and in Practice Records. Solved counters include statuses 2 and 3 and
 count the displayed contest memberships. No status is added to shared problem JSON.
-Personal difficulty, profile handles, session-specific results, and archive
+The Difficulty row shows a single tier shield. Its minus and plus buttons
+cycle through the 30 tiers. Signed-in selections save a vote and guest
+selections last for the session. Fetch Difficulty displays the published
+solved.ac tier. Reset Difficulty clears the selection. The shield tooltip
+includes the community mean, rounded to the nearest tier with half tiers rounded up.
+Earlier ten-point scores are stored separately. The private solution
+note API is documented in [the deployment extension](deployment.md).
+Profile handles, session-specific results, and archive
 snapshots remain later features. Their scaffold tables are retained.
 
 Platforms are `cf` and `atcoder`; one contest may be selected in multiple
@@ -95,7 +103,7 @@ Responses use `{ok: true, data: ...}` or a safe error object. User-state JSON ha
 operations use the user's JWT and SQL row policies; the service-role key is used
 only for trusted catalog import/administrative operations.
 
-Auth access/refresh tokens stay in HttpOnly, SameSite=Lax cookies scoped to the
+In the local preview, Auth access/refresh tokens stay in HttpOnly, SameSite=Lax cookies scoped to the
 preview path; HTTPS uses Secure cookies. No Auth tokens or API keys are sent to
 frontend JavaScript or localStorage. The server refreshes expired access through
 Supabase Auth. Logout/account changes clear the frontend's personal state and

@@ -261,7 +261,7 @@ def parse_problem(page, alias, context):
             doc = material(url,'Problem statement',role='statement',lang=lang,kind='pdf',scope='problem',problem_key=data['key'])
             materials.append(doc)
             data['statement'] = document_statement([doc['key']],lang)
-        elif node.select_one('[id^="markdown-"]'):
+        elif node.select_one('[id^="markdown-"], .problem-statement-lexical'):
             data['statement'] = statement(node,page.url,None)
             data['samples'] = parse_samples(node)
             data['scoring'] = parse_scoring(node,page.url)

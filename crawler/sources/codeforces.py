@@ -158,7 +158,29 @@ class CodeforcesSource:
         return parse_api_contest(native, request.category)
 
     def contest(self, request, context):
-        data = self.metadata(request, context)
+        try:
+            data = self.metadata(request, context)
+        except FetchError as error:
+            # Gym contest.list can stall even while the public gym page and its
+            # complete task table are reachable. Recover the task list from the
+            # page, while retaining a warning about missing API metadata.
+            if request.category != 'gym' or error.code not in {
+                    'UPSTREAM_TIMEOUT', 'UPSTREAM_UNAVAILABLE', 'UPSTREAM_AUTH_REQUIRED'}:
+                raise
+            page = self.transport.get(request.url + '?locale=en', context)
+            title = page.soup().title
+            match = re.fullmatch(r'(?:Dashboard|Problems) - (.+) - Codeforces',
+                                 clean(title) if title else '')
+            if not match:
+                raise error
+            data = contest(f'cf:gym:{request.native_id}', 'cf', request.native_id,
+                           match[1], request.url, 'gym')
+            data['problems'] = parse_html_contest(page, 'gym', request.native_id)
+            data['problemCount'] = len(data['problems'])
+            data['materials'] = parse_materials(page)
+            context.warn('CONTEST_METADATA_UNAVAILABLE', 'cf',
+                         'Codeforces API metadata was unavailable; the complete gym task table was read from HTML.')
+            return data
         page = None
         try:
             page = self.transport.get(data["url"] + "?locale=en", context)
@@ -192,6 +214,8 @@ class CodeforcesSource:
                 page = self.transport.get(url, context)
                 if urlsplit(page.url).path != urlsplit(url).path:
                     raise FetchError("UPSTREAM_PARSE_ERROR", "Codeforces redirected to a different problem.")
+                if page.text.startswith("%PDF-"):
+                    break
                 if page.soup().select_one(".problem-statement") is None:
                     raise FetchError("UPSTREAM_PARSE_ERROR", "Codeforces' problem statement is missing.")
                 break
@@ -204,6 +228,16 @@ class CodeforcesSource:
             data["contest"] = contest_ref(parent)
             context.warn("STATEMENT_UNAVAILABLE", "data.statement", str(error))
             context.warn("MATERIALS_UNAVAILABLE", "data.materials", "Codeforces' material links could not be examined.")
+            return data
+        if page.text.startswith("%PDF-"):
+            if item is None:
+                raise FetchError("UPSTREAM_PARSE_ERROR", "Codeforces' PDF task is absent from its contest list.")
+            data = full_problem(deepcopy(item), "cf")
+            data["contest"] = contest_ref(parent)
+            descriptor = material(request.url, "Problem statement", role="statement", kind="pdf",
+                                  scope="problem", problem_key=data["key"], official=True)
+            data["materials"] = [descriptor]
+            data["statement"] = document_statement([descriptor["key"]], "en")
             return data
         soup = page.soup()
         block = soup.select_one(".problem-statement")
@@ -256,6 +290,9 @@ class CodeforcesSource:
                 header.decompose()
             if clean(body) or body.find("img"):
                 data["statement"] = statement(body, page.url, "en")
+                data["materials"].append(material(request.url, "Problem statement", role="statement",
+                                                  kind="html", scope="problem",
+                                                  problem_key=data["key"], official=True))
                 data["samples"] = samples(block, "cf")
                 infer_task(data, body, page.url, "cf")
             else:

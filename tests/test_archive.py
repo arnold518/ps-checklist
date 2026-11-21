@@ -42,7 +42,8 @@ class ArchiveTests(unittest.TestCase):
             self.assertEqual(prepared['groups'][0]['materials'][0]['archiveId'],
                              next(item['id'] for item in manifest if item['sourceUrl'] == group_zip))
             self.assertEqual(len(list(Path(directory).iterdir())), 2)
-            self.assertEqual([url for url, _ in calls], [html, group_zip, pdf])
+            # Known judge HTML pages remain source links without a download.
+            self.assertEqual([url for url, _ in calls], [group_zip, pdf])
             self.assertTrue(all(options == {'max_bytes': 64 * 1024 * 1024, 'include_headers': True}
                                 for _, options in calls))
             self.assertEqual(contest['problemMaterials'][0]['archiveId'], 'stale')

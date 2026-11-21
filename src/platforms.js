@@ -2,6 +2,7 @@
 import * as _state from './state.js';
 import * as _ui from './ui.js';
 import {JUDGE_LINKS,PLATFORMS} from './constants.js';
+import {platformGroup} from './platformCategories.js';
 import {parseRoundInput, fetchRound} from './fetchClient.js';
 import * as store from './userStore.js';
 
@@ -104,8 +105,10 @@ function showAddRoundForm(platform) {
             status.textContent = 'Saving round…';
             const result = await store.importRound(platform.id, response);
             if (!form.isConnected || controller.signal.aborted) return;
-            status.textContent = result.alreadyAdded ? 'This round is already in your list.'
-                : response.meta?.status === 'partial' ? 'Round added. Some source details are unavailable.' : 'Round added successfully!';
+            const folder = `${platform.name} > ${platformGroup(platform.id, result.contest).name}`;
+            status.textContent = result.alreadyAdded ? `This round is already in ${folder}.`
+                : response.meta?.status === 'partial' ? `Round added to ${folder}. Some source details are unavailable.`
+                : `Round added to ${folder}.`;
             status.className = 'status success show';
             _ui.refreshPlatforms();
         } catch (error) {

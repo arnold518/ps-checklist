@@ -1,9 +1,13 @@
 # Running the fetch APIs
 
-The `beta` backend implements ten version 1 routes in
-[API decisions](api-decisions.md). Every fetch runs through the SQLite job queue.
+The `beta` backend implements fourteen version 1 routes. The standalone API
+uses the SQLite job queue and the hosted API uses the leased hosted queue.
+See [API decisions](api-decisions.md) for the common response contract.
 The first QOJ category API fetches one page and returns its direct children;
 it never traverses them.
+
+See the [BOJ and solved.ac crawler API plan](boj-solvedac-crawler-plan.md)
+for the BOJ and solved.ac design, source checks, and catalog adoption plan.
 
 ## Start
 
@@ -56,7 +60,7 @@ CAPTCHAs. If it remains blocked, the API still reports unavailable fields or an
 fallback attempts. The official mirror timed out in the local test and is not
 used as a fallback destination.
 
-## Fetch routes (ten)
+## Fetch routes
 
 | GET route | Example source URL |
 |---|---|
@@ -70,6 +74,10 @@ used as a fallback destination.
 | `/fetch/ojuz/category` | `https://oj.uz/problems/source/joisc2026` |
 | `/fetch/ojuz/contest` | `https://oj.uz/problems/source/joisc2026day1` |
 | `/fetch/ojuz/problem` | `https://oj.uz/problem/view/JOI26_casino` |
+| `/fetch/boj/category` | `https://acmicpc.net/category/550` |
+| `/fetch/boj/contest` | `https://acmicpc.net/category/detail/2629` |
+| `/fetch/boj/problem` | `https://acmicpc.net/problem/10072` |
+| `/fetch/solvedac/difficulty` | `https://solved.ac/p/1000` or `https://acmicpc.net/problem/1000` |
 
 Inputs are `url`, optional `lang`, optional QOJ problem `contestId`, and optional
 AtCoder `includeExternalMaterials=true/false`, and optional oj.uz problem `sourceId`. Supported languages: CF `en`;
@@ -137,6 +145,36 @@ Retryable failures get up to three attempts; blocked/forbidden/invalid content
 does not automatically retry. Jobs survive process restarts and recover
 interrupted work. Category jobs never create jobs for children.
 
+## BOJ and solved.ac
+
+On the preview and hosted API, the four routes are under `/api`. Both
+submission and polling require an admin session. Hosted submissions return
+202 with a job ID. Shared BOJ problem responses include source URLs and
+metadata. The standalone loopback API also provides the available sanitized
+statement, examples, and scoring instructions for local review.
+
+BOJ problem requests accept an optional `sourceId` that identifies a
+`/category/detail/{id}` membership, and `lang=default`. A contest whose
+detail URL redirects to a parent is selected using explicit links or verified
+membership. The ordered `details.problemSlots` includes each published slot.
+`problems` contains the linked entries and keeps compound labels such as
+`4-1`. A missing link yields a partial response with the numeric ID retained.
+
+For solved.ac, a direct `/p/{id}` URL accepts a suffix or a `sub` parameter.
+Configure `SOLVEDAC_CLIENT_ID` and `SOLVEDAC_CLIENT_SECRET` in the crawler
+environment or the local credential JSON file. A BOJ URL also uses
+`SOLVEDAC_BOJ_QUERY`, a verified v4 search template with one `{id}`
+placeholder. Leave it unset until an authenticated test confirms the syntax.
+With app credentials and no template, BOJ URL lookup returns
+`LOOKUP_NOT_CONFIGURED` (503). Exact judge identity is checked before
+returning `rated`, `unrated`, or a confirmed `unmapped` result. The provider
+identity and source fetch timestamp accompany each rating.
+
+BOJ pages have a one-hour in-process cache. Solved.ac difficulty snapshots,
+verified BOJ mappings, and confirmed misses are cached for 24 hours, seven
+days, and one hour respectively. Retryable difficulty refresh failures can
+return a partial result with the previous snapshot and its original timestamp.
+
 ## Configuration
 
 ```bash
@@ -148,10 +186,10 @@ python3 -m crawler.api --port 8081 --wait-seconds 10 --fetch-timeout 90
 | `--host` | `127.0.0.1` | Bind address |
 | `--port` | `8080` | HTTP port |
 | `--database` | `crawler/output/jobs.sqlite3` | Persistent queue file |
-| `--credentials` | `crawler/credential.json` | QOJ credential file |
+| `--credentials` | `crawler/credential.json` | QOJ and solved.ac crawler credential file |
 | `--wait-seconds` | `25` | GET waiting time, 0–60 seconds |
 | `--fetch-timeout` | `90` | Collection budget per attempt, 1–300 seconds |
-| `--cache-ttl` | `300` | Page/result freshness in seconds; 0 disables reuse |
+| `--cache-ttl` | `300` | Default page and queue-result freshness in seconds. Use 0 to disable those caches. |
 
 Only one process can own a queue database. Stop the server with Ctrl+C.
 

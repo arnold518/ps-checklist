@@ -55,7 +55,7 @@ def make_handler(queue, wait_seconds):
             self.send_header("X-Content-Type-Options", "nosniff")
             if job_id:
                 self.send_header("X-Job-Id", job_id)
-            if status == 202:
+            if status == 202 and job_id:
                 self.send_header("Location", "/job?id=" + job_id)
                 self.send_header("Retry-After", "1")
             self.end_headers()
@@ -136,7 +136,8 @@ def serve(host="127.0.0.1", port=8080, *, database=None, credentials=None,
           wait_seconds=25, fetch_timeout=90, cache_ttl=300):
     transport = SourceTransport(credentials_path=credentials, cache_ttl=cache_ttl)
     queue = JobQueue(database or ROOT / "crawler/output/jobs.sqlite3",
-                     FetchService(transport, timeout=fetch_timeout), cache_ttl=cache_ttl)
+                     FetchService(transport, timeout=fetch_timeout,
+                                  boj_content=host in ("127.0.0.1", "::1", "localhost")), cache_ttl=cache_ttl)
     server = None
     try:
         queue.start()

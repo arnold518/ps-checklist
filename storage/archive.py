@@ -2,15 +2,20 @@
 
 import copy
 import hashlib
+from io import BytesIO
 import os
 from pathlib import Path
 import re
+import requests
 import tempfile
+import time
 import uuid
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit, urlunsplit
+from zipfile import BadZipFile, ZipFile
 
 from crawler.admin import read_resource
 from crawler.contracts import FetchContext, FetchError
+from crawler.qoj import QojAccessError, QojClient
 from .app import ROOT, StorageError, read_environment
 
 
@@ -27,11 +32,46 @@ def selected_materials(contest):
     yield from contest.get('problemMaterials') or []
 
 
+def material_url(url):
+    """Encode whitespace and non-ASCII characters before storage or download."""
+    parts = urlsplit(url)
+    return urlunsplit((parts.scheme, parts.netloc,
+        quote(parts.path, safe="/%:@!$&'()*+,;=-._~"),
+        quote(parts.query, safe="/?:@!$&'()*+,;=%-._~"),
+        quote(parts.fragment, safe="/?:@!$&'()*+,;=%-._~")))
+
+
+def judge_html_page(url):
+    """Judge HTML pages are links to read online, not file attachments."""
+    parts = urlsplit(url)
+    path = parts.path
+    return ((parts.hostname == 'qoj.ac' and path.startswith('/problem/'))
+            or (parts.hostname == 'codeforces.com' and (
+                '/problem/' in path or path.startswith('/problemset/problem/')
+                or bool(re.fullmatch(r'/(?:contest|gym)/\d+/problems/?', path))
+                or bool(re.fullmatch(r'/blog/entry/\d+/?', path))))
+            or (parts.hostname == 'atcoder.jp' and ('/tasks/' in path or path.rstrip('/').endswith('/tasks_print')))
+            or (parts.hostname == 'oj.uz' and path.startswith('/problem/view/'))
+            or (parts.hostname == 'usaco.org' and (
+                path == '/index.php' or path.endswith('.html'))))
+
+
 def downloadable(body, content_type, headers):
     mime = content_type.split(';', 1)[0].strip().lower()
     if body.lstrip()[:64].lower().startswith((b'<!doctype html', b'<html')) or mime in ('text/html', 'application/xhtml+xml'):
         return None
-    for signature, detected in ((b'%PDF-', 'application/pdf'), (b'PK\x03\x04', 'application/zip'),
+    if body.startswith(b'PK\x03\x04'):
+        try:
+            with ZipFile(BytesIO(body)) as archive:
+                names = set(archive.namelist())
+            if '[Content_Types].xml' in names and 'ppt/presentation.xml' in names:
+                return 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        except (BadZipFile, OSError, ValueError):
+            pass
+        return 'application/zip'
+    if body.startswith(b'\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1') and mime == 'application/msword':
+        return 'application/msword'
+    for signature, detected in ((b'%PDF-', 'application/pdf'),
                                 (b'\x89PNG\r\n\x1a\n', 'image/png'), (b'\xff\xd8\xff', 'image/jpeg'),
                                 (b'GIF8', 'image/gif'), (b'\x1f\x8b', 'application/gzip')):
         if body.startswith(signature):
@@ -46,6 +86,7 @@ class ArchiveStore:
     def __init__(self, config=None, *, reader=read_resource):
         self.config = read_environment() if config is None else config
         self.reader = reader
+        self._qoj = None
         names = ('R2_ACCOUNT_ID', 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY', 'R2_PRIVATE_BUCKET')
         configured = [bool(self.config.get(name)) for name in names]
         if any(configured) and not all(configured):
@@ -56,6 +97,7 @@ class ArchiveStore:
             self.backend = 'local'
         else:
             self.backend = 'unavailable'
+        self._last_qoj_download = 0.0
 
     def client(self):
         try:
@@ -108,6 +150,8 @@ class ArchiveStore:
         """Return a copy with archive IDs and a manifest for the publish RPC."""
         result = copy.deepcopy(contest)
         materials = list(selected_materials(result))
+        for item in materials:
+            item['url'] = material_url(item['url'])
         urls = list(dict.fromkeys(item['url'] for item in materials))
         if len(urls) > MAX_LINKS:
             raise StorageError('Select at most 200 distinct material links before publishing.')
@@ -115,8 +159,37 @@ class ArchiveStore:
         manifest, skipped, total = [], [], 0
         by_url = {}
         for url in urls:
+            if judge_html_page(url):
+                parts = urlsplit(url)
+                binary_problem = False
+                if parts.hostname == 'codeforces.com' and '/problem/' in parts.path:
+                    try:
+                        head = requests.head(url, timeout=10, allow_redirects=False)
+                        binary_problem = (head.status_code == 200
+                                          and head.headers.get('content-type', '').split(';', 1)[0].lower()
+                                          in ('application/pdf', 'application/msword', 'application/zip'))
+                    except requests.RequestException:
+                        pass
+                if not binary_problem:
+                    skipped.append(url)
+                    continue
             try:
-                body, mime, final_url, headers = self.reader(url, context, max_bytes=MAX_FILE, include_headers=True)
+                if self.reader is read_resource and urlsplit(url).hostname == 'qoj.ac' and urlsplit(url).path == '/download.php':
+                    if self._qoj is None:
+                        self._qoj = QojClient.from_credentials_file()
+                    delay = self._last_qoj_download + 3.0 - time.monotonic()
+                    if delay > 0:
+                        time.sleep(delay)
+                    self._last_qoj_download = time.monotonic()
+                    body, mime, final_url, headers = self._qoj.fetch_download(
+                        url, max_bytes=MAX_FILE, deadline=context.deadline)
+                else:
+                    body, mime, final_url, headers = self.reader(url, context, max_bytes=MAX_FILE, include_headers=True)
+            except QojAccessError as error:
+                if error.http_status == 429:
+                    raise StorageError('QOJ rate limited selected attachment downloads.', 429,
+                                       'ARCHIVE_RATE_LIMITED') from None
+                raise StorageError(f'Could not archive selected material {url}: {error}', 502, 'ARCHIVE_FETCH_FAILED') from None
             except FetchError as error:
                 raise StorageError(f'Could not archive selected material {url}: {error}', 502, 'ARCHIVE_FETCH_FAILED') from None
             content_type = downloadable(body, mime, headers)
@@ -149,6 +222,12 @@ def serve(app, handler, archive_id, method):
                        schema='archive', privileged=True)
     if not rows or not rows[0]['is_public']:
         raise StorageError('Unknown archive object.', 404, 'NOT_FOUND')
+    # An older published material may have been replaced or removed. Its old
+    # object row remains for retention, but only current public links can serve.
+    current = app.request('/rest/v1/materials?select=id&is_public=eq.true&payload->>archiveId=eq.'
+                          + archive_id + '&limit=1', schema='catalog')
+    if not current:
+        raise StorageError('Unknown archive object.', 404, 'NOT_FOUND')
     metadata = rows[0]['payload']
     if (not isinstance(metadata, dict) or not re.fullmatch(r'[a-f0-9]{64}', str(metadata.get('sha256', '')))
             or not re.fullmatch(r'[a-f0-9]{64}', str(metadata.get('key', '')))
@@ -161,7 +240,10 @@ def serve(app, handler, archive_id, method):
     if hashlib.sha256(body).hexdigest() != metadata['sha256']:
         raise StorageError('Archived attachment failed its checksum.', 503, 'ARCHIVE_UNAVAILABLE')
     mime = metadata['contentType']
-    extension = {'application/pdf': '.pdf', 'application/zip': '.zip', 'image/png': '.png',
+    extension = {'application/pdf': '.pdf', 'application/zip': '.zip',
+                 'application/msword': '.doc',
+                 'application/vnd.openxmlformats-officedocument.presentationml.presentation': '.pptx',
+                 'image/png': '.png',
                  'image/jpeg': '.jpg', 'image/gif': '.gif', 'application/gzip': '.gz'}.get(mime, '.bin')
     inline = any(body.startswith(signature) for signature in (
         b'%PDF-', b'\x89PNG\r\n\x1a\n', b'\xff\xd8\xff', b'GIF8'))

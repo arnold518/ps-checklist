@@ -174,6 +174,8 @@ class QojClient:
             if isinstance(error.reason, TimeoutError):
                 raise QojAccessError("UPSTREAM_TIMEOUT", "The QOJ request timed out.") from None
             raise QojAccessError("UPSTREAM_UNAVAILABLE", "Could not contact QOJ within the request timeout.") from None
+        except OSError:
+            raise QojAccessError("UPSTREAM_UNAVAILABLE", "The QOJ connection ended during the request.") from None
 
     def _login(self):
         self._authenticated = False
@@ -211,6 +213,66 @@ class QojClient:
                     return page
                 self._authenticated = False
             raise QojAccessError("AUTH_REQUIRED", "QOJ still returned a login page after one session refresh. The session or resource permissions need checking.")
+
+    def fetch_download(self, url, *, max_bytes, deadline=None):
+        """Return selected QOJ download bytes using the same bounded login session."""
+        _validate_url(url)
+        if urlsplit(url).path != "/download.php":
+            raise QojAccessError("INVALID_URL", "Use a QOJ download link.")
+        with self._lock:
+            self._deadline = deadline
+            try:
+                for _ in range(2):
+                    if not self._authenticated:
+                        self._login()
+                    request = Request(url, headers={"User-Agent": "ps-checklist-qoj/0.1",
+                                                    "Accept-Encoding": "identity"})
+                    try:
+                        timeout = self._timeout
+                        if self._deadline is not None:
+                            timeout = min(timeout, max(0.1, self._deadline - time.monotonic()))
+                        response = self._opener.open(request, timeout=timeout)
+                    except HTTPError as error:
+                        response = error
+                    with response:
+                        final_url = response.geturl()
+                        _validate_url(final_url)
+                        if response.status == 401 or urlsplit(final_url).path.rstrip("/") == "/login":
+                            self._authenticated = False
+                            continue
+                        if response.status == 403:
+                            raise QojAccessError("UPSTREAM_FORBIDDEN", "QOJ denied this download.", 403)
+                        if response.status >= 400:
+                            raise QojAccessError("UPSTREAM_HTTP_ERROR", f"QOJ returned HTTP {response.status}.", response.status)
+                        chunks, size = [], 0
+                        while True:
+                            if self._deadline is not None and time.monotonic() >= self._deadline:
+                                raise QojAccessError("UPSTREAM_TIMEOUT", "The QOJ download timed out.")
+                            chunk = response.read(64 * 1024)
+                            if not chunk:
+                                break
+                            size += len(chunk)
+                            if size > max_bytes:
+                                raise QojAccessError("RESOURCE_TOO_LARGE", "The selected QOJ download exceeds the file limit.")
+                            chunks.append(chunk)
+                        body = b"".join(chunks)
+                        content_type = response.headers.get("Content-Type", "")
+                        if "html" in content_type.lower() or body.lstrip()[:64].lower().startswith((b"<!doctype html", b"<html")):
+                            markup = _Markup(body.decode("utf-8", errors="replace"))
+                            if markup.password_field:
+                                self._authenticated = False
+                                continue
+                            raise QojAccessError("UNEXPECTED_RESPONSE", "QOJ returned an HTML page instead of a download.")
+                        return body, content_type, final_url, dict(response.headers)
+                raise QojAccessError("AUTH_REQUIRED", "QOJ still required login for this download.")
+            except TimeoutError:
+                raise QojAccessError("UPSTREAM_TIMEOUT", "The QOJ download timed out.") from None
+            except URLError:
+                raise QojAccessError("UPSTREAM_UNAVAILABLE", "Could not contact QOJ for this download.") from None
+            except OSError:
+                raise QojAccessError("UPSTREAM_UNAVAILABLE", "The QOJ connection ended during the download.") from None
+            finally:
+                self._deadline = None
 
 
 def main():

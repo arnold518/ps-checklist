@@ -1,11 +1,11 @@
-"""Same-origin Auth and user JSON operations backed by Supabase, never by the fetch queue."""
+"""Same-origin Auth and application JSON operations backed by Supabase."""
 
 from http.cookies import SimpleCookie
 import json
 from pathlib import Path
 import threading
 import time
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
 
 import requests
 from crawler.contracts import FetchError
@@ -47,7 +47,10 @@ class StorageApp:
         if not self.enabled:
             raise StorageError('Account storage is unavailable.', 503, 'STORAGE_UNAVAILABLE')
         key = self.service_key if privileged else self.key
-        headers = {'apikey':key, 'Authorization':'Bearer ' + (token or key), 'Content-Type':'application/json'}
+        headers = {'apikey':key, 'Content-Type':'application/json'}
+        bearer = token or (key if key.count('.') == 2 else None)
+        if bearer:
+            headers['Authorization'] = 'Bearer ' + bearer
         if schema:
             headers.update({'Accept-Profile':schema, 'Content-Profile':schema})
         try:
@@ -67,7 +70,7 @@ class StorageApp:
                 if schema == 'catalog':
                     raise StorageError('A judge link already belongs to another catalog record. Select that existing record or correct the link.',409,'IDENTITY_CONFLICT')
                 raise StorageError('This contest already has a practice record.', 409, 'ALREADY_EXISTS')
-            if code == '40001':
+            if code in ('PT409', '40001'):
                 if '/admin_workspace_' in path:
                     raise StorageError('The workspace changed in another request. Reload it before continuing.',409,'WORKSPACE_CHANGED')
                 raise StorageError('The catalog changed while you were editing. Reload the editor and review the latest data.',409,'STALE_CATALOG')
@@ -140,6 +143,7 @@ class StorageApp:
         return {'id':user['id'],'email':user.get('email'),'isAdmin':self.is_admin(user)}
 
     def dispatch(self, handler, method, route, queue):
+        from .difficulty_refresh import ROUTE as difficulty_refresh_route
         if route.startswith('/archive/') and method in ('GET','HEAD'):
             try:
                 from .archive import serve
@@ -148,10 +152,13 @@ class StorageApp:
                 handler.send_json(error.status,{'ok':False,'error':{'code':error.code,'message':str(error)}})
             return True
         if route not in {'/catalog','/auth/session','/auth/login','/auth/signup','/auth/logout',
+                         '/problem/difficulty','/problem/difficulties',difficulty_refresh_route,'/operation/result',
+                         '/user/difficulty','/user/note',
                          '/user/state','/user/progress','/user/view','/user/practice','/user/practice/delete',
                          '/user/import','/user/saved/remove','/admin/catalog','/admin/derive',
-                         '/admin/category','/admin/category/result',
+                         '/admin/category','/admin/category/result','/admin/raw-imports','/admin/raw-imports/row',
                          '/admin/derive/result','/admin/resolve','/admin/publish','/admin/remove','/admin/workspace',
+                         '/admin/boj/publish','/admin/boj/review','/admin/boj/observe','/admin/boj/difficulty',
                          '/admin/workspace/save','/admin/workspace/fetch','/admin/workspace/review','/admin/workspace/publish'}:
             return False
         handler._storage_cookies = []
@@ -161,15 +168,40 @@ class StorageApp:
                 if handler.headers.get('X-PS-Checklist') != '1' or handler.headers.get('Content-Type','').split(';')[0] != 'application/json':
                     raise StorageError('Use the application JSON interface.',403,'FORBIDDEN')
                 size = int(handler.headers.get('Content-Length','0'))
-                if not 0 < size <= (1048576 if route.startswith('/admin/') else 65536):
+                limit = 131072 * 6 + 1024 if route == '/user/note' else (1048576 if route.startswith('/admin/') else 65536)
+                if not 0 < size <= limit:
                     raise StorageError('Invalid request size.')
                 body = json.loads(handler.rfile.read(size))
                 if not isinstance(body,dict):
                     raise StorageError('Provide a JSON object.')
-            if route == '/catalog' and method == 'GET':
+            if route == difficulty_refresh_route and method == 'POST':
+                from .difficulty_refresh import DifficultyRefresh
+                if not self.enabled:
+                    raise StorageError('Account storage is unavailable.',503,'STORAGE_UNAVAILABLE')
+                job = queue.submit(DifficultyRefresh.parse(body))
+                handler.send_json(202,{'ok':True,'operation':{'jobId':job['id']}})
+                return True
+            if route == '/operation/result' and method == 'GET':
+                query = parse_qs(urlsplit(handler.path).query)
+                if set(query) != {'id'} or len(query['id']) != 1:
+                    raise StorageError('Provide a job ID.')
+                job = queue.get(query['id'][0])
+                if (job['request'].get('source'), job['request'].get('entity')) != ('solvedac', 'refresh'):
+                    raise StorageError('This job is unavailable or expired.',404,'JOB_NOT_FOUND')
+                if job['status'] not in ('DONE','FAILED'):
+                    handler.send_json(202,{'ok':True,'operation':{'jobId':job['id']}})
+                else:
+                    handler.send_json(job['httpStatus'],job['result'])
+                return True
+            if route in ('/problem/difficulty','/problem/difficulties','/user/difficulty','/user/note'):
+                from .problem_extras import dispatch
+                result = dispatch(self,handler,method,route,body)
+            elif route == '/catalog' and method == 'GET':
                 result = self.rpc('catalog','read_catalog',{'curated_only':True}) if self.enabled else {
                     'contests':json.loads((ROOT/'problemlists/contestlist.json').read_text()),
                     'problems':json.loads((ROOT/'problemlists/problems.json').read_text())}
+                from .catalog_order import raw_order
+                result['rawOrder'] = raw_order(result['contests'])
             elif route == '/auth/session' and method == 'GET':
                 user = None
                 if self.enabled:
@@ -208,7 +240,9 @@ class StorageApp:
                     from .admin import dispatch
                     result = dispatch(self,handler,method,route,body,queue,user)
                 elif route == '/user/state' and method == 'GET':
-                    result = self.rpc('user_data','read_state',{},token)
+                    result = self.rpc('public','deployment_state',{},token)
+                    from .catalog_order import raw_order
+                    result['catalog']['rawOrder'] = raw_order(result['catalog']['contests'])
                 elif route == '/user/progress' and method == 'POST' and set(body)=={'problemId','status'}:
                     result = self.rpc('user_data','set_progress',{'p_problem_id':body['problemId'],'p_status':body['status']},token)
                 elif route == '/user/view' and method == 'POST' and set(body)=={'tab','view'}:

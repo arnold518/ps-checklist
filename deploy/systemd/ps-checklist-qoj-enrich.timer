@@ -1,0 +1,11 @@
+[Unit]
+Description=Check QOJ problem-material queue hourly
+
+[Timer]
+OnBootSec=1h
+OnUnitInactiveSec=1h
+AccuracySec=1min
+Unit=ps-checklist-qoj-enrich.service
+
+[Install]
+WantedBy=timers.target

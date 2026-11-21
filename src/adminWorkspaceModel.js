@@ -1,7 +1,7 @@
 // Editable rows retain canonical IDs and the original publication versions.
 export const clone = value => structuredClone(value);
 export const statusLabels = {editing:'Editing',queued:'Queued',running:'Fetching',needs_review:'Needs review',
-    ready:'Reviewed',failed:'Failed',conflict:'Conflict',published:'Published',library:'Library'};
+    ready:'Reviewed',failed:'Failed',conflict:'Conflict',published:'Live, no draft',library:'Library, no draft'};
 
 export const refreshFields=['title','year','link.official','link.standings'];
 export function refreshPolicy(record,saved,problem=false) {

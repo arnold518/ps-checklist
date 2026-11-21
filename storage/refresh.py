@@ -32,7 +32,8 @@ def valid_refresh(settings):
     if not isinstance(settings, dict) or not isinstance(settings.get('contest'), dict) or not isinstance(settings.get('problems'), dict):
         return False
     for rules in [settings['contest'], *settings['problems'].values()]:
-        if not isinstance(rules, dict) or rules.get('source') not in (*JUDGES, None) or rules.get('problemSource') not in (*JUDGES, None):
+        sources = JUDGES if rules is settings['contest'] else (*JUDGES, 'boj')
+        if not isinstance(rules, dict) or rules.get('source') not in (*sources, None) or rules.get('problemSource') not in (*JUDGES, None):
             return False
         if not isinstance(rules.get('manual', []), list) or not all(isinstance(key, str) for key in rules.get('manual', [])):
             return False

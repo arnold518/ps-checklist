@@ -1,3 +1,5 @@
+import {apiFetch, pause as wait} from './api.js';
+
 export function parseRoundInput(source, input) {
     const value = input.trim();
     const platforms = {
@@ -29,38 +31,41 @@ async function readResponse(response) {
         throw new Error('The fetch service is unavailable. Please try again.');
     }
     if (!body || typeof body !== 'object') throw new Error('The fetch service returned an invalid response.');
-    if (!response.ok || body.ok !== true) throw new Error(body.error?.message || 'Could not fetch this round.');
+    if (!response.ok || body.ok !== true) {
+        const error = new Error(body.error?.message || 'Could not complete the fetch.');
+        error.code = body.error?.code;
+        throw error;
+    }
     if (body.schemaVersion !== 1) throw new Error('The fetch service returned an unsupported response.');
     return body;
 }
 
-function pause(signal) {
-    return new Promise((resolve, reject) => {
-        if (signal.aborted) return reject(signal.reason);
-        const abort = () => { clearTimeout(timer); reject(signal.reason); };
-        const timer = setTimeout(() => { signal.removeEventListener('abort', abort); resolve(); }, 1000);
-        signal.addEventListener('abort', abort, {once: true});
-    });
+export async function fetchRound(source, url, onStatus, signal) {
+    const result = await fetchSource(source, 'contest', {url}, onStatus, signal);
+    if (result.data?.url !== url) throw new Error('The fetch service returned a different round.');
+    return result;
 }
 
-export async function fetchRound(source, url, onStatus, signal) {
+export async function fetchSource(source, entity, parameters, onStatus, signal) {
     onStatus('Fetching round…');
-    let response = await fetch(`api/enqueue/fetch/${source}/contest`, {
-        method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({url}), signal
+    let response = await apiFetch(`/enqueue/fetch/${source}/${entity}`, {
+        method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(parameters), signal
     });
     let body = await readResponse(response);
     const jobId = body.job?.jobId;
     if (response.status !== 202 || !/^[a-f0-9]{32}$/.test(jobId || '')) throw new Error('The fetch service did not accept the round.');
-    const deadline = Date.now() + 300000;
+    const deadline = Date.now() + 900000;
+    let attempts = 0;
     while (Date.now() < deadline) {
-        response = await fetch(`api/job/result?id=${jobId}`, {cache: 'no-store', signal});
-        body = await readResponse(response);
+        response = await apiFetch(`/job/result?id=${jobId}`, {cache: 'no-store', signal});
+        try { body = await readResponse(response); }
+        catch (error) { error.jobId = jobId; throw error; }
         if (response.status !== 202) {
-            if (body.data?.source !== source || body.data?.url !== url) throw new Error('The fetch service returned a different round.');
+            if (body.data?.source !== source) throw new Error('The fetch service returned a different source.');
             return {...body, jobId};
         }
-        onStatus(body.job?.status === 'QUEUED' ? 'Waiting to fetch round…' : 'Fetching round…');
-        await pause(signal);
+        onStatus(body.job?.message || (body.job?.status === 'QUEUED' ? 'Waiting to fetch round…' : 'Fetching round…'));
+        await wait(Math.min(15000, 1000 + attempts++ * 500), signal);
     }
-    throw new Error('Fetching took too long. Please try again.');
+    throw new Error('Fetching is still pending. Try adding this round again after the crawler reconnects.');
 }

@@ -196,9 +196,10 @@ and USACO subcategories. Separate judge contests for days or selection exams sha
 category and reference year and have distinct labels such as `Day 1` or `Test 1`.
 Leave the label empty for a single contest in a category and year.
 Mirrors of the same task set occupy one row.
-Earlier JOISC editions available as an annual AtCoder contest have one annual
-row. [Collection notes](olympiad-sources.md) explain the selected stages,
-year convention, partial archives, and annual AtCoder references.
+JOISC 2007–2011 uses four separate day rows, with organizer day PDFs and
+problem links from the annual AtCoder compilation. The annual contest URL is
+used for fetching but omitted from each published day link. [Collection notes](olympiad-sources.md) explain the
+selected stages, year convention, and annual AtCoder references.
 
 The admin's contest groups can combine days when curating an annual entry.
 Review that grouping explicitly; pasting an annual twelve-task source into a

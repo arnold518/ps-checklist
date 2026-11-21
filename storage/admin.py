@@ -46,8 +46,6 @@ def make_draft(discovery, catalog, current_id=None, known_problems=()):
         contest['link']['official'] = primary.get('details',{}).get('websiteUrl')
     if inputs.get('standings'):
         contest['link']['standings'] = inputs['standings']
-    elif not contest['link']['standings'] and primary.get('url') and primary.get('source') != 'ojuz':
-        contest['link']['standings'] = primary['url'] + '/standings'
     if contest['category'] is None:
         contest['category'] = data['category']
     known = {p['id']:copy.deepcopy(p) for p in catalog['problems']}
@@ -123,6 +121,9 @@ def make_draft(discovery, catalog, current_id=None, known_problems=()):
     if 'official' in curation:
         result['contest']['link']['official'] = curation['official']
         rules['manual'] = sorted(set(rules.get('manual', [])) | {'link.official'})
+    if inputs.get('standings'):
+        result['contest']['link']['standings'] = inputs['standings']
+        rules['manual'] = sorted(set(rules.get('manual', [])) | {'link.standings'})
     ordered = {role: curation[role + 'PerProblem'] for role in ('statement','editorial')
                if role + 'PerProblem' in curation}
     if ordered:
@@ -163,6 +164,8 @@ def validate_groups(contest):
 
 
 def validate_form(body):
+    from .boj import without_projected_links
+    body = without_projected_links(body)
     if set(body)-{'refresh'} != {'contest','problems','versions'}:
         raise StorageError('Provide contest, problems, and expected versions.')
     if not valid_refresh(body.get('refresh')):
@@ -225,8 +228,17 @@ def dispatch(app, handler, method, route, body, queue, user):
     if route.startswith('/admin/workspace'):
         from .workspace import dispatch as workspace_dispatch
         return workspace_dispatch(app,method,route,body,queue,user)
+    if route.startswith('/admin/boj/'):
+        from .boj import dispatch as boj_dispatch
+        return boj_dispatch(app,method,route,body,queue,user)
     if method=='GET' and route=='/admin/catalog':
         return app.rpc('catalog','admin_catalog',{},privileged=True)
+    if method=='GET' and route=='/admin/raw-imports':
+        from .raw_imports import list_rows
+        return list_rows(app)
+    if method=='GET' and route=='/admin/raw-imports/row':
+        from .raw_imports import review_row
+        return review_row(app,handler)
     if method=='POST' and route=='/admin/category' and set(body)=={'url'}:
         if not isinstance(body['url'],str):
             raise StorageError('Provide a category URL.')

@@ -1,0 +1,3616 @@
+[
+  {
+    "url": "https://icpckorea.org/2024-seoul/regional",
+    "status": 200,
+    "finalUrl": "https://icpckorea.org/2024-seoul/regional",
+    "links": [
+      {
+        "url": "https://icpckorea.org/archives/3219",
+        "label": "2024 ICPC Asia Seoul Regional (Problemset, Scoreboard, Stream, Dataset, Write-up, Certificate, Photos)"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      22
+    ]
+  },
+  {
+    "url": "https://icpckorea.org/2023-seoul/regional",
+    "status": 200,
+    "finalUrl": "https://icpckorea.org/2023-seoul/regional",
+    "links": [
+      {
+        "url": "https://icpckorea.org/archives/2971",
+        "label": "2023 ICPC Seoul Regional – Problemset, Standings (Last Update: 11/27 10:50)"
+      },
+      {
+        "url": "https://icpckorea.org/archives/2879",
+        "label": "2023 ICPC Seoul Regional First Round Problemset, Scoreboard (10/23 14:25 업데이트)"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      23
+    ]
+  },
+  {
+    "url": "https://icpckorea.org/2022-seoul/regional",
+    "status": 200,
+    "finalUrl": "https://icpckorea.org/2022-seoul/regional",
+    "links": [
+      {
+        "url": "https://icpckorea.org/archives/2748",
+        "label": "ICPC Asia Seoul Regional 2022 (ProblemSet, Scoreboard, Photos, 공지사항) (최종 수정 11-24 00:00 사진 업로드)"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      24
+    ]
+  },
+  {
+    "url": "https://icpckorea.org/2021-seoul/regional",
+    "status": 200,
+    "finalUrl": "https://icpckorea.org/2021-seoul/regional",
+    "links": [
+      {
+        "url": "https://icpckorea.org/archives/2562",
+        "label": "ICPC Asia Seoul Regional 2021 (ProblemSet, Scoreboard, 공지사항)"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      25
+    ]
+  },
+  {
+    "url": "https://icpckorea.org/2020-seoul/regional",
+    "status": 200,
+    "finalUrl": "https://icpckorea.org/2020-seoul/regional",
+    "links": [
+      {
+        "url": "https://icpckorea.org/archives/2331",
+        "label": "대회 문제, 최종 스코어보드, 테스트 데이터 / Problemset, Final Standings, Test Data"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      26
+    ]
+  },
+  {
+    "url": "https://icpckorea.org/2019-seoul/regional",
+    "status": 200,
+    "finalUrl": "https://icpckorea.org/2019-seoul/regional",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      27
+    ]
+  },
+  {
+    "url": "https://icpckorea.org/2018-seoul/regional",
+    "status": 200,
+    "finalUrl": "https://icpckorea.org/2018-seoul/regional",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Rank Team Name Solved Time 1 789 (Seoul National University) 11 1437",
+        "rankedRows": 50,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      28
+    ]
+  },
+  {
+    "url": "https://icpckorea.org/2017-daejeon/regional",
+    "status": 200,
+    "finalUrl": "https://icpckorea.org/2017-daejeon/regional",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      29
+    ]
+  },
+  {
+    "url": "https://icpc.jp/2023/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/2023/regional/",
+    "links": [
+      {
+        "url": "https://icpc.jp/2023/domestic/scoring/",
+        "label": "成績判定ルール"
+      },
+      {
+        "url": "https://icpc.jp/2023/domestic/results/",
+        "label": "結果"
+      },
+      {
+        "url": "https://icpc.jp/2023/sponsorship/awards-domestic-results/",
+        "label": "国内予選企業賞結果"
+      },
+      {
+        "url": "https://icpc.jp/2023/sponsorship/awards-regional-results/",
+        "label": "アジア地区大会企業賞結果"
+      },
+      {
+        "url": "https://icpc.global/regionals/finder/Yokohama-2024/standings",
+        "label": "Standings (順位表)"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      32
+    ]
+  },
+  {
+    "url": "https://icpc.jp/2022/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/2022/regional/",
+    "links": [
+      {
+        "url": "https://icpc.jp/2022/domestic/scoring/",
+        "label": "成績判定ルール"
+      },
+      {
+        "url": "https://icpc.jp/2022/domestic/results/",
+        "label": "結果"
+      },
+      {
+        "url": "https://icpc.jp/2022/sponsorship/awards-domestic-results/",
+        "label": "国内予選企業賞結果"
+      },
+      {
+        "url": "https://icpc.jp/2022/sponsorship/awards-regional-results/",
+        "label": "アジア地区大会企業賞結果"
+      },
+      {
+        "url": "https://icpc.global/regionals/finder/Yokohama-2023/standings",
+        "label": "Final standings (順位表)"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      33
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2013/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2013/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      42
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2012/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2012/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      43
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2011/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2011/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      44
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2010/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2010/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      45
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2009/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2009/regional/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "チーム順位 大学順位 チーム名 所属大学 問題数 スコア 1 1 HITORI# University of Tokyo 9 902",
+        "rankedRows": 17,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      46
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2008/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2008/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      47
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2007/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2007/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      48
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2006/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2006/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      49
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2005/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2005/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      50
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2004/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2004/regional/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Rank Name Solved Score(Time) 1* Spirit (上海交通大学) 台北大会の優勝チーム 8 1161",
+        "rankedRows": 15,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      51
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2003/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2003/regional/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Rank Name University Solved Score 1 Floating Cloud Zhejiang University 6 572",
+        "rankedRows": 15,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      52
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2002/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2002/regional/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Rank Name Team Answers 1 Zhejiang University (China) TopKiller 5",
+        "rankedRows": 14,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      53
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2001/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2001/regional/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Rank University Team Solved Elapsed Time 1 Fudan University FudanOrange 8 992",
+        "rankedRows": 33,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      54
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/2000/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/2000/regional/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Rank Team Citation 1 Yonsei University=>Yonsei Eagle First Place",
+        "rankedRows": 27,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      55
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/1999/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/1999/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      56
+    ]
+  },
+  {
+    "url": "https://icpc.jp/archive/1998/regional/",
+    "status": 200,
+    "finalUrl": "https://icpc.jp/archive/1998/regional/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      57
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_158941.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_158941.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      81
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_169374.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_169374.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      91
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_158935.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_158935.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      92
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_151089.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_151089.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      93
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_142604.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_142604.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      94
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_130713.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_130713.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      95
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_169375.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_169375.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      99
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_158939.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_158939.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      100
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_151091.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_151091.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      101
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_142605.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_142605.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      102
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_130710.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_130710.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      103
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_169377.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_169377.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      108
+    ]
+  },
+  {
+    "url": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_158933.htm",
+    "status": 200,
+    "finalUrl": "https://icpc.pku.edu.cn/ssxx/1119_icpcbjzb_158933.htm",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      109
+    ]
+  },
+  {
+    "url": "https://euc.icpc.global/home-2026/",
+    "status": 200,
+    "finalUrl": "https://euc.icpc.global/home-2026/",
+    "links": [
+      {
+        "url": "https://euc.icpc.global/scoreboard/2026",
+        "label": "Click Here"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      113
+    ]
+  },
+  {
+    "url": "https://cerc2023.acm.si/",
+    "status": 200,
+    "finalUrl": "https://cerc2023.acm.si/",
+    "links": [
+      {
+        "url": "https://putka-cerc.acm.si/contests/cerc23/public-scoreboard/",
+        "label": "public scoreboard"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5260/",
+        "label": "1 • 0:31:30"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5498/",
+        "label": "1 • 2:16:44"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5375/",
+        "label": "2 • 1:38:17"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5198/",
+        "label": "1 • 0:11:47"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5968/",
+        "label": "1 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5714/",
+        "label": "3 • 4:40:26"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5418/",
+        "label": "1 • 1:38:05"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5735/",
+        "label": "1 • 4:10:35"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5794/",
+        "label": "1 • 4:28:29"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5571/",
+        "label": "2 • 3:13:51"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5803/",
+        "label": "2 • 4:51:53"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5266/",
+        "label": "1 • 0:35:42"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5327/",
+        "label": "1 • 1:00:45"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5441/",
+        "label": "1 • 1:49:44"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5203/",
+        "label": "1 • 0:13:05"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5408/",
+        "label": "2 • 1:56:14"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5253/",
+        "label": "1 • 0:30:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5481/",
+        "label": "1 • 2:09:39"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5629/",
+        "label": "1 • 3:19:37"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5670/",
+        "label": "2 • 3:59:36"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5938/",
+        "label": "2 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5255/",
+        "label": "1 • 0:30:09"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5424/",
+        "label": "2 • 1:59:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5478/",
+        "label": "1 • 2:08:50"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5236/",
+        "label": "2 • 0:41:32"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5696/",
+        "label": "1 • 3:50:23"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5336/",
+        "label": "1 • 1:03:43"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5307/",
+        "label": "1 • 0:50:09"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5729/",
+        "label": "2 • 4:27:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5888/",
+        "label": "2 • 5:11:59"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5256/",
+        "label": "1 • 0:30:35"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5549/",
+        "label": "1 • 2:44:26"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5275/",
+        "label": "2 • 0:58:02"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5197/",
+        "label": "1 • 0:11:26"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5963/",
+        "label": "4 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5328/",
+        "label": "1 • 1:01:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5358/",
+        "label": "1 • 1:10:57"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5639/",
+        "label": "3 • 4:04:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5760/",
+        "label": "2 • 4:40:07"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5263/",
+        "label": "1 • 0:33:41"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5676/",
+        "label": "1 • 3:41:52"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5561/",
+        "label": "2 • 3:10:41"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5230/",
+        "label": "1 • 0:20:30"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5366/",
+        "label": "1 • 1:15:14"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5347/",
+        "label": "2 • 1:26:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5456/",
+        "label": "1 • 1:59:10"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5967/",
+        "label": "2 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5798/",
+        "label": "1 • 4:29:05"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5264/",
+        "label": "1 • 0:35:33"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5425/",
+        "label": "1 • 1:39:59"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5610/",
+        "label": "2 • 3:33:53"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5205/",
+        "label": "1 • 0:13:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5725/",
+        "label": "3 • 4:44:33"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5357/",
+        "label": "1 • 1:10:44"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5758/",
+        "label": "2 • 4:38:53"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5648/",
+        "label": "2 • 3:48:44"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5962/",
+        "label": "1 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5312/",
+        "label": "1 • 0:51:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5701/",
+        "label": "1 • 3:54:11"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5919/",
+        "label": "4 • 5:56:11"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5212/",
+        "label": "1 • 0:15:43"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5550/",
+        "label": "3 • 3:24:56"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5373/",
+        "label": "1 • 1:17:23"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5524/",
+        "label": "1 • 2:30:33"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5956/",
+        "label": "2 • 5:19:30"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5223/",
+        "label": "1 • 0:19:05"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5557/",
+        "label": "1 • 2:49:38"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5507/",
+        "label": "1 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5193/",
+        "label": "1 • 0:10:22"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5314/",
+        "label": "2 • 1:11:22"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5341/",
+        "label": "1 • 1:05:37"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5397/",
+        "label": "1 • 1:32:32"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5971/",
+        "label": "7 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5904/",
+        "label": "3 • 5:34:03"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5352/",
+        "label": "1 • 1:07:52"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5562/",
+        "label": "1 • 2:51:31"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5195/",
+        "label": "2 • 0:30:34"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5521/",
+        "label": "5 • 3:48:31"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5431/",
+        "label": "1 • 1:43:57"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5449/",
+        "label": "1 • 1:55:31"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5854/",
+        "label": "3 • 5:25:58"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5372/",
+        "label": "1 • 1:17:21"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5779/",
+        "label": "3 • 5:05:09"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5190/",
+        "label": "1 • 0:09:49"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5632/",
+        "label": "2 • 3:42:16"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5401/",
+        "label": "2 • 1:54:10"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5457/",
+        "label": "1 • 1:59:17"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5934/",
+        "label": "6 • 6:38:07"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5279/",
+        "label": "1 • 0:39:43"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5961/",
+        "label": "4 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5554/",
+        "label": "2 • 3:07:53"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5196/",
+        "label": "1 • 0:11:19"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5499/",
+        "label": "3 • 2:56:45"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5417/",
+        "label": "2 • 1:57:59"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5683/",
+        "label": "2 • 4:05:41"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5954/",
+        "label": "4 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5924/",
+        "label": "6 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5317/",
+        "label": "1 • 0:56:43"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/5806/",
+        "label": "3 • 0:00:00"
+      }
+    ],
+    "inlineRankings": [
+      {
+        "heading": "# Team name Score Time A – Attendance B – Ball Passing C – Cakes D – Drying Laundry E – Equal Schedules F – Phylogenetics G – Going to the Moon H – Human Resources I – Interactive ",
+        "rankedRows": 60,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      118
+    ]
+  },
+  {
+    "url": "https://cerc2022.acm.si/",
+    "status": 200,
+    "finalUrl": "https://cerc2022.acm.si/",
+    "links": [
+      {
+        "url": "https://putka-cerc.acm.si/contests/cerc22-practice/public-scoreboard/",
+        "label": "public scoreboard"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/contests/cerc22/public-scoreboard/",
+        "label": "public scoreboard"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3500/",
+        "label": "2 • 3:08:49"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3368/",
+        "label": "1 • 2:00:46"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3405/",
+        "label": "1 • 2:14:36"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3195/",
+        "label": "1 • 0:48:54"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3226/",
+        "label": "3 • 1:43:16"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3260/",
+        "label": "1 • 1:18:59"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3861/",
+        "label": "3 • 5:24:24"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3825/",
+        "label": "1 • 4:33:03"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3551/",
+        "label": "1 • 3:13:14"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3454/",
+        "label": "1 • 2:29:40"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3886/",
+        "label": "1 • 4:48:25"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3325/",
+        "label": "1 • 1:41:28"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3351/",
+        "label": "2 • 2:13:49"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3191/",
+        "label": "1 • 0:45:57"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3464/",
+        "label": "4 • 3:35:30"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3468/",
+        "label": "1 • 2:37:31"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3320/",
+        "label": "2 • 2:00:19"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3852/",
+        "label": "1 • 4:42:22"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3660/",
+        "label": "1 • 3:47:56"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3441/",
+        "label": "1 • 2:25:04"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3557/",
+        "label": "3 • 3:55:47"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3214/",
+        "label": "1 • 0:58:39"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3178/",
+        "label": "2 • 0:57:11"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3235/",
+        "label": "1 • 1:07:55"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3336/",
+        "label": "1 • 1:46:35"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3384/",
+        "label": "1 • 2:07:45"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3949/",
+        "label": "3 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3526/",
+        "label": "1 • 2:59:54"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3305/",
+        "label": "1 • 1:36:07"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3816/",
+        "label": "3 • 5:10:21"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3342/",
+        "label": "2 • 2:09:11"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3263/",
+        "label": "2 • 1:40:15"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3156/",
+        "label": "1 • 0:23:15"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3242/",
+        "label": "1 • 1:10:07"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3460/",
+        "label": "3 • 3:13:27"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3984/",
+        "label": "10 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3670/",
+        "label": "2 • 4:11:09"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3171/",
+        "label": "1 • 0:31:52"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3168/",
+        "label": "1 • 0:31:29"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3429/",
+        "label": "6 • 4:02:25"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3184/",
+        "label": "1 • 0:42:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3198/",
+        "label": "1 • 0:52:26"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3446/",
+        "label": "5 • 3:45:51"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3594/",
+        "label": "3 • 4:07:14"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3983/",
+        "label": "5 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3563/",
+        "label": "1 • 3:17:42"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3366/",
+        "label": "1 • 1:59:51"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3329/",
+        "label": "1 • 1:43:29"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3809/",
+        "label": "7 • 6:29:16"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3253/",
+        "label": "1 • 1:16:33"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3167/",
+        "label": "1 • 0:31:27"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3659/",
+        "label": "2 • 4:07:50"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3467/",
+        "label": "3 • 3:17:07"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3577/",
+        "label": "1 • 3:20:18"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3295/",
+        "label": "1 • 1:31:47"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3547/",
+        "label": "2 • 3:30:53"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3687/",
+        "label": "1 • 3:55:04"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3290/",
+        "label": "2 • 1:50:10"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3409/",
+        "label": "3 • 2:55:06"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3752/",
+        "label": "2 • 4:32:37"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3331/",
+        "label": "1 • 1:44:09"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/4014/",
+        "label": "2 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3270/",
+        "label": "2 • 1:42:17"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3480/",
+        "label": "1 • 2:41:36"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3508/",
+        "label": "2 • 3:13:28"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3600/",
+        "label": "2 • 3:49:30"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3276/",
+        "label": "3 • 2:04:37"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3239/",
+        "label": "4 • 2:08:58"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/4010/",
+        "label": "18 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3206/",
+        "label": "1 • 0:54:42"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3471/",
+        "label": "1 • 2:39:29"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3334/",
+        "label": "1 • 1:45:20"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3371/",
+        "label": "1 • 2:02:33"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3893/",
+        "label": "3 • 5:29:13"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3196/",
+        "label": "3 • 1:29:23"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3359/",
+        "label": "3 • 2:36:53"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3840/",
+        "label": "2 • 4:57:34"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3536/",
+        "label": "1 • 3:04:34"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3459/",
+        "label": "1 • 2:32:57"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3383/",
+        "label": "2 • 2:27:27"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3626/",
+        "label": "2 • 3:57:18"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3225/",
+        "label": "1 • 1:03:01"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3789/",
+        "label": "11 • 7:41:47"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/4008/",
+        "label": "9 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3629/",
+        "label": "2 • 3:58:40"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3201/",
+        "label": "1 • 0:52:43"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3393/",
+        "label": "3 • 2:51:13"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3637/",
+        "label": "2 • 4:00:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3404/",
+        "label": "4 • 3:14:09"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3165/",
+        "label": "2 • 0:50:39"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3483/",
+        "label": "5 • 4:02:49"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3963/",
+        "label": "7 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3871/",
+        "label": "2 • 5:05:58"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3796/",
+        "label": "4 • 5:23:59"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3288/",
+        "label": "1 • 1:28:52"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3458/",
+        "label": "3 • 3:12:50"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3160/",
+        "label": "1 • 0:25:50"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/3343/",
+        "label": "1 • 1:49:44"
+      }
+    ],
+    "inlineRankings": [
+      {
+        "heading": "# Team name Score Time A - Bandits B - Combination Locks C - Constellations D - Deforestation E - Denormalization F - Differences G - Greedy Drawers H - Insertions I - Money Launde",
+        "rankedRows": 56,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      119
+    ]
+  },
+  {
+    "url": "https://cerc2021.acm.si/",
+    "status": 200,
+    "finalUrl": "https://cerc2021.acm.si/",
+    "links": [
+      {
+        "url": "https://putka-cerc.acm.si/contests/cerc21-practice/public-scoreboard/",
+        "label": "public scoreboard"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/contests/cerc21/public-scoreboard/",
+        "label": "public scoreboard"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/contests/cerc21-unofficial/public-scoreboard/",
+        "label": "public scoreboard"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1876/",
+        "label": "1 • 0:58:41"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2055/",
+        "label": "3 • 3:18:55"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2061/",
+        "label": "2 • 3:04:43"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1753/",
+        "label": "1 • 0:13:02"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1885/",
+        "label": "3 • 1:46:04"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1938/",
+        "label": "2 • 1:58:24"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2445/",
+        "label": "6 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1770/",
+        "label": "1 • 0:20:39"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2177/",
+        "label": "3 • 4:28:22"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1890/",
+        "label": "1 • 1:08:35"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2423/",
+        "label": "2 • 5:18:19"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2174/",
+        "label": "1 • 3:47:51"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1760/",
+        "label": "1 • 0:16:34"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2325/",
+        "label": "2 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2095/",
+        "label": "2 • 3:30:57"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2208/",
+        "label": "1 • 4:06:50"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2025/",
+        "label": "3 • 3:02:17"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1800/",
+        "label": "1 • 0:31:21"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2050/",
+        "label": "1 • 2:36:45"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2238/",
+        "label": "2 • 4:37:41"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2424/",
+        "label": "2 • 5:18:23"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1752/",
+        "label": "1 • 0:12:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2181/",
+        "label": "3 • 4:31:10"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2018/",
+        "label": "2 • 2:37:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1794/",
+        "label": "1 • 0:28:03"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1967/",
+        "label": "2 • 2:12:28"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1982/",
+        "label": "2 • 2:20:51"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2201/",
+        "label": "1 • 4:03:20"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1762/",
+        "label": "1 • 0:18:23"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2144/",
+        "label": "3 • 4:14:50"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2122/",
+        "label": "5 • 4:45:42"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2252/",
+        "label": "1 • 4:21:47"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1802/",
+        "label": "1 • 0:31:42"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1943/",
+        "label": "1 • 1:40:27"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2030/",
+        "label": "1 • 2:24:25"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1796/",
+        "label": "1 • 0:29:10"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2225/",
+        "label": "2 • 4:33:10"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2446/",
+        "label": "8 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1841/",
+        "label": "1 • 0:44:33"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1780/",
+        "label": "1 • 0:23:03"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1881/",
+        "label": "1 • 1:02:36"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2195/",
+        "label": "2 • 4:19:53"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1764/",
+        "label": "1 • 0:18:51"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2124/",
+        "label": "3 • 4:06:16"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2034/",
+        "label": "1 • 2:27:31"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1822/",
+        "label": "2 • 0:58:37"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2033/",
+        "label": "1 • 2:25:45"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2058/",
+        "label": "1 • 2:41:27"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1754/",
+        "label": "1 • 0:14:05"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1914/",
+        "label": "2 • 1:46:07"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2300/",
+        "label": "2 • 4:56:18"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1923/",
+        "label": "1 • 1:29:24"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2045/",
+        "label": "1 • 2:36:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2029/",
+        "label": "4 • 3:23:59"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1811/",
+        "label": "1 • 0:34:41"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2083/",
+        "label": "3 • 3:42:58"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1998/",
+        "label": "1 • 2:07:31"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1807/",
+        "label": "3 • 1:13:48"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1849/",
+        "label": "1 • 0:48:11"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2449/",
+        "label": "1 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1838/",
+        "label": "1 • 0:44:11"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1981/",
+        "label": "1 • 2:00:26"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2254/",
+        "label": "1 • 4:22:57"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1929/",
+        "label": "2 • 1:53:15"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2152/",
+        "label": "3 • 4:19:40"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2021/",
+        "label": "3 • 2:59:46"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2444/",
+        "label": "11 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1790/",
+        "label": "1 • 0:26:57"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1953/",
+        "label": "4 • 2:47:32"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2049/",
+        "label": "2 • 2:56:45"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1797/",
+        "label": "1 • 0:30:25"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2250/",
+        "label": "2 • 4:41:34"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2060/",
+        "label": "5 • 4:04:32"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2421/",
+        "label": "8 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2205/",
+        "label": "1 • 4:05:26"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1785/",
+        "label": "1 • 0:25:27"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1993/",
+        "label": "1 • 2:06:33"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2039/",
+        "label": "1 • 2:30:46"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1869/",
+        "label": "4 • 1:55:21"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1930/",
+        "label": "1 • 1:33:52"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2173/",
+        "label": "2 • 4:07:50"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1749/",
+        "label": "1 • 0:08:39"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2266/",
+        "label": "2 • 4:45:01"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2192/",
+        "label": "4 • 4:57:35"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1819/",
+        "label": "1 • 0:37:58"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1954/",
+        "label": "1 • 1:47:45"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2450/",
+        "label": "4 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2382/",
+        "label": "2 • 5:14:12"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1778/",
+        "label": "2 • 0:42:54"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2094/",
+        "label": "5 • 4:29:56"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2086/",
+        "label": "2 • 3:24:02"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1857/",
+        "label": "1 • 0:50:19"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2068/",
+        "label": "2 • 3:12:37"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2420/",
+        "label": "1 • 0:00:00"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1928/",
+        "label": "1 • 1:32:26"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/1850/",
+        "label": "4 • 1:48:45"
+      },
+      {
+        "url": "https://putka-cerc.acm.si/results/2239/",
+        "label": "3 • 4:58:51"
+      }
+    ],
+    "inlineRankings": [
+      {
+        "heading": "# Team name Score Time 1 UWr 1 (uwr.1) 8 16:08:50 1 • 0:58:41 B – Building on the Moon C – Cactus cutting 3 • 3:18:55 2 • 3:04:43 1 • 0:13:02 G – Lines in a grid 3 • 1:46:04 2 • 1:",
+        "rankedRows": 61,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      120
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2016/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2016/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Points A B C D E F G H I J K",
+        "rankedRows": 60,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      189
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2015/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2015/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Points A B C D E F G H I J",
+        "rankedRows": 52,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      190
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2014/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2014/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Points A B C D E F G H I J",
+        "rankedRows": 49,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      191
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2013/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2013/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Points A B C D E F G H I J",
+        "rankedRows": 44,
+        "frozen": true
+      }
+    ],
+    "rows": [
+      192
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2012/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2012/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# affil. team score problemA problemB problemC problemD problemE problemF problemG problemH problemI problemJ 1 UPC-1 7 1509 7 (295 + 120) 1 (35 + 0) 2 (218 + 20) 3 (299 + 40) 0 1 ",
+        "rankedRows": 40,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      193
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2011/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2011/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# affil. team score A B C D E F G H I J 1 UPC-1 8 1129 2 5 6 (213 + 100) 1 (17 + 0) 1 (201 + 0) 1 (97 + 0) 1 (74 + 0) 3 (44 + 40) 2 (172 + 20) 3 (111 + 40)",
+        "rankedRows": 35,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      194
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2010/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2010/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Rank Inst. Team Score A B C D E F G H I J 1 Dirt collector 5 904 1 (15 + 0) 0 5 (129 + 80) 1 (256 + 0) 0 4 (112 + 60) 7 2 (232 + 20) 8 13",
+        "rankedRows": 36,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      195
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2009/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2009/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Rank Name Solved Time A B C D E F G H I J Total att/sol Green Red Orange Blue Yellow Black Pink Silver Gold Purple",
+        "rankedRows": 35,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      196
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2008/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2008/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# team score A - Bring Your Own Horse ● B - First Knight ● C - Postal Charges ● D - Randomly-priced Tickets ● E - The Game ● F - The Merchant Guild ● G - Toll Road ● H - Top Secret",
+        "rankedRows": 42,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      197
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2007/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2007/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Points A B C D E F G H I",
+        "rankedRows": 67,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      198
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2006/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2006/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Points A B C D E F G H I",
+        "rankedRows": 66,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      199
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2005/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2005/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Points A B C D E F G H I J",
+        "rankedRows": 55,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      200
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2004/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2004/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Points A B C D E F G H I",
+        "rankedRows": 57,
+        "frozen": true
+      }
+    ],
+    "rows": [
+      201
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2003/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2003/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Time A B C D E F G H I",
+        "rankedRows": 52,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      202
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2002/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2002/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Time A B C D E F G H I",
+        "rankedRows": 53,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      203
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2001/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2001/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "# Country Team Problems Solved Time A B C D E F G H I",
+        "rankedRows": 47,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      204
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/2000/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/2000/",
+    "links": [
+      {
+        "url": "https://web.archive.org/web/20110727234207/http://acm.uva.es/oldportal/swerc00/ranklist_00.html",
+        "label": "Final\nStandings"
+      }
+    ],
+    "inlineRankings": [
+      {
+        "heading": "Date of Contest Contest\nCountdown Date SWERC'00 Results Ranklist Final\nStandings Submissions Problems set SWERC '2000 WINNER Universidad de Valladolid 1 Rank Name Solved Penalty 1 ",
+        "rankedRows": 15,
+        "frozen": false
+      },
+      {
+        "heading": "SWERC'00 Results Ranklist Final\nStandings Submissions Problems set SWERC '2000 WINNER Universidad de Valladolid 1 Rank Name Solved Penalty 1 Universidad de Valladolid 1 2 266 2 Uni",
+        "rankedRows": 15,
+        "frozen": false
+      },
+      {
+        "heading": " Rank Name Solved Penalty",
+        "rankedRows": 15,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      205
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/1999/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/1999/",
+    "links": [
+      {
+        "url": "https://web.archive.org/web/20110727234332/http://acm.uva.es/oldportal/swerc00/ranklist_99.html",
+        "label": "Final\nStandings"
+      }
+    ],
+    "inlineRankings": [
+      {
+        "heading": "Date of Contest Contest\nCountdown Date SWERC'99 Results Ranklist Final\nStandings Submissions Problems set SWERC '1999 WINNER Technical University of\nMadrid 1 Rank Name Solved Penal",
+        "rankedRows": 15,
+        "frozen": false
+      },
+      {
+        "heading": "SWERC'99 Results Ranklist Final\nStandings Submissions Problems set SWERC '1999 WINNER Technical University of\nMadrid 1 Rank Name Solved Penalty 1 Technical University of\nMadrid 1 4",
+        "rankedRows": 15,
+        "frozen": false
+      },
+      {
+        "heading": " Rank Name Solved Penalty",
+        "rankedRows": 15,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      206
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/1998/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/1998/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Team A B C D E F G H I Solved Total Time 1 Albert-Ludwigs-Universität Freiburg 2 01:17:57 (0) 02:20:36 (0) 04:22:24 (1) 03:10:03 (1) 00:40:03 (0) 01:59:08 (0) 6 14:30:11 2 Universi",
+        "rankedRows": 38,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      207
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/1997/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/1997/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Team A B C D E F G H I Solved Total Time 1 Charles University Prague 2 05:10:17 (3) 01:38:55 (2) 00:38:56 (1) 03:01:25 (2) 04:27:32 (1) 00:22:20 (0) 02:34:02 (1) 5:15:37 (1) 8 23:0",
+        "rankedRows": 36,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      208
+    ]
+  },
+  {
+    "url": "https://swerc.eu/2023/theme/cached/1996/",
+    "status": 200,
+    "finalUrl": "https://swerc.eu/2023/theme/cached/1996/",
+    "links": [],
+    "inlineRankings": [
+      {
+        "heading": "Rank University Problems solved Time Language 1 University of Ulm 1 B, C, E, F 10:21:15 C",
+        "rankedRows": 30,
+        "frozen": false
+      }
+    ],
+    "rows": [
+      209
+    ]
+  },
+  {
+    "url": "https://web.archive.org/web/20030224200857/https://www.acm.inf.ethz.ch/ProblemSetArchive/B_EU_SWERC/1995/",
+    "status": 200,
+    "finalUrl": "https://web.archive.org/web/20030224200857/https://www.acm.inf.ethz.ch/ProblemSetArchive/B_EU_SWERC/1995/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      210
+    ]
+  },
+  {
+    "url": "https://nac.icpc.global/history/year2023/",
+    "status": 200,
+    "finalUrl": "https://nac.icpc.global/history/year2023/",
+    "links": [
+      {
+        "url": "https://nac.icpc.global/wp-content/uploads/2023/06/NAC23-scoreboard.pdf",
+        "label": "Click Here"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      235
+    ]
+  },
+  {
+    "url": "https://nac.icpc.global/history/year2020/",
+    "status": 200,
+    "finalUrl": "https://nac.icpc.global/history/year2020/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      238
+    ]
+  },
+  {
+    "url": "https://nerc.itmo.ru/archive/2023.html",
+    "status": 200,
+    "finalUrl": "https://nerc.itmo.ru/archive/2023.html",
+    "links": [
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/standings-kaz.html",
+        "label": "Astana Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/standings-spb.html",
+        "label": "St. Petersburg Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/standings-caucas.html",
+        "label": "Kutaisi Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/standings-siberia.html",
+        "label": "Novosibirsk Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/armenia/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/azerbaijan/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/kazakhstan/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/northern/nwq-2023.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/northern/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/taurida/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2023/ural/standings.html",
+        "label": "Standings"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      271
+    ]
+  },
+  {
+    "url": "https://nerc.itmo.ru/archive/2021.html",
+    "status": 200,
+    "finalUrl": "https://nerc.itmo.ru/archive/2021.html",
+    "links": [
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/armenia/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/azerbaijan/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/georgia/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/kazakhstan/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/northern/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/northern/nwq-2021.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/taurida/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/ural/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2021/uzbekistan/standings.html",
+        "label": "Standings"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      273
+    ]
+  },
+  {
+    "url": "https://nerc.itmo.ru/archive/2020.html",
+    "status": 200,
+    "finalUrl": "https://nerc.itmo.ru/archive/2020.html",
+    "links": [
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/standings-online.html",
+        "label": "NERC Online Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/armenia/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/azerbaijan/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/georgia/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/kazakhstan/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/northern/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/taurida/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/ural/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2020/uzbekistan/standings.html",
+        "label": "Standings"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      274
+    ]
+  },
+  {
+    "url": "https://nerc.itmo.ru/archive/2018.html",
+    "status": 200,
+    "finalUrl": "https://nerc.itmo.ru/archive/2018.html",
+    "links": [
+      {
+        "url": "https://nerc.itmo.ru/archive/2018/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2018/armenia/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2018/azerbaijan/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2018/georgia/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2018/kazakhstan/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2018/northern/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2018/taurida/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2018/ural/standings.html",
+        "label": "Standings"
+      },
+      {
+        "url": "https://nerc.itmo.ru/archive/2018/uzbekistan/standings.html",
+        "label": "Standings"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      276
+    ]
+  },
+  {
+    "url": "https://github.com/APIO-2024/apio2024_tasks",
+    "status": 200,
+    "finalUrl": "https://github.com/APIO-2024/apio2024_tasks",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      395
+    ]
+  },
+  {
+    "url": "https://apio2022.org/",
+    "status": 200,
+    "finalUrl": "https://apio2022.org/",
+    "links": [
+      {
+        "url": "https://apio2022.org/ranking/index.html",
+        "label": "Ranking"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      397
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2025/2026-sf/",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2025/2026-sf/",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2025/2026-sf/2026-sf-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      465
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2024/2025-ho/",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2024/2025-ho/",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2024/2025-ho/2025-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      466
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2023/2024-ho/",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2023/2024-ho/",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2023/2024-ho/2024-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      467
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2022/2023-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2022/2023-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2022/2023-ho/2023-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      468
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2021/2022-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2021/2022-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2021/2022-ho/2022-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      469
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2020/2021-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2020/2021-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2020/2021-ho/2021-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      470
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2019/2020-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2019/2020-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2019/2020-ho/2020-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      471
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2018/2019-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2018/2019-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2018/2019-ho/2019-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      472
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2017/2018-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2017/2018-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2017/2018-ho/2018-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      473
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2016/2017-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2016/2017-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2016/2017-ho/2017-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      474
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2015/2016-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2015/2016-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2015/2016-ho/2016-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      475
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2014/2015-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2014/2015-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2014/2015-ho/2015-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      476
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2013/2014-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2013/2014-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2013/2014-ho/2014-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      477
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2012/2013-ho/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2012/2013-ho/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2012/2013-ho/2013-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      478
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2011/2012-ho-prob_and_sol/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2011/2012-ho-prob_and_sol/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2011/2012-ho-prob_and_sol/2012-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      479
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2010/2011-ho-tasks_data/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2010/2011-ho-tasks_data/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2010/2011-ho-tasks_data/2011-ho-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      480
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2009/2010-ho-prob_and_sol/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2009/2010-ho-prob_and_sol/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      481
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2008/2009-ho-prob_and_sol/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2008/2009-ho-prob_and_sol/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      482
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2007/2008-ho-prob_and_sol/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2007/2008-ho-prob_and_sol/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      483
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2006/2007-ho-prob_and_sol/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2006/2007-ho-prob_and_sol/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      484
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2005/2006-ho-prob_and_sol/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2005/2006-ho-prob_and_sol/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      485
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/joi/2025/2026-final/",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/joi/2025/2026-final/",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/joi/2025/2026-final/contest1/2026-sp-c1-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/joi/2025/2026-final/contest2/2026-sp-c2-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/joi/2025/2026-final/contest3/2026-sp-c3-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/joi/2025/2026-final/contest4/2026-sp-c4-score.pdf",
+        "label": "PDF"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      486,
+      487,
+      488,
+      489
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2025/2025-sp-tasks/",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2025/2025-sp-tasks/",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/camp/2025/2025-sp-tasks/contest1/2025-sp-c1-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2025/2025-sp-tasks/contest2/2025-sp-c2-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2025/2025-sp-tasks/contest3/2025-sp-c3-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2025/2025-sp-tasks/contest4/2025-sp-c4-score.pdf",
+        "label": "PDF"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      490,
+      491,
+      492,
+      493
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2024/2024-sp-tasks/",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2024/2024-sp-tasks/",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/camp/2024/2024-sp-tasks/contest1/2024-sp-c1-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2024/2024-sp-tasks/contest2/2024-sp-c2-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2024/2024-sp-tasks/contest3/2024-sp-c3-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2024/2024-sp-tasks/contest4/2024-sp-c4-score.pdf",
+        "label": "PDF"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      494,
+      495,
+      496,
+      497
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2023/2023-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2023/2023-sp-tasks/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/camp/2023/2023-sp-tasks/contest1/2023-sp-c1-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2023/2023-sp-tasks/contest2/2023-sp-c2-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2023/2023-sp-tasks/contest3/2023-sp-c3-score.pdf",
+        "label": "PDF"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2023/2023-sp-tasks/contest4/2023-sp-c4-score.pdf",
+        "label": "PDF"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      498,
+      499,
+      500,
+      501
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2022/2022-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2022/2022-sp-tasks/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/camp/2022/2022-sp-tasks/contest1/2022-sp-c1-score.txt",
+        "label": "txt"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2022/2022-sp-tasks/contest2/2022-sp-c2-score.txt",
+        "label": "txt"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2022/2022-sp-tasks/contest3/2022-sp-c3-score.txt",
+        "label": "txt"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2022/2022-sp-tasks/contest4/2022-sp-c4-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      502,
+      503,
+      504,
+      505
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2021/2021-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2021/2021-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      506,
+      507,
+      508,
+      509
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2020/2020-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2020/2020-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      510,
+      511,
+      512,
+      513
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2019/2019-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2019/2019-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      514,
+      515,
+      516,
+      517
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2018/2018-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2018/2018-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      518,
+      519,
+      520,
+      521
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2017/2017-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2017/2017-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      522,
+      523,
+      524,
+      525
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2016/2016-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2016/2016-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      526,
+      527,
+      528,
+      529
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2015/2015-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2015/2015-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      530,
+      531,
+      532,
+      533
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2014/2014-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2014/2014-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      534,
+      535,
+      536,
+      537
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2013/2013-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2013/2013-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      538,
+      539,
+      540,
+      541
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2012/2012-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2012/2012-sp-tasks/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/camp/2012/2012-sp-tasks/2012-sp-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      542,
+      543,
+      544,
+      545
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2011/2011-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2011/2011-sp-tasks/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/camp/2011/2011-sp-tasks/2011-sp-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      546
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2010/2010-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2010/2010-sp-tasks/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/camp/2010/2010-sp-tasks/2010-sp-score.txt",
+        "label": "txt"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      547
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2009/2009-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2009/2009-sp-tasks/index.html",
+    "links": [
+      {
+        "url": "https://www2.ioi-jp.org/camp/2009/2009-sp-tasks/2009-sp-score.txt",
+        "label": "UTF-8"
+      },
+      {
+        "url": "https://www2.ioi-jp.org/camp/2009/2009-sp-tasks/2009-sp-score-sj.txt",
+        "label": "Shift_JIS"
+      }
+    ],
+    "inlineRankings": [],
+    "rows": [
+      548
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2008/2008-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2008/2008-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      549
+    ]
+  },
+  {
+    "url": "https://www2.ioi-jp.org/camp/2007/2007-sp-tasks/index.html",
+    "status": 200,
+    "finalUrl": "https://www2.ioi-jp.org/camp/2007/2007-sp-tasks/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      550
+    ]
+  },
+  {
+    "url": "https://contests.ioi-jp.org/open-2015/index.html",
+    "status": 200,
+    "finalUrl": "https://contests.ioi-jp.org/open-2015/index.html",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      561
+    ]
+  },
+  {
+    "url": "https://hsin.hr/ceoi/home/",
+    "status": 200,
+    "finalUrl": "https://hsin.hr/ceoi/home/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      574,
+      575
+    ]
+  },
+  {
+    "url": "https://ceoi.elte.hu/tasks-archive.html#2020",
+    "status": 200,
+    "finalUrl": "https://ceoi.elte.hu/tasks-archive.html#2020",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      578,
+      579
+    ]
+  },
+  {
+    "url": "https://ceoi.elte.hu/tasks-archive.html#2019",
+    "status": 200,
+    "finalUrl": "https://ceoi.elte.hu/tasks-archive.html#2019",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      580,
+      581
+    ]
+  },
+  {
+    "url": "https://ceoi.elte.hu/tasks-archive.html#2018",
+    "status": 200,
+    "finalUrl": "https://ceoi.elte.hu/tasks-archive.html#2018",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      582,
+      583
+    ]
+  },
+  {
+    "url": "https://ceoi2013.hsin.hr/",
+    "status": 200,
+    "finalUrl": "https://ceoi2013.hsin.hr/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      592,
+      593
+    ]
+  },
+  {
+    "url": "https://ceoi.elte.hu/tasks-archive.html#2012",
+    "status": 200,
+    "finalUrl": "https://ceoi.elte.hu/tasks-archive.html#2012",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      594,
+      595
+    ]
+  },
+  {
+    "url": "https://ceoi.elte.hu/tasks-archive.html#2011",
+    "status": 200,
+    "finalUrl": "https://ceoi.elte.hu/tasks-archive.html#2011",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      596,
+      597
+    ]
+  },
+  {
+    "url": "https://ceoi.elte.hu/tasks-archive.html#2009",
+    "status": 200,
+    "finalUrl": "https://ceoi.elte.hu/tasks-archive.html#2009",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      600,
+      601
+    ]
+  },
+  {
+    "url": "https://www.ceoi2008.de/en/welcome",
+    "status": 200,
+    "finalUrl": "https://www.ceoi2008.de/en/welcome",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      602,
+      603
+    ]
+  },
+  {
+    "url": "https://hsin.hr/ceoi2006/",
+    "status": 200,
+    "finalUrl": "https://hsin.hr/ceoi2006/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      604,
+      605
+    ]
+  },
+  {
+    "url": "https://ceoi.elte.hu/ceoi2005/",
+    "status": 200,
+    "finalUrl": "https://ceoi.elte.hu/ceoi2005/",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      606,
+      607
+    ]
+  },
+  {
+    "url": "https://ceoi.elte.hu/tasks-archive.html#2004",
+    "status": 200,
+    "finalUrl": "https://ceoi.elte.hu/tasks-archive.html#2004",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      608,
+      609
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=season26contest1results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=season26contest1results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      660,
+      767,
+      876,
+      992
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=season26contest2results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=season26contest2results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      661,
+      768,
+      877,
+      993
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=season26contest3results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=season26contest3results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      662,
+      769,
+      878,
+      994
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=dec24results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=dec24results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      663,
+      770
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=jan25results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=jan25results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      664,
+      771
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=feb25results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=feb25results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      665,
+      772
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=open25results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=open25results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      666,
+      773
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=dec23results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=dec23results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      667,
+      774
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=jan24results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=jan24results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      668,
+      775
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=feb24results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=feb24results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      669,
+      776
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=open24results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=open24results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      670,
+      777
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=dec22results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=dec22results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      671,
+      778
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=jan23results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=jan23results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      672,
+      779
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=feb23results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=feb23results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      673,
+      780
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=open23results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=open23results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      674,
+      781
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=dec21results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=dec21results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      675,
+      782
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=jan22results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=jan22results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      676,
+      783
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=feb22results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=feb22results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      677,
+      784
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=open22results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=open22results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      678,
+      785
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=dec20results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=dec20results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      679,
+      786
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=jan21results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=jan21results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      680,
+      787
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=feb21results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=feb21results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      681,
+      788
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=open21results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=open21results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      682,
+      789
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      725,
+      726,
+      727,
+      728,
+      729,
+      730,
+      731,
+      732,
+      733,
+      734,
+      735,
+      736,
+      737,
+      738,
+      739,
+      740,
+      741,
+      742,
+      743,
+      744,
+      745,
+      746,
+      747,
+      748,
+      749,
+      750,
+      751,
+      752,
+      753,
+      754,
+      755,
+      756,
+      757,
+      758,
+      759,
+      760,
+      761,
+      762,
+      763,
+      764,
+      765,
+      766,
+      832,
+      833,
+      834,
+      835,
+      836,
+      837,
+      838,
+      839,
+      840,
+      841,
+      842,
+      843,
+      844,
+      845,
+      846,
+      847,
+      848,
+      849,
+      850,
+      851,
+      852,
+      853,
+      854,
+      855,
+      856,
+      857,
+      858,
+      859,
+      860,
+      861,
+      862,
+      863,
+      864,
+      865,
+      866,
+      867,
+      868,
+      869,
+      870,
+      871,
+      872,
+      873,
+      874,
+      875,
+      941,
+      942,
+      943,
+      944,
+      945,
+      946,
+      947,
+      948,
+      949,
+      950,
+      951,
+      952,
+      953,
+      954,
+      955,
+      956,
+      957,
+      958,
+      959,
+      960,
+      961,
+      962,
+      963,
+      964,
+      965,
+      966,
+      967,
+      968,
+      969,
+      970,
+      971,
+      972,
+      973,
+      974,
+      975,
+      976,
+      977,
+      978,
+      979,
+      980,
+      981,
+      982,
+      983,
+      984,
+      985,
+      986,
+      987,
+      988,
+      989,
+      990,
+      991
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=open16results",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=open16results",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      1029
+    ]
+  },
+  {
+    "url": "https://usaco.org/index.php?page=season26open",
+    "status": 200,
+    "finalUrl": "https://usaco.org/index.php?page=season26open",
+    "links": [],
+    "inlineRankings": [],
+    "rows": [
+      1030
+    ]
+  }
+]

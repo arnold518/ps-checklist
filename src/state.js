@@ -1,4 +1,5 @@
 import {PLATFORMS} from './constants.js';
+import {platformGroupPath} from './platformCategories.js';
 
 export const categories = ['ICPC', 'Olympiad'];
 export const contestTrees = {};
@@ -7,6 +8,7 @@ export const categoryViews = {};
 export const platformLists = Object.fromEntries(PLATFORMS.map(platform => [platform.id, new Set()]));
 export const practiceRecords = new Map();
 export const problemProgress = new Map();
+export const problemTiers = new Map();
 export const practiceRecordsState = {pendingContestId: null};
 export const state = {
     contests: [],
@@ -25,6 +27,10 @@ export function pathKey(path) {
 
 function validLinks(link, keys) {
     const fields=Object.hasOwn(link || {},'ojuz') && keys.includes('cf') ? [...keys,'ojuz']:keys;
+    const bojPattern = keys.includes('official')
+        ? /^https:\/\/acmicpc\.net\/category\/(?:detail\/)?[1-9]\d{0,14}$/
+        : /^https:\/\/acmicpc\.net\/problem\/[1-9]\d{0,14}$/;
+    if (link?.boj != null && (typeof link.boj !== 'string' || !bojPattern.test(link.boj))) return false;
     return link && typeof link === 'object' && fields.every(key => {
         if (link[key] === null) return true;
         try {
@@ -42,7 +48,10 @@ function validateCatalog(contests, problems, curated = true) {
     for (const problem of problems) {
         if (!problem || typeof problem.id !== 'string' || !problem.id || problemMap.has(problem.id)
                 || typeof problem.title !== 'string' || !problem.title.trim()
-                || Object.keys(problem).some(key => !['id', 'title', 'link'].includes(key))
+                || Object.keys(problem).some(key => !['id', 'title', 'link', 'bojParts'].includes(key))
+                || (problem.bojParts !== undefined && (!Array.isArray(problem.bojParts) || problem.bojParts.some(part =>
+                    !Number.isInteger(part?.order) || part.order < 1 || typeof part.url !== 'string' ||
+                    !/^https:\/\/acmicpc\.net\/problem\/[1-9]\d{0,14}$/.test(part.url))))
                 || !validLinks(problem.link, ['cf', 'qoj', 'atcoder'])) throw new Error('Invalid problem');
         problemMap.set(problem.id, problem);
     }
@@ -93,14 +102,21 @@ function validateCatalog(contests, problems, curated = true) {
     return problemMap;
 }
 
-export function loadCatalog(contests, problems) {
+function inRawOrder(contests, rawOrder = {}) {
+    const rank=contest => Number.isFinite(rawOrder?.[contest.id]) && rawOrder[contest.id]>0
+        ? rawOrder[contest.id]:Number.MAX_SAFE_INTEGER;
+    return [...contests].sort((left,right) => rank(left)-rank(right));
+}
+
+export function loadCatalog(contests, problems, rawOrder = {}) {
     const problemMap = validateCatalog(contests, problems);
-    state.contests = [...contests];
+    state.contests = inRawOrder(contests, rawOrder);
     state.problems = problemMap;
     state.catalogIds = new Set(contests.map(contest => contest.id));
     for (const list of Object.values(platformLists)) list.clear();
     practiceRecords.clear();
     problemProgress.clear();
+    problemTiers.clear();
     practiceRecordsState.pendingContestId = null;
     for (const dictionary of [contestTrees, categoryViews]) {
         for (const key of Object.keys(dictionary)) delete dictionary[key];
@@ -118,13 +134,14 @@ export function getContest(id) {
 export function loadUserState(data) {
     validateCatalog(data.catalog.contests, data.catalog.problems, false);
     const curated = data.catalog.contests.filter(contest => Array.isArray(contest.category));
-    loadCatalog(curated, data.catalog.problems);
-    state.contests = [...data.catalog.contests];
+    loadCatalog(curated, data.catalog.problems, data.catalog.rawOrder);
+    state.contests = inRawOrder(data.catalog.contests, data.catalog.rawOrder);
     for (const saved of data.savedContests) {
         for (const source of saved.platforms) platformLists[source]?.add(saved.contestId);
     }
     for (const record of data.practiceRecords) practiceRecords.set(record.id, record);
     for (const progress of data.progress) problemProgress.set(progress.problemId, progress.status);
+    for (const [id, level] of Object.entries(data.tierVotes || {})) problemTiers.set(id, level);
     for (const [tab, view] of Object.entries(data.preferences.views)) {
         categoryViews[tab] = {expandedNodes:new Set(view.expandedPaths.map(pathKey)),
             visibleContests:new Set(view.visibleContestIds)};
@@ -148,6 +165,7 @@ export function applyImportedRound(data) {
     view.visibleContests.add(data.contest.id);
     for (const platform of PLATFORMS.filter(platform => data.saved.platforms.includes(platform.id))) {
         view.expandedNodes.add(pathKey(['Platforms',platform.name]));
+        view.expandedNodes.add(pathKey(platformGroupPath(platform.id, data.contest)));
     }
 }
 
@@ -203,6 +221,7 @@ export function addPlatformRound(source, data) {
     const view = categoryViews.platforms ||= {expandedNodes: new Set([pathKey(['Platforms'])]), visibleContests: new Set()};
     view.visibleContests.add(contest.id);
     view.expandedNodes.add(pathKey(['Platforms', PLATFORMS.find(platform => platform.id === source).name]));
+    view.expandedNodes.add(pathKey(platformGroupPath(source, contest)));
     return {contest, alreadyAdded};
 }
 
