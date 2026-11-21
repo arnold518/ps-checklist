@@ -33,9 +33,9 @@ export const PLATFORM_GROUPS = {
 };
 
 export const JUDGE_LINKS = [
+    {id: 'qoj', title: 'QOJ', img: 'assets/icon/qoj-icon.png'},
     {id: 'boj', title: 'Baekjoon Online Judge', img: 'assets/icon/boj-icon.png'},
     {id: 'cf', title: 'Codeforces', img: 'assets/icon/cf-icon.png'},
-    {id: 'qoj', title: 'QOJ', img: 'assets/icon/qoj-icon.png'},
     {id: 'atcoder', title: 'AtCoder', img: 'assets/icon/atcoder-icon.png'},
     {id: 'ojuz', title: 'oj.uz', img: 'assets/icon/ojuz-icon.svg'}
 ];

@@ -177,5 +177,32 @@ class AdminTests(unittest.TestCase):
         updated=combine_fetched(row,fetched)['draft']
         self.assertEqual(next(p for p in updated['problems'] if p['id']==pid)['title'],'Curated shared title')
 
+    def test_linked_qoj_title_supersedes_boj_automatic_title(self):
+        row, fetched = self.workspace_fixture()
+        pid = row['draft']['contest']['problems'][0]['problemId']
+        qoj_url = 'https://qoj.ac/problem/123456'
+        previous_title = 'BOJ title'
+        for draft in (row['draft'], fetched):
+            problem = next(p for p in draft['problems'] if p['id'] == pid)
+            problem['link']['qoj'] = qoj_url
+            problem['title'] = previous_title
+        rules = row['draft']['refresh']['problems'][pid]
+        rules.update(source='boj', manual=[])
+        qoj_source = {
+            'source': 'qoj', 'url': 'https://qoj.ac/contest/4321', 'complete': False,
+            'problems': [{'problemId': pid, 'url': qoj_url, 'title': 'QOJ title', 'index': 'A'}],
+        }
+        for qoj_available, manual, expected_source, expected_title in (
+            (True, [], 'qoj', 'QOJ title'),
+            (True, ['title'], 'boj', previous_title),
+            (False, [], 'boj', previous_title),
+        ):
+            with self.subTest(qoj_available=qoj_available, manual=manual):
+                rules['manual'] = manual
+                sources = [*fetched['sources'], qoj_source] if qoj_available else fetched['sources']
+                updated = combine_fetched(row, {**fetched, 'sources': sources})['draft']
+                self.assertEqual(next(p for p in updated['problems'] if p['id'] == pid)['title'], expected_title)
+                self.assertEqual(updated['refresh']['problems'][pid]['source'], expected_source)
+
 
 if __name__=='__main__': unittest.main()

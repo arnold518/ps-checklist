@@ -115,6 +115,23 @@ class DeploymentStorageTests(unittest.TestCase):
             'bulkPart':{'order':1,'url':'https://acmicpc.net/problem/10072'},
             'source':'https://acmicpc.net/category/detail/2629','missing':34484})
 
+    def test_boj_whole_task_title_is_used_only_without_qoj(self):
+        for qoj, expected_title in (
+            ('https://qoj.ac/problem/123456', PROBLEMS[0]['title']),
+            (None, 'Gondola Check'),
+        ):
+            with self.subTest(qoj=qoj):
+                sql = f"""
+                    UPDATE catalog.problems
+                    SET payload=jsonb_set(payload,'{{link,qoj}}','{json.dumps(qoj)}'),
+                        refresh_policy='{{"source":null,"manual":[],"fields":{{}}}}'
+                    WHERE id='{P}';
+                """ + self.boj_adoption(None) + f"SELECT catalog.problem_json('{P}');"
+                problem = json.loads(self.result(sql))
+                self.assertEqual(problem['title'], expected_title)
+                self.assertEqual(problem['link']['qoj'], qoj)
+                self.assertEqual(problem['link']['boj'], 'https://acmicpc.net/problem/10072')
+
     @staticmethod
     def rating(level=5, observed='2026-11-21T01:10:00Z', *, outcome='mapped'):
         result = {'bojId':10072,'checkedAt':observed,'outcome':outcome}

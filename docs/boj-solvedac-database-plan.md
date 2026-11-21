@@ -6,9 +6,9 @@ comparison was read-only. Seoul Regional 2024 is the first BOJ adoption in
 the local catalog. Live app-authenticated solved.ac verification and hosted
 deployment are pending.
 
-Use the existing catalog UUID as the identity of a task in PS Checklist. Use
-BOJ as the first source for the title and problem link of a verified whole-task
-match. Use solved.ac as the source of its own difficulty measures. An
+Use the existing catalog UUID as the identity of a task in PS Checklist.
+Prefer QOJ for the problem link and source-managed title of a verified
+whole-task match, with BOJ as a fallback. Use solved.ac for difficulty measures. An
 organizer task, a BOJ judge entry, and a solved.ac rating can have different
 identities.
 
@@ -101,9 +101,10 @@ that reuse shared catalog objects.
    can help find candidates. If evidence conflicts or suggests two existing
    UUIDs claim the same whole task, hold the proposal for review. Reassigning
    user records between UUIDs is a separate operation.
-3. **Set source preferences.** For an approved whole-task match, prefer the BOJ
-   problem link and feed the BOJ title into the existing field-provenance and
-   manual-override rules. Keep contest metadata and **Order and labels from**
+3. **Set source preferences.** For an approved whole-task match, put QOJ first.
+   BOJ publication preserves the title when a QOJ link exists, and a later
+   QOJ refresh can replace a BOJ-managed title. Manual titles take precedence.
+   Keep contest metadata and **Order and labels from**
    as independent choices. Existing catalog rows retain their order in the
    pilot. A later explicit BOJ lineup choice requires full coverage and
    verified one-to-one alignment. Associate limits, language restrictions, and

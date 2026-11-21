@@ -4,6 +4,7 @@ import {AdminGrid,bindTabs,showRefreshReport} from './adminGrid.js';
 import {ensureRefresh,keepField,followField,refreshFields} from './adminWorkspaceModel.js';
 import {parseContestCsvRow,parseUrlList,mapOrderedMaterials,attachOrderedMaterials} from './adminCsv.js';
 import {fetchRound} from './fetchClient.js';
+import {JUDGE_LINKS} from './constants.js';
 
 let catalog, draft, root, dirty = false, busy = false, visit = 0;
 let consoleRoot, grid, editorRowId = null, backdrop;
@@ -765,7 +766,8 @@ function renderProblems(form) {
         const rules=ensureRefresh(draft).problems[problem.id];
         if(rules?.manual.includes('title'))fields.appendChild(button('Follow source for title',() => {
             rules.manual=rules.manual.filter(key => key!=='title');
-            rules.source ||= ['boj','qoj','cf','atcoder','ojuz'].find(source => problem.link[source]) || null;
+            const preferred = JUDGE_LINKS.find(judge => problem.link[judge.id])?.id ?? null;
+            if (!rules.source || (rules.source === 'boj' && preferred === 'qoj')) rules.source = preferred;
             markDirty();renderEditor();
         }));
         const uses=draft.usages[problem.id] || [];

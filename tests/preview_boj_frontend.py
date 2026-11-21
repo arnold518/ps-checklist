@@ -256,6 +256,8 @@ def screenshots(output):
         mobile.goto(url+'#olympiad')
         mobile.locator(f'td[data-problem-id="{ids["gondola"]}"]').click()
         links = mobile.locator('.problem-info-links')
+        expect(links.locator('a').first).to_have_attribute('href', 'https://qoj.ac/problem/1149')
+        expect(mobile.locator('.contest-info-links a').first).to_have_attribute('href', 'https://qoj.ac/contest/292')
         for order, number in enumerate((10072, 10073, 10074), 1):
             icon = links.get_by_role('link',name=f'Open BOJ part {order} (#{number})')
             expect(icon).to_be_visible()

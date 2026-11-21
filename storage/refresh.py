@@ -127,7 +127,11 @@ def refresh_draft(previous, fetched, overrides=()):
             pid = candidate['problemId']
             inherited = fetched.get('refresh', {}).get('problems', {}).get(pid)
             problem_rules = settings['problems'].setdefault(pid, copy.deepcopy(inherited) if inherited else policy(original.get(pid), problem=True))
-            if problem_rules.get('source') not in (None, source['source']):
+            selected_source = problem_rules.get('source')
+            linked_qoj = known[pid]['link'].get('qoj')
+            prefer_qoj = (selected_source == 'boj' and source['source'] == 'qoj'
+                          and linked_qoj and candidate.get('url') == linked_qoj)
+            if selected_source not in (None, source['source']) and not prefer_qoj:
                 continue
             if candidate.get('title'):
                 adopt(known[pid], 'title', candidate['title'], problem_rules,

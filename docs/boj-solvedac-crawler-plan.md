@@ -3,8 +3,8 @@
 Status · Crawler routes implemented. Authenticated solved.ac verification and
 catalog adoption are pending. BOJ source checks reviewed 2026-11-21 (Asia/Seoul).
 
-Use BOJ (`acmicpc.net`) as the primary source for problem titles and available
-problem content. Use solved.ac as the source for difficulty measures. Keep
+Prefer a verified QOJ match for problem links and source-managed titles, with
+BOJ (`acmicpc.net`) as a fallback. Use solved.ac for difficulty measures. Keep
 contest placement, membership, and order tied to the selected contest or
 division. A problem can have one catalog UUID and several contest labels.
 
@@ -82,13 +82,14 @@ routes each keep their native data and provenance.
   a translation URL. Add language selection only for explicit, usable statement
   versions. [BOJ robots.txt](https://acmicpc.net/robots.txt)
 
-BOJ remains the first choice for the problem link and for source-managed
-content. Hosted exposure starts with links and supported metadata. Public
-statement HTML, samples, and attachment copies require a rights basis that
-covers the intended use. Record a source license and attribution when present,
-and apply it to the content it covers. Where no basis has been established, use
-the BOJ link. BOJ's terms in effect from November 20 address automated
-load and external redistribution of problem content. [BOJ terms](https://acmicpc.net/terms)
+Keep verified BOJ links alongside QOJ links. BOJ supplies the source-managed
+title when a task has no QOJ link. Hosted exposure starts with links and
+supported metadata. Public statement HTML, samples, and attachment copies
+require a rights basis that covers the intended use. Record a source license
+and attribution when present, and apply it to the content it covers. Where no
+basis has been established, use the BOJ link. BOJ's terms in effect from
+November 20 address automated load and external redistribution of problem
+content. [BOJ terms](https://acmicpc.net/terms)
 
 ### Solved.ac difficulty
 
@@ -128,10 +129,10 @@ PostgreSQL model, write path, pilot cases, and rollout order.
    UUIDs and review conflicts when two published records claim the same native
    problem. Match mirrors using reviewed judge links or corroborated contest
    and task evidence. Title and row position can suggest candidates.
-2. Prefer BOJ when the matched version fits the requested problem and contest
+2. Prefer QOJ when the matched version fits the requested problem and contest
    context. Keep statement, samples, limits, and judge-specific submission
-   rules together. Use a verified equivalent from QOJ, CF, AtCoder, oj.uz, or
-   the organizer when BOJ cannot supply the bundle. The proposed fallback
+   rules together. Use a verified equivalent from BOJ, CF, AtCoder, oj.uz, or
+   the organizer when QOJ cannot supply the bundle. The proposed fallback
    order among the existing judges is a tie-breaker for equally suitable
    sources. A documented organizer version or a curated choice can take
    precedence. Retain previous values on partial refreshes and keep manual
