@@ -4,7 +4,9 @@ export function parseRoundInput(source, input) {
     const value = input.trim();
     const platforms = {
         cf: {host: 'codeforces.com', path: 'contest', id: /^[1-9]\d*$/, pattern: /^\/(contest|gym)\/[1-9]\d*\/?$/},
-        atcoder: {host: 'atcoder.jp', path: 'contests', id: /^[A-Za-z0-9][A-Za-z0-9_-]*$/, pattern: /^\/contests\/[A-Za-z0-9][A-Za-z0-9_-]*\/?$/}
+        atcoder: {host: 'atcoder.jp', path: 'contests', id: /^[A-Za-z0-9][A-Za-z0-9_-]*$/, pattern: /^\/contests\/[A-Za-z0-9][A-Za-z0-9_-]*\/?$/},
+        doj: {host: 'doj.kr', path: 'en/contests', id: /^[A-Za-z0-9][A-Za-z0-9_-]{0,99}$/,
+            pattern: /^\/(?:(?:en|ko|ja|zh-CN)\/)?contests\/([A-Za-z0-9][A-Za-z0-9_-]{0,99})\/?$/}
     };
     const platform = platforms[source];
     if (!platform) throw new Error('Use a contest from a supported platform.');
@@ -16,10 +18,12 @@ export function parseRoundInput(source, input) {
     } catch {
         throw new Error('Enter a valid contest ID or URL.');
     }
-    if (url.hostname !== host || url.protocol !== 'https:'
+    const match = pattern.exec(url.pathname);
+    if ((url.hostname !== host && !(source === 'doj' && url.hostname === 'www.doj.kr')) || url.protocol !== 'https:'
             || url.username || url.password || url.port || url.hash
             || [...url.searchParams.keys()].some(key => !['lang', 'locale'].includes(key))
-            || !pattern.test(url.pathname)) throw new Error('Use a contest URL from the selected platform.');
+            || !match) throw new Error('Use a contest URL from the selected platform.');
+    if (source === 'doj') return `https://${host}/${path}/${match[1]}`;
     return url.origin + url.pathname.replace(/\/$/, '');
 }
 
@@ -43,6 +47,8 @@ async function readResponse(response) {
 export async function fetchRound(source, url, onStatus, signal) {
     const result = await fetchSource(source, 'contest', {url}, onStatus, signal);
     if (result.data?.url !== url) throw new Error('The fetch service returned a different round.');
+    const unavailable = result.meta?.warnings?.find(warning => warning.code === 'PROBLEM_LIST_UNAVAILABLE');
+    if (!Array.isArray(result.data.problems) && unavailable) throw new Error(unavailable.message);
     return result;
 }
 

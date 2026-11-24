@@ -12,6 +12,12 @@ export function platformGroup(source, contest) {
     if (source === 'atcoder') {
         const match = /^\/contests\/(abc|arc|agc|ahc|awc)\d+\/?$/i.exec(path);
         if (match) id = match[1].toLowerCase();
+    } else if (source === 'doj') {
+        const title = contest.title || '';
+        const series = /^DOJ (Starter|Beginner) Contest\s+\d+\b/i.exec(title);
+        if (series) id = series[1].toLowerCase();
+        else if (/^DOJ Contest(?:\+\+)?\s+\d+\b/i.test(title)) id = 'regular';
+        else if (/(?:^|\()DOJ Team Contest\s+\d+\b/i.test(title)) id = 'team';
     } else if (source === 'cf') {
         if (/^\/gym\/\d+\/?$/.test(path)) id = 'gym';
         else {

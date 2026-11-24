@@ -235,7 +235,9 @@ class StorageApp:
                     self.set_cookies(handler)
                 result = {'user':None}
             else:
-                token, user = self.session(handler)
+                guest_doj = (route == '/user/import' and method == 'POST' and body.get('source') == 'doj'
+                             and not any(self.cookies(handler)))
+                token, user = (None, None) if guest_doj else self.session(handler)
                 if route.startswith('/admin/'):
                     from .admin import dispatch
                     result = dispatch(self,handler,method,route,body,queue,user)
@@ -256,12 +258,13 @@ class StorageApp:
                 elif route == '/user/import' and method == 'POST' and set(body)=={'jobId','source'}:
                     job = queue.get(body['jobId'])
                     native = (job.get('result') or {}).get('data',{})
-                    if (job['status'] != 'DONE' or body['source'] not in ('cf','atcoder')
+                    if (job['status'] != 'DONE' or body['source'] not in ('cf','atcoder','doj')
                             or job['request'].get('entity') != 'contest' or native.get('source') != body['source']):
                         raise StorageError('The contest fetch has not completed successfully.')
                     if not isinstance(native.get('problems'),list) or not native['problems'] or native.get('problemCount') != len(native['problems']):
                         raise StorageError('The round has no complete problem list.')
-                    result = self.rpc('catalog','import_round',{'p_source':body['source'],'p_native':native,'p_user_id':user['id']},privileged=True)
+                    result = self.rpc('catalog','import_round',{'p_source':body['source'],'p_native':native,
+                        'p_user_id':user['id'] if user else None},privileged=True)
                 else:
                     raise StorageError('Unsupported operation or fields.')
             handler.send_json(200,{'ok':True,'data':result})

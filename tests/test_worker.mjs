@@ -150,6 +150,47 @@ test('job lookup receives the authenticated owner rather than caller input',asyn
     } finally {state.restore();}
 });
 
+test('DOJ fetches normalize public URLs and a signed import uses the finished contest job',async()=>{
+    const contest='https://doj.kr/en/contests/dc9';
+    const native={source:'doj',url:contest,problemCount:1,problems:[{url:'https://doj.kr/en/problems/897',index:'D'}]};
+    let queued;
+    const state=setup((name,input)=>{
+        if(name==='deployment_rate_limit') return true;
+        if(name==='deployment_enqueue') {
+            queued=input;
+            return {id:J,status:'QUEUED',attempts:0,createdAt:1,updatedAt:1};
+        }
+        if(name==='deployment_job') {
+            if(input.p_owner!==queued.p_owner) return null;
+            return {id:J,status:'DONE',kind:'fetch',source:'doj',request:queued.p_payload,resultKey:'round'};
+        }
+        if(name==='import_round') {
+            assert.deepEqual(input,{p_source:'doj',p_native:native,p_user_id:queued.p_owner==='user:'+A?A:null});
+            return {saved:{platforms:['doj']}};
+        }
+        throw new Error(name);
+    });
+    try {
+        const headers={'Content-Type':'application/json',Authorization:'Bearer user-a'};
+        const post=(route,body)=>state.send(route,{method:'POST',headers,body:JSON.stringify(body)});
+        const problem=new URLSearchParams({url:'https://www.doj.kr/ko/problems/897?contest=abc123',lang:'ko'});
+        assert.equal((await state.send('/fetch/doj/problem?'+problem,{headers})).status,202);
+        assert.equal(queued.p_payload.url,'https://doj.kr/en/problems/897');
+        assert.equal(queued.p_payload.native_id,897);
+        assert.equal(queued.p_payload.lang,'ko');
+        assert.equal((await post('/enqueue/fetch/doj/contest',{url:'https://doj.kr.evil/en/contests/dc9'})).status,400);
+        assert.equal((await post('/enqueue/fetch/doj/contest',{url:'https://doj.kr/ko/contests/dc9'})).status,202);
+        assert.equal(queued.p_payload.url,contest);
+        await state.env.ARCHIVES.put('round',JSON.stringify({ok:true,data:native}));
+        assert.deepEqual((await (await post('/user/import',{source:'doj',jobId:J})).json()).data.saved.platforms,['doj']);
+        delete headers.Authorization;
+        headers['X-PS-Guest']='a'.repeat(64);
+        assert.equal((await post('/user/import',{source:'doj',jobId:J})).status,404);
+        assert.equal((await post('/enqueue/fetch/doj/contest',{url:contest})).status,202);
+        assert.deepEqual((await (await post('/user/import',{source:'doj',jobId:J})).json()).data.saved.platforms,['doj']);
+    } finally {state.restore();}
+});
+
 test('ordinary accounts cannot enqueue administrative operations',async()=>{
     const state=setup(()=>{throw new Error('must not call RPC');});
     try {

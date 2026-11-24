@@ -9,7 +9,8 @@ export const NAV_ITEMS = [
 
 export const PLATFORMS = [
     {id: 'cf', name: 'Codeforces', badge: 'CF', example: '2268 or https://codeforces.com/gym/106225'},
-    {id: 'atcoder', name: 'AtCoder', badge: 'AC', example: 'agc078 or https://atcoder.jp/contests/agc078'}
+    {id: 'atcoder', name: 'AtCoder', badge: 'AC', example: 'agc078 or https://atcoder.jp/contests/agc078'},
+    {id: 'doj', name: 'DOJ', badge: 'DOJ', example: 'dc10 or https://doj.kr/en/contests/dc10'}
 ];
 
 export const PLATFORM_GROUPS = {
@@ -29,6 +30,13 @@ export const PLATFORM_GROUPS = {
         {id: 'ahc', name: 'AHC'},
         {id: 'awc', name: 'AWC'},
         {id: 'other', name: 'Other'}
+    ],
+    doj: [
+        {id: 'starter', name: 'Starter'},
+        {id: 'beginner', name: 'Beginner'},
+        {id: 'regular', name: 'DOJ Contest'},
+        {id: 'team', name: 'Team'},
+        {id: 'other', name: 'Other'}
     ]
 };
 
@@ -37,5 +45,6 @@ export const JUDGE_LINKS = [
     {id: 'boj', title: 'Baekjoon Online Judge', img: 'assets/icon/boj-icon.png'},
     {id: 'cf', title: 'Codeforces', img: 'assets/icon/cf-icon.png'},
     {id: 'atcoder', title: 'AtCoder', img: 'assets/icon/atcoder-icon.png'},
-    {id: 'ojuz', title: 'oj.uz', img: 'assets/icon/ojuz-icon.svg'}
+    {id: 'ojuz', title: 'oj.uz', img: 'assets/icon/ojuz-icon.svg'},
+    {id: 'doj', title: 'DOJ', img: 'assets/icon/doj-icon.svg'}
 ];

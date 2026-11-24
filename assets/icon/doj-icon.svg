@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DOJ logo">
+  <defs>
+    <linearGradient id="doj-logo-gradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6E6BFF" />
+      <stop offset="1" stop-color="#5248E5" />
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#doj-logo-gradient)" />
+
+  <g transform="translate(-6, 0)">
+    <path
+      d="M38.7 17.4c-6.9 0-14.3 6.1-14.3 15.5 0 7.7 5.4 13.8 13 13.8 8.3 0 14.2-6.4 14.2-14.7 0-8.2-5.3-14.6-12.9-14.6Z"
+      fill="#fff"
+    />
+    <circle cx="43.5" cy="21.1" r="4.1" fill="#fff" />
+  </g>
+</svg>

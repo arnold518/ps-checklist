@@ -185,9 +185,13 @@ class SolvedAcSource:
         return refs
 
     @classmethod
+    def judge_reference(cls, data, judge, native_id):
+        return next((ref for ref in cls.judge_ids(data) if ref['ojId'] == judge
+                     and ref['problemId'] == str(native_id) and ref['subId'] == ''), None)
+
+    @classmethod
     def has_boj_id(cls, data, judge, native_id):
-        return any(ref['ojId'] == judge and ref['problemId'] == str(native_id) and ref['subId'] == ''
-                   for ref in cls.judge_ids(data))
+        return cls.judge_reference(data, judge, native_id) is not None
 
     def resolve_boj(self, native_id, judge, context, config):
         template = config.get('SOLVEDAC_BOJ_QUERY')
@@ -196,6 +200,9 @@ class SolvedAcSource:
         query = template.replace('{id}', str(native_id))
         if len(query) > 100 or len(query.split()) > 8 or any(ord(c) < 32 for c in query):
             raise FetchError('LOOKUP_NOT_CONFIGURED', 'The configured solved.ac search query is invalid.', 503)
+        return self.resolve_judge(native_id, judge, query, 'BOJ', context, config)
+
+    def resolve_judge(self, native_id, judge, query, label, context, config):
         found = set()
         for page in range(1, 4):
             data = self.read('problems', {'q': query, 'page': page}, context, config, cost=3)
@@ -205,20 +212,51 @@ class SolvedAcSource:
                     or type(per_page) is not int or per_page <= 0 or data.get('page') != page
                     or not isinstance(diagnostics, list) or diagnostics
                     or len(problems) != max(0, min(per_page, total - (page - 1) * per_page))):
-                raise FetchError('UPSTREAM_PARSE_ERROR', 'solved.ac did not accept the BOJ lookup query.')
+                raise FetchError('UPSTREAM_PARSE_ERROR', f'solved.ac did not accept the {label} lookup query.')
             for problem in problems:
                 if not isinstance(problem, dict):
                     raise FetchError('UPSTREAM_PARSE_ERROR', 'The solved.ac search result is invalid.')
-                if self.has_boj_id(problem, judge, native_id):
+                if self.judge_reference(problem, judge, native_id):
                     native, sub = problem.get('problemId'), problem.get('subId')
                     if type(native) is not int or native <= 0 or not isinstance(sub, str):
                         raise FetchError('UPSTREAM_PARSE_ERROR', 'The solved.ac problem identity is invalid.')
                     found.add((native, sub))
             if len(found) > 1:
-                raise FetchError('DIFFICULTY_MAPPING_AMBIGUOUS', 'Several solved.ac problems match this BOJ ID.', 409)
+                raise FetchError('DIFFICULTY_MAPPING_AMBIGUOUS', f'Several solved.ac problems match this {label} ID.', 409)
             if page * per_page >= total:
                 return next(iter(found), None)
-        raise FetchError('DIFFICULTY_MAPPING_AMBIGUOUS', 'The solved.ac lookup exceeded the supported search scope.', 409)
+        code = 'DIFFICULTY_MAPPING_AMBIGUOUS' if label == 'BOJ' else 'DIFFICULTY_LOOKUP_TOO_BROAD'
+        raise FetchError(code, 'The solved.ac lookup exceeded the supported search scope.', 409)
+
+    def doj_difficulty(self, native_id, titles, context):
+        config = self.settings()
+        if not self.lock.acquire(timeout=context.remaining()):
+            raise FetchError('UPSTREAM_TIMEOUT', 'Timed out waiting for the solved.ac client.', 504, True)
+        try:
+            queries = dict.fromkeys(' '.join(title.replace('"', ' ').replace('\\', ' ').split())[:100].rstrip()
+                                    for title in titles if isinstance(title, str))
+            broad = None
+            for title in sorted(filter(None, queries), key=len, reverse=True):
+                try:
+                    key = self.resolve_judge(native_id, 'doj', f'"{title}"', 'DOJ', context, config)
+                except FetchError as error:
+                    if error.code != 'DIFFICULTY_LOOKUP_TOO_BROAD':
+                        raise
+                    broad = error
+                    continue
+                if not key:
+                    continue
+                snapshot = self.detail(key, context, config, cached=None)
+                reference = self.judge_reference(snapshot, 'doj', native_id)
+                if reference is None:
+                    raise FetchError('DIFFICULTY_MAPPING_CHANGED', 'The solved.ac record no longer references this DOJ problem.', 409)
+                return {'providerId': key[0], 'subId': key[1], 'fetchedAt': snapshot['fetchedAt'],
+                        'measures': {field: snapshot[field] for field in FIELDS}, 'evidence': reference}
+            if broad:
+                raise broad
+            return None
+        finally:
+            self.lock.release()
 
     def detail(self, provider_key, context, config, cached):
         pid, sub = provider_key

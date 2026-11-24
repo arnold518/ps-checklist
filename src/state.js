@@ -31,6 +31,10 @@ function validLinks(link, keys) {
         ? /^https:\/\/acmicpc\.net\/category\/(?:detail\/)?[1-9]\d{0,14}$/
         : /^https:\/\/acmicpc\.net\/problem\/[1-9]\d{0,14}$/;
     if (link?.boj != null && (typeof link.boj !== 'string' || !bojPattern.test(link.boj))) return false;
+    const dojPattern = keys.includes('official')
+        ? /^https:\/\/doj\.kr\/en\/(?:contests\/[A-Za-z0-9][A-Za-z0-9_-]{0,99}|categories(?:\/[A-Za-z0-9][A-Za-z0-9_-]{0,99}){2,12})$/
+        : /^https:\/\/doj\.kr\/en\/problems\/[1-9][0-9]{0,14}$/;
+    if (link?.doj != null && (typeof link.doj !== 'string' || !dojPattern.test(link.doj))) return false;
     return link && typeof link === 'object' && fields.every(key => {
         if (link[key] === null) return true;
         try {

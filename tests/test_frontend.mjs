@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import * as model from '../src/state.js';
 import {materialUrl} from '../src/contest.js';
 import {parseRoundInput} from '../src/fetchClient.js';
+import {platformGroup} from '../src/platformCategories.js';
 
 const contests = JSON.parse(readFileSync(new URL('../problemlists/contestlist.json', import.meta.url)));
 const problems = JSON.parse(readFileSync(new URL('../problemlists/problems.json', import.meta.url)));
@@ -18,12 +19,21 @@ assert.deepEqual(model.state.problems.get(bojProblem.id).bojParts, bojProblem.bo
 assert.throws(() => model.loadCatalog([bojContest,...contests.slice(1)],
     [{...bojProblem, bojParts:[{order:1,url:'https://example.org/problem/10072'}]},...problems.slice(1)]));
 model.loadCatalog(contests, problems);
+const archiveLink = 'https://doj.kr/en/categories/icpc/world-finals/2025';
+const dojArchive = {...contests[0], link: {...contests[0].link, doj: archiveLink}};
+model.loadCatalog([dojArchive, ...contests.slice(1)], problems);
+assert.equal(model.getContest(dojArchive.id).link.doj, archiveLink);
+model.loadCatalog(contests, problems);
 assert.equal(materialUrl({url:'https://example.org/statement.pdf',archiveId:'archive-id'}),'api/archive/archive-id');
 assert.equal(materialUrl({url:'https://example.org/editorial'}),'https://example.org/editorial');
 
 assert.equal(parseRoundInput('cf', '2268'), 'https://codeforces.com/contest/2268');
 assert.equal(parseRoundInput('cf', 'https://codeforces.com/gym/106225/?locale=en'), 'https://codeforces.com/gym/106225');
 assert.equal(parseRoundInput('atcoder', 'agc078'), 'https://atcoder.jp/contests/agc078');
+const dojUrl = 'https://doj.kr/en/contests/dc9';
+assert.equal(parseRoundInput('doj', 'dc9'), dojUrl);
+assert.equal(parseRoundInput('doj', 'https://www.doj.kr/ko/contests/dc9/?locale=ko'), dojUrl);
+assert.throws(() => parseRoundInput('doj', 'https://doj.kr/en/problems/897'));
 assert.throws(() => parseRoundInput('ojuz', 'ioi2024day1'));
 assert.throws(() => parseRoundInput('ojuz', 'https://oj.uz/problems/source/ioi2024day1'));
 for (const input of ['https://oj.uz/problem/view/IOI24_tree', 'https://oj.uz/problems/source',
@@ -74,6 +84,17 @@ assert.deepEqual([model.state.contests.length, model.state.problems.size, model.
     'A malformed response must not partially mutate the catalog');
 assert.throws(() => model.addPlatformRound('atcoder', {...raw, problems: null}));
 
+const doj = model.addPlatformRound('doj', {...raw, source: 'doj', name: 'DOJ Contest++ 9', url: dojUrl,
+    problemCount: 2, problems: [
+        {name: 'OrBiTal (easy)', index: 'D', url: 'https://doj.kr/en/problems/897'},
+        {name: 'Task E', index: 'E', url: 'https://doj.kr/en/problems/865'}
+    ]});
+assert.equal(platformGroup('doj', doj.contest).name, 'DOJ Contest');
+assert.equal(platformGroup('doj', {title: 'EZ contest 3 (DOJ Team Contest 1)'}).name, 'Team');
+assert.equal(platformGroup('doj', {title: 'DOJ Starter Contest 2'}).name, 'Starter');
+assert.deepEqual(doj.contest.problems.map(({problemId, index}) => [index, model.state.problems.get(problemId).link.doj]),
+    [['D', 'https://doj.kr/en/problems/897'], ['E', 'https://doj.kr/en/problems/865']]);
+
 const record = model.addPracticeRecord(added.contest.id, '2026-10-07');
 assert.equal(record.contestId, added.contest.id);
 assert.equal(record.date, '2026-10-07');
@@ -104,7 +125,7 @@ model.loadUserState({catalog:{contests:[...contests,ojuzContest],problems:[...pr
     practiceRecords:[{id:'legacy-practice',contestId:ojuzContest.id,date:'2026-10-12'}],
     progress:[{problemId:ojuzProblem.id,status:2}],preferences:{views:{platforms:{
         expandedPaths:[['Platforms'],['Platforms','oj.uz']],visibleContestIds:[ojuzContest.id,contests[0].id]}}}});
-assert.deepEqual(Object.keys(model.platformLists), ['cf','atcoder']);
+assert.deepEqual(Object.keys(model.platformLists), ['cf','atcoder','doj']);
 assert(!model.selectableContests().includes(model.getContest(ojuzContest.id)));
 assert.deepEqual([...model.categoryViews.platforms.visibleContests], [contests[0].id]);
 assert.equal(model.practiceRecords.get('legacy-practice').contestId, ojuzContest.id);

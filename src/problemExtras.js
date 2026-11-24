@@ -91,7 +91,7 @@ export function addDifficultyControls(row, problemId) {
         if (failed) feedback.textContent = message;
         else if (ratings[problemId]) feedback.textContent = '';
         else feedback.textContent = checked ? 'solved.ac returned no whole-problem tier.'
-            : 'Fetching difficulty requires a single BOJ link for the whole problem.';
+            : 'Difficulty lookup needs a DOJ link or a single whole-problem BOJ link.';
     }));
     render();
     if (store.enabled) run(read);

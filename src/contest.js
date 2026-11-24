@@ -124,7 +124,7 @@ export function handleContestClick(contestCell, {scroll = true} = {}) {
         feedback.textContent = 'Fetching from solved.ac…';
         try {
             const ids = (contest.data.problems || []).map(entry => _state.state.problems.get(entry.problemId))
-                .filter(problem => problem?.link.boj && !problem.bojParts?.length)
+                .filter(problem => problem && !problem.bojParts?.length && (problem.link.boj || problem.link.doj))
                 .map(problem => problem.id);
             const {ratings, failed, message} = await refreshDifficulties(ids);
             if (!contestInfo.isConnected) return;
@@ -133,10 +133,10 @@ export function handleContestClick(contestCell, {scroll = true} = {}) {
                 row.dispatchEvent(new CustomEvent('difficultyrefreshed', {detail: ratings[row.dataset.problemId]}));
             }
             if (failed) {
-                feedback.textContent = `Could not refresh ${failed} BOJ ${failed === 1 ? 'entry' : 'entries'}. ${message || ''}`;
+                feedback.textContent = `Could not refresh ${failed} ${failed === 1 ? 'problem' : 'problems'}. ${message || ''}`;
             } else if (!Object.values(ratings).some(Boolean)) {
                 feedback.textContent = ids.length ? 'solved.ac returned no whole-problem tiers for this contest.'
-                    : 'No problems in this contest have a single whole-problem BOJ link.';
+                    : 'Difficulty lookup needs a DOJ link or a single whole-problem BOJ link.';
             } else {
                 feedback.textContent = '';
             }

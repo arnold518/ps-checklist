@@ -12,12 +12,13 @@ from bs4 import BeautifulSoup
 from curl_cffi import requests as curl_requests
 import requests
 
-from .contracts import BOJ_HOSTS, BOJ_PATHS, FetchError, utc_now
+from .contracts import BOJ_HOSTS, BOJ_PATHS, DOJ_BASE, FetchError, utc_now
 from .qoj import QojAccessError, QojClient
 
 
 ALLOWED_HOSTS = {"codeforces.com", "atcoder.jp", "qoj.ac", "www2.ioi-jp.org", "oj.uz", "static.oj.uz"}
 ALLOWED_HOSTS.update(BOJ_HOSTS)
+ALLOWED_HOSTS.add("doj.kr")
 MAX_PAGE_BYTES = 32 * 1024 * 1024
 REDIRECT_STATUSES = {301, 302, 303, 307, 308}
 
@@ -51,6 +52,7 @@ class Page:
     url: str
     text: str = field(repr=False)
     fetched_at: str
+    max_age: int | None = None
 
     def soup(self):
         # Judges omit closing table/list tags; recover native sibling order.
@@ -84,13 +86,15 @@ class SourceTransport:
         ttl = self.boj_cache_ttl if urlsplit(url).hostname in BOJ_HOSTS and self.cache_ttl else self.cache_ttl
         with self._lock:
             item = self._cache.get(url)
+            if item and item[1].max_age is not None:
+                ttl = min(ttl, item[1].max_age)
             if item and time.monotonic() - item[0] < ttl:
                 self._cache.move_to_end(url)
                 return item[1]
         return None
 
     def _store(self, url, page):
-        if self.cache_ttl <= 0:
+        if self.cache_ttl <= 0 or page.max_age == 0:
             return
         with self._lock:
             previous = self._cache.pop(url, None)
@@ -108,7 +112,7 @@ class SourceTransport:
             host = "acmicpc.net"
         interval = (2.1 if host == "codeforces.com" and "/api/" in url
                     else max(self.min_interval, 3.0) if host == "qoj.ac"
-                    else max(self.min_interval, 1.0) if host == "acmicpc.net"
+                    else max(self.min_interval, 1.0) if host in ("acmicpc.net", "doj.kr")
                     else self.min_interval)
         with self._lock:
             now = time.monotonic()
@@ -192,6 +196,7 @@ class SourceTransport:
     def _get_public(self, url, context):
         current = url
         boj = urlsplit(url).hostname in BOJ_HOSTS
+        doj = urlsplit(url).hostname == "doj.kr"
         headers = {"User-Agent": "ps-checklist-fetch/1.0", "Accept-Language": "en-US,en;q=0.9",
                    "Accept": "text/html,application/json;q=0.9"}
         for step in range(6):
@@ -201,7 +206,10 @@ class SourceTransport:
                     self._pace(current, context)
             else:
                 validate_source_url(current)
-                if urlsplit(current).hostname in BOJ_HOSTS:
+                current_host = urlsplit(current).hostname
+                if doj and current != url:
+                    raise FetchError("UPSTREAM_PARSE_ERROR", "DOJ redirected to a different resource.")
+                if current_host in BOJ_HOSTS or doj != (current_host == "doj.kr"):
                     raise FetchError("UPSTREAM_PARSE_ERROR", "The source redirected to a different judge.")
             try:
                 timeout = min(15, context.remaining())
@@ -282,4 +290,9 @@ class SourceTransport:
         if response.headers.get("Content-Type", "").split(";")[0] not in {
                 "text/html", "application/xhtml+xml", "application/json", "text/plain"}:
             raise FetchError("UPSTREAM_PARSE_ERROR", "Expected HTML or JSON; file delivery is separate.")
-        return Page(url, text, utc_now())
+        max_age = None
+        if url.startswith(DOJ_BASE + "/"):
+            directives = {item.strip().lower() for item in response.headers.get("Cache-Control", "").split(",")}
+            age = next((item[8:] for item in directives if re.fullmatch(r"max-age=[0-9]{1,9}", item)), None)
+            max_age = int(age) if age and not directives & {"no-cache", "no-store", "private"} else 0
+        return Page(url, text, utc_now(), max_age)

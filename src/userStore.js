@@ -121,7 +121,7 @@ export const resetPassword = email => cloud.resetPassword(email);
 export const updatePassword = password => cloud.updatePassword(password);
 
 export async function importRound(source, response) {
-    if (!user) return model.addPlatformRound(source, response.data);
+    if (!user && (source !== 'doj' || !enabled)) return model.addPlatformRound(source, response.data);
     const saved = await request('/user/import', {source,jobId:response.jobId});
     const alreadyAdded = model.platformLists[source].has(saved.contest.id);
     model.applyImportedRound(saved);

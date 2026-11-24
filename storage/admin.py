@@ -1,13 +1,14 @@
 """Admin HTTP operations and the adapter from derived links to canonical JSON."""
 
 import copy
+import re
 import uuid
 from urllib.parse import parse_qs, urlsplit
 
 from crawler.admin import AdminRequest, https_url, source_metadata
 from .refresh import policy, refresh_draft, valid_refresh
 from .problem_merge import resolve_choices
-from crawler.contracts import FetchError, FetchRequest
+from crawler.contracts import DOJ_BASE, DOJ_SLUG, FetchError, FetchRequest
 from .app import StorageError
 
 
@@ -133,6 +134,22 @@ def make_draft(discovery, catalog, current_id=None, known_problems=()):
     return result
 
 
+def validate_judge_links(link, entity):
+    if not isinstance(link, dict) or set(link) - {'ojuz','doj'} != set(empty_links(entity=='contest')):
+        raise StorageError('Use the current judge link fields.')
+    for source, url in link.items():
+        if url is None:
+            continue
+        https_url(url)
+        if source == 'doj' and entity == 'contest' and re.fullmatch(
+                rf'{re.escape(DOJ_BASE)}/en/categories(?:/{DOJ_SLUG}){{2,12}}', url):
+            continue
+        if source in ('cf','qoj','atcoder','ojuz','doj'):
+            parsed = FetchRequest.parse(f'/fetch/{source}/{entity}', {'url':url})
+            if parsed.url != url or source == 'doj' and entity == 'problem' and not isinstance(parsed.native_id, int):
+                raise StorageError('Use canonical judge URLs.')
+
+
 def validate_groups(contest):
     groups = contest.get('groups', [])
     if not isinstance(groups, list) or len(groups) > 20:
@@ -146,14 +163,7 @@ def validate_groups(contest):
                 or not isinstance(group['materials'], list)):
             raise StorageError('Use unique group IDs, names, prefixes, links, and materials.')
         group_ids.add(group['id'])
-        if not isinstance(group['link'], dict) or set(group['link']) - {'ojuz'} != set(empty_links(True)) - {'ojuz'}:
-            raise StorageError('Use the current contest link fields for each group.')
-        for source, url in group['link'].items():
-            if url is None:
-                continue
-            https_url(url)
-            if source in ('cf','qoj','atcoder','ojuz') and FetchRequest.parse(f'/fetch/{source}/contest', {'url':url}).url != url:
-                raise StorageError('Use canonical group contest URLs.')
+        validate_judge_links(group['link'], 'contest')
         for material in group['materials']:
             https_url(material['url'])
     for entry in contest['problems'] or []:
@@ -184,17 +194,10 @@ def validate_form(body):
     for record, entity in [(contest,'contest'), *((p,'problem') for p in problems)]:
         if not isinstance(record,dict) or not isinstance(record.get('title'),str) or not record['title'].strip():
             raise StorageError('Every contest and problem needs a title.')
-        if not isinstance(record.get('id'),str) or not isinstance(record.get('link'),dict) or set(record['link']) - {'ojuz'} != set(empty_links(entity=='contest')) - {'ojuz'}:
-            raise StorageError('Use a UUID and the current judge link fields.')
+        if not isinstance(record.get('id'),str):
+            raise StorageError('Use a UUID.')
         uuid.UUID(record['id'])
-        for source,url in record['link'].items():
-            if url is None:
-                continue
-            https_url(url)
-            if source in ('cf','qoj','atcoder','ojuz'):
-                parsed=FetchRequest.parse(f'/fetch/{source}/{entity}',{'url':url})
-                if parsed.url != url:
-                    raise StorageError('Use canonical judge URLs without language queries or trailing slashes.')
+        validate_judge_links(record.get('link'), entity)
     refs={entry['problemId'] for entry in contest['problems'] or []}
     ids=[p['id'] for p in problems]
     if len(ids)!=len(set(ids)) or set(ids)!=refs:

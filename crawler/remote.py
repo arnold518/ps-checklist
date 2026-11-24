@@ -20,7 +20,7 @@ from storage.app import ROOT, StorageApp, StorageError, read_environment
 
 LOGGER = logging.getLogger('ps-checklist-crawler')
 WRITE_FUNCTIONS = {'admin_publish_archived', 'admin_remove', 'admin_workspace_save', 'admin_workspace_publish',
-                   'admin_publish_boj', 'stage_boj_problem', 'save_solvedac_difficulty'}
+                   'admin_publish_boj', 'stage_boj_problem', 'save_solvedac_difficulty', 'save_doj_difficulty'}
 
 
 def configuration(path):
@@ -111,7 +111,8 @@ class RemoteStorageApp(StorageApp):
         job = getattr(self.context, 'job', None)
         if job and job['kind'] == 'admin' and privileged and name in WRITE_FUNCTIONS:
             self.context.steps[name] += 1
-            step = body['p_observation']['bojId'] if name == 'save_solvedac_difficulty' else self.context.steps[name]
+            identity = {'save_solvedac_difficulty': 'bojId', 'save_doj_difficulty': 'dojId'}.get(name)
+            step = body['p_observation'][identity] if identity else self.context.steps[name]
             return super().rpc('public', 'deployment_admin_step', {
                 'p_id': job['id'], 'p_lease': job['lease'], 'p_step': f'{name}:{step}',
                 'p_function': name, 'p_body': body}, privileged=True)

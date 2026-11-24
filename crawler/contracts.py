@@ -20,16 +20,22 @@ ROUTES = {
     "/fetch/ojuz/category": ("ojuz", "category"),
     "/fetch/ojuz/contest": ("ojuz", "contest"),
     "/fetch/ojuz/problem": ("ojuz", "problem"),
+    "/fetch/doj/contest": ("doj", "contest"),
+    "/fetch/doj/problem": ("doj", "problem"),
     "/fetch/boj/category": ("boj", "category"),
     "/fetch/boj/contest": ("boj", "contest"),
     "/fetch/boj/problem": ("boj", "problem"),
     "/fetch/solvedac/difficulty": ("solvedac", "difficulty"),
 }
 HOSTS = {"cf": "codeforces.com", "atcoder": "atcoder.jp", "qoj": "qoj.ac", "ojuz": "oj.uz",
-         "boj": "acmicpc.net", "solvedac": "solved.ac"}
+         "boj": "acmicpc.net", "solvedac": "solved.ac", "doj": "doj.kr"}
 LANGUAGES = {"cf": {"en"}, "atcoder": {"en", "ja"},
              "qoj": {"en", "ja", "zh-CN", "default"}, "ojuz": {"default"}, "boj": {"default"}}
 BOJ_HOSTS = {"acmicpc.net", "www.acmicpc.net"}
+DOJ_HOSTS = {"doj.kr", "www.doj.kr"}
+DOJ_SLUG = r"[A-Za-z0-9][A-Za-z0-9_-]{0,99}"
+DOJ_LOCALE = r"en|ko|ja|zh-CN"
+DOJ_BASE = "https://doj.kr"
 NATIVE_ID = r"[1-9][0-9]{0,14}"
 BOJ_PATHS = {"category": rf"/category(?:/({NATIVE_ID}))?",
              "contest": rf"/category/detail/({NATIVE_ID})", "problem": rf"/problem/({NATIVE_ID})"}
@@ -85,6 +91,8 @@ class FetchRequest:
         source, entity = ROUTES[route]
         if route in OPERATOR_ROUTES:
             return cls.parse_boj_or_solvedac(source, entity, parameters)
+        if source == "doj":
+            return cls.parse_doj(entity, parameters)
         allowed = {"url", "lang"}
         if source == "atcoder":
             allowed.add("includeExternalMaterials")
@@ -180,6 +188,36 @@ class FetchRequest:
             raise FetchError("INVALID_URL", "Source identifier is too long.", 400)
         return cls(source, entity, f"https://{HOSTS[source]}{normalized}", native_id,
                    category, index, contest_id, lang, external)
+
+    @classmethod
+    def parse_doj(cls, entity, parameters):
+        if not isinstance(parameters, dict) or set(parameters) - {"url", "lang"}:
+            raise invalid()
+        value = parameters.get("url")
+        if not isinstance(value, str) or len(value) > 2048:
+            raise FetchError("INVALID_URL", "Provide a DOJ resource URL.", 400)
+        try:
+            parts = urlsplit(value.strip())
+            query = parse_qsl(parts.query, keep_blank_values=True, max_num_fields=3)
+            match = re.fullmatch(rf"/(?:(?P<locale>{DOJ_LOCALE})/)?{entity}s/(?P<id>{DOJ_SLUG})/?", parts.path)
+            allowed = {"lang", "locale", "contest"} if entity == "problem" else {"lang", "locale"}
+            valid = (match and parts.scheme == "https" and parts.hostname in DOJ_HOSTS
+                     and parts.port in (None, 443) and parts.username is None and parts.password is None
+                     and not parts.fragment and len(dict(query)) == len(query)
+                     and set(dict(query)) <= allowed)
+        except ValueError:
+            valid = False
+        if not valid:
+            raise FetchError("INVALID_URL", "Use a supported DOJ contest or problem URL.", 400)
+        lang = parameters.get("lang", "en")
+        if not isinstance(lang, str) or not re.fullmatch(DOJ_LOCALE, lang):
+            raise invalid("Unsupported DOJ content language.")
+        identifier = match["id"]
+        if entity == "problem" and identifier.isdigit():
+            if not re.fullmatch(NATIVE_ID, identifier):
+                raise FetchError("INVALID_URL", "Use a valid DOJ problem ID.", 400)
+            identifier = int(identifier)
+        return cls("doj", entity, f"{DOJ_BASE}/en/{entity}s/{identifier}", identifier, lang=lang)
 
     @classmethod
     def parse_boj_or_solvedac(cls, source, entity, parameters):

@@ -101,6 +101,9 @@ class PreviewTests(unittest.TestCase):
                 return [{'bojId': 1000, 'problemId': problem_id, 'preferred': True},
                         {'bojId': 1001, 'problemId': split_id, 'preferred': False},
                         {'bojId': 1002, 'problemId': split_id, 'preferred': False}]
+            if name == 'doj_difficulty_targets':
+                self.assertEqual(body, {'p_problem_ids': [unlinked_id]})
+                return []
             if name == 'save_solvedac_difficulty':
                 observation = body['p_observation']
                 self.assertEqual(observation['evidence'], REFERENCE)
@@ -129,7 +132,8 @@ class PreviewTests(unittest.TestCase):
             data = result.json()['data']
             self.assertEqual(data['ratings'], {problem_id: {'level': 3}})
             self.assertEqual((data['checked'], data['failed']), (1, 0))
-        self.assertEqual(called, ['boj_difficulty_targets', 'save_solvedac_difficulty', 'problem_difficulty_batch'])
+        self.assertEqual(called, ['boj_difficulty_targets', 'save_solvedac_difficulty',
+                                  'doj_difficulty_targets', 'problem_difficulty_batch'])
         self.assertEqual(len(upstream.calls), 3)
 
     def test_operator_fetch_protects_queue_and_retains_only_shared_content(self):

@@ -4,6 +4,7 @@ from .contracts import FetchContext, FetchError
 from .sources.atcoder import AtCoderSource
 from .sources.boj import BojSource
 from .sources.codeforces import CodeforcesSource
+from .sources.doj import DojSource
 from .sources.qoj import QojSource
 from .sources.ojuz import OjuzSource
 from .sources.solvedac import SolvedAcSource
@@ -11,7 +12,7 @@ from .transport import SourceTransport
 
 
 class FetchService:
-    queue_sources = ('cf', 'atcoder', 'qoj', 'ojuz', 'boj', 'solvedac')
+    queue_sources = ('cf', 'atcoder', 'qoj', 'ojuz', 'boj', 'solvedac', 'doj')
 
     def __init__(self, transport=None, timeout=90, *, boj_content=True):
         self.transport = transport or SourceTransport()
@@ -20,6 +21,7 @@ class FetchService:
         self.adapters = {"cf": CodeforcesSource(self.transport),
                          "atcoder": AtCoderSource(self.transport), "qoj": QojSource(self.transport),
                          "ojuz": OjuzSource(self.transport), "boj": BojSource(self.transport),
+                         "doj": DojSource(self.transport),
                          "solvedac": SolvedAcSource(getattr(self.transport, 'credentials_path', None))}
 
     def fetch(self, request, *, timeout=None):

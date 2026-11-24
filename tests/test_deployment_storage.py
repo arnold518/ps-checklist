@@ -5,7 +5,7 @@ from pathlib import Path
 import unittest
 
 import test_storage as foundation
-from test_catalog_storage import CONTESTS, PROBLEMS, write_sql
+from test_catalog_storage import CONTESTS, PROBLEMS, json_sql, write_sql
 from scripts.deploy_database import INTERRUPTED_WORKSPACES_SQL
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +41,74 @@ class DeploymentStorageTests(unittest.TestCase):
         self.assertEqual(self.result(sql),'t')
         for role in ('anon','authenticated'):
             self.assertNotEqual(self.execute('SELECT public.deployment_claim();',role=role,user=A,check=False).returncode,0)
+
+    def test_doj_backfill_reuses_personal_import_ids_and_stores_source_metadata(self):
+        native = {'source':'doj','name':'DOJ Contest++ 9','url':'https://doj.kr/en/contests/dc9',
+                  'startTime':'2026-10-25T01:00:00Z','phase':'FINISHED','problemCount':2,
+                  'details':{'slug':'dc9','visibility':'PUBLIC','status':'ENDED','problemCount':2},
+                  'problems':[{'name':'OrBiTal (easy)','url':'https://doj.kr/en/problems/897','index':'D','taskId':897},
+                              {'name':'Task E','url':'https://doj.kr/en/problems/865','index':'E','taskId':865}]}
+        uri = native['problems'][0]['url']
+        problem = {**native['problems'][0], 'source':'doj','details':{'displayId':897,'difficulty':18}}
+        sql = f"SELECT catalog.write_doj(NULL,{json_sql([problem])});"
+        sql += f"SELECT set_config('test.contest',catalog.write_doj({json_sql(native)},'[]')::text,true);"
+        guest = sql+f"SELECT catalog.import_round('doj',{json_sql(native)},NULL);"
+        self.assertEqual(json.loads(self.result(guest))['saved']['platforms'], ['doj'])
+        self.assertEqual(self.result(guest+"SELECT count(*) FROM user_data.saved_contests;"), '0')
+        sql += f"SELECT catalog.import_round('doj',{json_sql(native)},'{B}');"
+        sql += f"SELECT catalog.import_round('doj',{json_sql(native)},'{A}');"
+        lines = self.execute(sql,role='service_role',user=A).stdout.strip().splitlines()
+        imported = json.loads(lines[-1])
+        self.assertEqual(lines[-3], imported['contest']['id'])
+        self.assertEqual(imported, json.loads(lines[-2]))
+        self.assertEqual(imported['saved']['platforms'], ['doj'])
+        self.assertEqual([m['index'] for m in imported['contest']['problems']], ['D','E'])
+        self.assertEqual([p['link']['doj'] for p in imported['problems']], [uri,native['problems'][1]['url']])
+        self.assertEqual(self.result(sql+f"SELECT doj_metadata->>'difficulty' FROM catalog.problems WHERE payload->'link'->>'doj'='{uri}';"), '18')
+        self.assertEqual(self.result(sql+"SET LOCAL ROLE authenticated; SELECT user_data.remove_saved(current_setting('test.contest')::uuid,'doj');"
+                                     "SELECT jsonb_array_length(user_data.read_state()->'savedContests');"), '0')
+        invalid = {**native,'problems':native['problems'][:1]}
+        self.assertNotEqual(self.execute(f"SELECT catalog.write_doj({json_sql(invalid)},'[]');",
+                                        role='service_role',check=False).returncode,0)
+
+    def test_doj_difficulty_requires_exact_judge_evidence_and_projects_the_provider_level(self):
+        problem = {'name':'OrBiTal (easy)','url':'https://doj.kr/en/problems/897','taskId':897,'source':'doj',
+                   'details':{'displayId':897,'difficulty':8,'titles':{'ko':'OrBiTal (easy)'}}}
+        evidence = {'ojId':'doj','problemId':'897','subId':''}
+        rating = {'providerId':100897,'dojId':897,'subId':'','fetchedAt':'2026-11-25T00:00:00Z',
+                  'evidence':evidence,'measures':{'level':18,'levelAverage':18,'levelStdev':0,'votedUserCount':5,
+                  'effectiveVoteCount':5,'isStandard':True,'givesNoRating':False,'noRatingReasons':[]}}
+        setup = f"SELECT catalog.write_doj(NULL,{json_sql([problem])});"
+        setup += f"SELECT set_config('test.problem',id::text,true) FROM catalog.problems WHERE payload->'link'->>'doj'='{problem['url']}';"
+        pid = "current_setting('test.problem')::uuid"
+        save = f"SELECT catalog.save_doj_difficulty({json_sql(rating)}||jsonb_build_object('problemId',{pid}));"
+        read = f"SET LOCAL ROLE anon; SELECT public.problem_difficulty({pid})->'solvedAc';"
+        primary = json.loads(self.result(setup+save+read))['primary']
+        self.assertEqual((primary['url'],primary['level']),('https://solved.ac/p/100897',18))
+        read = f"SET LOCAL ROLE anon; SELECT public.problem_difficulty_batch(ARRAY[{pid}]);"
+        batch = json.loads(self.result(setup+save+read))
+        self.assertEqual(next(iter(batch.values()))['level'],18)
+        invalid = save.replace('"ojId": "doj"','"ojId": "boj"')
+        self.assertNotEqual(self.execute(setup+invalid,role='service_role',check=False).returncode,0)
+
+    def test_doj_archive_updates_existing_problem_and_keeps_its_progress(self):
+        raw = {'source':'doj','name':'Source title','taskId':1375,'url':'https://doj.kr/en/problems/1375',
+               'details':{'displayId':1375,'difficulty':6}}
+        url = 'https://doj.kr/en/categories/icpc/world-finals/2025'
+        bindings = [{'contestId':C,'title':CONTESTS[0]['title'],'url':url,
+                     'problems':[{'problemId':P,'title':PROBLEMS[0]['title'],'dojId':1375}]}]
+        sql = f"SET LOCAL ROLE authenticated; SELECT user_data.set_progress('{P}',2); SET LOCAL ROLE service_role;"
+        sql += f"SELECT catalog.write_doj(NULL,{json_sql([raw])});"
+        sql += f"SELECT catalog.publish_doj_archives({json_sql(bindings)});"
+        sql += f"SELECT catalog.publish_doj_archives({json_sql(bindings)});"
+        sql += f"SELECT jsonb_build_object('contest',catalog.contest_json('{C}')->'link'->>'doj',"
+        sql += f"'problem',catalog.problem_json('{P}')->'link'->>'doj','title',catalog.problem_json('{P}')->>'title',"
+        sql += f"'level',(SELECT doj_metadata->>'difficulty' FROM catalog.problems WHERE id='{P}'));"
+        lines = self.execute(sql,role='service_role',user=A).stdout.strip().splitlines()
+        self.assertEqual(json.loads(lines[-2])['problemLinksAdded'], 0)
+        self.assertEqual(json.loads(lines[-1]), {'contest':url,'problem':raw['url'],'title':PROBLEMS[0]['title'],'level':'6'})
+        progress = self.result(sql+"SET LOCAL ROLE authenticated; SELECT user_data.read_state()->'progress';")
+        self.assertIn({'problemId':P,'status':2},json.loads(progress))
 
     def test_stale_claim_cannot_complete_and_recovered_job_keeps_identity(self):
         sql = self.enqueue() + "SELECT set_config('test.first',public.deployment_claim()::text,true);"

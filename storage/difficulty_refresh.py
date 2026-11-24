@@ -68,9 +68,30 @@ def refresh(app, service, selection):
         checked += 1
         if observation['outcome'] in ('mapped', 'unmapped'):
             refreshed.update(problem_ids)
-    if failure and not checked:
+    # Reuse the catalog's BOJ precedence, including split problems.
+    remaining = set(selection.problem_ids) - {target['problemId'] for target in targets}
+    doj_targets = app.rpc('catalog', 'doj_difficulty_targets', {
+        'p_problem_ids': sorted(remaining)}, privileged=True) if remaining else []
+    doj_checked = 0
+    for target in doj_targets:
+        problem_id = target['problemId']
+        try:
+            observation = service.adapters['solvedac'].doj_difficulty(
+                target['dojId'], target['titles'], FetchContext(30))
+            if observation is not None:
+                app.rpc('catalog', 'save_doj_difficulty', {'p_observation': {
+                    **observation, 'problemId': problem_id, 'dojId': target['dojId']}}, privileged=True)
+        except (FetchError, StorageError) as error:
+            failure = failure or error
+            if error.code in STOP_ERRORS:
+                break
+            continue
+        doj_checked += 1
+        refreshed.add(problem_id)
+    if failure and not checked and not doj_checked:
         raise failure
     saved = app.rpc('public', 'problem_difficulty_batch', {'p_problem_ids': sorted(refreshed)}) if refreshed else {}
     ratings = {problem_id: saved.get(problem_id) for problem_id in sorted(refreshed)}
-    return {'ratings': ratings, 'checked': checked, 'failed': len(primary) - checked,
+    return {'ratings': ratings, 'checked': checked + doj_checked,
+            'failed': len(primary) - checked + len(doj_targets) - doj_checked,
             'message': str(failure) if failure else None}

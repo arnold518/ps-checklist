@@ -12,6 +12,7 @@ const operatorRoutes = new Map([
     ['/fetch/solvedac/difficulty', ['sub']],
 ]);
 const operatorSources = new Set(['boj', 'solvedac']);
+const platformSources = new Set(['cf', 'atcoder', 'doj']);
 const difficultyRefresh = '/problem/difficulties/refresh';
 
 class ApiError extends Error {
@@ -160,6 +161,32 @@ function fetchPayload(source,input) {
         category:cf?match[1]:'contest',index:null,contest_id:null,lang:'en',external:false};
 }
 
+function dojPayload(entity,input) {
+    exact(input,['url'],['lang']);
+    const lang=input.lang ?? 'en';
+    const locales=['en','ko','ja','zh-CN'];
+    if(!locales.includes(lang)) fail('Unsupported DOJ content language.',400,'INVALID_PARAMETER');
+    let url;
+    try { url=typeof input.url==='string' && input.url.length<=2048 ? new URL(input.url.trim()) : null; }
+    catch { url=null; }
+    const pattern=new RegExp(`^/(?:(?:${locales.join('|')})/)?${entity}s/([A-Za-z0-9][A-Za-z0-9_-]{0,99})/?$`);
+    const match=url?.pathname.match(pattern);
+    const keys=url ? [...url.searchParams.keys()] : [];
+    const allowed=entity==='contest' ? ['lang','locale'] : ['lang','locale','contest'];
+    if(!match || !['doj.kr','www.doj.kr'].includes(url.hostname) || url.protocol!=='https:'
+        || url.username || url.password || url.port || url.hash || new Set(keys).size!==keys.length
+        || keys.some(key=>!allowed.includes(key))) {
+        fail('Use a supported DOJ contest or problem URL.',400,'INVALID_URL');
+    }
+    let native_id=match[1];
+    if(entity==='problem' && /^[0-9]+$/.test(native_id)) {
+        if(!/^[1-9][0-9]{0,14}$/.test(native_id)) fail('Use a valid DOJ problem ID.',400,'INVALID_URL');
+        native_id=Number(native_id);
+    }
+    return {source:'doj',entity,url:`https://doj.kr/en/${entity}s/${native_id}`,native_id,
+        category:'contest',index:null,contest_id:null,lang,external:false};
+}
+
 async function agent(request,env,url) {
     if(!await equalSecret(request.headers.get('Authorization'),`Bearer ${env.CRAWLER_TOKEN||''}`)||!env.CRAWLER_TOKEN) fail('Invalid crawler credential.',401);
     const route=url.pathname.slice('/api/agent'.length);
@@ -189,7 +216,8 @@ async function agent(request,env,url) {
     }
     if(route==='/enqueue' && request.method==='POST') {
         const b=await bodyJson(request); exact(b,['request','key']);
-        if(!['cf','atcoder','qoj','ojuz','admin'].includes(b.request?.source) && !operatorSources.has(b.request?.source)) fail('Unsupported source.');
+        if(!platformSources.has(b.request?.source) && !['qoj','ojuz','admin'].includes(b.request?.source)
+            && !operatorSources.has(b.request?.source)) fail('Unsupported source.');
         return ok(await enqueue(env,'agent','fetch',b.request.source,b.request,b.key));
     }
     if(route==='/finish' && request.method==='POST') {
@@ -358,6 +386,17 @@ async function route(request,env,url) {
         const job=await enqueue(env,`user:${user.id}`,'fetch',source,{source,route:fetchRoute,parameters});
         return json(jobEnvelope(job),202);
     }
+    const dojEntity=fetchRoute.match(/^\/fetch\/doj\/(contest|problem)$/)?.[1];
+    if(dojEntity && (request.method==='GET' || (request.method==='POST' && path!==fetchRoute))) {
+        const pairs=[...url.searchParams];
+        if(url.search.length>4096 || new Set(pairs.map(([key])=>key)).size!==pairs.length ||
+            (request.method==='POST' && pairs.length)) fail('Use a single value per parameter.');
+        const input=request.method==='GET' ? Object.fromEntries(pairs) : await bodyJson(request,4096);
+        const payload=dojPayload(dojEntity,input);
+        await rate(request,env,'imports',user?120:30,3600);
+        const job=await enqueue(env,await owner(request,user),'fetch','doj',payload);
+        return json(jobEnvelope(job),202);
+    }
     if(path.startsWith('/enqueue/fetch/') && request.method==='POST') {
         const source=path.match(/^\/enqueue\/fetch\/(cf|atcoder)\/contest$/)?.[1];
         if(!source) fail('Unsupported platform.',404);
@@ -398,15 +437,17 @@ async function route(request,env,url) {
         return json({ok:true,operation:{jobId:job.id}},202);
     }
     if(path==='/user/import' && request.method==='POST') {
-        signed(user); const b=await bodyJson(request,4096); exact(b,['jobId','source']);
-        if(!['cf','atcoder'].includes(b.source)) fail('Unsupported platform.');
-        const job=await getJob(env,b.jobId,`user:${user.id}`);
+        const b=await bodyJson(request,4096); exact(b,['jobId','source']);
+        if(!platformSources.has(b.source)) fail('Unsupported platform.');
+        if(b.source!=='doj') signed(user);
+        if(!user) await rate(request,env,'doj-import',30,3600);
+        const job=await getJob(env,b.jobId,await owner(request,user));
         if(job.status!=='DONE'||job.kind!=='fetch'||job.source!==b.source||job.request.entity!=='contest') fail('The contest fetch has not completed.');
         const fetched=await (await resultObject(env,job)).json();
         const native=fetched?.data;
         if(fetched.ok!==true||native?.source!==b.source||native.url!==job.request.url
             ||!Array.isArray(native.problems)||!native.problems.length||native.problemCount!==native.problems.length) fail('The round has no complete problem list.');
-        return ok(await db(env,'catalog','import_round',{p_source:b.source,p_native:native,p_user_id:user.id},{privileged:true}));
+        return ok(await db(env,'catalog','import_round',{p_source:b.source,p_native:native,p_user_id:user?.id ?? null},{privileged:true}));
     }
     const mutations={
         '/user/progress':['set_progress',['problemId','status'],['p_problem_id','p_status']],

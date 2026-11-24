@@ -138,7 +138,7 @@ function queueCell(cell, id) {
 export function addCellDifficulty(cell, problem) {
     cell.dataset.baseTitle = cell.title;
     showCell(cell, cache.get(problem.id)?.rating);
-    if (!problem.link.boj) return;
+    if (!problem.link.boj && !problem.link.doj) return;
     const id = problem.id;
     if (typeof IntersectionObserver === 'undefined') {
         queueMicrotask(() => queueCell(cell, id));

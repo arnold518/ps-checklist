@@ -23,11 +23,10 @@ Default address: **http://127.0.0.1:8080**. If that port is occupied, use
 
 The integrated frontend preview (`python3 preview.py`, port 8001) mounts the
 existing queue handlers on the same origin. Its browser-facing subset is
-`POST /api/enqueue/fetch/cf/contest`,
-`POST /api/enqueue/fetch/atcoder/contest`, and
-`GET /api/job`, `/api/job/result`, `/api/health`. Absolute proxy prefixes are
+queued contest imports for Codeforces, AtCoder, and DOJ, DOJ problem lookups,
+and `GET /api/job`, `/api/job/result`, `/api/health`. Absolute proxy prefixes are
 handled for these routes as well as static files. This preview owns its separate
-ignored `crawler/output/preview-jobs.sqlite3` queue; the standalone ten-route
+ignored `crawler/output/preview-jobs.sqlite3` queue; the standalone
 API below retains its original interface and database. Platform lists and
 practice records are not stored by the queue.
 
@@ -74,6 +73,8 @@ used as a fallback destination.
 | `/fetch/ojuz/category` | `https://oj.uz/problems/source/joisc2026` |
 | `/fetch/ojuz/contest` | `https://oj.uz/problems/source/joisc2026day1` |
 | `/fetch/ojuz/problem` | `https://oj.uz/problem/view/JOI26_casino` |
+| `/fetch/doj/contest` | `https://doj.kr/en/contests/dc9` |
+| `/fetch/doj/problem` | `https://doj.kr/en/problems/897` |
 | `/fetch/boj/category` | `https://acmicpc.net/category/550` |
 | `/fetch/boj/contest` | `https://acmicpc.net/category/detail/2629` |
 | `/fetch/boj/problem` | `https://acmicpc.net/problem/10072` |
@@ -81,9 +82,37 @@ used as a fallback destination.
 
 Inputs are `url`, optional `lang`, optional QOJ problem `contestId`, and optional
 AtCoder `includeExternalMaterials=true/false`, and optional oj.uz problem `sourceId`. Supported languages: CF `en`;
-AtCoder `en`/`ja`; QOJ `en`/`ja`/`zh-CN`/`default`; oj.uz `default`. Default is `en` except oj.uz, which uses `default`.
+AtCoder `en`/`ja`; QOJ `en`/`ja`/`zh-CN`/`default`; DOJ `en`/`ko`/`ja`/`zh-CN`; oj.uz `default`. Default is `en` except oj.uz, which uses `default`.
 Contest-scoped QOJ problem URLs select context automatically. Unsupported inputs,
 including category recursion parameters, are rejected.
+
+DOJ contest ordering and slot labels come from the finished public contest
+page. Running and upcoming contests return metadata with a partial result.
+DOJ problem lookups resolve numeric IDs and exact slugs to a canonical numeric
+URL. Native difficulty is available in `details.difficulty`. The problem URL
+opens the original statement. [DOJ public API](https://doj.kr/en/guide/api)
+
+The checklist's Fetch Difficulty actions use solved.ac v4 for stored DOJ
+problems. DOJ titles find candidate records and the crawler verifies the exact
+DOJ problem ID in the solved.ac detail response before saving a tier.
+
+To backfill the shared catalog after applying the DOJ migration, run
+`.venv/bin/python scripts/backfill_doj.py --apply --env-file .env.storage`.
+Omit `--apply` to validate DOJ data without writing, or pass `--contest dc9`
+to process one contest. The command preserves existing catalog UUIDs and
+leaves each user's saved contest selections to the Platforms import flow.
+
+DOJ's public Categories archive lists ICPC and Olympiad problem sets. The
+[reviewed archive bindings](../raw/audit/doj-archive-bindings.csv) record
+which problem IDs and editions correspond to the existing catalog. DOJ's
+archived letters can shift when a problem is omitted, so the publication
+keeps the existing checklist labels, titles, and IDs.
+
+Apply the reviewed archive links with
+`.venv/bin/python scripts/publish_doj_archive.py --apply --env-file .env.storage`.
+Use `.env.deployment` for the hosted database. On a fresh deployment, run
+the archive publication after migrations and before the general DOJ
+backfill so the backfill can reuse the curated problem identities.
 
 ```bash
 curl -G 'http://127.0.0.1:8080/fetch/qoj/contest' \

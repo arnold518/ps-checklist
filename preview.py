@@ -18,7 +18,7 @@ PUBLIC_FILES = frozenset({
     "assets/icon/boj-icon.png", "assets/icon/cf-icon.png", "assets/icon/qoj-icon.png",
     *(f"assets/difficulty/difficulty-{level}.svg" for level in range(31)),
     "assets/icon/atcoder-icon.png", "assets/icon/official-icon.png",
-    "assets/icon/ojuz-icon.svg",
+    "assets/icon/ojuz-icon.svg", "assets/icon/doj-icon.svg",
     "assets/icon/standings-icon.png", "assets/icon/statements-icon.png",
     "assets/icon/editorials-icon.png",
     "assets/fonts/roboto-400.ttf", "assets/fonts/roboto-500.ttf",
@@ -70,8 +70,9 @@ def make_preview_handler(queue, storage=None):
 
     FetchHandler = make_handler(queue, wait_seconds=0)
     allowed = {
-        "GET": {"/health", "/job", "/job/result", *OPERATOR_ROUTES},
+        "GET": {"/health", "/job", "/job/result", "/fetch/doj/contest", "/fetch/doj/problem", *OPERATOR_ROUTES},
         "POST": {"/enqueue/fetch/cf/contest", "/enqueue/fetch/atcoder/contest",
+                 "/enqueue/fetch/doj/contest", "/enqueue/fetch/doj/problem",
                  *("/enqueue" + route for route in OPERATOR_ROUTES)},
     }
 

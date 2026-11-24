@@ -102,6 +102,22 @@ class SolvedAcTests(TestCase):
         self.assertEqual(direct['difficulty']['level'], 0)
         self.assertEqual(len(app.calls), 3)
 
+    def test_doj_rating_checks_judge_reference_in_search_and_detail(self):
+        reference = {'ojId': 'doj', 'problemId': '897', 'subId': ''}
+        same_number = solved_problem(897, refs=[{**reference, 'ojId': 'boj'}])
+        match = solved_problem(100897, level=18, refs=[reference])
+        search = Reply({'page': 1, 'pageSize': 10, 'total': 2, 'problems': [same_number, match]})
+        app = App(search, Reply(match))
+        source = SolvedAcSource(config=CONFIG, get=app.get)
+        rating = source.doj_difficulty(897, [None, 'OrBiTal (easy)'], FetchContext())
+        self.assertEqual((rating['providerId'], rating['measures']['level'], rating['evidence']),
+                         (100897, 18, reference))
+        self.assertEqual(parse_qs(app.calls[0][0].query)['q'], ['"OrBiTal (easy)"'])
+        app = App(search, Reply({**match, 'judgeIds': []}))
+        with self.assertRaises(FetchError) as error:
+            SolvedAcSource(config=CONFIG, get=app.get).doj_difficulty(897, ['OrBiTal (easy)'], FetchContext())
+        self.assertEqual(error.exception.code, 'DIFFICULTY_MAPPING_CHANGED')
+
     def test_explicit_refresh_reads_a_new_tier_with_a_warm_cache(self):
         previous = solved_problem(refs=[REFERENCE])
         updated = {**previous, 'level': 12}
