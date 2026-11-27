@@ -69,6 +69,7 @@ test('preflight allows the configured Pages origin',async()=>{
 test('guests can refresh an approved catalog ID through their own operation result',async()=>{
     const route='/problem/difficulties/refresh';
     let queued;
+    let complete=false;
     const result={ok:true,data:{checked:1,failed:0,ratings:{[P]:{level:12}}}};
     const state=setup((name,input)=>{
         if(name==='deployment_rate_limit') return true;
@@ -78,8 +79,11 @@ test('guests can refresh an approved catalog ID through their own operation resu
         }
         if(name==='deployment_job') {
             if(input.p_owner!==queued.p_owner) return null;
-            return {id:J,kind:'admin',source:'admin-op',request:queued.p_payload,status:'DONE',resultKey:'refresh'};
+            return {id:J,kind:'admin',source:'admin-op',request:queued.p_payload,
+                status:complete?'DONE':'QUEUED',resultKey:complete?'refresh':null,
+                createdAt:1700000000,updatedAt:1700000000};
         }
+        if(name==='deployment_status') throw new TypeError('Health request failed.');
         throw new Error(name);
     });
     try {
@@ -89,6 +93,10 @@ test('guests can refresh an approved catalog ID through their own operation resu
         assert.deepEqual(await response.json(),{ok:true,operation:{jobId:J}});
         assert.deepEqual(queued.p_payload,{route,body:{problemIds:[P]}});
         assert.match(queued.p_owner,/^guest:/);
+        const pending=await state.send('/operation/result?id='+J,{headers});
+        assert.equal(pending.status,202);
+        assert.equal((await pending.json()).job.status,'QUEUED');
+        complete=true;
         await state.env.ARCHIVES.put('refresh',JSON.stringify(result));
         assert.deepEqual(await (await state.send('/operation/result?id='+J,{headers})).json(),result);
         assert.equal((await state.send('/job/result?id='+J,{headers})).status,403);

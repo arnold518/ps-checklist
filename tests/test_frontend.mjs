@@ -6,7 +6,7 @@ import {materialUrl} from '../src/contest.js';
 import {parseRoundInput} from '../src/fetchClient.js';
 import {platformGroup} from '../src/platformCategories.js';
 import {englishBojProblemUrl} from '../src/constants.js';
-import {readSubmissions} from '../src/userStore.js';
+import {readSubmissions, request} from '../src/userStore.js';
 
 const contests = JSON.parse(readFileSync(new URL('../problemlists/contestlist.json', import.meta.url)));
 const problems = JSON.parse(readFileSync(new URL('../problemlists/problems.json', import.meta.url)));
@@ -208,3 +208,32 @@ try {
     globalThis.fetch = originalFetch;
 }
 console.log('Submission history: a temporary failure retried with the same filter and cursor.');
+
+try {
+    const enqueue = '/problem/difficulties/refresh';
+    const operation = '/operation/result?id=queued-job';
+    const accepted = () => Response.json({ok:true,operation:{jobId:'queued-job'}},{status:202});
+    const finished = {checked:1,failed:0,ratings:{}};
+    const calls = [];
+    const replies = [
+        accepted(),
+        Response.json({ok:false,error:{code:'SERVICE_UNAVAILABLE'}},{status:503}),
+        Response.json({ok:true,data:finished}),
+        accepted(),
+        Response.json({ok:false,error:{code:'CRAWLER_ERROR',message:'Crawler failed.'}},{status:503}),
+    ];
+    globalThis.fetch = async (url, options) => {
+        calls.push([url,options.method ?? 'GET']);
+        assert(replies.length > 0, 'Unexpected request after a terminal result');
+        return replies.shift();
+    };
+    assert.deepEqual(await request(enqueue,{problemIds:['fixture']}),finished);
+    await assert.rejects(request(enqueue,{problemIds:['fixture']}),{code:'CRAWLER_ERROR'});
+    assert.deepEqual(calls,[
+        ['api'+enqueue,'POST'],['api'+operation,'GET'],['api'+operation,'GET'],
+        ['api'+enqueue,'POST'],['api'+operation,'GET'],
+    ]);
+} finally {
+    globalThis.fetch = originalFetch;
+}
+console.log('Difficulty refresh: temporary poll failed and recovered, terminal crawler failure was returned.');

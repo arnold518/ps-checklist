@@ -74,7 +74,7 @@ async function db(env,schema,name,body={},options={}) {
     const response=await fetch(`${env.SUPABASE_URL}/rest/v1/rpc/${name}`,{
         method:'POST',headers:{apikey:key,...(bearer?{Authorization:`Bearer ${bearer}`}:{ }),
             'Content-Type':'application/json','Accept-Profile':schema,'Content-Profile':schema},
-        body:JSON.stringify(body),signal:AbortSignal.timeout(20000)
+        body:JSON.stringify(body),signal:AbortSignal.timeout(options.timeout??20000)
     });
     if(!response.ok) {
         const error=await response.json().catch(()=>({}));
@@ -461,7 +461,8 @@ async function route(request,env,url) {
         }
         if(!['DONE','FAILED'].includes(job.status)) {
             const envelope=jobEnvelope(job);
-            if(!await rpc(env,'deployment_status').then(status=>status.online)) envelope.job.message='The crawler is offline. Your request is saved and will resume when it reconnects.';
+            const status=await rpc(env,'deployment_status',{}, {timeout:2500}).catch(()=>null);
+            if(status?.online===false) envelope.job.message='The crawler is offline. Your request is saved and will resume when it reconnects.';
             return json(envelope,202);
         }
         if(!job.resultKey) return json({schemaVersion:1,ok:false,error:{code:'JOB_INTERRUPTED',message:'The crawler could not finish this job. Submit it again.',retryable:true}},503);

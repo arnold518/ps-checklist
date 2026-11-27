@@ -21,6 +21,25 @@ function transition() {
     if (baseCatalog) model.loadCatalog(baseCatalog.contests, baseCatalog.problems, baseCatalog.rawOrder);
 }
 
+function requestError(response, result) {
+    const error = new Error(result?.error?.message || 'The operation failed. Please try again.');
+    error.code = result?.error?.code;
+    error.status = response.status;
+    return error;
+}
+
+function readOperation(jobId, signal) {
+    return retryRead(async attemptSignal => {
+        const response = await apiFetch(`/operation/result?id=${jobId}`, {signal:attemptSignal});
+        const result = await response.json();
+        // A completed job can itself return a failure. Only repeat a failed status read.
+        if (!response.ok && ['SERVICE_UNAVAILABLE','STORAGE_ERROR'].includes(result?.error?.code)) {
+            throw requestError(response, result);
+        }
+        return {response, result};
+    }, signal, 15000);
+}
+
 export async function request(route, payload, signal = controller.signal) {
     const started = generation;
     let response = await apiFetch(route, {
@@ -36,18 +55,12 @@ export async function request(route, payload, signal = controller.signal) {
         let attempts = 0;
         do {
             await pause(Math.min(15000, 1500 + attempts++ * 500), signal);
-            response = await apiFetch(`/operation/result?id=${jobId}`, {signal});
-            result = await response.json();
+            ({response, result} = await readOperation(jobId, signal));
         } while (response.status === 202 && Date.now() < deadline);
         if (response.status === 202) throw new Error('The operation is still queued. Reopen the admin workspace to check its progress.');
     }
     if (started !== generation) throw new DOMException('Account changed', 'AbortError');
-    if (!response.ok || !result.ok) {
-        const error=new Error(result.error?.message || 'The operation failed. Please try again.');
-        error.code=result.error?.code;
-        error.status=response.status;
-        throw error;
-    }
+    if (!response.ok || !result?.ok) throw requestError(response, result);
     return result.data;
 }
 
