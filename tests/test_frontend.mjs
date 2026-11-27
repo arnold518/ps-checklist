@@ -146,3 +146,44 @@ assert.equal(model.contestLabel(labeledContest),'2026 · Day 1');
 assert.throws(() => model.loadCatalog([...contests,{...labeledContest,contestLabel:''}],problems),/Invalid contest/);
 model.loadCatalog(contests,problems);
 console.log('Frontend model: source parsing, shared identities, atomic imports, dates, duplicates and record deletion passed.');
+
+// A transient API error or an interrupted stream should not block the catalog.
+const originalFetch = globalThis.fetch;
+const originalConfig = globalThis.PS_CHECKLIST_CONFIG;
+try {
+    // No Supabase credentials are needed to load the public catalog.
+    globalThis.PS_CHECKLIST_CONFIG = {apiBase:'https://api.example.org/api'};
+    const {fetchCatalog} = await import('../src/api.js?catalog-test');
+    const signal = new AbortController().signal;
+    const catalog = {contests:[],problems:[],rawOrder:{}};
+    const replies = [
+        Response.json({ok:false}, {status:503}),
+        new Response('{"ok":true,"data":'),
+        Response.json({ok:true,data:catalog}),
+    ];
+    globalThis.fetch = async (url, options) => {
+        assert.equal(url,'https://api.example.org/api/catalog');
+        assert.equal(options.credentials,'omit');
+        assert.equal(options.headers,undefined);
+        return replies.shift();
+    };
+    assert.deepEqual(await fetchCatalog(signal),catalog);
+    assert.equal(replies.length,0);
+
+    let attempts = 0;
+    globalThis.fetch = async () => {
+        attempts++;
+        return new Response(null,{status:404});
+    };
+    await assert.rejects(fetchCatalog(signal),/HTTP 404/);
+    assert.equal(attempts,1);
+    const cancelled = new AbortController();
+    cancelled.abort();
+    await assert.rejects(fetchCatalog(cancelled.signal),{name:'AbortError'});
+    assert.equal(attempts,1);
+} finally {
+    globalThis.fetch = originalFetch;
+    if (originalConfig === undefined) delete globalThis.PS_CHECKLIST_CONFIG;
+    else globalThis.PS_CHECKLIST_CONFIG = originalConfig;
+}
+console.log('Public catalog: temporary failures retried, missing routes and cancellation handled.');

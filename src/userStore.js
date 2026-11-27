@@ -1,6 +1,6 @@
 // Local preview uses cookies; hosted requests use Supabase's browser session.
 import * as model from './state.js';
-import {apiFetch, hosted, pause} from './api.js';
+import {apiFetch, fetchCatalog, hosted, pause} from './api.js';
 import * as cloud from './cloudAuth.js';
 
 export let user = null;
@@ -89,8 +89,12 @@ export async function initialize(catalog, callback) {
     onChange();
 }
 
+export function readCatalog() {
+    return fetchCatalog(controller.signal);
+}
+
 export async function refreshCatalog(notify=false) {
-    const catalog = await request('/catalog');
+    const catalog = await readCatalog();
     baseCatalog = catalog;
     model.loadCatalog(catalog.contests,catalog.problems,catalog.rawOrder);
     if (user) await restore();

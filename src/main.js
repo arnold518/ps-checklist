@@ -26,7 +26,7 @@ async function load() {
     document.getElementById('main-content').setAttribute('aria-busy', 'true');
     let catalog;
     try {
-        catalog = await store.request('/catalog');
+        catalog = await store.readCatalog();
         loadCatalog(catalog.contests, catalog.problems, catalog.rawOrder);
     } catch {
         _ui.showLoadError(load);
