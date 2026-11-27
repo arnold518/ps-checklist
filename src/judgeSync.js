@@ -92,6 +92,11 @@ function submissionRow(record, showProblem) {
     link.className = 'submission-id';
     link.setAttribute('aria-label', `${judge.textContent} submission ${record.nativeSubmissionId}`);
     source.append(judge, link);
+    if (record.accountHandle) {
+        const account = element('span', record.accountHandle);
+        account.className = 'submission-account';
+        source.append(account);
+    }
     row.append(source);
     if (showProblem) row.append(submissionProblem(record));
 
@@ -222,15 +227,102 @@ function describeFeed(feed, state) {
     return ['Waiting for first sync', ''];
 }
 
+function linkedHandle(source, name, account, change) {
+    let link = account;
+    const row = element('li');
+    row.className = 'judge-account';
+    const summary = element('div');
+    summary.className = 'judge-account-summary';
+    const handle = element('span', account.handle);
+    handle.className = 'judge-handle';
+    const actions = element('div');
+    actions.className = 'judge-actions';
+    const sync = button('Sync now');
+    sync.setAttribute('aria-label', 'Sync ' + name + ' handle ' + account.handle + ' now');
+    const disconnect = button('Disconnect');
+    disconnect.setAttribute('aria-label', 'Disconnect ' + name + ' handle ' + account.handle);
+    actions.append(sync, disconnect);
+    summary.append(handle, actions);
+
+    const activity = element('dl');
+    activity.className = 'judge-feed-status';
+    const feedback = element('p');
+    feedback.className = 'judge-feedback';
+    feedback.setAttribute('role', 'status');
+
+    const confirmation = element('div');
+    confirmation.className = 'judge-editor judge-disconnect';
+    confirmation.hidden = true;
+    const confirm = button('Disconnect', 'judge-danger-btn');
+    const back = button('Keep connection');
+    const confirmActions = element('div');
+    confirmActions.className = 'judge-editor-actions';
+    confirmActions.append(confirm, back);
+    const syncedData = ['ojuz','solvedac'].includes(source) ? 'synced progress' : 'synced submissions';
+    confirmation.append(element('p', `Disconnect ${account.handle} and clear its ${syncedData}?`), confirmActions);
+    row.append(summary, activity, feedback, confirmation);
+
+    function paint(current) {
+        link = current;
+        activity.replaceChildren(...Object.entries(link.feeds).map(([feed, status]) => {
+            const item = element('div');
+            const [text, tone] = describeFeed(feed, status);
+            const value = element('dd', text);
+            if (tone) value.dataset.tone = tone;
+            if (status.lastSyncedAt && status.pending) value.title = 'Last completed batch ' + localTime(status.lastSyncedAt);
+            item.append(element('dt', feeds[feed] || feed), value);
+            return item;
+        }));
+        activity.hidden = !activity.children.length;
+    }
+
+    async function submit(action) {
+        const controls = [sync, disconnect, confirm, back];
+        for (const control of controls) control.disabled = true;
+        row.setAttribute('aria-busy', 'true');
+        feedback.textContent = action === 'run' ? 'Requesting sync…' : 'Disconnecting…';
+        feedback.removeAttribute('data-tone');
+        try {
+            await change(route + '/' + action, {accountId: account.id});
+            if (!row.isConnected || action !== 'run') return;
+            const statuses = Object.values(link.feeds);
+            feedback.textContent = statuses.some(status => ['backfill', 'importing', 'running'].includes(status.activity))
+                ? 'Sync is in progress.' : statuses.some(status => status.pending) ? 'Sync queued.'
+                : statuses.some(status => status.error) ? 'Retry already scheduled.' : 'Sync is up to date.';
+        } catch (error) {
+            if (row.isConnected && error.name !== 'AbortError') {
+                feedback.textContent = error.message;
+                feedback.dataset.tone = 'warning';
+            }
+        } finally {
+            for (const control of controls) control.disabled = false;
+            row.setAttribute('aria-busy', 'false');
+        }
+    }
+
+    sync.addEventListener('click', () => void submit('run'));
+    disconnect.addEventListener('click', () => {
+        confirmation.hidden = false;
+        back.focus();
+    });
+    back.addEventListener('click', () => {
+        confirmation.hidden = true;
+        disconnect.focus();
+    });
+    confirmation.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !back.disabled) back.click();
+    });
+    confirm.addEventListener('click', () => void submit('disconnect'));
+    paint(account);
+    return {row, paint};
+}
+
 function connectionRow(source, name, change) {
-    let link = null;
-    let pending = false;
     const row = element('article');
     row.className = 'judge-connection';
     row.setAttribute('aria-labelledby', 'judge-name-' + source);
     const summary = element('div');
     summary.className = 'judge-connection-summary';
-
     const brand = element('span');
     brand.className = 'judge-brand';
     const logo = element('img');
@@ -242,33 +334,25 @@ function connectionRow(source, name, change) {
     identity.className = 'judge-identity';
     const heading = element('h3', name);
     heading.id = 'judge-name-' + source;
-    const handle = element('p');
-    handle.className = 'judge-handle';
     const description = element('p', coverage[source]);
     description.className = 'judge-coverage';
-    identity.append(heading, handle, description);
+    identity.append(heading, description);
 
-    const actions = element('div');
-    actions.className = 'judge-actions';
-    const sync = button('Sync now');
-    const manage = button('Connect', 'judge-connect-btn');
-    sync.setAttribute('aria-label', 'Sync ' + name + ' now');
-    actions.append(sync, manage);
-    summary.append(brand, identity, actions);
+    const add = button('Add handle', 'judge-connect-btn');
+    add.setAttribute('aria-label', 'Add ' + name + ' handle');
+    add.setAttribute('aria-expanded', 'false');
+    summary.append(brand, identity, add);
 
-    const activity = element('dl');
-    activity.className = 'judge-feed-status';
-    const feedback = element('p');
-    feedback.className = 'judge-feedback';
-    feedback.setAttribute('role', 'status');
+    const accounts = element('ul');
+    accounts.className = 'judge-account-list';
+    accounts.hidden = true;
+    const entries = new Map();
+
     const editor = element('div');
     editor.className = 'judge-editor';
     editor.id = 'judge-editor-' + source;
     editor.hidden = true;
-    manage.setAttribute('aria-controls', editor.id);
-    manage.setAttribute('aria-expanded', 'false');
-    row.append(summary, activity, editor, feedback);
-
+    add.setAttribute('aria-controls', editor.id);
     const form = element('form');
     const label = element('label', name + ' handle');
     const input = element('input');
@@ -281,105 +365,55 @@ function connectionRow(source, name, change) {
     input.spellcheck = false;
     const save = button('Connect', 'primary-btn', 'submit');
     const cancel = button('Cancel');
-    const formActions = element('div');
-    formActions.className = 'judge-editor-actions';
-    formActions.append(save, cancel);
-    const syncedData = ['ojuz','solvedac'].includes(source) ? 'synced progress' : 'synced submissions';
-    const warning = element('p', `Replacing a handle clears its ${syncedData}.`);
-    warning.className = 'judge-editor-note';
-    const remove = button('Disconnect', 'judge-text-danger');
-    form.append(label, input, formActions, warning, remove);
-
-    const confirmation = element('div');
-    confirmation.className = 'judge-disconnect';
-    const message = element('p', `Disconnect this handle and clear its ${syncedData}?`);
-    const confirm = button('Disconnect', 'judge-danger-btn');
-    const back = button('Keep connection');
-    const confirmActions = element('div');
-    confirmActions.className = 'judge-editor-actions';
-    confirmActions.append(confirm, back);
-    confirmation.append(message, confirmActions);
-    confirmation.hidden = true;
-    editor.append(form, confirmation);
+    const actions = element('div');
+    actions.className = 'judge-editor-actions';
+    actions.append(save, cancel);
+    form.append(label, input, actions);
+    editor.append(form);
+    const feedback = element('p');
+    feedback.className = 'judge-feedback';
+    feedback.setAttribute('role', 'status');
+    row.append(summary, accounts, editor, feedback);
 
     function showEditor(open) {
         editor.hidden = !open;
-        manage.setAttribute('aria-expanded', String(open));
+        add.setAttribute('aria-expanded', String(open));
         if (open) {
-            form.hidden = false;
-            confirmation.hidden = true;
-            input.value = link?.handle ?? '';
+            input.value = '';
             input.setCustomValidity('');
             input.focus();
-            input.select();
         } else {
-            manage.focus();
+            add.focus();
         }
     }
 
-    function paint(current) {
-        link = current ?? null;
-        handle.textContent = link?.handle ?? '';
-        handle.hidden = !link;
-        description.hidden = Boolean(link);
-        sync.hidden = !link;
-        manage.textContent = link ? 'Manage' : 'Connect';
-        manage.className = link ? 'secondary-btn' : 'judge-connect-btn';
-        manage.setAttribute('aria-label', manage.textContent + ' ' + name);
-        save.textContent = link ? 'Replace handle' : 'Connect';
-        warning.hidden = remove.hidden = !link;
-
-        activity.replaceChildren(...Object.entries(link?.feeds ?? {}).map(([feed, state]) => {
-            const item = element('div');
-            const [text, tone] = describeFeed(feed, state);
-            const status = element('dd', text);
-            if (tone) status.dataset.tone = tone;
-            if (state.lastSyncedAt && state.pending) status.title = 'Last completed batch ' + localTime(state.lastSyncedAt);
-            item.append(element('dt', feeds[feed] || feed), status);
-            return item;
-        }));
-        activity.hidden = !activity.children.length;
-    }
-
-    function setPending(value) {
-        pending = value;
-        for (const control of [sync, manage, input, save, cancel, remove, confirm, back]) control.disabled = pending;
-        row.setAttribute('aria-busy', String(pending));
-    }
-
-    async function submit(path, payload) {
-        if (pending) return;
-        setPending(true);
-        feedback.textContent = path.endsWith('/run') ? 'Requesting sync…' : 'Saving connection…';
-        feedback.removeAttribute('data-tone');
-        try {
-            await change(path, {source, ...payload});
-            if (!row.isConnected) return;
-            setPending(false);
-            if (Object.hasOwn(payload, 'handle')) {
-                showEditor(false);
-                feedback.textContent = payload.handle === null ? 'Disconnected.' : 'Handle connected.';
-            } else {
-                const states = Object.values(link?.feeds ?? {});
-                feedback.textContent = states.some(state => ['backfill', 'importing', 'running'].includes(state.activity))
-                    ? 'Sync is in progress.' : states.some(state => state.pending) ? 'Sync queued.'
-                    : states.some(state => state.error) ? 'Retry already scheduled.' : 'Sync is up to date.';
+    function paint(links) {
+        const active = new Set(links.map(link => link.id));
+        for (const [id, entry] of entries) {
+            if (active.has(id)) continue;
+            if (entry.row.contains(document.activeElement)) add.focus();
+            entry.row.remove();
+            entries.delete(id);
+        }
+        for (const link of links) {
+            const previous = entries.get(link.id);
+            if (previous) previous.paint(link);
+            else {
+                const entry = linkedHandle(source, name, link, change);
+                entries.set(link.id, entry);
+                accounts.append(entry.row);
             }
-        } catch (error) {
-            if (row.isConnected && error.name !== 'AbortError') {
-                feedback.textContent = error.message;
-                feedback.dataset.tone = 'warning';
-            }
-        } finally { setPending(false); }
+        }
+        accounts.hidden = entries.size === 0;
     }
 
-    manage.addEventListener('click', () => showEditor(editor.hidden));
+    add.addEventListener('click', () => showEditor(editor.hidden));
     cancel.addEventListener('click', () => showEditor(false));
     editor.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && !pending) showEditor(false);
+        if (event.key === 'Escape' && !save.disabled) showEditor(false);
     });
     input.addEventListener('input', () => input.setCustomValidity(''));
-    form.addEventListener('submit', event => {
+    form.addEventListener('submit', async event => {
         event.preventDefault();
         const value = input.value.trim();
         if (!/^[A-Za-z0-9_.-]{1,64}$/.test(value)) {
@@ -387,23 +421,25 @@ function connectionRow(source, name, change) {
             input.reportValidity();
             return;
         }
-        if (value === link?.handle) showEditor(false);
-        else void submit(route, {handle: value});
+        const controls = [add, input, save, cancel];
+        for (const control of controls) control.disabled = true;
+        feedback.textContent = 'Saving connection…';
+        feedback.removeAttribute('data-tone');
+        try {
+            await change(route + '/add', {source, handle: value});
+            if (row.isConnected) feedback.textContent = 'Handle connected.';
+        } catch (error) {
+            if (row.isConnected && error.name !== 'AbortError') {
+                feedback.textContent = error.message;
+                feedback.dataset.tone = 'warning';
+            }
+            return;
+        } finally {
+            for (const control of controls) control.disabled = false;
+        }
+        if (row.isConnected) showEditor(false);
     });
-    sync.addEventListener('click', () => void submit(route + '/run', {}));
-    remove.addEventListener('click', () => {
-        form.hidden = true;
-        confirmation.hidden = false;
-        back.focus();
-    });
-    back.addEventListener('click', () => {
-        confirmation.hidden = true;
-        form.hidden = false;
-        remove.focus();
-    });
-    confirm.addEventListener('click', () => void submit(route, {handle: null}));
-
-    return {row, paint, currentHandle: () => link?.handle};
+    return {row, paint};
 }
 
 export function showJudgeSync(container) {
@@ -412,7 +448,7 @@ export function showJudgeSync(container) {
     section.setAttribute('aria-labelledby', 'judge-sync-heading');
     const heading = element('h2', 'Judge connections');
     heading.id = 'judge-sync-heading';
-    const intro = element('p', 'Connect a public judge handle to sync automatically. Confirmed contests appear in Platforms and Practice Records.');
+    const intro = element('p', 'Connect public judge handles to sync automatically. Confirmed contests appear in Platforms and Practice Records.');
     intro.className = 'judge-intro';
     const feedback = element('p', 'Loading connections…');
     feedback.className = 'judge-feedback';
@@ -431,7 +467,7 @@ export function showJudgeSync(container) {
     let mutations = Promise.resolve();
 
     function paint(links) {
-        for (const [source, control] of controls) control.paint(links.find(item => item.source === source));
+        for (const [source, control] of controls) control.paint(links.filter(item => item.source === source));
         providers.hidden = false;
         feedback.textContent = '';
     }
@@ -440,16 +476,13 @@ export function showJudgeSync(container) {
         changesInProgress++;
         revision++;
         const next = mutations.then(async () => {
-            const oldHandle = controls.get(payload.source).currentHandle();
             const links = await store.request(path, payload);
             if (!section.isConnected) return;
             paint(links);
-            if (Object.hasOwn(payload, 'handle')) {
+            if (path === route + '/disconnect') {
                 history.replaceChildren();
                 addSubmissionHistory(history, {}, 'All submissions');
-                if (oldHandle && oldHandle !== payload.handle) {
-                    void store.reloadUserData(() => section.isConnected).catch(store.showSaveError);
-                }
+                void store.reloadUserData(() => section.isConnected).catch(store.showSaveError);
             }
         });
         mutations = next.catch(() => {});

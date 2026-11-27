@@ -13,6 +13,8 @@ const operatorRoutes = new Map([
 ]);
 const operatorSources = new Set(['boj', 'solvedac']);
 const platformSources = new Set(['cf', 'atcoder', 'doj']);
+const syncRoute = '/user/judge-sync';
+const syncRoutes = new Set([syncRoute, ...['add','disconnect','run'].map(action=>syncRoute+'/'+action)]);
 const difficultyRefresh = '/problem/difficulties/refresh';
 
 class ApiError extends Error {
@@ -329,21 +331,34 @@ async function route(request,env,url) {
         }
         return ok(await db(env,'public','judge_submission_history',filters,{token}));
     }
-    if(path==='/user/judge-sync'||path==='/user/judge-sync/run') {
+    if(syncRoutes.has(path)) {
         signed(user);
         if(!admin(env,user)) fail('Admin access is required.',403,'ADMIN_REQUIRED');
         if(request.method==='POST') {
             await rate(request,env,'judge-sync',30,60);
-            const run=path.endsWith('/run'), body=await bodyJson(request,4096);
-            exact(body,run?['source']:['source','handle']);
-            if(!['cf','atcoder','boj','solvedac','doj','ojuz'].includes(body.source)
-                ||(!run&&body.handle!==null&&(typeof body.handle!=='string'||!/^[A-Za-z0-9_.-]{1,64}$/.test(body.handle)))) {
-                fail('Provide a supported judge and a valid handle.');
+            const run=path===syncRoute+'/run', disconnect=path===syncRoute+'/disconnect';
+            const body=await bodyJson(request,4096);
+            const args={p_user_id:user.id};
+            let rpcName;
+            if(disconnect || (run && body && Object.hasOwn(body,'accountId'))) {
+                exact(body,['accountId']);
+                if(typeof body.accountId!=='string'||!UUID.test(body.accountId)) fail('Provide a valid judge account ID.');
+                args.p_account_id=body.accountId;
+                rpcName=disconnect?'unlink_judge_sync_account':'request_judge_account_sync';
+            } else {
+                exact(body,run?['source']:['source','handle']);
+                const add=path===syncRoute+'/add';
+                if(!['cf','atcoder','boj','solvedac','doj','ojuz'].includes(body.source)
+                    ||(!run && (body.handle!==null || add)
+                       && (typeof body.handle!=='string'||!/^[A-Za-z0-9_.-]{1,64}$/.test(body.handle)))) {
+                    fail('Provide a supported judge and a valid handle.');
+                }
+                args.p_source=body.source;
+                if(!run) args.p_handle=body.handle;
+                rpcName=run?'request_judge_sync':add?'add_judge_sync_account':'set_judge_sync_account';
             }
-            const args={p_user_id:user.id,p_source:body.source};
-            if(run) await db(env,'public','request_judge_sync',args,{privileged:true});
-            else await db(env,'public','set_judge_sync_account',{...args,p_handle:body.handle},{privileged:true});
-        } else if(request.method!=='GET'||path.endsWith('/run')) fail('Unsupported judge sync operation.',404,'NOT_FOUND');
+            await db(env,'public',rpcName,args,{privileged:true});
+        } else if(request.method!=='GET'||path!==syncRoute) fail('Unsupported judge sync operation.',404,'NOT_FOUND');
         return ok(await db(env,'public','judge_sync_overview',{}, {token}));
     }
     if(path==='/user/note') return note(request,env,url,token,user);

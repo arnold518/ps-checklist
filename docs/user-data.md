@@ -120,11 +120,10 @@ manual Reviewed stays at 3. A missing result row represents status 0.
 The signed-in user's JWT controls reads through `judge_sync_accounts`,
 `judge_problem_status`, and `judge_submission_history`. History takes
 optional problem, contest, and group filters. It returns newest records
-first, with unknown timestamps last and a `nextCursor` for the next page.
-`set_judge_sync_account` links a handle or disconnects it when the handle
-is null. Changing or disconnecting a handle deletes its submission history,
-progress observations, and checkpoints. Manual status and added contest or
-practice entries remain in the account.
+first, with the submitting handle, unknown timestamps last, and a
+`nextCursor` for the next page. Disconnecting a handle deletes its submission
+history, progress observations, and checkpoints. Manual status and added
+contest or practice entries remain in the account.
 
 Only the worker's service role can list targets with `judge_sync_targets`
 and write with `commit_judge_sync_batch`. Send up to 500 distinct native
@@ -140,7 +139,8 @@ only.
 
 ### Automatic sync
 
-Administrators can link public handles under **Account → Judge connections**.
+Administrators can link multiple public handles per platform under
+**Account → Judge connections**. Each handle has its own sync jobs and controls.
 Access uses the application's existing `ADMIN_USER_IDS` allowlist. Keep the
 same list on the hosted Worker and its crawler. The preview server and hosted
 crawler process due jobs for admin accounts. Removing someone from the
@@ -193,8 +193,9 @@ prefixes. These are separate from the seven judge-fetch APIs.
 | `GET /api/user/state` | Restore private data and referenced catalog metadata |
 | `POST /api/user/progress` | `{problemId, status}` |
 | `GET /api/user/judge-sync` | List the signed-in admin's linked handles and feed statuses |
-| `POST /api/user/judge-sync` | Link a handle for the signed-in admin with `{source, handle}`. A null handle disconnects it. |
-| `POST /api/user/judge-sync/run` | Bring the signed-in admin's eligible jobs forward with `{source}` |
+| `POST /api/user/judge-sync/add` | Add a handle with `{source, handle}`. Repeated requests reuse the same connection. |
+| `POST /api/user/judge-sync/disconnect` | Disconnect a linked handle with `{accountId}`. |
+| `POST /api/user/judge-sync/run` | Bring one handle's eligible jobs forward with `{accountId}`. |
 | `GET /api/user/submissions` | List private history with optional problem, contest, group, and cursor filters |
 | `POST /api/user/view` | `{tab, view}` |
 | `POST /api/user/import` | `{jobId, source}` from a completed contest fetch |

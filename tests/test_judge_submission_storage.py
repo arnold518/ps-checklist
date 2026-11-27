@@ -253,6 +253,51 @@ class JudgeSubmissionStorageTests(unittest.TestCase):
                 response = self.execute(query, role=role, user=A, check=False)
                 self.assertIn("42501", response.stderr)
 
+    def test_multiple_handles_sync_and_disconnect_independently(self):
+        setup = account() + f"""
+            SET LOCAL ROLE service_role;
+            SELECT set_config('test.first_again',public.add_judge_sync_account('{A}','cf','sample_handle')::text,true);
+            SELECT set_config('test.account_secondary',public.add_judge_sync_account('{A}','cf','secondary')::text,true);
+        """
+        setup += batch("cf", [submission(100)])
+        setup += batch("secondary", [submission(101, result="rejected")])
+        setup += f"""
+            SET LOCAL ROLE NONE;
+            UPDATE app_private.judge_sync_jobs SET due_at=now()+interval '1 hour';
+            SET LOCAL ROLE service_role;
+            SELECT public.request_judge_account_sync('{A}',current_setting('test.account_secondary')::uuid);
+            SELECT public.request_judge_account_sync('{B}',current_setting('test.account_cf')::uuid);
+            SELECT public.unlink_judge_sync_account('{B}',current_setting('test.account_cf')::uuid);
+            SET LOCAL ROLE NONE;
+            SELECT set_config('test.due',(SELECT jsonb_agg(DISTINCT a.handle)
+                FROM app_private.judge_sync_accounts a JOIN app_private.judge_sync_jobs j ON j.account_id=a.id
+                WHERE j.due_at<=clock_timestamp())::text,true);
+            SET LOCAL ROLE authenticated;
+            SELECT set_config('test.links',(SELECT jsonb_agg(info) FROM public.judge_sync_overview() info)::text,true);
+            SELECT set_config('test.history',public.judge_submission_history()::text,true);
+            SET LOCAL ROLE service_role;
+            SELECT public.unlink_judge_sync_account('{A}',current_setting('test.account_cf')::uuid);
+            SET LOCAL ROLE authenticated;
+            SELECT jsonb_build_object('duplicate',current_setting('test.first_again')=current_setting('test.account_cf'),
+                'due',current_setting('test.due')::jsonb,'links',current_setting('test.links')::jsonb,
+                'before',current_setting('test.history')::jsonb,'after',public.judge_submission_history(),
+                'status',(SELECT status FROM public.judge_problem_status('{PROBLEM}')));
+        """
+        result = json.loads(self.last(setup))
+        self.assertTrue(result["duplicate"])
+        self.assertEqual({link["handle"] for link in result["links"]}, {"sample_handle", "secondary"})
+        self.assertEqual(len({link["id"] for link in result["links"]}), 2)
+        self.assertEqual(result["due"], ["secondary"])
+        self.assertEqual({row["accountHandle"] for row in result["before"]["submissions"]},
+                         {"sample_handle", "secondary"})
+        self.assertEqual([row["accountHandle"] for row in result["after"]["submissions"]], ["secondary"])
+        self.assertEqual(result["status"], 1)
+        for sql in (f"SELECT public.add_judge_sync_account('{A}','cf','extra');",
+                    f"SELECT public.unlink_judge_sync_account('{A}','{PROBLEM}');",
+                    f"SELECT public.request_judge_account_sync('{A}','{PROBLEM}');"):
+            response = self.execute(sql, role="authenticated", user=A, check=False)
+            self.assertIn("42501", response.stderr)
+
     def test_boj_parts_require_one_source_account_and_progress_does_not_make_a_row(self):
         urls = [f"https://www.acmicpc.net/problem/{number}" for number in (810, 811)]
         setup = f"""

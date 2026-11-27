@@ -1261,12 +1261,36 @@ body {
     font-weight: 500;
 }
 
-.judge-handle,
 .judge-coverage {
     margin-top: 3px;
     color: #4e5d73;
     overflow-wrap: anywhere;
     font-size: 0.83rem;
+}
+
+.judge-account-list {
+    margin: 10px 0 0 59px;
+    padding: 0;
+    list-style: none;
+}
+
+.judge-account {
+    padding: 9px 0;
+    border-top: 1px solid #e8edf5;
+}
+
+.judge-account-summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.judge-handle {
+    color: #263b58;
+    overflow-wrap: anywhere;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .judge-actions,
@@ -1322,7 +1346,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 6px 16px;
-    margin: 9px 0 0 59px;
+    margin: 6px 0 0;
     color: #4e5d73;
     font-size: 0.78rem;
     line-height: 1.4;
@@ -1364,8 +1388,7 @@ body {
     font-size: 0.88rem;
 }
 
-.judge-editor label,
-.judge-editor-note {
+.judge-editor label {
     grid-column: 1 / -1;
 }
 
@@ -1380,7 +1403,6 @@ body {
     font: inherit;
 }
 
-.judge-editor-note,
 .judge-feedback {
     color: #4e5d73;
     font-size: 0.81rem;
@@ -1399,24 +1421,14 @@ body {
     display: none;
 }
 
-.judge-text-danger {
-    justify-self: start;
-    border: 0;
-    background: transparent;
-    color: #a12631;
-    font: 500 0.83rem/1.4 'Roboto', Arial, sans-serif;
-    padding: 5px 0;
-    cursor: pointer;
-}
-
-.judge-text-danger:hover {
-    text-decoration: underline;
-}
-
 .judge-danger-btn {
     background: #ac2937;
     color: white;
     border: 1px solid #ac2937;
+}
+
+.judge-disconnect {
+    margin-left: 0;
 }
 
 .judge-disconnect p {
@@ -1470,12 +1482,7 @@ body {
         height: 40px;
     }
 
-    .judge-connection:has(.judge-handle:not([hidden])) .judge-actions {
-        grid-column: 2 / -1;
-        justify-content: flex-start;
-    }
-
-    .judge-feed-status,
+    .judge-account-list,
     .judge-editor,
     .judge-connection > .judge-feedback {
         margin-left: 0;
@@ -1608,6 +1615,13 @@ body {
 .submission-id {
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+}
+
+.submission-account {
+    display: block;
+    color: #4e5d73;
+    overflow-wrap: anywhere;
+    font-size: 0.76rem;
 }
 
 .submission-problem {

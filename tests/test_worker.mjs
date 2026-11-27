@@ -394,6 +394,8 @@ test('judge sync requires admin access and links only the authenticated admin',a
         if(name==='deployment_rate_limit') return true;
         if(name==='set_judge_sync_account') return V;
         if(name==='request_judge_sync') return null;
+        if(name==='add_judge_sync_account') return V;
+        if(name==='request_judge_account_sync' || name==='unlink_judge_sync_account') return null;
         if(name==='judge_sync_overview') return [{source:'doj',handle:'example',feeds:{}}];
         if(name==='judge_submission_history') return {submissions:[],nextCursor:null};
         throw new Error(name);
@@ -418,6 +420,23 @@ test('judge sync requires admin access and links only the authenticated admin',a
             {p_user_id:A,p_source:'ojuz',p_handle:'example'});
         assert.equal((await run(headers)).status,200);
         assert.deepEqual(state.calls.find(call=>call.url.pathname.endsWith('/request_judge_sync')).input,{p_user_id:A,p_source:'doj'});
+        const accountAction=(action,body,auth=headers)=>state.send('/user/judge-sync/'+action,{
+            method:'POST',headers:auth,body:JSON.stringify(body)
+        });
+        for(const [action,name,body,args] of [
+            ['add','add_judge_sync_account',{source:'doj',handle:'second'},{p_source:'doj',p_handle:'second'}],
+            ['run','request_judge_account_sync',{accountId:V},{p_account_id:V}],
+            ['disconnect','unlink_judge_sync_account',{accountId:V},{p_account_id:V}],
+        ]) {
+            assert.equal((await accountAction(action,body,member)).status,403);
+            assert.equal((await accountAction(action,body)).status,200);
+            const [call]=state.calls.filter(entry=>entry.url.pathname.endsWith('/'+name));
+            assert.deepEqual(call.input,{p_user_id:A,...args});
+            assert.equal(call.options.headers.apikey,state.env.SUPABASE_SERVICE_ROLE_KEY);
+        }
+        assert.equal((await accountAction('add',{source:'doj',handle:null})).status,400);
+        assert.equal((await accountAction('disconnect',{accountId:'bad'})).status,400);
+        assert.equal((await accountAction('run',{accountId:V,source:'doj'})).status,400);
         assert.equal((await state.send('/user/submissions',{headers:member})).status,200);
         assert.equal((await state.send('/user/submissions?problemId='+P,{headers})).status,200);
         assert.deepEqual(state.calls.at(-1).input,{p_problem_id:P});
