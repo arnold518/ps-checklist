@@ -86,7 +86,8 @@ async function db(env,schema,name,body={},options={}) {
             status===400?'The submitted data or reference is invalid.':status===403?'This operation is unavailable for your account.':
                 'Storage could not complete the operation.',status,conflict?'CONFLICT':'STORAGE_ERROR');
     }
-    return options.stream?response:response.json();
+    if(options.stream) return response;
+    return response.status===204?null:response.json();
 }
 function rpc(env,name,body={},options={}) { return db(env,'public',name,body,{privileged:true,...options}); }
 function wrapped(response) {

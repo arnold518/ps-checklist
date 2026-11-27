@@ -393,9 +393,9 @@ test('judge sync requires admin access and links only the authenticated admin',a
     const state=setup(name=>{
         if(name==='deployment_rate_limit') return true;
         if(name==='set_judge_sync_account') return V;
-        if(name==='request_judge_sync') return null;
+        if(name==='request_judge_sync') return new Response(null,{status:204});
         if(name==='add_judge_sync_account') return V;
-        if(name==='request_judge_account_sync' || name==='unlink_judge_sync_account') return null;
+        if(name==='request_judge_account_sync' || name==='unlink_judge_sync_account') return new Response(null,{status:204});
         if(name==='judge_sync_overview') return [{source:'doj',handle:'example',feeds:{}}];
         if(name==='judge_submission_history') return {submissions:[],nextCursor:null};
         throw new Error(name);
@@ -418,7 +418,9 @@ test('judge sync requires admin access and links only the authenticated admin',a
         assert.equal((await link('ojuz')).status,200);
         assert.deepEqual(state.calls.filter(call=>call.url.pathname.endsWith('/set_judge_sync_account')).at(-1).input,
             {p_user_id:A,p_source:'ojuz',p_handle:'example'});
-        assert.equal((await run(headers)).status,200);
+        const queued=await run(headers);
+        assert.equal(queued.status,200);
+        assert.deepEqual(await queued.json(),{ok:true,data:[{source:'doj',handle:'example',feeds:{}}]});
         assert.deepEqual(state.calls.find(call=>call.url.pathname.endsWith('/request_judge_sync')).input,{p_user_id:A,p_source:'doj'});
         const accountAction=(action,body,auth=headers)=>state.send('/user/judge-sync/'+action,{
             method:'POST',headers:auth,body:JSON.stringify(body)
