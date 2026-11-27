@@ -223,9 +223,13 @@ class StorageApp:
                         self.set_cookies(handler)
                 result = {'enabled':self.enabled,'user':self.user_json(user) if user else None}
             elif route in ('/auth/login','/auth/signup') and method == 'POST':
-                if set(body) != {'email','password'} or not isinstance(body['email'],str) or not isinstance(body['password'],str) or len(body['password']) < 8:
+                signup = route == '/auth/signup'
+                if (set(body) != {'email','password'} or not isinstance(body['email'],str)
+                        or not isinstance(body['password'],str) or not body['email'] or not body['password']):
+                    raise StorageError('Provide an email and password.')
+                if signup and len(body['password']) < 8:
                     raise StorageError('Provide an email and a password of at least eight characters.')
-                path = '/auth/v1/signup' if route.endswith('signup') else '/auth/v1/token?grant_type=password'
+                path = '/auth/v1/signup' if signup else '/auth/v1/token?grant_type=password'
                 session = self.request(path,body=body)
                 if session.get('access_token'):
                     self.set_cookies(handler,session)

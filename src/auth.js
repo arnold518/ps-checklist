@@ -67,7 +67,7 @@ export function showAccount() {
             <div class="form-group"><label for="email" class="form-label">Email</label>
                 <input type="email" id="email" class="form-input" required autocomplete="email"></div>
             <div class="form-group"><label for="password" class="form-label">Password</label>
-                <input type="password" id="password" class="form-input" required minlength="8"
+                <input type="password" id="password" class="form-input" required ${isLogin ? '' : 'minlength="8"'}
                     autocomplete="${isLogin ? 'current-password' : 'new-password'}"></div>
             <button type="submit" id="auth-submit-btn" class="primary-btn" ${store.enabled ? '' : 'disabled'}>${isLogin ? 'Login' : 'Sign Up'}</button>
         </form>
