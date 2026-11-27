@@ -8,35 +8,44 @@ export function apiUrl(route) {
     return base + route;
 }
 
-export async function fetchCatalog(signal) {
+// Retry reads only. The general API client also carries writes.
+export async function retryRead(read, signal, timeout = 25000) {
     let failure;
     for (const delay of [0, 500, 1500]) {
         if (delay) await pause(delay, signal);
         signal.throwIfAborted();
         try {
-            // The catalog is public. Custom headers would add a CORS preflight
-            // in hosted mode, and refreshing an auth session can delay the read.
-            const response = await fetch(apiUrl('/catalog'), {
-                credentials: hosted ? 'omit' : 'same-origin',
-                cache: 'no-store',
-                signal: AbortSignal.any([signal, AbortSignal.timeout(25000)])
-            });
-            if (response.ok) {
-                const result = await response.json();
-                signal.throwIfAborted();
-                if (result?.ok && Array.isArray(result.data?.contests) && Array.isArray(result.data?.problems)) {
-                    return result.data;
-                }
-                throw new Error('Invalid contest catalog response.');
-            }
-            failure = new Error(`Contest catalog request returned HTTP ${response.status}.`);
-            if (response.status < 500 && response.status !== 408 && response.status !== 429) break;
+            const result = await read(AbortSignal.any([signal, AbortSignal.timeout(timeout)]));
+            signal.throwIfAborted();
+            return result;
         } catch (error) {
             signal.throwIfAborted();
+            const retryable = error.status === 408 || error.status === 429 || error.status >= 500
+                || error.name === 'TimeoutError' || error instanceof TypeError || error instanceof SyntaxError;
+            if (!retryable) throw error;
             failure = error;
         }
     }
     throw failure;
+}
+
+export function fetchCatalog(signal) {
+    return retryRead(async attemptSignal => {
+        // A public catalog read needs neither an auth refresh nor custom headers.
+        const response = await fetch(apiUrl('/catalog'), {
+            credentials: hosted ? 'omit' : 'same-origin', cache: 'no-store', signal: attemptSignal
+        });
+        if (!response.ok) {
+            const error = new Error(`Contest catalog request returned HTTP ${response.status}.`);
+            error.status = response.status;
+            throw error;
+        }
+        const result = await response.json();
+        if (!result?.ok || !Array.isArray(result.data?.contests) || !Array.isArray(result.data?.problems)) {
+            throw new SyntaxError('Invalid contest catalog response.');
+        }
+        return result.data;
+    }, signal);
 }
 
 let guest;

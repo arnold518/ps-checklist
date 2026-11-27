@@ -329,7 +329,7 @@ async function route(request,env,url) {
             if(!Object.hasOwn(params,key)||Object.hasOwn(filters,params[key])||!value) fail('Invalid submission history filter.');
             filters[params[key]]=key==='groupId'?value:id(value);
         }
-        return ok(await db(env,'public','judge_submission_history',filters,{token}));
+        return wrapped(await db(env,'public','judge_submission_history',filters,{token,stream:true}));
     }
     if(syncRoutes.has(path)) {
         signed(user);

@@ -438,7 +438,10 @@ test('judge sync requires admin access and links only the authenticated admin',a
         assert.equal((await accountAction('disconnect',{accountId:'bad'})).status,400);
         assert.equal((await accountAction('run',{accountId:V,source:'doj'})).status,400);
         assert.equal((await state.send('/user/submissions',{headers:member})).status,200);
-        assert.equal((await state.send('/user/submissions?problemId='+P,{headers})).status,200);
+        const history=await state.send('/user/submissions?problemId='+P,{headers});
+        assert.equal(history.status,200);
+        assert.equal(history.headers.get('Cache-Control'),'no-store');
+        assert.deepEqual(await history.json(),{ok:true,data:{submissions:[],nextCursor:null}});
         assert.deepEqual(state.calls.at(-1).input,{p_problem_id:P});
         assert.equal((await state.send('/user/submissions')).status,401);
     } finally {state.restore();}

@@ -1,6 +1,6 @@
 // Local preview uses cookies; hosted requests use Supabase's browser session.
 import * as model from './state.js';
-import {apiFetch, fetchCatalog, hosted, pause} from './api.js';
+import {apiFetch, fetchCatalog, hosted, pause, retryRead} from './api.js';
 import * as cloud from './cloudAuth.js';
 
 export let user = null;
@@ -21,11 +21,11 @@ function transition() {
     if (baseCatalog) model.loadCatalog(baseCatalog.contests, baseCatalog.problems, baseCatalog.rawOrder);
 }
 
-export async function request(route, payload) {
+export async function request(route, payload, signal = controller.signal) {
     const started = generation;
     let response = await apiFetch(route, {
         method: payload === undefined ? 'GET' : 'POST', cache: 'no-store',
-        signal: controller.signal,
+        signal,
         headers: payload === undefined ? {} : {'Content-Type':'application/json','X-PS-Checklist':'1'},
         body: payload === undefined ? undefined : JSON.stringify(payload)
     });
@@ -35,8 +35,8 @@ export async function request(route, payload) {
         const deadline = Date.now() + 3600000;
         let attempts = 0;
         do {
-            await pause(Math.min(15000, 1500 + attempts++ * 500), controller.signal);
-            response = await apiFetch(`/operation/result?id=${jobId}`, {signal:controller.signal});
+            await pause(Math.min(15000, 1500 + attempts++ * 500), signal);
+            response = await apiFetch(`/operation/result?id=${jobId}`, {signal});
             result = await response.json();
         } while (response.status === 202 && Date.now() < deadline);
         if (response.status === 202) throw new Error('The operation is still queued. Reopen the admin workspace to check its progress.');
@@ -45,6 +45,7 @@ export async function request(route, payload) {
     if (!response.ok || !result.ok) {
         const error=new Error(result.error?.message || 'The operation failed. Please try again.');
         error.code=result.error?.code;
+        error.status=response.status;
         throw error;
     }
     return result.data;
@@ -91,6 +92,11 @@ export async function initialize(catalog, callback) {
 
 export function readCatalog() {
     return fetchCatalog(controller.signal);
+}
+
+export function readSubmissions(query) {
+    const route = '/user/submissions' + (query.size ? '?' + query : '');
+    return retryRead(signal => request(route, undefined, signal), controller.signal, 15000);
 }
 
 export async function refreshCatalog(notify=false) {

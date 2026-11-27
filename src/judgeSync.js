@@ -179,7 +179,7 @@ export function addSubmissionHistory(container, filters = {}, label = 'Submissio
         try {
             const query = new URLSearchParams(filters);
             if (cursor) query.set('before', cursor);
-            const page = await store.request('/user/submissions?' + query);
+            const page = await store.readSubmissions(query);
             if (!panel.isConnected) return;
             loaded = true;
             rows.append(...page.submissions.map(record => submissionRow(record, showProblem)));

@@ -6,6 +6,7 @@ import {materialUrl} from '../src/contest.js';
 import {parseRoundInput} from '../src/fetchClient.js';
 import {platformGroup} from '../src/platformCategories.js';
 import {englishBojProblemUrl} from '../src/constants.js';
+import {readSubmissions} from '../src/userStore.js';
 
 const contests = JSON.parse(readFileSync(new URL('../problemlists/contestlist.json', import.meta.url)));
 const problems = JSON.parse(readFileSync(new URL('../problemlists/problems.json', import.meta.url)));
@@ -187,3 +188,23 @@ try {
     else globalThis.PS_CHECKLIST_CONFIG = originalConfig;
 }
 console.log('Public catalog: temporary failures retried, missing routes and cancellation handled.');
+
+try {
+    const page = {submissions:[{id:'saved-submission'}],nextCursor:'next-page'};
+    const replies = [
+        Response.json({ok:false,error:{code:'SERVICE_UNAVAILABLE'}},{status:503}),
+        Response.json({ok:true,data:page}),
+    ];
+    globalThis.fetch = async (url, options) => {
+        assert.equal(url,'api/user/submissions?problemId=fixture&before=previous-page');
+        assert.equal(options.method,'GET');
+        return replies.shift();
+    };
+    assert.deepEqual(await readSubmissions(new URLSearchParams({
+        problemId:'fixture',before:'previous-page'
+    })),page);
+    assert.equal(replies.length,0);
+} finally {
+    globalThis.fetch = originalFetch;
+}
+console.log('Submission history: a temporary failure retried with the same filter and cursor.');
