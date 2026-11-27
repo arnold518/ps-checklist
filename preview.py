@@ -71,9 +71,9 @@ def make_preview_handler(queue, storage=None):
 
     FetchHandler = make_handler(queue, wait_seconds=0)
     allowed = {
-        "GET": {"/health", "/job", "/job/result", "/fetch/doj/contest", "/fetch/doj/problem", *OPERATOR_ROUTES},
+        "GET": {"/health", "/job", "/job/result", "/fetch/doj/category", "/fetch/doj/contest", "/fetch/doj/problem", *OPERATOR_ROUTES},
         "POST": {"/enqueue/fetch/cf/contest", "/enqueue/fetch/atcoder/contest",
-                 "/enqueue/fetch/doj/contest", "/enqueue/fetch/doj/problem",
+                 "/enqueue/fetch/doj/category", "/enqueue/fetch/doj/contest", "/enqueue/fetch/doj/problem",
                  *("/enqueue" + route for route in OPERATOR_ROUTES)},
     }
 

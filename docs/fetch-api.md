@@ -23,7 +23,7 @@ Default address: **http://127.0.0.1:8080**. If that port is occupied, use
 
 The integrated frontend preview (`python3 preview.py`, port 8001) mounts the
 existing queue handlers on the same origin. Its browser-facing subset is
-queued contest imports for Codeforces, AtCoder, and DOJ, DOJ problem lookups,
+queued contest imports for Codeforces, AtCoder, and DOJ, DOJ problem and category lookups,
 and `GET /api/job`, `/api/job/result`, `/api/health`. Absolute proxy prefixes are
 handled for these routes as well as static files. This preview owns its separate
 ignored `crawler/output/preview-jobs.sqlite3` queue; the standalone
@@ -75,6 +75,7 @@ used as a fallback destination.
 | `/fetch/ojuz/problem` | `https://oj.uz/problem/view/JOI26_casino` |
 | `/fetch/doj/contest` | `https://doj.kr/en/contests/dc9` |
 | `/fetch/doj/problem` | `https://doj.kr/en/problems/897` |
+| `/fetch/doj/category` | `https://doj.kr/en/categories/doj/mathdoj/md1` |
 | `/fetch/boj/category` | `https://acmicpc.net/category/550` |
 | `/fetch/boj/contest` | `https://acmicpc.net/category/detail/2629` |
 | `/fetch/boj/problem` | `https://acmicpc.net/problem/10072` |
@@ -89,8 +90,13 @@ including category recursion parameters, are rejected.
 DOJ contest ordering and slot labels come from the finished public contest
 page. Running and upcoming contests return metadata with a partial result.
 DOJ problem lookups resolve numeric IDs and exact slugs to a canonical numeric
-URL. Native difficulty is available in `details.difficulty`. The problem URL
-opens the original statement. [DOJ public API](https://doj.kr/en/guide/api)
+URL. Native difficulty is available in `details.difficulty`. The fetch result
+includes public problem downloads, direct contest files, and files from any
+archive category that DOJ links to the same main contest. A category fetch
+includes its public files and links to its subcategories or problem roster.
+The problem's primary document is the embedded PDF when available, or the
+first PDF attachment identified as a statement.
+[DOJ public API](https://doj.kr/en/guide/api)
 
 The checklist's Fetch Difficulty actions use solved.ac v4 for stored DOJ
 problems. DOJ titles find candidate records and the crawler verifies the exact
@@ -101,6 +107,14 @@ To backfill the shared catalog after applying the DOJ migration, run
 Omit `--apply` to validate DOJ data without writing, or pass `--contest dc9`
 to process one contest. The command preserves existing catalog UUIDs and
 leaves each user's saved contest selections to the Platforms import flow.
+
+To refresh files for contests already in the catalog, run
+`.venv/bin/python scripts/backfill_doj_materials.py scan /tmp/doj-materials.jsonl`,
+then run the same script with `apply` and that file. Pass `--env-file .env.deployment`
+to apply the same observations to the hosted catalog. Public contest attachments
+appear in the contest materials list. DOJ can fill an open statement or editorial
+slot on a problem, and an automatic DOJ selection can be replaced by a
+higher-priority source during normal refresh.
 
 DOJ's public Categories archive lists ICPC and Olympiad problem sets. The
 [reviewed archive bindings](../raw/audit/doj-archive-bindings.csv) record

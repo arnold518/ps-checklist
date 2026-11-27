@@ -173,11 +173,14 @@ test('DOJ fetches normalize public URLs and a signed import uses the finished co
     try {
         const headers={'Content-Type':'application/json',Authorization:'Bearer user-a'};
         const post=(route,body)=>state.send(route,{method:'POST',headers,body:JSON.stringify(body)});
-        const problem=new URLSearchParams({url:'https://www.doj.kr/ko/problems/897?contest=abc123',lang:'ko'});
+        const problem=new URLSearchParams({url:'https://www.doj.kr/ko/problems/897?category=doj/mathdoj/md1',lang:'ko'});
         assert.equal((await state.send('/fetch/doj/problem?'+problem,{headers})).status,202);
         assert.equal(queued.p_payload.url,'https://doj.kr/en/problems/897');
         assert.equal(queued.p_payload.native_id,897);
         assert.equal(queued.p_payload.lang,'ko');
+        assert.equal((await post('/enqueue/fetch/doj/category',{url:'https://www.doj.kr/ko/categories/doj/mathdoj/md1'})).status,202);
+        assert.equal(queued.p_payload.url,'https://doj.kr/en/categories/doj/mathdoj/md1');
+        assert.equal(queued.p_payload.native_id,'doj/mathdoj/md1');
         assert.equal((await post('/enqueue/fetch/doj/contest',{url:'https://doj.kr.evil/en/contests/dc9'})).status,400);
         assert.equal((await post('/enqueue/fetch/doj/contest',{url:'https://doj.kr/ko/contests/dc9'})).status,202);
         assert.equal(queued.p_payload.url,contest);

@@ -1,6 +1,6 @@
 """Choose one statement and editorial link per contest problem."""
 
-PRIORITY = ('qoj', 'cf', 'atcoder', 'ojuz')
+PRIORITY = ('qoj', 'cf', 'atcoder', 'ojuz', 'doj')
 ROLES = ('statement', 'editorial')
 
 

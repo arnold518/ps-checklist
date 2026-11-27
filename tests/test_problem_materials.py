@@ -6,6 +6,7 @@ from crawler.admin import AdminFetchService
 from crawler.contracts import FetchContext, contest, full_problem, summary
 from storage.admin import make_draft
 from storage.problem_merge import resolve_choices
+from storage.problem_materials import fill_problem_materials
 from storage.workspace import combine_fetched, publish_payload
 from storage.app import StorageError
 
@@ -42,6 +43,26 @@ def empty_catalog():
 
 
 class ProblemMaterialTests(unittest.TestCase):
+    def test_one_statement_is_selected_across_judges_and_doj_is_the_fallback(self):
+        pid = 'sample'
+        urls = {'qoj':'https://qoj.ac/qoj.pdf', 'cf':'https://codeforces.com/cf.pdf',
+                'ojuz':'https://static.oj.uz/ojuz.pdf', 'doj':'https://doj.kr/api/problem-statements/sample?locale=en'}
+        sources = [{'source':source,'problems':[{'problemId':pid,'materials':[
+            {'role':'statement','url':url,'language':'en','official':True}
+        ]}]} for source,url in reversed(list(urls.items()))]
+        draft = {'contest':{'problems':[{'problemId':pid}]}, 'refresh':{'contest':{}},
+                 'sources':sources}
+        fill_problem_materials(draft)
+        self.assertEqual([m['url'] for m in draft['contest']['problemMaterials']], [urls['qoj']])
+
+        draft = {'contest':{'problems':[{'problemId':pid}]}, 'refresh':{'contest':{}},
+                 'sources':sources[:1]}
+        fill_problem_materials(draft)
+        self.assertEqual([m['url'] for m in draft['contest']['problemMaterials']], [urls['doj']])
+        draft['sources'] = sources
+        fill_problem_materials(draft)
+        self.assertEqual([m['url'] for m in draft['contest']['problemMaterials']], [urls['qoj']])
+
     def test_qoj_cf_atcoder_priority_after_shared_problem_merge(self):
         draft = make_draft(discovery(('qoj', 'cf', 'atcoder')), empty_catalog())
         self.assertEqual(draft['problemMerge']['review'], [])

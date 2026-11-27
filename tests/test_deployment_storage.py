@@ -110,6 +110,54 @@ class DeploymentStorageTests(unittest.TestCase):
         progress = self.result(sql+"SET LOCAL ROLE authenticated; SELECT user_data.read_state()->'progress';")
         self.assertIn({'problemId':P,'status':2},json.loads(progress))
 
+    def test_doj_import_publishes_a_document_once_and_can_refresh_the_round(self):
+        pdf = {'type':'pdf','role':'statement','scope':'problem','language':'en',
+               'url':'https://doj.kr/api/problem-statements/test?locale=en','problemKey':'doj:problem:897'}
+        alternate = {**pdf,'url':'https://doj.kr/api/problem-attachments/statement','language':None}
+        problem_editorial = {**alternate,'role':'editorial','url':'https://doj.kr/api/problem-attachments/editorial'}
+        grader = {**alternate,'role':'grader','type':'zip','url':'https://doj.kr/api/problem-attachments/grader'}
+        contest_editorial = {'role':'editorial','type':'pdf','scope':'contest','title':'Round editorial.pdf',
+                             'url':'https://doj.kr/api/category-attachments/editorial'}
+        raw = {'source':'doj','name':'DOJ sample','url':'https://doj.kr/en/contests/sample',
+               'startTime':'2026-10-25T01:00:00Z','phase':'FINISHED','problemCount':1,
+               'details':{'slug':'sample','visibility':'PUBLIC','status':'ENDED','problemCount':1},
+               'problems':[{'name':'Sample','url':'https://doj.kr/en/problems/897','index':'A',
+                            'taskId':897,'key':'doj:problem:897'}],
+               'materials':[pdf,alternate,problem_editorial,grader,contest_editorial]}
+        sql = f"SELECT catalog.import_round('doj',{json_sql(raw)},'{A}');"
+        sql += f"SELECT catalog.import_round('doj',{json_sql({**raw,'name':'Updated sample'})},'{A}');"
+        contest = json.loads(self.result(sql))['contest']
+        links = {link['role']:link for link in contest['problemMaterials']}
+        self.assertEqual(len(contest['problemMaterials']),2)
+        self.assertEqual((links['statement']['url'],links['statement']['language']),(pdf['url'],'en'))
+        self.assertEqual(links['statement']['title'],'Problem statement')
+        self.assertEqual(links['editorial']['url'],problem_editorial['url'])
+        self.assertEqual([m['url'] for m in contest['materials']],[contest_editorial['url']])
+        request = [{'dojId':897,'url':pdf['url'],'language':'ko'}]
+        invalid = f"SELECT catalog.save_doj_statements({json_sql(request)});"
+        self.assertNotEqual(self.execute(sql+invalid,role='service_role',check=False).returncode,0)
+
+    def test_backfill_keeps_the_existing_selected_pdf(self):
+        url = 'https://doj.kr/en/categories/icpc/world-finals/2025'
+        binding = [{'contestId':C,'title':CONTESTS[0]['title'],'url':url,
+                    'problems':[{'problemId':P,'title':PROBLEMS[0]['title'],'dojId':1375}]}]
+        existing = {'role':'statement','title':'Problem statement','language':'en','url':'https://qoj.ac/existing.pdf'}
+        observation = [{'dojId':1375,'url':'https://doj.kr/api/problem-statements/test?locale=en','language':'en'}]
+        sql = f"SELECT catalog.publish_doj_archives({json_sql(binding)});"
+        sql += f"INSERT INTO catalog.materials(contest_id,problem_id,position,payload,is_public) VALUES('{C}','{P}',1000000,{json_sql(existing)},true);"
+        sql += f"SELECT catalog.update_doj_material_count('{C}');"
+        sql += f"SELECT catalog.save_doj_statements({json_sql(observation)},'{C}');"
+        self.assertEqual(json.loads(self.result(sql)),{'added':0,'updated':0})
+        lines = self.result(sql+f"SELECT catalog.contest_json('{C}')->'problemMaterials';")
+        self.assertEqual(json.loads(lines),[{'problemId':P,**existing}])
+        editorial = {'role':'editorial','title':'Editorial.zip','language':None,
+                     'url':'https://doj.kr/api/category-attachments/archive-editorial'}
+        add = f"SELECT catalog.save_doj_contest_files('{url}',{json_sql([editorial])});"
+        self.assertEqual(self.result(sql+add), '1')
+        self.assertEqual(self.result(sql+add+add), '0')
+        links = json.loads(self.result(sql+add+f"SELECT catalog.contest_json('{C}')->'materials';"))
+        self.assertIn(editorial, links)
+
     def test_stale_claim_cannot_complete_and_recovered_job_keeps_identity(self):
         sql = self.enqueue() + "SELECT set_config('test.first',public.deployment_claim()::text,true);"
         sql += "UPDATE app_private.remote_jobs SET lease_until=clock_timestamp()-interval '1 second';"

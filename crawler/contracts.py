@@ -20,6 +20,7 @@ ROUTES = {
     "/fetch/ojuz/category": ("ojuz", "category"),
     "/fetch/ojuz/contest": ("ojuz", "contest"),
     "/fetch/ojuz/problem": ("ojuz", "problem"),
+    "/fetch/doj/category": ("doj", "category"),
     "/fetch/doj/contest": ("doj", "contest"),
     "/fetch/doj/problem": ("doj", "problem"),
     "/fetch/boj/category": ("boj", "category"),
@@ -34,6 +35,7 @@ LANGUAGES = {"cf": {"en"}, "atcoder": {"en", "ja"},
 BOJ_HOSTS = {"acmicpc.net", "www.acmicpc.net"}
 DOJ_HOSTS = {"doj.kr", "www.doj.kr"}
 DOJ_SLUG = r"[A-Za-z0-9][A-Za-z0-9_-]{0,99}"
+DOJ_CATEGORY_PATH = rf"/categories(?:/{DOJ_SLUG}){{0,12}}"
 DOJ_LOCALE = r"en|ko|ja|zh-CN"
 DOJ_BASE = "https://doj.kr"
 NATIVE_ID = r"[1-9][0-9]{0,14}"
@@ -198,9 +200,10 @@ class FetchRequest:
             raise FetchError("INVALID_URL", "Provide a DOJ resource URL.", 400)
         try:
             parts = urlsplit(value.strip())
-            query = parse_qsl(parts.query, keep_blank_values=True, max_num_fields=3)
-            match = re.fullmatch(rf"/(?:(?P<locale>{DOJ_LOCALE})/)?{entity}s/(?P<id>{DOJ_SLUG})/?", parts.path)
-            allowed = {"lang", "locale", "contest"} if entity == "problem" else {"lang", "locale"}
+            query = parse_qsl(parts.query, keep_blank_values=True, max_num_fields=4)
+            pattern = DOJ_CATEGORY_PATH if entity == "category" else rf"/{entity}s/{DOJ_SLUG}"
+            match = re.fullmatch(rf"(?:/(?:{DOJ_LOCALE}))?(?P<path>{pattern})/?", parts.path)
+            allowed = {"lang", "locale", "contest", "category"} if entity == "problem" else {"lang", "locale"}
             valid = (match and parts.scheme == "https" and parts.hostname in DOJ_HOSTS
                      and parts.port in (None, 443) and parts.username is None and parts.password is None
                      and not parts.fragment and len(dict(query)) == len(query)
@@ -208,16 +211,17 @@ class FetchRequest:
         except ValueError:
             valid = False
         if not valid:
-            raise FetchError("INVALID_URL", "Use a supported DOJ contest or problem URL.", 400)
+            raise FetchError("INVALID_URL", "Use a supported DOJ category, contest, or problem URL.", 400)
         lang = parameters.get("lang", "en")
         if not isinstance(lang, str) or not re.fullmatch(DOJ_LOCALE, lang):
             raise invalid("Unsupported DOJ content language.")
-        identifier = match["id"]
+        path = match["path"]
+        identifier = ("root" if path == "/categories" else path.removeprefix("/categories/")) if entity == "category" else path.rsplit("/", 1)[-1]
         if entity == "problem" and identifier.isdigit():
             if not re.fullmatch(NATIVE_ID, identifier):
                 raise FetchError("INVALID_URL", "Use a valid DOJ problem ID.", 400)
             identifier = int(identifier)
-        return cls("doj", entity, f"{DOJ_BASE}/en/{entity}s/{identifier}", identifier, lang=lang)
+        return cls("doj", entity, f"{DOJ_BASE}/en{path}", identifier, lang=lang)
 
     @classmethod
     def parse_boj_or_solvedac(cls, source, entity, parameters):

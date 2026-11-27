@@ -169,21 +169,25 @@ function dojPayload(entity,input) {
     let url;
     try { url=typeof input.url==='string' && input.url.length<=2048 ? new URL(input.url.trim()) : null; }
     catch { url=null; }
-    const pattern=new RegExp(`^/(?:(?:${locales.join('|')})/)?${entity}s/([A-Za-z0-9][A-Za-z0-9_-]{0,99})/?$`);
+    const slug='[A-Za-z0-9][A-Za-z0-9_-]{0,99}';
+    const resource=entity==='category' ? `categories((?:/${slug}){0,12})` : `${entity}s/(${slug})`;
+    const pattern=new RegExp(`^/(?:(?:${locales.join('|')})/)?${resource}/?$`);
     const match=url?.pathname.match(pattern);
     const keys=url ? [...url.searchParams.keys()] : [];
-    const allowed=entity==='contest' ? ['lang','locale'] : ['lang','locale','contest'];
+    const allowed=entity==='problem' ? ['lang','locale','contest','category'] : ['lang','locale'];
     if(!match || !['doj.kr','www.doj.kr'].includes(url.hostname) || url.protocol!=='https:'
         || url.username || url.password || url.port || url.hash || new Set(keys).size!==keys.length
         || keys.some(key=>!allowed.includes(key))) {
-        fail('Use a supported DOJ contest or problem URL.',400,'INVALID_URL');
+        fail('Use a supported DOJ category, contest, or problem URL.',400,'INVALID_URL');
     }
     let native_id=match[1];
     if(entity==='problem' && /^[0-9]+$/.test(native_id)) {
         if(!/^[1-9][0-9]{0,14}$/.test(native_id)) fail('Use a valid DOJ problem ID.',400,'INVALID_URL');
         native_id=Number(native_id);
     }
-    return {source:'doj',entity,url:`https://doj.kr/en/${entity}s/${native_id}`,native_id,
+    const path=entity==='category' ? 'categories'+match[1] : `${entity}s/${native_id}`;
+    if(entity==='category') native_id=match[1].slice(1)||'root';
+    return {source:'doj',entity,url:`https://doj.kr/en/${path}`,native_id,
         category:'contest',index:null,contest_id:null,lang,external:false};
 }
 
@@ -413,7 +417,7 @@ async function route(request,env,url) {
         const job=await enqueue(env,`user:${user.id}`,'fetch',source,{source,route:fetchRoute,parameters});
         return json(jobEnvelope(job),202);
     }
-    const dojEntity=fetchRoute.match(/^\/fetch\/doj\/(contest|problem)$/)?.[1];
+    const dojEntity=fetchRoute.match(/^\/fetch\/doj\/(category|contest|problem)$/)?.[1];
     if(dojEntity && (request.method==='GET' || (request.method==='POST' && path!==fetchRoute))) {
         const pairs=[...url.searchParams];
         if(url.search.length>4096 || new Set(pairs.map(([key])=>key)).size!==pairs.length ||
