@@ -6,6 +6,7 @@ from pathlib import Path
 import threading
 import time
 from urllib.parse import parse_qs, urlsplit
+from uuid import UUID
 
 import requests
 from crawler.contracts import FetchError
@@ -133,17 +134,27 @@ class StorageApp:
                 return session['access_token'],session['user']
         raise StorageError('Sign in to save your data.',401,'AUTH_REQUIRED')
 
-    def is_admin(self, user):
+    def admin_user_ids(self):
         # Read the local allowlist on every request so granting/revoking access
         # does not rely on a browser flag or a stale session claim.
         config = read_environment() if self.config_path else self.config
-        return user['id'] in {value.strip() for value in config.get('ADMIN_USER_IDS','').split(',') if value.strip()}
+        ids = set()
+        for value in config.get('ADMIN_USER_IDS','').split(','):
+            try:
+                ids.add(str(UUID(value.strip())))
+            except ValueError:
+                continue
+        return ids
+
+    def is_admin(self, user):
+        return user['id'] in self.admin_user_ids()
 
     def user_json(self, user):
         return {'id':user['id'],'email':user.get('email'),'isAdmin':self.is_admin(user)}
 
     def dispatch(self, handler, method, route, queue):
         from .difficulty_refresh import ROUTE as difficulty_refresh_route
+        from . import judge_activity
         if route.startswith('/archive/') and method in ('GET','HEAD'):
             try:
                 from .archive import serve
@@ -151,7 +162,7 @@ class StorageApp:
             except StorageError as error:
                 handler.send_json(error.status,{'ok':False,'error':{'code':error.code,'message':str(error)}})
             return True
-        if route not in {'/catalog','/auth/session','/auth/login','/auth/signup','/auth/logout',
+        if route not in judge_activity.ROUTES and route not in {'/catalog','/auth/session','/auth/login','/auth/signup','/auth/logout',
                          '/problem/difficulty','/problem/difficulties',difficulty_refresh_route,'/operation/result',
                          '/user/difficulty','/user/note',
                          '/user/state','/user/progress','/user/view','/user/practice','/user/practice/delete',
@@ -241,12 +252,14 @@ class StorageApp:
                 if route.startswith('/admin/'):
                     from .admin import dispatch
                     result = dispatch(self,handler,method,route,body,queue,user)
+                elif route in judge_activity.ROUTES:
+                    result = judge_activity.dispatch(self,handler,method,route,body,token,user)
                 elif route == '/user/state' and method == 'GET':
                     result = self.rpc('public','deployment_state',{},token)
                     from .catalog_order import raw_order
                     result['catalog']['rawOrder'] = raw_order(result['catalog']['contests'])
                 elif route == '/user/progress' and method == 'POST' and set(body)=={'problemId','status'}:
-                    result = self.rpc('user_data','set_progress',{'p_problem_id':body['problemId'],'p_status':body['status']},token)
+                    result = self.rpc('public','set_judge_aware_progress',{'p_problem_id':body['problemId'],'p_status':body['status']},token)
                 elif route == '/user/view' and method == 'POST' and set(body)=={'tab','view'}:
                     result = self.rpc('user_data','save_view',{'p_tab':body['tab'],'p_view':body['view']},token)
                 elif route == '/user/practice' and method == 'POST' and set(body)=={'contestId','date'}:

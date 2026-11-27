@@ -6,7 +6,7 @@ import json
 import re
 import threading
 import time
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import parse_qs, urljoin, urlsplit
 
 from bs4 import BeautifulSoup
 from curl_cffi import requests as curl_requests
@@ -19,6 +19,8 @@ from .qoj import QojAccessError, QojClient
 ALLOWED_HOSTS = {"codeforces.com", "atcoder.jp", "qoj.ac", "www2.ioi-jp.org", "oj.uz", "static.oj.uz"}
 ALLOWED_HOSTS.update(BOJ_HOSTS)
 ALLOWED_HOSTS.add("doj.kr")
+ATCODER_SUBMISSION_HOST = "kenkoooo.com"
+ATCODER_SUBMISSION_PATH = "/atcoder/atcoder-api/v3/user/submissions"
 MAX_PAGE_BYTES = 32 * 1024 * 1024
 REDIRECT_STATUSES = {301, 302, 303, 307, 308}
 
@@ -31,7 +33,9 @@ def codeforces_html(url):
 def validate_source_url(url):
     try:
         parts = urlsplit(url)
-        valid = (parts.scheme == "https" and parts.hostname in ALLOWED_HOSTS
+        atcoder_submissions = (parts.hostname == ATCODER_SUBMISSION_HOST
+                               and parts.path == ATCODER_SUBMISSION_PATH and not parts.fragment)
+        valid = (parts.scheme == "https" and (parts.hostname in ALLOWED_HOSTS or atcoder_submissions)
                  and parts.port in (None, 443) and parts.username is None and parts.password is None)
     except ValueError:
         valid = False
@@ -42,6 +46,12 @@ def validate_source_url(url):
 def validate_boj_url(url):
     validate_source_url(url)
     parts = urlsplit(url)
+    if parts.hostname in BOJ_HOSTS and parts.path == "/status" and not parts.fragment:
+        query = parse_qs(parts.query, keep_blank_values=True)
+        if (set(query) in ({"user_id"}, {"user_id", "top"})
+                and len(query["user_id"]) == 1 and re.fullmatch(r"[A-Za-z0-9_.-]{1,64}", query["user_id"][0])
+                and ("top" not in query or (len(query["top"]) == 1 and re.fullmatch(r"[1-9][0-9]*", query["top"][0])))):
+            return
     if (parts.hostname not in BOJ_HOSTS or parts.query or parts.fragment
             or not any(re.fullmatch(pattern, parts.path.rstrip("/")) for pattern in BOJ_PATHS.values())):
         raise FetchError("UPSTREAM_PARSE_ERROR", "BOJ redirected outside its supported public sources.")
@@ -111,6 +121,7 @@ class SourceTransport:
         if host in BOJ_HOSTS:
             host = "acmicpc.net"
         interval = (2.1 if host == "codeforces.com" and "/api/" in url
+                    else max(self.min_interval, 1.1) if host == ATCODER_SUBMISSION_HOST
                     else max(self.min_interval, 3.0) if host == "qoj.ac"
                     else max(self.min_interval, 1.0) if host in ("acmicpc.net", "doj.kr")
                     else self.min_interval)
@@ -197,11 +208,17 @@ class SourceTransport:
         current = url
         boj = urlsplit(url).hostname in BOJ_HOSTS
         doj = urlsplit(url).hostname == "doj.kr"
+        atcoder_submissions = urlsplit(url).hostname == ATCODER_SUBMISSION_HOST
         headers = {"User-Agent": "ps-checklist-fetch/1.0", "Accept-Language": "en-US,en;q=0.9",
                    "Accept": "text/html,application/json;q=0.9"}
         for step in range(6):
             if boj:
                 validate_boj_url(current)
+                original = urlsplit(url)
+                destination = urlsplit(current)
+                if (original.path == "/status" or destination.path == "/status") and (
+                        original.path != destination.path or parse_qs(original.query) != parse_qs(destination.query)):
+                    raise FetchError("UPSTREAM_PARSE_ERROR", "BOJ redirected to a different submission search.")
                 if step:
                     self._pace(current, context)
             else:
@@ -211,6 +228,8 @@ class SourceTransport:
                     raise FetchError("UPSTREAM_PARSE_ERROR", "DOJ redirected to a different resource.")
                 if current_host in BOJ_HOSTS or doj != (current_host == "doj.kr"):
                     raise FetchError("UPSTREAM_PARSE_ERROR", "The source redirected to a different judge.")
+                if atcoder_submissions != (current_host == ATCODER_SUBMISSION_HOST) or (atcoder_submissions and current != url):
+                    raise FetchError("UPSTREAM_PARSE_ERROR", "AtCoder Problems redirected to a different resource.")
             try:
                 timeout = min(15, context.remaining())
                 with requests.get(current, headers=headers, allow_redirects=False,

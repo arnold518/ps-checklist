@@ -8,6 +8,7 @@ import {JUDGE_LINKS, PLATFORMS} from './constants.js';
 import * as store from './userStore.js';
 import {apiUrl} from './api.js';
 import {addCellDifficulty, refreshDifficulties} from './difficulty.js';
+import {addSubmissionHistory} from './judgeSync.js';
 
 export function createLinkElement(link, className) {
     const element = document.createElement('a');
@@ -214,6 +215,7 @@ export function handleContestClick(contestCell, {scroll = true} = {}) {
         for (const link of data)if(link.url)links.appendChild(createLinkElement(link,'contest-info-link'));
         section.appendChild(links);contestInfo.appendChild(section);
     }
+    addSubmissionHistory(contestInfo,{contestId:contest.id});
     contestInfo.classList.add('active');
     if (scroll) contestInfo.scrollIntoView({behavior: 'smooth', block: 'nearest'});
     return contestInfo;

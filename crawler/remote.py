@@ -198,8 +198,11 @@ class Agent:
             heartbeat.join(timeout=1)
 
     def run(self, once=False):
+        from crawler.judge_schedule import start_judge_sync
         from storage.workspace import attach
         attach(self.queue, self.app)
+        if not once:
+            start_judge_sync(self.app,self.queue._stop)
         LOGGER.info('Crawler started. Connections are outbound only.')
         while not self.queue._stop.is_set():
             try:

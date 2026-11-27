@@ -385,3 +385,39 @@ test('a lost completion response retains the committed result for acknowledgemen
         assert.equal((await state.send(`/agent/finish?id=${J}&lease=${V}`,options)).status,200);
     } finally {state.restore();}
 });
+
+test('judge sync requires admin access and links only the authenticated admin',async()=>{
+    const state=setup(name=>{
+        if(name==='deployment_rate_limit') return true;
+        if(name==='set_judge_sync_account') return V;
+        if(name==='request_judge_sync') return null;
+        if(name==='judge_sync_overview') return [{source:'doj',handle:'example',feeds:{}}];
+        if(name==='judge_submission_history') return {submissions:[],nextCursor:null};
+        throw new Error(name);
+    });
+    try {
+        const headers={Authorization:'Bearer user-a','Content-Type':'application/json','X-PS-Checklist':'1'};
+        const link=(source,auth=headers)=>state.send('/user/judge-sync',{method:'POST',headers:auth,body:JSON.stringify({source,handle:'example'})});
+        const member={...headers,Authorization:'Bearer user-b'};
+        assert.equal((await link('doj',member)).status,403);
+        assert.equal((await state.send('/user/judge-sync',{headers:member})).status,403);
+        const run=auth=>state.send('/user/judge-sync/run',{method:'POST',headers:auth,body:JSON.stringify({source:'doj'})});
+        assert.equal((await run(member)).status,403);
+        assert.equal((await link('qoj')).status,400);
+        assert.equal((await link('ojuz',member)).status,403);
+        assert.equal((await link('doj')).status,200);
+        const mutation=state.calls.filter(call=>call.url.pathname.endsWith('/set_judge_sync_account'));
+        assert.equal(mutation.length,1);
+        assert.deepEqual(mutation[0].input,{p_user_id:A,p_source:'doj',p_handle:'example'});
+        assert.equal(mutation[0].options.headers.apikey,state.env.SUPABASE_SERVICE_ROLE_KEY);
+        assert.equal((await link('ojuz')).status,200);
+        assert.deepEqual(state.calls.filter(call=>call.url.pathname.endsWith('/set_judge_sync_account')).at(-1).input,
+            {p_user_id:A,p_source:'ojuz',p_handle:'example'});
+        assert.equal((await run(headers)).status,200);
+        assert.deepEqual(state.calls.find(call=>call.url.pathname.endsWith('/request_judge_sync')).input,{p_user_id:A,p_source:'doj'});
+        assert.equal((await state.send('/user/submissions',{headers:member})).status,200);
+        assert.equal((await state.send('/user/submissions?problemId='+P,{headers})).status,200);
+        assert.deepEqual(state.calls.at(-1).input,{p_problem_id:P});
+        assert.equal((await state.send('/user/submissions')).status,401);
+    } finally {state.restore();}
+});

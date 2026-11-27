@@ -2,6 +2,7 @@
 import * as store from './userStore.js';
 import {config} from './api.js';
 import * as cloud from './cloudAuth.js';
+import {showJudgeSync} from './judgeSync.js';
 
 let isLogin = true;
 
@@ -16,19 +17,29 @@ export function showAccount() {
     const main = document.getElementById('main-content');
     main.setAttribute('aria-busy','false');
     if (store.user) {
-        main.innerHTML = `<div class="auth-container"><h1 class="auth-title">Account</h1>
-            <p id="account-email"></p><p>Your progress, rounds, practice dates, and browsing choices are saved to your account.</p>
-            <button id="signout-button" class="primary-btn">Sign out</button>
-            <div id="auth-status" class="status" role="status"></div></div>`;
+        main.innerHTML = `<div class="account-page"><div class="account-shell">
+            <header class="account-header">
+                <div><h1>Account</h1><p id="account-email"></p></div>
+                <button id="signout-button" class="secondary-btn" type="button">Sign out</button>
+            </header>
+            <div id="auth-status" class="status" role="status"></div>
+            <div id="account-connections"></div>
+            <details class="account-settings">
+                <summary>Account settings</summary>
+                <p class="account-id">Account ID <code></code></p>
+            </details>
+        </div></div>`;
         document.getElementById('account-email').textContent = store.user.email;
-        const identity = document.createElement('p');
-        identity.className = 'account-id';
-        identity.textContent = `Account UUID: ${store.user.id}`;
-        main.querySelector('.auth-container').appendChild(identity);
-        document.getElementById('signout-button').addEventListener('click',async () => {
+        main.querySelector('.account-id code').textContent = store.user.id;
+        document.getElementById('signout-button').addEventListener('click',async event => {
+            const button = event.currentTarget;
+            button.disabled = true;
             try { await store.signOut(); } catch (error) { showError(error); }
+            finally { button.disabled = false; }
         });
         if (store.hosted) {
+            const settings = main.querySelector('.account-settings');
+            settings.open = cloud.recovering;
             const form = document.createElement('form');
             form.className = 'auth-form';
             form.innerHTML = `<label class="form-label" for="new-password">${cloud.recovering ? 'Set your new password' : 'Change password'}</label>
@@ -45,8 +56,9 @@ export function showAccount() {
                 } catch (error) { showError(error); }
                 finally { button.disabled = false; }
             });
-            main.querySelector('.auth-container').appendChild(form);
+            settings.appendChild(form);
         }
+        if (store.user.isAdmin) showJudgeSync(main.querySelector('#account-connections'));
         return;
     }
     main.innerHTML = `<div class="auth-container">

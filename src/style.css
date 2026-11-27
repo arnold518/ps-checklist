@@ -1158,6 +1158,518 @@ body {
 }
 
 
+.account-page {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    background: #f6f8fc;
+    color: #182239;
+    padding: 36px clamp(16px, 5vw, 48px) 52px;
+}
+
+.account-shell {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.account-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 27px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid #dce3ef;
+}
+
+.account-header h1 {
+    font-size: clamp(1.9rem, 5vw, 2.35rem);
+    font-weight: 500;
+    letter-spacing: -0.042em;
+    line-height: 1.05;
+}
+
+.account-header p {
+    color: #4e5d73;
+    margin-top: 8px;
+    overflow-wrap: anywhere;
+    font-size: 0.9rem;
+}
+
+.account-page #signout-button {
+    flex: none;
+    margin: 0;
+}
+
+.account-page button:focus-visible,
+.account-page summary:focus-visible {
+    outline: 2px solid #2260cf;
+    outline-offset: 3px;
+}
+
+.judge-sync h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+}
+
+.judge-intro {
+    margin: 6px 0 16px;
+    color: #4e5d73;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.judge-connections,
+.account-settings {
+    border: 1px solid #dce3ef;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.judge-connection {
+    padding: 13px 16px;
+}
+
+.judge-connection + .judge-connection {
+    border-top: 1px solid #e8edf5;
+}
+
+.judge-connection-summary {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr) auto;
+    gap: 13px;
+    align-items: center;
+}
+
+.judge-brand {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    background: #f3f6fb;
+    border-radius: 11px;
+}
+
+.judge-brand img {
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.judge-identity h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.judge-handle,
+.judge-coverage {
+    margin-top: 3px;
+    color: #4e5d73;
+    overflow-wrap: anywhere;
+    font-size: 0.83rem;
+}
+
+.judge-actions,
+.judge-editor-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.judge-actions {
+    justify-content: flex-end;
+}
+
+.account-page .primary-btn,
+.account-page .secondary-btn,
+.judge-connect-btn,
+.judge-danger-btn {
+    border-radius: 7px;
+    min-height: 36px;
+    padding: 7px 12px;
+    font: 500 0.85rem/1.25 'Roboto', Arial, sans-serif;
+    cursor: pointer;
+}
+
+.account-page .secondary-btn {
+    border: 1px solid #d7e1ef;
+    color: #32435c;
+    background: #fff;
+}
+
+.account-page .secondary-btn:hover {
+    background: #f1f5fc;
+}
+
+.judge-connect-btn {
+    min-width: 86px;
+    border: 1px solid #d4e2fb;
+    background: #edf4ff;
+    color: #194899;
+}
+
+.judge-connect-btn:hover {
+    background: #deebff;
+}
+
+.account-page button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.judge-feed-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin: 9px 0 0 59px;
+    color: #4e5d73;
+    font-size: 0.78rem;
+    line-height: 1.4;
+}
+
+.judge-feed-status > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 6px;
+}
+
+.judge-feed-status dt {
+    color: #263b58;
+    font-weight: 500;
+}
+
+.judge-feed-status [data-tone='pending'] {
+    color: #194899;
+}
+
+.judge-feed-status [data-tone='warning'],
+.judge-feedback[data-tone='warning'] {
+    color: #923f12;
+}
+
+.judge-editor {
+    margin: 12px 0 0 59px;
+    padding: 13px;
+    background: #f6f8fc;
+    border: 1px solid #e2eaf5;
+    border-radius: 9px;
+}
+
+.judge-editor form {
+    display: grid;
+    grid-template-columns: minmax(0, 265px) 1fr;
+    align-items: center;
+    gap: 8px 10px;
+    font-size: 0.88rem;
+}
+
+.judge-editor label,
+.judge-editor-note {
+    grid-column: 1 / -1;
+}
+
+.judge-editor label {
+    font-weight: 500;
+}
+
+.judge-editor input {
+    min-width: 0;
+    width: 100%;
+    padding: 8px 10px;
+    font: inherit;
+}
+
+.judge-editor-note,
+.judge-feedback {
+    color: #4e5d73;
+    font-size: 0.81rem;
+    line-height: 1.4;
+}
+
+.judge-feedback {
+    margin-top: 8px;
+}
+
+.judge-connection > .judge-feedback {
+    margin-left: 59px;
+}
+
+.judge-feedback:empty {
+    display: none;
+}
+
+.judge-text-danger {
+    justify-self: start;
+    border: 0;
+    background: transparent;
+    color: #a12631;
+    font: 500 0.83rem/1.4 'Roboto', Arial, sans-serif;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.judge-text-danger:hover {
+    text-decoration: underline;
+}
+
+.judge-danger-btn {
+    background: #ac2937;
+    color: white;
+    border: 1px solid #ac2937;
+}
+
+.judge-disconnect p {
+    margin-bottom: 10px;
+    font-size: 0.88rem;
+}
+
+.judge-history,
+.account-settings {
+    margin-top: 14px;
+}
+
+.account-settings {
+    padding: 12px 16px;
+}
+
+.account-settings summary {
+    cursor: pointer;
+    font-size: 0.94rem;
+    font-weight: 500;
+}
+
+.account-settings .auth-form {
+    max-width: 300px;
+}
+
+.account-page [hidden] {
+    display: none;
+}
+
+@media (max-width: 520px) {
+    .account-page {
+        padding: 24px 12px 36px;
+    }
+
+    .account-header {
+        margin-bottom: 20px;
+    }
+
+    .judge-connection {
+        padding: 12px;
+    }
+
+    .judge-connection-summary {
+        gap: 9px;
+        grid-template-columns: 40px minmax(0, 1fr) auto;
+    }
+
+    .judge-brand {
+        width: 40px;
+        height: 40px;
+    }
+
+    .judge-connection:has(.judge-handle:not([hidden])) .judge-actions {
+        grid-column: 2 / -1;
+        justify-content: flex-start;
+    }
+
+    .judge-feed-status,
+    .judge-editor,
+    .judge-connection > .judge-feedback {
+        margin-left: 0;
+    }
+
+    .judge-editor form {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+.submission-history {
+    margin-top: 0.75rem;
+}
+
+.submission-history .submission-toggle,
+.submission-panel .secondary-btn {
+    padding: 7px 12px;
+    min-height: 36px;
+    border-width: 1px;
+    font-size: 0.85rem;
+}
+
+.submission-history .submission-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #334761;
+    border-color: #d6e1ee;
+}
+
+.submission-toggle::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border: solid currentColor;
+    border-width: 0 1.5px 1.5px 0;
+    transform: translateY(-2px) rotate(45deg);
+}
+
+.submission-history .submission-toggle[aria-expanded="true"] {
+    background: #edf4ff;
+    color: #194899;
+    border-color: #cbdcf8;
+}
+
+.submission-toggle[aria-expanded="true"]::after {
+    transform: translateY(2px) rotate(225deg);
+}
+
+.submission-toggle:focus-visible,
+.submission-scroll:focus-visible {
+    outline: 2px solid #2260cf;
+    outline-offset: 3px;
+}
+
+.submission-panel {
+    margin-top: 10px;
+}
+
+.submission-feedback {
+    margin: 0 0 9px;
+    color: #4e5d73;
+    font-size: 0.85rem;
+}
+
+.submission-feedback:empty {
+    display: none;
+}
+
+.submission-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid #dce3ef;
+    border-radius: 9px;
+    background: white;
+}
+
+.submission-table {
+    width: 100%;
+    min-width: 430px;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.83rem;
+    line-height: 1.4;
+    color: #273750;
+}
+
+.submission-table:has(.submission-problem) {
+    min-width: 550px;
+}
+
+.submission-table th,
+.submission-table td {
+    padding: 9px 11px;
+    vertical-align: middle;
+}
+
+.submission-table th {
+    background: #f1f5fb;
+    color: #435670;
+    font-weight: 500;
+}
+
+.submission-table td {
+    border-top: 1px solid #e8edf5;
+}
+
+.submission-table tr:focus-within,
+.submission-table tbody tr:hover {
+    background: #f7faff;
+}
+
+.submission-table a {
+    color: #23539e;
+    text-underline-offset: 2px;
+}
+
+.submission-judge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.submission-judge img {
+    object-fit: contain;
+}
+
+.submission-id {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.submission-problem {
+    width: 29%;
+    overflow-wrap: anywhere;
+}
+
+.submission-time {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.submission-verdict {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 5px;
+    color: #4e5d73;
+    background: #eef1f5;
+    font-size: 0.77rem;
+    font-weight: 500;
+}
+
+.submission-verdict[data-result="accepted"] {
+    color: #17613c;
+    background: #e3f6ea;
+}
+
+.submission-verdict[data-result="partial"],
+.submission-verdict[data-result="pending"] {
+    color: #794700;
+    background: #fff2cd;
+}
+
+.submission-verdict[data-result="rejected"] {
+    color: #9a2131;
+    background: #fce7eb;
+}
+
+.submission-score {
+    display: block;
+    margin-top: 2px;
+    color: #4e5d73;
+    white-space: nowrap;
+    font-size: 0.76rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.submission-scroll + .secondary-btn {
+    margin-top: 9px;
+}
+
+@media (max-width: 520px) {
+    .submission-problem {
+        width: 120px;
+    }
+
+    .submission-table th,
+    .submission-table td {
+        padding-inline: 8px;
+    }
+}
+
 .auth-container {
     max-width: 500px;
     width: 100%;
@@ -1284,8 +1796,6 @@ body {
 
 .account-button { background: transparent; color: white; border: 1px solid #ffffff80; border-radius: 6px; padding: 8px 12px; cursor: pointer; flex-shrink: 0; margin-left: auto; }
 .auth-toggle button { background: none; border: none; font: inherit; }
-#account-email { margin-bottom: 16px; overflow-wrap: anywhere; }
-#signout-button { margin-top: 16px; }
 .save-status { position: fixed; bottom: 16px; right: 16px; max-width: min(440px,90vw); z-index: 1000; background: #fff3e0; padding: 12px 18px; border-radius: 6px; box-shadow: 0 2px 8px #0003; }
 .guest-save-note { color: var(--gray-dark); margin-bottom: 12px; }
 .contest-table td.status-1 { background-color: #fff3e0; color: #e65100; }

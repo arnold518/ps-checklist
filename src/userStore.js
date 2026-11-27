@@ -56,6 +56,14 @@ async function restore() {
     model.loadUserState(data);
 }
 
+export async function reloadUserData(stillCurrent) {
+    if (!user) return false;
+    const data = await request('/user/state');
+    if (data.userId !== user?.id || !stillCurrent()) return false;
+    model.loadUserState(data);
+    return true;
+}
+
 export async function initialize(catalog, callback) {
     baseCatalog = catalog;
     onChange = callback;
@@ -130,8 +138,8 @@ export async function importRound(source, response) {
 }
 
 export async function setStatus(problemId, status) {
-    if (user) await request('/user/progress', {problemId,status});
-    model.problemProgress.set(problemId,status);
+    const result = user ? await request('/user/progress', {problemId,status}) : null;
+    model.problemProgress.set(problemId,result?.status ?? status);
     clearSaveError();
 }
 

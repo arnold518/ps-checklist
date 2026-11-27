@@ -216,9 +216,9 @@ contained zero approved BOJ bindings and zero saved solved.ac snapshots.
 The first local publication linked all 12 Seoul Regional 2024 tasks and stored
 metadata from each BOJ problem page. It checked the BOJ lineup against the
 existing QOJ records and official problem set, retaining the contest UUID,
-task UUIDs, membership labels, and QOJ links. The source-managed title for
-slot B follows BOJ and the organizer's statement heading, **Cards Flipping**.
-The organizer's contents page and QOJ use **Card Flipping**. The local crawler
+task UUIDs, membership labels, and QOJ links. The later QOJ title repair
+restored **Card Flipping** for slot B to match the QOJ problem page. The
+organizer's statement heading uses **Cards Flipping**. The local crawler
 requires solved.ac app credentials before enriching this contest with tiers.
 [BOJ detail 4348](https://acmicpc.net/category/detail/4348) · [Official problem set](https://static.icpckorea.net/2024/regional/problemset.pdf)
 

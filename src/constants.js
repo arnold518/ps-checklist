@@ -1,5 +1,10 @@
 export const PROBLEM_STATES = ['Not Attempted', 'Attempted', 'Solved', 'Reviewed'];
 
+export function englishBojProblemUrl(url) {
+    const path = /^https:\/\/(?:www\.)?acmicpc\.net(\/problem\/[1-9]\d{0,14})$/.exec(url)?.[1];
+    return path ? 'https://acmicpc.net/lang?lang=1&next=' + encodeURIComponent(path) : url;
+}
+
 export const NAV_ITEMS = [
     {id: 'icpc', name: 'ICPC'},
     {id: 'olympiad', name: 'Olympiad'},

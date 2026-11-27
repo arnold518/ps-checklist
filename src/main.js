@@ -1,4 +1,4 @@
-import {loadCatalog, state} from './state.js';
+import {loadCatalog, practiceRecordsState, state} from './state.js';
 import * as _ui from './ui.js';
 import {NAV_ITEMS} from './constants.js';
 import * as store from './userStore.js';
@@ -24,18 +24,32 @@ function currentCategory() {
 async function load() {
     loaded = false;
     document.getElementById('main-content').setAttribute('aria-busy', 'true');
+    let catalog;
     try {
-        const catalog = await store.request('/catalog');
+        catalog = await store.request('/catalog');
         loadCatalog(catalog.contests, catalog.problems, catalog.rawOrder);
-        loaded = true;
-        await store.initialize(catalog,render);
     } catch {
         _ui.showLoadError(load);
+        return;
+    }
+    try {
+        await store.initialize(catalog,render);
+        loaded = true;
+    } catch {
+        _ui.showLoadError(load,'Could not load your account data.');
     }
 }
 
-window.addEventListener('hashchange', () => {
-    if (loaded) render();
+window.addEventListener('hashchange', async () => {
+    if (!loaded) return;
+    render();
+    const category = currentCategory();
+    const stillCurrent = () => currentCategory() === category && state.currentCategory === category
+        && !practiceRecordsState.pendingContestId;
+    if (store.user && ['platforms','practice-records'].includes(category) && stillCurrent()) {
+        try { if (await store.reloadUserData(stillCurrent)) render(); }
+        catch (error) { if (stillCurrent()) store.showSaveError(error); }
+    }
 });
 
 function render() {

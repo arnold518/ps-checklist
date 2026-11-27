@@ -1,10 +1,11 @@
 // Problem details use the same panel layout as contest details.
 import * as _state from './state.js';
 import * as _contest from './contest.js';
-import {JUDGE_LINKS, PROBLEM_STATES} from './constants.js';
+import {englishBojProblemUrl, JUDGE_LINKS, PROBLEM_STATES} from './constants.js';
 import * as store from './userStore.js';
 import * as ui from './ui.js';
 import {addDifficultyControls} from './problemExtras.js';
+import {addSubmissionHistory} from './judgeSync.js';
 
 function addProblemLinks(panel, problem, materials) {
     const links = document.createElement('div');
@@ -16,11 +17,11 @@ function addProblemLinks(panel, problem, materials) {
 
             const parts = [...(problem.bojParts || [])].sort((a, b) => a.order - b.order);
             return [
-                {...main, title: 'Open in BOJ'},
+                {...main, title: 'Open in BOJ', url: englishBojProblemUrl(main.url)},
                 ...parts.map(part => ({
                     ...judge,
                     title: `Open BOJ part ${part.order} (#${part.url.split('/').pop()})`,
-                    url: part.url
+                    url: englishBojProblemUrl(part.url)
                 }))
             ];
         }),
@@ -121,6 +122,7 @@ export function handleProblemClick(problemCell) {
     const materials = (contest.data.problemMaterials || []).filter(item => item.problemId === problem.id);
     addProblemLinks(problemInfo, problem, materials);
     addDifficultyControls(difficulty, problem.id);
+    addSubmissionHistory(problemInfo,{problemId:problem.id});
 
     problemInfo.classList.add('active');
     name.focus({preventScroll: true});

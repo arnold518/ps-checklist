@@ -251,7 +251,7 @@ export function refreshProgress() {
     if (_state.state.currentCategory !== 'practice-records' && _state.state.currentCategory !== 'account') updateStatusBar();
 }
 
-export function showLoadError(retry) {
+export function showLoadError(retry, text = 'Could not load the contest catalog.') {
     const sidebar = document.getElementById('sidebar');
     sidebar.replaceChildren();
     sidebar.classList.add('hidden');
@@ -260,7 +260,7 @@ export function showLoadError(retry) {
     error.className = 'empty-state';
     error.setAttribute('role', 'alert');
     const message = document.createElement('p');
-    message.textContent = 'Could not load the contest catalog.';
+    message.textContent = text;
     const button = document.createElement('button');
     button.className = 'dir-name-btn';
     button.textContent = 'Retry';

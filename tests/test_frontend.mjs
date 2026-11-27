@@ -5,6 +5,7 @@ import * as model from '../src/state.js';
 import {materialUrl} from '../src/contest.js';
 import {parseRoundInput} from '../src/fetchClient.js';
 import {platformGroup} from '../src/platformCategories.js';
+import {englishBojProblemUrl} from '../src/constants.js';
 
 const contests = JSON.parse(readFileSync(new URL('../problemlists/contestlist.json', import.meta.url)));
 const problems = JSON.parse(readFileSync(new URL('../problemlists/problems.json', import.meta.url)));
@@ -16,6 +17,10 @@ assert.throws(() => model.loadCatalog([{...editionPage, link:{...editionPage.lin
 const bojProblem = {...problems[0], bojParts:[{order:1,url:'https://acmicpc.net/problem/10072'}]};
 model.loadCatalog([bojContest,...contests.slice(1)],[bojProblem,...problems.slice(1)]);
 assert.deepEqual(model.state.problems.get(bojProblem.id).bojParts, bojProblem.bojParts);
+assert.equal(englishBojProblemUrl(bojProblem.bojParts[0].url),
+    'https://acmicpc.net/lang?lang=1&next=%2Fproblem%2F10072');
+assert.equal(englishBojProblemUrl('https://acmicpc.net/source/42'),'https://acmicpc.net/source/42');
+assert.equal(englishBojProblemUrl('https://qoj.ac/problem/4561'),'https://qoj.ac/problem/4561');
 assert.throws(() => model.loadCatalog([bojContest,...contests.slice(1)],
     [{...bojProblem, bojParts:[{order:1,url:'https://example.org/problem/10072'}]},...problems.slice(1)]));
 model.loadCatalog(contests, problems);

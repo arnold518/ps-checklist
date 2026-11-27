@@ -3,6 +3,7 @@
 import argparse
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+import threading
 from urllib.parse import unquote, urlsplit, parse_qs
 
 
@@ -12,13 +13,13 @@ PUBLIC_FILES = frozenset({
     "src/main.js", "src/state.js", "src/ui.js", "src/tree.js",
     "src/contest.js", "src/problem.js", "src/constants.js", "src/style.css",
     "src/practiceRecords.js", "src/platforms.js", "src/platformCategories.js", "src/fetchClient.js",
-    "src/userStore.js", "src/auth.js", "src/progressBar.js", "src/admin.js",
+    "src/userStore.js", "src/auth.js", "src/judgeSync.js", "src/progressBar.js", "src/admin.js",
     "src/adminGrid.js", "src/adminWorkspaceModel.js", "src/adminCsv.js", "src/adminImports.js",
     "problemlists/contestlist.json", "problemlists/problems.json",
     "assets/icon/boj-icon.png", "assets/icon/cf-icon.png", "assets/icon/qoj-icon.png",
     *(f"assets/difficulty/difficulty-{level}.svg" for level in range(31)),
     "assets/icon/atcoder-icon.png", "assets/icon/official-icon.png",
-    "assets/icon/ojuz-icon.svg", "assets/icon/doj-icon.svg",
+    "assets/icon/ojuz-icon.svg", "assets/icon/doj-icon.svg", "assets/icon/solvedac-icon.png",
     "assets/icon/standings-icon.png", "assets/icon/statements-icon.png",
     "assets/icon/editorials-icon.png",
     "assets/fonts/roboto-400.ttf", "assets/fonts/roboto-500.ttf",
@@ -141,7 +142,9 @@ def make_preview_handler(queue, storage=None):
 
 def main():
     from crawler.admin import AdminFetchService
+    from crawler.judge_schedule import start_judge_sync
     from crawler.queue import JobQueue
+    from storage.app import StorageApp
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8001)
@@ -149,16 +152,20 @@ def main():
     if not 0 <= args.port <= 65535:
         parser.error("Use a port between 0 and 65535.")
     queue = JobQueue(ROOT / "crawler/output/preview-jobs.sqlite3", AdminFetchService(boj_content=False))
+    storage = StorageApp()
+    stopping = threading.Event()
     server = None
     try:
         queue.start()
-        server = ThreadingHTTPServer(("127.0.0.1", args.port), make_preview_handler(queue))
+        server = ThreadingHTTPServer(("127.0.0.1", args.port), make_preview_handler(queue,storage))
+        start_judge_sync(storage,stopping)
         server.daemon_threads = True
         print(f"PS Checklist: http://127.0.0.1:{server.server_port}", flush=True)
         server.serve_forever()
     except KeyboardInterrupt:
         pass
     finally:
+        stopping.set()
         if server:
             server.server_close()
         queue.close()

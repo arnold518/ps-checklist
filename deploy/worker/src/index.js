@@ -315,6 +315,33 @@ async function route(request,env,url) {
     const path=url.pathname.slice('/api'.length);
     if(path==='/auth/session' && request.method==='GET') return ok({enabled:true,user:user?{id:user.id,email:user.email,isAdmin:admin(env,user)}:null});
     if(path==='/user/state' && request.method==='GET') { signed(user); return wrapped(await db(env,'public','deployment_state',{}, {token,stream:true})); }
+    if(path==='/user/submissions' && request.method==='GET') {
+        signed(user);
+        const params={problemId:'p_problem_id',contestId:'p_contest_id',groupId:'p_group_id',before:'p_before'};
+        const filters={};
+        for(const [key,value] of url.searchParams) {
+            if(!Object.hasOwn(params,key)||Object.hasOwn(filters,params[key])||!value) fail('Invalid submission history filter.');
+            filters[params[key]]=key==='groupId'?value:id(value);
+        }
+        return ok(await db(env,'public','judge_submission_history',filters,{token}));
+    }
+    if(path==='/user/judge-sync'||path==='/user/judge-sync/run') {
+        signed(user);
+        if(!admin(env,user)) fail('Admin access is required.',403,'ADMIN_REQUIRED');
+        if(request.method==='POST') {
+            await rate(request,env,'judge-sync',30,60);
+            const run=path.endsWith('/run'), body=await bodyJson(request,4096);
+            exact(body,run?['source']:['source','handle']);
+            if(!['cf','atcoder','boj','solvedac','doj','ojuz'].includes(body.source)
+                ||(!run&&body.handle!==null&&(typeof body.handle!=='string'||!/^[A-Za-z0-9_.-]{1,64}$/.test(body.handle)))) {
+                fail('Provide a supported judge and a valid handle.');
+            }
+            const args={p_user_id:user.id,p_source:body.source};
+            if(run) await db(env,'public','request_judge_sync',args,{privileged:true});
+            else await db(env,'public','set_judge_sync_account',{...args,p_handle:body.handle},{privileged:true});
+        } else if(request.method!=='GET'||path.endsWith('/run')) fail('Unsupported judge sync operation.',404,'NOT_FOUND');
+        return ok(await db(env,'public','judge_sync_overview',{}, {token}));
+    }
     if(path==='/user/note') return note(request,env,url,token,user);
     if((path==='/problem/difficulties' || path===difficultyRefresh) && request.method==='POST') {
         const body=await bodyJson(request,8192); exact(body,['problemIds']);
@@ -450,15 +477,15 @@ async function route(request,env,url) {
         return ok(await db(env,'catalog','import_round',{p_source:b.source,p_native:native,p_user_id:user?.id ?? null},{privileged:true}));
     }
     const mutations={
-        '/user/progress':['set_progress',['problemId','status'],['p_problem_id','p_status']],
+        '/user/progress':['set_judge_aware_progress',['problemId','status'],['p_problem_id','p_status'],'public'],
         '/user/view':['save_view',['tab','view'],['p_tab','p_view']],
         '/user/practice':['create_practice',['contestId','date'],['p_contest_id','p_date']],
         '/user/practice/delete':['delete_practice',['id'],['p_record_id']],
         '/user/saved/remove':['remove_saved',['contestId','source'],['p_contest_id','p_source']]
     };
     if(mutations[path] && request.method==='POST') {
-        signed(user); const [name,keys,parameters]=mutations[path]; const b=await bodyJson(request,65536); exact(b,keys);
-        return ok(await db(env,'user_data',name,Object.fromEntries(keys.map((key,n)=>[parameters[n],b[key]])),{token}));
+        signed(user); const [name,keys,parameters,schema='user_data']=mutations[path]; const b=await bodyJson(request,65536); exact(b,keys);
+        return ok(await db(env,schema,name,Object.fromEntries(keys.map((key,n)=>[parameters[n],b[key]])),{token}));
     }
     fail('Unknown API route.',404,'NOT_FOUND');
 }
