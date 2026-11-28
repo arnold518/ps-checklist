@@ -5,6 +5,7 @@ import * as model from '../src/state.js';
 import {materialUrl} from '../src/contest.js';
 import {parseRoundInput} from '../src/fetchClient.js';
 import {platformGroup} from '../src/platformCategories.js';
+import {buildPlatformTree} from '../src/tree.js';
 import {englishBojProblemUrl} from '../src/constants.js';
 import {readSubmissions, request} from '../src/userStore.js';
 
@@ -147,6 +148,41 @@ assert.equal(model.contestLabel(labeledContest),'2026 · Day 1');
 assert.throws(() => model.loadCatalog([...contests,{...labeledContest,contestLabel:''}],problems),/Invalid contest/);
 model.loadCatalog(contests,problems);
 console.log('Frontend model: source parsing, shared identities, atomic imports, dates, duplicates and record deletion passed.');
+
+const rounds = [
+    ['cf', 'https://codeforces.com/contest/999', 'Codeforces Round 600 (Div. 1)'],
+    ['cf', 'https://codeforces.com/contest/2287', 'Codeforces Round 1136 (Div. 1)'],
+    ['cf', 'https://codeforces.com/contest/1000', 'Codeforces Round 601 (Div. 1)'],
+    ['cf', 'https://codeforces.com/contest/2290', 'Codeforces Round 1137 (Div. 2)'],
+    ['cf', 'https://codeforces.com/gym/100009', 'University round'],
+    ['cf', 'https://codeforces.com/gym/101000', 'Regional round'],
+    ['atcoder', 'https://atcoder.jp/contests/agc009', 'AtCoder Grand Contest 009'],
+    ['atcoder', 'https://atcoder.jp/contests/agc100', 'AtCoder Grand Contest 100'],
+    ['atcoder', 'https://atcoder.jp/contests/training10', 'Training 10'],
+    ['atcoder', 'https://atcoder.jp/contests/training2', 'Training 2'],
+    ['doj', 'https://doj.kr/en/contests/team-cup', 'EZ contest 25 (DOJ Team Contest 9)'],
+    ['doj', 'https://doj.kr/en/contests/team-cup-2', 'EZ contest 2 (DOJ Team Contest 10)'],
+].map(([source,url,title]) => {
+    const id = url.split('/').at(-1);
+    const link = {cf:null,qoj:null,atcoder:null,official:null,standings:null,[source]:url};
+    return {contest:{id,title,link,category:null,year:null,problems:[],materials:[]},source};
+});
+model.loadUserState({
+    catalog:{contests:rounds.map(item => item.contest),problems:[]},
+    savedContests:rounds.map(({source,contest}) => ({contestId:contest.id,platforms:[source]})),
+    practiceRecords:[],progress:[],preferences:{views:{}}
+});
+const platformTree = buildPlatformTree();
+const order = (source, group) => platformTree.children.find(node => node.source === source)
+    .children.find(node => node.name === group).contests.map(contest => contest.id);
+assert.deepEqual(order('cf','Div. 1'), ['2287','1000','999']);
+assert.deepEqual(order('cf','Div. 2'), ['2290']);
+assert.deepEqual(order('cf','Gym'), ['101000','100009']);
+assert.deepEqual(order('atcoder','AGC'), ['agc100','agc009']);
+assert.deepEqual(order('atcoder','Other'), ['training2','training10']);
+assert.deepEqual(order('doj','Team'), ['team-cup-2','team-cup']);
+model.loadCatalog(contests,problems);
+console.log('Platforms: groups sort by round number, with natural title order for unnumbered events.');
 
 // A transient API error or an interrupted stream should not block the catalog.
 const originalFetch = globalThis.fetch;

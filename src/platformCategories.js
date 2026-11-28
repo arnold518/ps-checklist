@@ -2,24 +2,33 @@ import {PLATFORMS, PLATFORM_GROUPS} from './constants.js';
 
 const division = /\bdiv(?:ision)?\.?\s*([1-4])\b/gi;
 const combined = /\bdiv(?:ision)?\.?\s*1\s*(?:\+|&|and)\s*(?:div(?:ision)?\.?\s*)?2\b/i;
+const codeforcesRound = /^\/(?:contest|gym)\/(\d+)\/?$/;
+const atcoderRound = /^\/contests\/(abc|arc|agc|ahc|awc)(\d+)\/?$/i;
+const dojSeries = /^DOJ (Starter|Beginner) Contest\s+(\d+)\b/i;
+const dojRegular = /^DOJ Contest(?:\+\+)?\s+(\d+)\b/i;
+const dojTeam = /(?:^|\()DOJ Team Contest\s+(\d+)\b/i;
+const titleOrder = new Intl.Collator('en', {numeric:true, sensitivity:'base'});
+
+function roundPath(source, contest) {
+    const url = contest.link?.[source];
+    return url ? new URL(url).pathname : '';
+}
 
 export function platformGroup(source, contest) {
     const groups = PLATFORM_GROUPS[source];
     if (!groups) return null;
     let id = 'other';
-    const url = contest.link?.[source];
-    const path = url ? new URL(url).pathname : '';
     if (source === 'atcoder') {
-        const match = /^\/contests\/(abc|arc|agc|ahc|awc)\d+\/?$/i.exec(path);
+        const match = atcoderRound.exec(roundPath(source, contest));
         if (match) id = match[1].toLowerCase();
     } else if (source === 'doj') {
         const title = contest.title || '';
-        const series = /^DOJ (Starter|Beginner) Contest\s+\d+\b/i.exec(title);
+        const series = dojSeries.exec(title);
         if (series) id = series[1].toLowerCase();
-        else if (/^DOJ Contest(?:\+\+)?\s+\d+\b/i.test(title)) id = 'regular';
-        else if (/(?:^|\()DOJ Team Contest\s+\d+\b/i.test(title)) id = 'team';
+        else if (dojRegular.test(title)) id = 'regular';
+        else if (dojTeam.test(title)) id = 'team';
     } else if (source === 'cf') {
-        if (/^\/gym\/\d+\/?$/.test(path)) id = 'gym';
+        if (/^\/gym\/\d+\/?$/.test(roundPath(source, contest))) id = 'gym';
         else {
             const title = contest.title || '';
             if (combined.test(title)) id = 'div1div2';
@@ -30,6 +39,24 @@ export function platformGroup(source, contest) {
         }
     }
     return groups.find(group => group.id === id);
+}
+
+function roundNumber(source, contest) {
+    let value;
+    if (source === 'cf') value = codeforcesRound.exec(roundPath(source, contest))?.[1];
+    else if (source === 'atcoder') value = atcoderRound.exec(roundPath(source, contest))?.[2];
+    else if (source === 'doj') {
+        const {title} = contest;
+        value = dojSeries.exec(title)?.[2] ?? dojRegular.exec(title)?.[1] ?? dojTeam.exec(title)?.[1];
+    }
+    const number = Number(value);
+    return Number.isSafeInteger(number) ? number : -1;
+}
+
+export function comparePlatformContests(source, left, right) {
+    return roundNumber(source, right) - roundNumber(source, left)
+        || titleOrder.compare(left.title, right.title)
+        || left.id.localeCompare(right.id);
 }
 
 export function platformGroupPath(source, contest) {

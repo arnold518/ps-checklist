@@ -2,7 +2,7 @@
 import * as _state from './state.js';
 import * as _ui from './ui.js';
 import {PLATFORMS, PLATFORM_GROUPS} from './constants.js';
-import {platformGroup} from './platformCategories.js';
+import {comparePlatformContests, platformGroup} from './platformCategories.js';
 import * as store from './userStore.js';
 
 // Adapt the agreed catalog to the prototype's tree node structure.
@@ -45,7 +45,9 @@ export function buildPlatformTree() {
                     .filter(group => buckets.get(group.id).length)
                     .map(group => ({
                         id: _state.pathKey(['Platforms', platform.name, group.name]),
-                        name: group.name, source: platform.id, children: [], contests: buckets.get(group.id)
+                        name: group.name, source: platform.id, children: [],
+                        contests: buckets.get(group.id).sort((left, right) =>
+                            comparePlatformContests(platform.id, left.data, right.data))
                     }))
             };
         })
